@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function Saftey() {
+export default function Safety() {
   return <div></div>;
 }
