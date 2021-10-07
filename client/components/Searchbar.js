@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export default function Searchbar() {
-  return <div></div>;
+  return <div>SEARCH BAR MGLASS</div>;
 }
