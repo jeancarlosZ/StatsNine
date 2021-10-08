@@ -1,0 +1,64 @@
+/**Financialspage.js**/
+.main {
+  width: 100vw;
+  height: 850px;
+  background-color: #131722;
+}
+
+.fin-nav {
+  height: 35px;
+  border-bottom: solid #434651;
+}
+
+.nav-button {
+  background-color: transparent;
+  font-size: 20px;
+}
+
+.card {
+  border-radius: 15px;
+  background: rgba(30, 34, 45, 0.3);
+  width: 1300px;
+  height: 800px;
+}
+
+/**Income.js**/
+.income-container {
+  height: 300px;
+}
+
+.company-container {
+  width: 400px;
+  height: 130px;
+  background-color: rgb(196, 196, 196, 0.1);
+  color: #d0d3db;
+}
+
+.company-info {
+  left: 40px;
+  top: 25px;
+}
+.company-name {
+  color: #ffffff;
+  font-size: 30px;
+  width: 300px;
+}
+
+.ticker-container {
+  height: 25px;
+  width: 120px;
+}
+.ticker {
+  color: #1890ff;
+}
+
+.fin-button-container {
+  bottom: 15px;
+  right: 25px;
+  width: 150px;
+}
+
+.table {
+  border: solid white;
+  height: 300px;
+}

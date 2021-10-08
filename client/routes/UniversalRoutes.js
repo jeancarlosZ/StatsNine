@@ -15,7 +15,6 @@ class UniversalRoutes extends Component {
         <Route path="/home" component={Homepage} />
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route exact path="/overviewpage" component={Overviewpage} />
-        <Route exact path="/overviewpage/overview" component={Overview} />
         <Route exact path="/overviewpage/financials" component={Financials} />
       </Switch>
     );
