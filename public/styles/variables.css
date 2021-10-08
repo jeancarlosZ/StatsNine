@@ -1,0 +1,51 @@
+/*
+==================================
+      FIGMA COLOR PALLET
+=================================
+
+//* Note if you would like to add colors, please do,
+//* also if you would like to change opacity simply
+//* use 'rgba(--color, 0.5)' in the scss / css file
+//* of your choice. It will work either way!
+
+*/
+
+* {
+  /* BACKGROUND COLORS */
+  --bgPrimary: #131722;
+  --bgSecondary: #1e222d;
+  --bgAccent: #434651;
+
+  /* FONT COLORS */
+  --fontColor: #d0d3db;
+  --fontHighlight: #2962fe;
+
+  /* SHADES OF BLUE_ */
+  --blueShade1: #275be8;
+  --blueShade2: #2962fe;
+  --blueShade3: #2bbaff;
+  --blueShade4: #26c5d9;
+  --blueShade5: #1890ff;
+  --blueShade6: #3091ec;
+
+  /* SHADES OF GREEN_ */
+  --greenShade1: #00887b;
+  --greenShade2: #34b87d;
+  --greenShade3: #00bea4;
+  --greenShade4: #2cdd9b;
+  --greenShade5: #4cae50;
+
+  /* SHADES OF RED_ */
+  --redShade1: #cf3935;
+  --redShade2: #f34336;
+  --redShade3: #fe5252;
+  --redShade4: #e34f32;
+
+  /* SHADES OF ORANGE_ */
+  --orangeShade1: #fe9700;
+  --orangeShade2: #faad14;
+
+  /* OTHER COLORS */
+  --pinkShade1: #f38eb0;
+  --purpleShade2: #a900fe;
+}

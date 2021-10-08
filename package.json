@@ -1,7 +1,7 @@
 {
   "name": "statsnine",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A stock advisor website that focuses on 9 key metrics.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -34,6 +34,7 @@
     "react-plotly.js": "^2.5.1",
     "react-toastify": "^8.0.3",
     "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
     "sequelize": "^6.3.5",
     "simplebar-react": "^2.3.6"
   },
