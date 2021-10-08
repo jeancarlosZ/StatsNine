@@ -1,6 +1,6 @@
 import React from 'react'
 import Plot from 'react-plotly.js'
-import { isSameObject } from '../../../utils'
+import { isSameObject } from '../utils'
 
 //* This is a universal bar chart that can be customized through it's props
 //* any of the destructured props can be changed. ~ Brynn
@@ -29,6 +29,7 @@ export default function UniversalChart(props) {
     //* Margins for the chart { l: 100, r: 20, t: 200, b: 70 }
     margin = {},
     //* Customize the legend { x: 0.029, y: 1.238, font: { size: 10 }, traceorder: 'reversed'}
+    //* https://plotly.com/javascript/reference/layout/#layout-legend
     legend,
     //* Custom distance between bars on bar chart (default is 0.1)
     bargap,
@@ -55,23 +56,29 @@ export default function UniversalChart(props) {
     //* of the filler attributes I have added or simply with just more
     fullLayout,
     //* A function that is called whenever a set is clicked
-    whenClick,
+    whenClick = () => {},
     //* Function to be called when plot is double clicked
-    onDoubleClick,
+    onDoubleClick = () => {},
     //* Function to be called when you hover over a datapoint
-    onHover,
+    onHover = () => {},
     //* Function to be called when you stop hovering over a datapoint
-    onUnhover,
+    onUnhover = () => {},
     //* Function to be called when you click the legend
-    onLegendClick,
+    onLegendClick = () => {},
     //* Function to be called when you double click the legend
-    onLegendDoubleClick,
+    onLegendDoubleClick = () => {},
     //* Function called when selected
-    onSelected,
+    onSelected = () => {},
     //* Function called when selecting
-    onSelecting,
+    onSelecting = () => {},
     //* Function called when deselected
-    onDeselect
+    onDeselect = () => {},
+    //* Customize the font https://plotly.com/javascript/reference/layout/#layout-font
+    font = { color: '#d0d3db', size: 12 },
+    //* Show legend
+    showlegend = isSameObject({}, legend) ? false : true,
+    //* gridColor
+    gridcolor = 'rgba(67, 70, 81, 0.3)'
   } = props
   //* Pass in your whole own custom layout object
   let { layout } = props
@@ -81,9 +88,10 @@ export default function UniversalChart(props) {
       title: title,
       autosize: autosize,
       barmode: barmode,
-      showlegend: isSameObject({}, legend) ? false : true,
+      showlegend: showlegend,
       legend: legend,
       margin: margin,
+      font: font,
       grid: grid,
       paper_bgcolor: backgroundColor,
       plot_bgcolor: plotBackgroundColor,
@@ -91,12 +99,18 @@ export default function UniversalChart(props) {
       annotations: annotations,
       hovermode: hovermode,
       hoverlabel: hoverlabel,
-      hoverdistance: hoverdistance
+      hoverdistance: hoverdistance,
+      xaxis: {
+        gridcolor: gridcolor
+      },
+      yaxis: {
+        gridcolor: gridcolor
+      }
     }
     //* Include the custom axes if required. Best
     //* not to attach apon creation to avoid errors
-    if (xaxis) layout.xaxis = xaxis
-    if (yaxis) layout.yaxis = yaxis
+    if (xaxis) layout.xaxis = { ...layout.xaxis, ...xaxis }
+    if (yaxis) layout.yaxis = { ...layout.yaxis, ...yaxis }
   }
   //* The data to load into the chart
   let data = []

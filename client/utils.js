@@ -80,13 +80,15 @@ export function formatNumber(n, long = false) {
 
 //* Format dates for charting
 export function formatDate(date) {
-  if (!date) return '0000-00-00'
-  return date.toLocaleString('en', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: 'UTC'
-  })
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear()
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return [year, month, day].join('-')
 }
 
 //* Function used to log errors in a easy to read way.
