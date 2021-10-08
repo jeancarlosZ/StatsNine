@@ -1,12 +1,10 @@
 import React from 'react';
-import UniversalChart from '../../UniversalChart';
-import { Price } from '../PriceChart';
 import Income from './Income';
 
 export default function Financialspage() {
   return (
     <div className="main flex-col justify-center">
-      <div className="card flex-col align-self justify-around">
+      <div className="card align-self justify-around">
         <FinancialsNavBar />
         <Income />
       </div>
