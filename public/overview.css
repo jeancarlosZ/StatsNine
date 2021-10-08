@@ -79,9 +79,20 @@
   height: 40px;
 }
 
-.header {
+.headerTwo {
   width: 400px;
   font-weight: bolder;
   color: #ffffff;
   font-size: 24px;
+}
+
+/* Sub Header*/
+
+.sub-header {
+  background-color: #1e222d;
+  height: 40px;
+}
+
+.sub-button {
+  background-color: transparent;
 }
