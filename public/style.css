@@ -57,6 +57,26 @@ form div {
 .justify-between {
   justify-content: space-between;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.buttons {
+  background-color: #1e222d;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 15px;
+}
+
+.inactive {
+  color: rgb(208, 211, 219, 0.3);
+}
 /*-----Overview Page-----*/
 
 /*For Overview.js*/
@@ -152,22 +172,29 @@ form div {
 }
 
 /*-----FinancialsPage------*/
-
-.fin-nav {
-  border-bottom: solid #434651;
-  width: 100vw;
-  height: 35px;
-  background-color: #1e222d;
-}
-
-.fin-container {
+.main {
   width: 100vw;
   height: 850px;
   background-color: #131722;
 }
 
+.fin-nav {
+  height: 35px;
+  background-color: #1e222d;
+}
+
+.nav-button {
+  font-size: 20px;
+}
+
+.card {
+  border-radius: 15px;
+  background: rgba(30, 34, 45, 0.3);
+  width: 1300px;
+  height: 800px;
+}
+
 .income-container {
-  border: solid red;
   height: 300px;
 }
 
@@ -182,9 +209,10 @@ form div {
 .company-info {
   position: relative;
   left: 40px;
-  top: 10px;
+  top: 25px;
 }
 .company-name {
+  color: #ffffff;
   font-size: 30px;
   font-weight: bolder;
   width: 300px;
@@ -199,13 +227,14 @@ form div {
   color: #1890ff;
 }
 
-.market {
-  font-weight: bold;
-}
-
-.income-price {
-  font-weight: bold;
+.fin-button-container {
+  position: relative;
+  bottom: 15px;
+  right: 25px;
+  width: 150px;
 }
 
 .table {
+  border: solid white;
+  height: 300px;
 }
