@@ -3,6 +3,48 @@ import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 
 export default function Financialspage() {
+  return (
+    <div className="fin-container flex-col justify-around">
+      <FinancialsNavBar />
+      <div className="income-container flex-col">
+        <span className="flex-row justify-around">
+          <CompanyInfo />
+          <IncomeChart />
+        </span>
+      </div>
+      <Table />
+    </div>
+  );
+}
+
+function FinancialsNavBar() {
+  return (
+    <nav className="fin-nav">
+      <button>Income Statement</button>
+      <button>Balance Sheet</button>
+      <button>Cash Flow</button>
+      <button>Dividends</button>
+    </nav>
+  );
+}
+function CompanyInfo() {
+  return (
+    <div className="company-container align-self flex-col">
+      <div className="company-info">
+        <span className="company-name">MICROSOFT CORP.</span>
+        <div className="ticker-container flex-row justify-between">
+          <span className="ticker">MSFT</span>
+          <span className="market">NASDAQ</span>
+        </div>
+        <span className="income-price">
+          <Price />
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function IncomeChart() {
   const dataset = [];
 
   dataset.push({
@@ -15,31 +57,15 @@ export default function Financialspage() {
   });
 
   return (
-    <div className="main-container">
-      <nav className="financials-nav">
-        <button>Income Statement</button>
-        <button>Balance Sheet</button>
-        <button>Cash Flow</button>
-        <button>Dividends</button>
-      </nav>
-      <div className="income-container">
-        <div className="company-info">
-          <div className="company-name">MICROSOFT CORP.</div>
-          <div className="ticker-container flex-row">
-            <div className="ticker">MSFT</div>
-            <div className="market">NASDAQ</div>
-          </div>
-          <div className="income-price">
-            <Price />
-          </div>
-        </div>
-        <UniversalChart
-          className="income-statement-chart"
-          title="Net Income"
-          dataset={dataset}
-          showlegend={false}
-        />
-      </div>
-    </div>
+    <UniversalChart
+      className="income-statement-chart"
+      title="Net Income"
+      dataset={dataset}
+      showlegend={false}
+    />
   );
+}
+
+function Table() {
+  return <div className="table">Table</div>;
 }

@@ -2,8 +2,19 @@ import React from 'react';
 import UniversalChart from '../UniversalChart';
 
 export default function PriceChart() {
-  const dataset = [];
+  return (
+    <div className="price-chart flex-col align-self">
+      <span className="price-container flex-row justify-evenly">
+        <Price />
+        <USD />
+      </span>
+      <OverviewChart />
+    </div>
+  );
+}
 
+function OverviewChart() {
+  const dataset = [];
   dataset.push({
     name: 'Liabilities',
     type: 'line',
@@ -12,24 +23,15 @@ export default function PriceChart() {
     hoverinfo: 'label+percent+name',
     domain: { row: 1, column: 0 },
   });
-
   return (
-    <div className="price-chart">
-      <div className="price-container">
-        <Price />
-        <USD />
-      </div>
-
-      <UniversalChart
-        className="example-chart"
-        title="Net Income"
-        dataset={dataset}
-        showlegend={false}
-      />
-    </div>
+    <UniversalChart
+      className="example-chart align-self justify-center"
+      title="Net Income"
+      dataset={dataset}
+      showlegend={false}
+    />
   );
 }
-
 export function Price() {
   return <div>$289.65</div>;
 }

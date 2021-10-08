@@ -5,9 +5,9 @@ import OverallDetermination from '../OverallDetermination';
 
 export default function Overview() {
   return (
-    <div className="overview font-color">
+    <div className="overview flex-col font-color justify-evenly">
       <PriceChart />
-      <div className="overview-details">
+      <div className="overview-details flex-row align-self justify-around">
         <OverallDetermination />
         <Description />
       </div>

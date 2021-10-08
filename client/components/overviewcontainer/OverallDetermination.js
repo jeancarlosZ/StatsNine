@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function OverallDetermination() {
   return (
-    <div className="overall-determination">
+    <div className="overall-determination flex-col justify-around">
       <Header />
-      <div className="mid-container">
+      <div className="flex-row justify-around justify-center">
         <StarsContainer />
         <Determination />
       </div>
@@ -28,7 +28,7 @@ function Determination() {
 
 function EndingText() {
   return (
-    <div className="ending-text">
+    <div className="ending-text align-self">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
     </div>
   );
@@ -36,18 +36,18 @@ function EndingText() {
 
 function StarsContainer() {
   return (
-    <div className="stars-container">
-      <div className=" star-col">
+    <div className="stars-container flex-row justify-evenly">
+      <div className=" star-col flex-col justify-evenly">
         <Star color="#2CDD9B" />
         <Star color="#2CDD9B" />
         <Star color="#2CDD9B" />
       </div>
-      <div className=" star-col">
+      <div className=" star-col flex-col justify-evenly">
         <Star color="#2CDD9B" />
         <Star color="#2CDD9B" />
         <Star color="#2CDD9B" />
       </div>
-      <div className=" star-col">
+      <div className=" star-col flex-col justify-evenly">
         <Star color="#FAAD14" />
         <Star color="#FE5252" />
         <Star color="#FE5252" />
