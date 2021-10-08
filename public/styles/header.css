@@ -4,7 +4,7 @@
   text-align: center;
   box-shadow: 0 0.2rem 0.1rem #434651;
   padding: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   height: 5rem;
   width: 100vw;
   display: flex;
@@ -15,9 +15,9 @@
 
 .our-company-name {
   color: #ffffff;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-left: 2rem;
+  margin-left: 1.5rem;
 }
 
 .header-space-one {
@@ -25,15 +25,14 @@
 }
 
 .top-search-bar {
-  margin-left: 2rem;
-  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .top-search-input {
   border-radius: 1.5rem;
   background-color: #434651;
-  font-size: 1.25rem;
-  width: 38rem;
+  font-size: 1.15rem;
+  width: 38vw;
   color: lightgray;
   padding: 0.3rem;
   padding-left: 1rem;
