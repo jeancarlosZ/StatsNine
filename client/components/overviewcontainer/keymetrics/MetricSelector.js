@@ -10,7 +10,6 @@ export default function MetricSelector() {
         <label>Growth</label>
         <label>Quality</label>
         <label>Safety</label>
-        <div className="spacer"></div>
       </div>
     </div>
   )
