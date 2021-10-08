@@ -30,7 +30,7 @@ export default function PriceChart() {
   );
 }
 
-function Price() {
+export function Price() {
   return <div>$289.65</div>;
 }
 

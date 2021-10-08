@@ -157,4 +157,73 @@ form div {
 /*-----FinancialsPage------*/
 
 .financials-nav {
+  border-bottom: solid #434651;
+  width: 1410px;
+  height: 35px;
+  background-color: #1e222d;
+}
+
+.main-container {
+  width: 1410px;
+  height: 850px;
+  background-color: #1e222d;
+}
+
+.company-info {
+  width: 400px;
+  height: 175px;
+  align-self: center;
+  background-color: rgb(196, 196, 196, 0.1);
+  /* background-color: rgb(208, 211, 219, 0.8); */
+}
+.income-container {
+  display: flex;
+  justify-content: space-around;
+  height: 300px;
+}
+
+.company-info {
+  height: 130px;
+  color: #d0d3db;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.company-name {
+  font-size: 30px;
+  font-weight: bolder;
+  /* height: 80px; */
+  width: 300px;
+  position: relative;
+  left: 40px;
+  top: 7px;
+}
+
+.ticker-container {
+  height: 40px;
+  width: 150px;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  left: 29px;
+}
+.ticker {
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.market {
+  font-weight: bold;
+}
+
+.income-price {
+  position: relative;
+  left: 40px;
+  bottom: 25px;
+  font-weight: bold;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }
