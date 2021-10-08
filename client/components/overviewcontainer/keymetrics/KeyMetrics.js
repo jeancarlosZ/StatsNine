@@ -18,7 +18,7 @@ export default function KeyMetrics() {
       <div className="key-metrics-container">
         <div className="sub-container shadow-deep-nohover">
           <MetricSelector />
-          <div className="metric-container">{getCorrectPage}</div>
+          <div className="metric-container">{getCorrectPage()}</div>
         </div>
       </div>
     </>
