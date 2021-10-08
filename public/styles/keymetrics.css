@@ -104,3 +104,14 @@ body {
 .key-metrics-selector .selectors .selected:hover {
   color: rgba(208, 211, 219, 0.8);
 }
+
+/*
+*==================================
+*      KEY METRIC CONTINER
+*==================================
+*/
+
+.key-metrics-container .metric-container {
+  /* height: var(--msubcontainerHeight) - var(--); */
+  width: var(--msubcontainerWidth);
+}

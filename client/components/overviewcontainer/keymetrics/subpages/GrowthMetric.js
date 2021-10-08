@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
-export default function Growth() {
-  return <div></div>;
+export default function GrowthMetric() {
+  return <div></div>
 }
