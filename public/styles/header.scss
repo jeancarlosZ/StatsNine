@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  color: #d0d3db;
+  background-color: #131722;
+  box-shadow: 0 0.1rem 0.1rem #434651;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: 1.25rem;
+}
+
+.company-name {
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: bolder;
+  margin-left: 2rem;
+}
+
+.header-space-one {
+  flex-grow: 2;
+}
+
+.search-input {
+  border-radius: 1.5rem;
+  background-color: #434651;
+  font-size: 1.25rem;
+  width: 38rem;
+  color: lightgray;
+  padding: 0.3rem;
+  padding-left: 1rem;
+}
+
+.header-space-two {
+  flex-grow: 1;
+}
+
+.dashboard,
+.screener,
+.about-us {
+  margin: 1rem;
+}
+
+.dashboard:hover,
+.screener:hover,
+.about-us:hover {
+  cursor: pointer;
+}
