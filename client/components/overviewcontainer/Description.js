@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Description() {
   return (
-    <div className="flex-col shape background description space-around">
+    <div className="flex-col shape description space-around">
       <Header />
       <Text />
     </div>
@@ -10,7 +10,7 @@ export default function Description() {
 }
 
 function Header() {
-  return <div className="header ">Company Details:</div>;
+  return <div className="header">Company Details:</div>;
 }
 
 function Text() {

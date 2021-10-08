@@ -3,7 +3,7 @@ import React from 'react';
 export default function OverallDetermination() {
   return (
     <div className="overall-determination shape flex-col space-around">
-      <div className="center-self">
+      <div className="center-self bold-font">
         <Header />
       </div>
 
@@ -19,7 +19,7 @@ export default function OverallDetermination() {
 }
 
 function Header() {
-  return <div className="header">Overall Determination</div>;
+  return <div>Overall Determination</div>;
 }
 
 function Determination() {
@@ -43,23 +43,23 @@ function StarsContainer() {
   return (
     <div className="stars flex-row">
       <div className=" star-col flex-col">
-        <Star />
-        <Star />
-        <Star />
+        <Star color="#2CDD9B" />
+        <Star color="#2CDD9B" />
+        <Star color="#2CDD9B" />
       </div>
       <div className=" star-col flex-col">
-        <Star />
-        <Star />
-        <Star />
+        <Star color="#2CDD9B" />
+        <Star color="#2CDD9B" />
+        <Star color="#2CDD9B" />
       </div>
       <div className=" star-col flex-col">
-        <Star />
-        <Star />
-        <Star />
+        <Star color="#FAAD14" />
+        <Star color="#FE5252" />
+        <Star color="#FE5252" />
       </div>
     </div>
   );
 }
-function Star() {
-  return <div className="star"></div>;
+function Star(props) {
+  return <div style={{ backgroundColor: props.color }} className="star"></div>;
 }

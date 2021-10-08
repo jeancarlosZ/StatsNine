@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  font-weight: 60;
 }
 
 a {
@@ -19,30 +20,35 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-
 /*Rohan*/
 .background {
   color: white;
-  border: solid black;
-  background-color: #434651;
 }
 .overview {
   align-content: center;
-  justify-content: space-around;
-  width: 1440px;
-  height: 1084px;
+  justify-content: space-evenly;
+  width: 1410px;
+  height: 850px;
+  background-color: #131722;
 }
 
 .overview-details {
   width: 1390px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-self: center;
 }
 
 .price-chart {
+  /* border: solid red; */
   height: 512px;
-  width: 1390px;
+  width: 1300px;
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: #1e222d; */
+  background: rgba(30, 34, 45, 0.3);
+  border-radius: 15px;
 }
 
 .price {
@@ -52,6 +58,8 @@ form div {
 .description {
   width: 697px;
   height: 275px;
+  /* background-color: #1e222d; */
+  background: rgba(30, 34, 45, 0.3);
 }
 
 .text {
@@ -63,7 +71,8 @@ form div {
   width: 509px;
   height: 275px;
   justify-content: space-between;
-  background-color: #1e222d;
+  /* background-color: rgb(30, 34, 45); */
+  background: rgba(30, 34, 45, 0.3);
 }
 
 .stars {
@@ -118,4 +127,32 @@ form div {
 
 .temp {
   justify-content: center;
+}
+
+.header {
+  width: 200px;
+  position: relative;
+  left: 47px;
+  font-weight: bolder;
+}
+
+.example-chart {
+  width: 1250px;
+  align-self: center;
+  justify-content: center;
+}
+
+.price-container {
+  width: 100px;
+  height: 19px;
+  /* border: solid green; */
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  left: 25px;
+}
+
+.bold-font {
+  font-weight: bolder;
+  /* border: solid; */
 }
