@@ -12,6 +12,7 @@ export default function Overviewpage() {
       <Header />
       Subheader Place Holder
       <Subheader />
+      <Overview />
     </div>
   );
 }

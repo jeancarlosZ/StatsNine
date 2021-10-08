@@ -20,12 +20,16 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-/*Rohan*/
-.background {
-  color: white;
+.font-color {
+  color: #d0d3db;
 }
+
+/*-----OverviewPage------*/
+
+/*For Overview.js*/
 .overview {
-  align-content: center;
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   width: 1410px;
   height: 850px;
@@ -33,62 +37,101 @@ form div {
 }
 
 .overview-details {
+  display: flex;
+  flex-direction: row;
   width: 1390px;
   justify-content: space-around;
   align-self: center;
 }
 
+/*For PriceChart.js*/
+.example-chart {
+  width: 1250px;
+  align-self: center;
+  justify-content: center;
+}
+
 .price-chart {
-  /* border: solid red; */
   height: 512px;
   width: 1300px;
   align-self: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* background-color: #1e222d; */
   background: rgba(30, 34, 45, 0.3);
   border-radius: 15px;
 }
 
-.price {
-  width: 143px;
-  height: 40px;
+.price-container {
+  width: 100px;
+  height: 19px;
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  left: 25px;
+  font-weight: 700;
 }
+
+.usd {
+  position: relative;
+  top: 5px;
+  font-size: x-small;
+}
+
+/*For Description.js*/
 .description {
+  display: flex;
+  flex-direction: column;
   width: 697px;
   height: 275px;
-  /* background-color: #1e222d; */
   background: rgba(30, 34, 45, 0.3);
+  border-radius: 15px;
+  justify-content: space-around;
+}
+.company-details {
+  position: relative;
+  left: 47px;
 }
 
-.text {
+.description-text {
   width: 600px;
   height: 200px;
+  align-self: center;
 }
 
+/*For OverallDetermination.js*/
 .overall-determination {
+  display: flex;
+  flex-direction: column;
   width: 509px;
   height: 275px;
-  justify-content: space-between;
-  /* background-color: rgb(30, 34, 45); */
+  justify-content: space-around;
   background: rgba(30, 34, 45, 0.3);
+  border-radius: 15px;
 }
 
-.stars {
+.mid-container {
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+}
+
+.stars-container {
   width: 87px;
   height: 88px;
+  display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
 .star {
   height: 25px;
   width: 25px;
-  background-color: red;
   border-radius: 50%;
 }
 
 .star-col {
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 .determination {
@@ -101,58 +144,17 @@ form div {
 .ending-text {
   width: 472px;
   height: 40px;
-}
-
-.shape {
-  border-radius: 15px;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.center-self {
   align-self: center;
-}
-
-.space-around {
-  justify-content: space-around;
-}
-
-.temp {
-  justify-content: center;
 }
 
 .header {
-  width: 200px;
-  position: relative;
-  left: 47px;
+  width: 400px;
   font-weight: bolder;
+  color: #ffffff;
+  font-size: 24px;
 }
 
-.example-chart {
-  width: 1250px;
-  align-self: center;
-  justify-content: center;
-}
+/*-----FinancialsPage------*/
 
-.price-container {
-  width: 100px;
-  height: 19px;
-  /* border: solid green; */
-  display: flex;
-  justify-content: space-evenly;
-  position: relative;
-  left: 25px;
-}
-
-.bold-font {
-  font-weight: bolder;
-  /* border: solid; */
+.financials-nav {
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Description() {
   return (
-    <div className="flex-col shape description space-around">
+    <div className="description">
       <Header />
       <Text />
     </div>
@@ -10,12 +10,12 @@ export default function Description() {
 }
 
 function Header() {
-  return <div className="header">Company Details:</div>;
+  return <div className="header company-details">Company Details:</div>;
 }
 
 function Text() {
   return (
-    <div className="text center-self">
+    <div className="description-text">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since the
       1500s, when an unknown printer took a galley of type and scrambled it to

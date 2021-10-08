@@ -23,7 +23,6 @@ export default function PriceChart() {
       <UniversalChart
         className="example-chart"
         title="Net Income"
-        // keys={keys}
         dataset={dataset}
         showlegend={false}
       />
@@ -32,9 +31,9 @@ export default function PriceChart() {
 }
 
 function Price() {
-  return <div className="price">$289.65</div>;
+  return <div>$289.65</div>;
 }
 
 function USD() {
-  return <div>USD</div>;
+  return <div className="usd">USD</div>;
 }
