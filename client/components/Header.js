@@ -6,7 +6,7 @@ export default function Header() {
   const history = useHistory();
 
   return (
-    <div className="header">
+    <div className="our-company-header">
       <div className="our-company-name">StatsNine</div>
       <div className="header-space-one"></div>
       <Searchbar />
