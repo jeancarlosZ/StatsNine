@@ -19,14 +19,12 @@ function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
       <div className="company-info">
-        <span className="company-name">MICROSOFT CORP.</span>
+        <span className="company-name bold">MICROSOFT CORP.</span>
         <div className="ticker-container flex-row justify-between">
-          <span className="ticker">MSFT</span>
+          <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
         </div>
-        <span className="bold ">
-          <Price />
-        </span>
+        <Price />
       </div>
     </div>
   );
@@ -46,7 +44,7 @@ function IncomeChart() {
 
   return (
     <UniversalChart
-      className="income-statement-chart"
+      className="income-chart"
       title="Net Income"
       dataset={dataset}
       showlegend={false}

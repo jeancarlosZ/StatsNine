@@ -171,7 +171,7 @@ form div {
   font-size: 24px;
 }
 
-/*-----FinancialsPage------*/
+/**Financialspage.js**/
 .main {
   width: 100vw;
   height: 850px;
@@ -180,10 +180,11 @@ form div {
 
 .fin-nav {
   height: 35px;
-  background-color: #1e222d;
+  border-bottom: solid #434651;
 }
 
 .nav-button {
+  background-color: transparent;
   font-size: 20px;
 }
 
@@ -194,6 +195,7 @@ form div {
   height: 800px;
 }
 
+/**Income.js**/
 .income-container {
   height: 300px;
 }
@@ -203,7 +205,6 @@ form div {
   height: 130px;
   background-color: rgb(196, 196, 196, 0.1);
   color: #d0d3db;
-  /* align-items: flex-start; */
 }
 
 .company-info {
@@ -214,7 +215,6 @@ form div {
 .company-name {
   color: #ffffff;
   font-size: 30px;
-  font-weight: bolder;
   width: 300px;
 }
 
@@ -223,7 +223,6 @@ form div {
   width: 120px;
 }
 .ticker {
-  font-weight: bold;
   color: #1890ff;
 }
 

@@ -33,7 +33,7 @@ function OverviewChart() {
   );
 }
 export function Price() {
-  return <div>$289.65</div>;
+  return <div className="bold">$289.65</div>;
 }
 
 function USD() {
