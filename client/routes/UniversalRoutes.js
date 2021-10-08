@@ -18,7 +18,7 @@ class UniversalRoutes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/overviewpage/keymetrics" component={KeyMetrics} />
+        <Route path="/overviewpage/keymetrics" component={KeyMetrics} />
         <Route exact path="/overviewpage/financials" component={Financialspage} />
         {/* <Route path="/about" component={About} /> */}
 

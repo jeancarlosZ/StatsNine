@@ -28,7 +28,7 @@ body {
 }
 
 .key-metrics-container {
-  /* background-color: var(--bgPrimary); */
+  background-color: var(--bgPrimary);
   height: var(--mcontainerHeight);
   width: var(--mcontainerWidth);
 
@@ -40,7 +40,7 @@ body {
 }
 
 .key-metrics-container .sub-container {
-  /* background-color: rgba(var(--bgSecondary), 0.3); */
+  background-color: rgba(30, 34, 45, 0.3);
   height: var(--msubcontainerHeight);
   width: var(--msubcontainerWidth);
 
@@ -65,26 +65,42 @@ body {
   border-top-left-radius: var(--mborderRadius);
   border-top-right-radius: var(--mborderRadius);
 
+  border-bottom: 3px solid var(--bgAccent);
+  /* */
   background-color: brown;
 }
 
 /** The tabs container */
 .key-metrics-selector .selectors {
-  margin: auto 25px;
+  margin: auto 35px;
 
-  font-size: 1.3rem;
+  display: flex;
+
+  font-size: 1.1rem;
   font-weight: 700;
 
-  /* TODO: color: var(--fontColor); */
-
+  /* */
   background-color: burlywood;
 }
 
 /** These are the tabs */
 .key-metrics-selector .selectors label {
   margin-right: 25px;
+  color: rgba(208, 211, 219, 0.2);
+  transition: font-size 0.3s ease, color 0.3s ease;
+}
+
+/** These are the tabs */
+.key-metrics-selector .selectors label:hover {
+  color: rgba(208, 211, 219, 0.6);
 }
 
 /** Used to highlight selected tab */
 .key-metrics-selector .selectors .selected {
+  color: rgba(208, 211, 219, 0.6);
+}
+
+/** Used to highlight selected tab */
+.key-metrics-selector .selectors .selected:hover {
+  color: rgba(208, 211, 219, 0.8);
 }
