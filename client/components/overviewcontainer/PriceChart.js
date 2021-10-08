@@ -4,7 +4,7 @@ import UniversalChart from '../UniversalChart';
 export default function PriceChart() {
   return (
     <div className="price-chart flex-col align-self">
-      <span className="price-container flex-row justify-evenly">
+      <span className="price-container flex-row justify-evenly pos-rel">
         <Price />
         <USD />
       </span>
@@ -37,5 +37,5 @@ export function Price() {
 }
 
 function USD() {
-  return <div className="usd">USD</div>;
+  return <div className="usd pos-rel">USD</div>;
 }

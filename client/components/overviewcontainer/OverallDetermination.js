@@ -19,7 +19,7 @@ function Header() {
 
 function Determination() {
   return (
-    <div className="determination">
+    <div className="determination pos-rel">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text.
     </div>

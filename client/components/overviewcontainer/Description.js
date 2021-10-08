@@ -10,7 +10,7 @@ export default function Description() {
 }
 
 function Header() {
-  return <div className="header company-details">Company Details:</div>;
+  return <div className="header company-details pos-rel">Company Details:</div>;
 }
 
 function Text() {

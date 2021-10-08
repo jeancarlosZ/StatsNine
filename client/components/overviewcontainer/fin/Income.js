@@ -4,21 +4,21 @@ import { Price } from '../PriceChart';
 
 export default function Income() {
   return (
-    <div>
+    <React.Fragment>
       <div className="income-container flex-row justify-around">
         <CompanyInfo />
         <IncomeChart />
       </div>
       <Buttons />
       <Table />
-    </div>
+    </React.Fragment>
   );
 }
 
 function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
-      <div className="company-info">
+      <div className="company-info pos-rel">
         <span className="company-name bold">MICROSOFT CORP.</span>
         <div className="ticker-container flex-row justify-between">
           <span className="ticker bold">MSFT</span>
@@ -58,7 +58,7 @@ function Table() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container flex-row justify-between align-self">
+    <div className="fin-button-container align-self pos-rel">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>

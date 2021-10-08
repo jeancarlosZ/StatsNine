@@ -27,6 +27,8 @@ form div {
   color: #d0d3db;
 }
 
+/*-----Rohan-----*/
+
 /*-----General Classes-----*/
 
 .flex-col {
@@ -77,7 +79,10 @@ form div {
 .inactive {
   color: rgb(208, 211, 219, 0.3);
 }
-/*-----Overview Page-----*/
+
+.pos-rel {
+  position: relative;
+}
 
 /*For Overview.js*/
 .overview {
@@ -105,13 +110,11 @@ form div {
 .price-container {
   width: 100px;
   height: 19px;
-  position: relative;
   left: 25px;
   font-weight: 700;
 }
 
 .usd {
-  position: relative;
   top: 5px;
   font-size: x-small;
 }
@@ -124,7 +127,6 @@ form div {
   border-radius: 15px;
 }
 .company-details {
-  position: relative;
   left: 47px;
 }
 
@@ -155,7 +157,6 @@ form div {
 .determination {
   width: 368px;
   height: 92px;
-  position: relative;
   left: 10px;
 }
 
@@ -208,7 +209,6 @@ form div {
 }
 
 .company-info {
-  position: relative;
   left: 40px;
   top: 25px;
 }
@@ -227,7 +227,6 @@ form div {
 }
 
 .fin-button-container {
-  position: relative;
   bottom: 15px;
   right: 25px;
   width: 150px;
@@ -237,3 +236,5 @@ form div {
   border: solid white;
   height: 300px;
 }
+
+/*-----Rohan-----*/
