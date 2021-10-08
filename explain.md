@@ -19,7 +19,7 @@ This should hopefully help you find the data you need.
 <hr />
 
 #### INCOME STATEMENT 
-##### (fetchIncomeStatement('ticker' 'annual/quarter'))
+##### (fetchIncomeStatement('ticker', false, 'annual/quarter'))
 
 ```
 "date" : "2020-09-26"
@@ -61,7 +61,7 @@ This should hopefully help you find the data you need.
 <hr />
 
 #### BALANCE SHEET STATEMENT
-##### (fetchBalanceStatement('ticker' 'annual/quarter'))
+##### (fetchBalanceStatement('ticker', false, 'annual/quarter'))
 
 ```
 "date" : "2020-09-26"
@@ -115,7 +115,7 @@ This should hopefully help you find the data you need.
 <hr />
 
 #### CASHFLOW STATEMENT
-##### (fetchCashflowStatement('ticker' 'annual/quarter'))
+##### (fetchCashflowStatement('ticker', false, 'annual/quarter'))
 ```
 "date" : "2020-09-26"
 "symbol" : "AAPL"
@@ -157,7 +157,134 @@ This should hopefully help you find the data you need.
 "finalLink" : "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm"
 ```
 
-<hr/>
+
+<hr />
+
+#### INCOME STATEMENT GROWTH
+##### (fetchIncomeStatement('ticker', true))
+
+```
+"date" : "2020-09-26",
+"symbol" : "AAPL",
+"period" : "FY",
+"growthRevenue" : 0.055120803769784836,
+"growthCostOfRevenue" : 0.04807086078797394,
+"growthGrossProfit" : 0.06671274087324172,
+"growthGrossProfitRatio" : 0.010986360104020534,
+"growthResearchAndDevelopmentExpenses" : 0.15631744465684158,
+"growthGeneralAndAdministrativeExpenses" : 0.09158673609208003,
+"growthSellingAndMarketingExpenses" : 0.0,
+"growthOtherExpenses" : 0.0,
+"growthOperatingExpenses" : 0.12204747257849226,
+"growthCostAndExpenses" : 0.0610617394671939,
+"growthInterestExpense" : -0.1965883668903803,
+"growthDepreciationAndAmortization" : -0.11883318721606759,
+"growthEBITDA" : -0.010261421939897385,
+"growthEBITDARatio" : -0.0619665781170108,
+"growthOperatingIncome" : 0.03688409197559831,
+"growthOperatingIncomeRatio" : -0.017284003622169794,
+"growthTotalOtherIncomeExpensesNet" : -0.5556170448256779,
+"growthIncomeBeforeTax" : 0.020597228349331427,
+"growthIncomeBeforeTaxRatio" : -0.032720021534130624,
+"growthIncomeTaxExpense" : -0.07642400534300162,
+"growthNetIncome" : 0.039000289561314606,
+"growthNetIncomeRatio" : -0.015278358791598145,
+"growthEPS" : 0.10609857978279026,
+"growthEPSDiluted" : 0.10344827586206885,
+"growthWeightedAverageShsOut" : -0.06059209794028975,
+"growthWeightedAverageShsOutDil" : -0.057402558404513054
+```
+
+<hr />
+
+#### BALANCE STATEMENT GROWTH
+##### (fetchBalanceStatement('ticker', true))
+
+```
+"date" : "2020-09-26",
+"symbol" : "AAPL",
+"period" : "FY",
+"growthCashAndCashEquivalents" : -0.2216853656539186,
+"growthShortTermInvestments" : 0.023475721772088256,
+"growthCashAndShortTermInvestments" : -0.09560746641208469,
+"growthNetReceivables" : -0.18249497860448868,
+"growthInventory" : -0.010959571358986848,
+"growthOtherCurrentAssets" : -0.08808290155440414,
+"growthTotalCurrentAssets" : -0.11734502730025366,
+"growthPropertyPlantEquipmentNet" : -0.016373267697576115,
+"growthGoodwill" : 0.0,
+"growthIntangibleAssets" : 0.0,
+"growthGoodwillAndIntangibleAssets" : 0.0,
+"growthLongTermInvestments" : -0.04228173265869889,
+"growthTaxAssets" : 0.0,
+"growthOtherNonCurrentAssets" : 0.28940505791739946,
+"growthTotalNonCurrentAssets" : 0.02548706010916521,
+"growthOtherAssets" : 0.0,
+"growthTotalAssets" : -0.04321213768330005,
+"growthAccountPayables" : -0.08521498399515529,
+"growthShortTermDebt" : -0.15215517241379312,
+"growthTaxPayables" : 0.0,
+"growthDeferredRevenue" : 0.2030061571894241,
+"growthOtherCurrentLiabilities" : 0.13160127253446446,
+"growthTotalCurrentLiabilities" : -0.0030836754384305416,
+"growthLongTermDebt" : 0.07472197109152896,
+"growthDeferredRevenueNonCurrent" : 0.0,
+"growthDeferrredTaxLiabilitiesNonCurrent" : 0.0,
+"growthOtherNonCurrentLiabilities" : 0.0789458051996911,
+"growthTotalNonCurrentLiabilities" : 0.07622092614714356,
+"growthOtherLiabilities" : 0.0,
+"growthTotalLiabilities" : 0.04241859790023707,
+"growthCommonStock" : 0.12407579581175013,
+"growthRetainedEarnings" : -0.6739291472395311,
+"growthAccumulatedOtherComprehensiveIncomeLoss" : -0.3047945205479452,
+"growthOthertotalStockholdersEquity" : 0.0,
+"growthTotalStockholdersEquity" : -0.27792635487578465,
+"growthTotalLiabilitiesAndStockholdersEquity" : -0.04321213768330005,
+"growthTotalInvestments" : -0.020629847058973347,
+"growthTotalDebt" : 0.04062121113959666,
+"growthNetDebt" : 0.2570308937047109
+```
+
+<hr />
+
+#### CASHFLOW STATEMENT GROWTH
+##### (fetchCashflowStatement('ticker', true))
+
+```
+"date" : "2020-09-26",
+"symbol" : "AAPL",
+"period" : "FY",
+"growthNetIncome" : 0.039000289561314606,
+"growthDepreciationAndAmortization" : -0.11883318721606759,
+"growthDeferredIncomeTax" : -0.36764705882352944,
+"growthStockBasedCompensation" : 0.12541199736321687,
+"growthChangeInWorkingCapital" : -2.6313073394495414,
+"growthAccountsReceivables" : 27.23265306122449,
+"growthInventory" : -0.5605536332179931,
+"growthAccountsPayables" : 1.1123244929797191,
+"growthOtherWorkingCapital" : -4.3296,
+"growthOtherNonCashItems" : -0.8512269938650306,
+"growthNetCashProvidedByOperatingActivites" : 0.16260033721952413,
+"growthInvestmentsInPropertyPlantAndEquipment" : -0.30357313006193426,
+"growthAcquisitionsNet" : 1.4423076923076923,
+"growthPurchasesOfInvestments" : 1.833993748615589,
+"growthSalesMaturitiesOfInvestments" : 0.2204023337790203,
+"growthOtherInvestingActivites" : -0.2662337662337662,
+"growthNetCashUsedForInvestingActivites" : -1.0934504096217534,
+"growthDebtRepayment" : 0.43429869392390685,
+"growthCommonStockIssued" : 0.1267605633802817,
+"growthCommonStockRepurchased" : 0.08163295812966202,
+"growthDividendsPaid" : -0.0026914087399957506,
+"growthOtherFinancingActivites" : -6.871900826446281,
+"growthNetCashUsedProvidedByFinancingActivities" : -0.045682377769961306,
+"growthEffectOfForexChangesOnCash" : 0.0,
+"growthNetChangeInCash" : -1.429229566862737,
+"growthCashAtEndOfPeriod" : -0.20776919401083146,
+"growthCashAtBeginningOfPeriod" : 0.9381777486203836,
+"growthOperatingCashFlow" : 0.16260033721952413,
+"growthCapitalExpenditure" : -0.30357313006193426,
+"growthFreeCashFlow" : 0.24567033414832926
+```
 
 ### Universal Chart
 

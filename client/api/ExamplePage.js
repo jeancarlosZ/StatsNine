@@ -53,6 +53,35 @@ export default function ExamplePage() {
       //* one VALUE per 'trace' or 'set' to display.
       values: values.map(x => x.netIncome)
     })
+
+    //* Other examples include...
+    // dataset.push({ name: 'Common Stock', color: 'green', values: values.map(x => x.commonStock) })
+    // dataset.push({ name: 'Liabilities', type: 'line', values: values.map(x => x.netDebt) })
+
+    // dataset.push({
+    //   name: 'Liabilities',
+    //   type: 'pie',
+    //   labels: ['1st', '2nd', '3rd', '4th', '5th'],
+    //   values: [38, 27, 18, 10, 7],
+    //   hoverinfo: 'label+percent+name',
+    //   domain: { row: 1, column: 0 }
+    // })
+
+    // dataset.push({
+    //   name: 'Assets',
+    //   type: 'line',
+    //   color: 'purple',
+    //   values: values.map(x => x.totalAssets),
+    //   fill: 'tozeroy'
+    // })
+
+    // dataset.push({
+    //   name: 'Liabilities',
+    //   type: 'line',
+    //   color: 'green',
+    //   values: values.map(x => x.totalLiabilities),
+    //   fill: 'tozeroy'
+    // })
   }
 
   //* It's probably best to return the chart inside a div, for styling reasons.
@@ -65,7 +94,7 @@ export default function ExamplePage() {
         title="Net Income"
         keys={keys}
         dataset={dataset}
-        showlegend={false}
+        showlegend={true}
       />
     </>
   )
