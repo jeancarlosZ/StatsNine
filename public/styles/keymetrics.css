@@ -1,0 +1,90 @@
+* {
+  --headerHeight: 80px;
+  --subHeaderHeight: 80px;
+
+  --mcontainerHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
+  --mcontainerWidth: 100vw;
+
+  --mmargin: 20px;
+  --mmargins: calc(var(--mmargin) * 2);
+
+  --msubcontainerHeight: calc(var(--mcontainerHeight) - var(--mmargins));
+  --msubcontainerWidth: calc(var(--mcontainerWidth) - var(--mmargins));
+
+  --mborderRadius: 30px;
+
+  --mselectorHeight: calc(var(--msubcontainerHeight) / 20);
+}
+
+/*
+*==================================
+*      KEY METRICS CONTAINERS
+*==================================
+*/
+
+*,
+body {
+  font-family: 'Spartan', sans-serif;
+}
+
+.key-metrics-container {
+  /* background-color: var(--bgPrimary); */
+  height: var(--mcontainerHeight);
+  width: var(--mcontainerWidth);
+
+  display: flex;
+  justify-content: center;
+
+  /* */
+  background-color: gray;
+}
+
+.key-metrics-container .sub-container {
+  /* background-color: rgba(var(--bgSecondary), 0.3); */
+  height: var(--msubcontainerHeight);
+  width: var(--msubcontainerWidth);
+
+  margin: auto;
+  border-radius: var(--mborderRadius);
+
+  /* */
+  background-color: green;
+}
+
+/*
+*==================================
+*      KEY METRICS SELECTOR
+*==================================
+*/
+
+.key-metrics-selector {
+  height: var(--mselectorHeight);
+
+  display: flex;
+  /** Match border radius of parent */
+  border-top-left-radius: var(--mborderRadius);
+  border-top-right-radius: var(--mborderRadius);
+
+  background-color: brown;
+}
+
+/** The tabs container */
+.key-metrics-selector .selectors {
+  margin: auto 25px;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  /* TODO: color: var(--fontColor); */
+
+  background-color: burlywood;
+}
+
+/** These are the tabs */
+.key-metrics-selector .selectors label {
+  margin-right: 25px;
+}
+
+/** Used to highlight selected tab */
+.key-metrics-selector .selectors .selected {
+}

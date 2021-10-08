@@ -1,5 +1,17 @@
-import React from 'react';
+import React from 'react'
+import Subheader from '../../Subheader'
+import MetricSelector from './MetricSelector'
 
 export default function KeyMetrics() {
-  return <div></div>;
+  return (
+    <>
+      <Subheader />
+      <div className="key-metrics-container">
+        <div className="sub-container shadow-deep-nohover">
+          <MetricSelector />
+          <div></div>
+        </div>
+      </div>
+    </>
+  )
 }
