@@ -1,10 +1,16 @@
-import React, { Component } from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+
+import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+
+import Homepage from '../components/generalpages/homepage/Homepage';
+import Overviewpage from '../components/overviewcontainer/Overviewpage';
+import Overview from '../components/overviewcontainer/overview/Overview';
+import Financials from '../components/overviewcontainer/fin/Financialspage';
 import ExamplePage from '../api/ExamplePage'
 import TestPage from '../api/TestPage'
-import Homepage from '../components/generalpages/homepage/Homepage'
 import AboutUs from "../components/generalpages/aboutus/AboutUs";
 import Table from "../components/screener/Table";
+
 
 //* ^ Import components ^
 
@@ -19,7 +25,9 @@ class UniversalRoutes extends Component {
         <Route path="/screener" component={Table} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/home" component={Homepage} />
-        <Route exact path="/" component={Homepage} />
+        {/* <Route exact path="/" component={Homepage} /> */}
+        <Route exact path="/overviewpage" component={Overviewpage} />
+        <Route exact path="/overviewpage/financials" component={Financials} />
       </Switch>
     )
   }
