@@ -1,6 +1,6 @@
 * {
   --headerHeight: 80px;
-  --subHeaderHeight: 80px;
+  --subHeaderHeight: 40px;
 
   --metricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --metricsPageWidth: 100vw;
@@ -30,6 +30,18 @@
   --metricInnerSubcontainerWidth: calc(
     var(--metricsInnercontainerWidth) - var(--metricsInnercontainerPaddings)
   );
+
+  --metricsOverviewWidth: calc(var(--metricInnerSubcontainerWidth) / 4);
+  --metricsChartviewWidth: calc(var(--metricInnerSubcontainerWidth) - var(--metricsOverviewWidth));
+
+  --chartGap: 10px;
+  --chartPadding: 10px;
+  --chartPaddings: calc(var(--chartPadding) * 2);
+
+  --metricsChartContainerHeight: calc((var(--metricInnerSubcontainerHeight) / 2) - var(--chartGap));
+
+  --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight) - var(--chartPaddings));
+  --metricsChartWrapperWidth: calc(var(--metricInnerSubcontainerWidth) - var(--chartPaddings));
 }
 
 /*
@@ -161,8 +173,12 @@ body {
   height: var(--metricInnerSubcontainerHeight);
   width: var(--metricInnerSubcontainerWidth);
 
-  display: grid; /** Grid size */
-  grid-template-columns: 25%;
+  /*! FLEX */
+  display: flex;
+
+  /* display: grid;  */
+  /** Grid size */
+  /* grid-template-columns: 25%; */
 
   /* TODO color*/
   background-color: rgba(255, 255, 255, 0.2);
@@ -174,12 +190,14 @@ body {
 
 .metric-sub-container .metric-metrics {
   grid-column: 1;
+
   height: var(--metricInnerSubcontainerHeight);
-  margin: auto;
+  width: var(--metricsOverviewWidth);
+  /* margin: auto; */
   display: flex;
 
   /* TODO color*/
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(146, 23, 23, 0.2);
 }
 
 .metric-metrics .metrics {
@@ -188,6 +206,7 @@ body {
   justify-content: center;
 
   flex: 1;
+  margin-left: 10%;
 
   /* TODO color*/
   /* background-color: gray; */
@@ -222,10 +241,48 @@ body {
 .metric-sub-container .metric-charts {
   grid-column: 2;
   height: var(--metricInnerSubcontainerHeight);
+  width: var(--metricsChartviewWidth);
+
+  /* display: grid; */
+  /* grid-template-rows: 50%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* row-gap: 10px; */
 
   /* TODO color*/
-  background-color: rgba(19, 5, 5, 0.6);
+  background-color: rgba(31, 15, 90, 0.6);
 }
 
 .metric-charts .metric-chart {
+  padding: var(--chartPaddings);
+  height: var(--metricsChartContainerHeight);
+  width: var(--metricsChartviewWidth);
+
+  /* border-radius: 30px; */
+
+  /* TODO color*/
+  background-color: rgba(225, 225, 225, 0.4);
+}
+
+.metric-charts .metric-chart .wrapper {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+  margin: auto;
+
+  height: var(--metricsChartWrapperHeight);
+  width: var(--metricsChartWrapperWidth);
+
+  background-color: rgba(160, 160, 37, 0.03);
+}
+
+.metric-charts .metric-chart .stock-price-chart {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+  /* border-radius: 30px; */
+
+  height: var(--metricsChartWrapperHeight);
+  width: var(--metricsChartWrapperWidth);
 }

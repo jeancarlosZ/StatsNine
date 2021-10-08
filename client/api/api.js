@@ -203,8 +203,8 @@ export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = AL
   const type = series === DAILY ? 'historical-price-full' : 'historical-chart' + `/${series}/`
   const query = `${range !== ALL ? getDataRange(range) : ''}&serietype=line`
   const link = getFMPLink(ticker, type, query)
-  const data = await fetchData(link)
-  return data
+  const data = (await fetchData(link)).historical
+  return splitProperties(await formatTimeSeriesData(data))
 }
 
 //* Function used to make the axios calls and return the data
