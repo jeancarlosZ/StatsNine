@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
@@ -28,10 +29,9 @@ class UniversalRoutes extends Component {
         <Route exact path="/" component={Homepage} />
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route exact path="/overviewpage" component={Overviewpage} />
-        <Route exact path="/overviewpage/financials" component={Financials} />
       </Switch>
-    )
+    );
   }
 }
 
-export default withRouter(UniversalRoutes)
+export default withRouter(UniversalRoutes);
