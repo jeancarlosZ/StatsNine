@@ -1,5 +1,34 @@
 import React from "react";
 
 export default function Searchbar() {
-  return <div>SEARCH BAR MGLASS</div>;
+  async function attemptSearch(event) {
+    const value = event.target.value;
+    if (event.key !== "Enter") {
+      return;
+    } else {
+      if (value.length >= 1) {
+        console.log(
+          "Make API call for selected value and take user to overview page for that particular value.",
+        );
+      }
+    }
+  }
+
+  async function handleChange(event) {
+    const value = event.target.value;
+    if (value.length >= 1) {
+      console.log("Make API call to display query results.");
+    }
+  }
+
+  return (
+    <div className="search-bar">
+      <input
+        className="search-input"
+        placeholder="Search"
+        onKeyDown={event => attemptSearch(event)}
+        onChange={event => handleChange(event)}
+      />
+    </div>
+  );
 }
