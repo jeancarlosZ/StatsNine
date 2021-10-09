@@ -26,10 +26,10 @@ export default function Metrics() {
     <div className="metric-sub-container">
       <div className="metric-metrics">{getMetricOverview()}</div>
       <div className="metric-charts">
-        <div className="metric-chart shadow-deep-nohover">
+        <div className="metric-chart shadow-nohover">
           <StockPriceChart />
         </div>
-        <div className="metric-chart shadow-deep-nohover">
+        <div className="metric-chart shadow-nohover">
           <StockEPSChart />
         </div>
       </div>
