@@ -1,19 +1,47 @@
 * {
   --headerHeight: 80px;
-  --subHeaderHeight: 80px;
+  --subHeaderHeight: 40px;
 
-  --mcontainerHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
-  --mcontainerWidth: 100vw;
+  --metricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
+  --metricsPageWidth: 100vw;
 
-  --mmargin: 20px;
-  --mmargins: calc(var(--mmargin) * 2);
+  --metricsMargin: 20px;
+  --metricsMargins: calc(var(--metricsMargin) * 2);
 
-  --msubcontainerHeight: calc(var(--mcontainerHeight) - var(--mmargins));
-  --msubcontainerWidth: calc(var(--mcontainerWidth) - var(--mmargins));
+  --metricsSubcontainerHeight: calc(var(--metricsPageHeight) - var(--metricsMargins));
+  --metricsSubcontainerWidth: calc(var(--metricsPageWidth) - var(--metricsMargins));
 
-  --mborderRadius: 30px;
+  --metricsSubcontainerBorderRadius: 30px;
 
-  --mselectorHeight: calc(var(--msubcontainerHeight) / 20);
+  --metricsSelectorHeight: calc(var(--metricsSubcontainerHeight) / 22);
+
+  --metricsInnercontainerHeight: calc(
+    var(--metricsSubcontainerHeight) - var(--metricsSelectorHeight)
+  );
+  --metricsInnercontainerWidth: var(--metricsSubcontainerWidth);
+
+  --metricsInnercontainerPadding: 10px;
+  --metricsInnercontainerPaddings: calc(var(--metricsInnercontainerPadding) * 2);
+
+  --metricInnerSubcontainerHeight: calc(
+    var(--metricsInnercontainerHeight) - var(--metricsInnercontainerPaddings)
+  );
+
+  --metricInnerSubcontainerWidth: calc(
+    var(--metricsInnercontainerWidth) - var(--metricsInnercontainerPaddings)
+  );
+
+  --metricsOverviewWidth: calc(var(--metricInnerSubcontainerWidth) / 4);
+  --metricsChartviewWidth: calc(var(--metricInnerSubcontainerWidth) - var(--metricsOverviewWidth));
+
+  --chartGap: 5px;
+  --chartPadding: 0px;
+  --chartPaddings: calc(var(--chartPadding) * 2);
+
+  --metricsChartContainerHeight: calc((var(--metricInnerSubcontainerHeight) / 2) - var(--chartGap));
+
+  --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight) - var(--chartPaddings));
+  --metricsChartWrapperWidth: calc(var(--metricsChartviewWidth) - var(--chartPaddings));
 }
 
 /*
@@ -29,26 +57,29 @@ body {
 
 .key-metrics-container {
   background-color: var(--bgPrimary);
-  height: var(--mcontainerHeight);
-  width: var(--mcontainerWidth);
+  height: var(--metricsPageHeight);
+  width: var(--metricsPageWidth);
 
   display: flex;
   justify-content: center;
 
-  /* */
-  background-color: gray;
+  /* TODO color*/
+  /* background-color: gray; */
 }
 
 .key-metrics-container .sub-container {
   background-color: rgba(30, 34, 45, 0.3);
-  height: var(--msubcontainerHeight);
-  width: var(--msubcontainerWidth);
+  height: var(--metricsSubcontainerHeight);
+  width: var(--metricsSubcontainerWidth);
+
+  display: flex;
+  flex-direction: column;
 
   margin: auto;
-  border-radius: var(--mborderRadius);
+  border-radius: var(--metricsSubcontainerBorderRadius);
 
-  /* */
-  background-color: green;
+  /* TODO color*/
+  /* background-color: green; */
 }
 
 /*
@@ -58,16 +89,18 @@ body {
 */
 
 .key-metrics-selector {
-  height: var(--mselectorHeight);
+  height: var(--metricsSelectorHeight);
 
   display: flex;
   /** Match border radius of parent */
-  border-top-left-radius: var(--mborderRadius);
-  border-top-right-radius: var(--mborderRadius);
+  border-top-left-radius: var(--metricsSubcontainerBorderRadius);
+  border-top-right-radius: var(--metricsSubcontainerBorderRadius);
 
   border-bottom: 3px solid var(--bgAccent);
-  /* */
-  background-color: brown;
+  /* TODO color*/
+  /* background-color: brown; */
+
+  overflow: hidden;
 }
 
 /** The tabs container */
@@ -79,12 +112,13 @@ body {
   font-size: 1.1rem;
   font-weight: 700;
 
-  /* */
-  background-color: burlywood;
+  /* TODO color*/
+  /* background-color: burlywood; */
 }
 
 /** These are the tabs */
 .key-metrics-selector .selectors label {
+  margin-top: 5px;
   margin-right: 25px;
   color: rgba(208, 211, 219, 0.2);
   transition: font-size 0.3s ease, color 0.3s ease;
@@ -112,6 +146,216 @@ body {
 */
 
 .key-metrics-container .metric-container {
-  /* height: var(--msubcontainerHeight) - var(--); */
-  width: var(--msubcontainerWidth);
+  height: var(--metricsInnercontainerHeight);
+  width: var(--metricsInnercontainerWidth);
+
+  display: flex;
+
+  /* TODO color*/
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+/*
+*==================================
+*      MAIN METRIC PAGE
+*==================================
+*/
+
+/** This is the star icon*/
+.metric-star {
+  width: 24px;
+  height: 24px;
+}
+
+.key-metrics-container .metric-sub-container {
+  margin: auto;
+
+  height: var(--metricInnerSubcontainerHeight);
+  width: var(--metricInnerSubcontainerWidth);
+
+  /*! FLEX */
+  display: flex;
+
+  /* display: grid;  */
+  /** Grid size */
+  /* grid-template-columns: 25%; */
+
+  /* TODO color*/
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+/*
+*=========[ METRIC CONTAINER ]============
+*/
+
+.metric-sub-container .metric-metrics {
+  grid-column: 1;
+
+  height: var(--metricInnerSubcontainerHeight);
+  width: var(--metricsOverviewWidth);
+  /* margin: auto; */
+  display: flex;
+
+  /* TODO color*/
+  /* background-color: rgba(146, 23, 23, 0.2); */
+}
+
+.metric-metrics .metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  flex: 1;
+  margin-left: 10%;
+
+  /* TODO color*/
+  /* background-color: gray; */
+}
+
+/** Individual metric container */
+.metric-metrics .metrics .metric {
+  color: var(--fontColor);
+  overflow: hidden;
+}
+
+/** Used to adjust the location of the metrics */
+.metric-metrics .metrics .metric-spacer {
+  flex: 1;
+}
+
+/** Title of each metric */
+.metric-metrics .metrics .metric label {
+  margin: 30px 0px 5px 44px;
+  font-weight: 600;
+}
+
+/** The desc of each metric*/
+.metric-metrics .metrics .metric span {
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/*
+*=========[ CHARTS CONTAINER ]============
+*/
+
+.metric-sub-container .metric-charts {
+  grid-column: 2;
+  height: var(--metricInnerSubcontainerHeight);
+  width: var(--metricsChartviewWidth);
+
+  /* display: grid; */
+  /* grid-template-rows: 50%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* row-gap: 10px; */
+
+  /* TODO color*/
+  /* background-color: rgba(31, 15, 90, 0.6); */
+}
+
+.metric-charts .metric-chart {
+  height: var(--metricsChartContainerHeight);
+  width: var(--metricsChartviewWidth);
+
+  border-radius: 30px;
+
+  /* TODO color*/
+  /* background-color: rgba(225, 225, 225, 0.4); */
+}
+
+.metric-charts .metric-chart .wrapper {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+
+  margin: auto;
+  margin-top: var(--chartPadding);
+
+  /** chart height minus selector height */
+  height: calc(var(--metricsChartWrapperHeight) - 35px);
+  width: var(--metricsChartWrapperWidth);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  background-color: rgba(30, 34, 45, 0.3);
+
+  /* background-color: rgba(160, 160, 37, 0.03); */
+  /* background-color: rgba(223, 223, 35, 0.4); */
+}
+
+.metric-charts .metric-chart .stock-price-chart {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+
+  /** chart height minus selector height */
+  height: calc(var(--metricsChartWrapperHeight) - 35px);
+  width: var(--metricsChartWrapperWidth);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+/*
+*=========[ CHART SELECTOR ]============
+*/
+
+.metric-chart .selector {
+  height: 35px;
+  display: flex;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  background-color: rgba(30, 34, 45, 0.3);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.metric-chart .selector label {
+  margin: auto 10px auto 30px;
+  font-weight: 600;
+  /* font-size: 1.1rem; */
+  color: var(--fontColor);
+}
+
+.metric-chart .selector .dropdown-selector {
+  margin: auto 5px;
+  color: rgba(208, 211, 219, 0.6);
+}
+
+.metric-chart .selector .dropdown-selector button {
+  margin: auto 5px;
+  background-color: rgba(30, 34, 45, 0.3);
+  border: none;
+}
+
+.metric-chart .selector .show .dropdown-toggle {
+  background-color: #1e222d;
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors button {
+  margin: 5px 5px 0px 5px;
+  color: rgba(208, 211, 219, 0.6);
+  background-color: rgba(30, 34, 45, 0.6);
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors button:hover {
+  color: var(--fontColor);
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors .selected {
+  color: var(--fontColor);
+  background-color: rgba(30, 34, 45, 1);
+  border: none;
 }
