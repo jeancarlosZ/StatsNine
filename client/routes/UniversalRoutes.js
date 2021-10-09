@@ -42,6 +42,8 @@ class UniversalRoutes extends Component {
           path="/overviewpage/financials/cashflow"
           component={Cash}
         />
+        <Route path="/overviewpage/keymetrics" component={KeyMetrics} />
+        <Route exact path="/overviewpage/financials" component={Financialspage} />
         {/* <Route path="/about" component={About} /> */}
 
         <Route path="/test" component={TestPage} />
