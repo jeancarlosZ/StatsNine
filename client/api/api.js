@@ -199,9 +199,9 @@ export const TEN_YEAR = '10 Year'
 export const ALL = 'All'
 //* -----------------------------------
 //* Function to return stock price data, for charting the stock price
-export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL) {
+export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL, line = true) {
   const type = series === DAILY ? 'historical-price-full' : 'historical-chart' + `/${series}/`
-  const query = `${range !== ALL ? getDataRange(range) : ''}&serietype=line`
+  const query = `${range !== ALL ? getDataRange(range) : ''}${line ? '&serietype=line' : ''}`
   const link = getFMPLink(ticker, type, query)
   const data = await fetchData(link)
   return splitProperties(await formatTimeSeriesData(series === DAILY ? data.historical : data))
@@ -215,7 +215,7 @@ async function fetchData(link) {
     //! Remove (This is here so we can debug!)
     console.log('--------------------')
     console.log(
-      'Fetching data: Try to fetch data as little as possible (once per chart/datapoint)!'
+      'Fetching data: Try to fetch data as little as possible (once per chart/datapoint)!',
     )
     console.log('--------------------')
     console.log(link)
