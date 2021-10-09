@@ -13,7 +13,7 @@ export default function Subheader() {
         <button
           value="overview"
           className="buttons sub-button pos-rel bold"
-          onClick={() => history.push('/overviewpage/overview')}
+          onClick={() => history.push('/overviewpage')}
         >
           Overview
         </button>

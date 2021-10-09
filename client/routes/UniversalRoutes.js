@@ -18,6 +18,7 @@ class UniversalRoutes extends Component {
   render() {
     return (
       <Switch>
+        <Route exact path="/overviewpage" component={Overviewpage} />
         <Route exact path="/overviewpage/keymetrics" component={KeyMetrics} />
         <Route
           exact
@@ -33,7 +34,6 @@ class UniversalRoutes extends Component {
         <Route path="/home" component={Homepage} />
         <Route exact path="/" component={Homepage} />
         {/* <Route exact path="/" component={Homepage} /> */}
-        <Route exact path="/overviewpage/overview" component={Overviewpage} />
       </Switch>
     );
   }
