@@ -220,7 +220,7 @@ async function fetchData(link) {
     console.log('--------------------')
     console.log(link)
     console.log('--------------------')
-    console.log(data)
+    console.log('Data:', data)
     console.log('--------------------')
     //! Remove (This is here so we can debug!)
     //! Remove (This is here so we can debug!)

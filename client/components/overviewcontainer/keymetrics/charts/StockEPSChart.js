@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import {
-  ALL,
-  fetchIncomeStatement,
-  FIVE_YEAR,
-  MONTH,
-  SIX_MONTH,
-  TEN_YEAR,
-  THREE_MONTH,
-  WEEK,
-  YEAR
-} from '../../../../api/api'
+import { fetchIncomeStatement } from '../../../../api/api'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
@@ -32,7 +20,7 @@ export default function StockEPSChart() {
       if (update) {
         //* Now update the state with the response
         // TODO: Add a ticker to redux store so we can load data from there
-        setData(await fetchIncomeStatement('MSFT', false, dataType))
+        setData({ ...data, [dataType]: await fetchIncomeStatement('MSFT', false, dataType) })
         setUpdate(false)
       }
     }
@@ -41,9 +29,7 @@ export default function StockEPSChart() {
   }, [dataType])
 
   //* Get the keys and values from the data
-  const { keys, values } = data
-
-  console.log(keys, values)
+  const { keys, values } = !data[dataType] ? data : data[dataType]
 
   //* Create our dataset
   const dataset = []
@@ -68,7 +54,7 @@ export default function StockEPSChart() {
   function updateDataType(newType) {
     if (dataType !== newType) {
       setDataType(newType)
-      setUpdate(true)
+      if (!data[newType]) setUpdate(true)
     }
   }
 

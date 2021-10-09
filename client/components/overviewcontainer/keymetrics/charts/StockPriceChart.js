@@ -34,7 +34,7 @@ export default function StockPriceChart() {
       if (update) {
         //* Now update the state with the response
         // TODO: Add a ticker to redux store so we can load data from there
-        setData(await fetchChartPrice('MSFT', series, range))
+        setData({ ...data, [range]: await fetchChartPrice('MSFT', series, range) })
         setUpdate(false)
       }
     }
@@ -43,9 +43,7 @@ export default function StockPriceChart() {
   }, [series, range])
 
   //* Get the keys and values from the data
-  const { keys, values } = data
-
-  console.log(keys, values)
+  const { keys, values } = !data[range] ? data : data[range]
 
   //* Create our dataset
   const dataset = []
@@ -80,7 +78,7 @@ export default function StockPriceChart() {
   function updateRange(range, newRange) {
     if (range !== newRange) {
       setRange(newRange)
-      setUpdate(true)
+      if (!data[newRange]) setUpdate(true)
     }
   }
 
@@ -97,7 +95,6 @@ export default function StockPriceChart() {
           keys={keys}
           dataset={dataset}
           showlegend={false}
-          // rgba(30, 34, 45, 0.3)
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
         />
@@ -124,6 +121,7 @@ function getSelectors(series, range, updateSeries, updateRange) {
         <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
       </DropdownButton>
 
+      {/* Potential future add-on */}
       {/* <DropdownButton id="dropdown-basic-button" title={series}>
         <Dropdown.Item onClick={() => updateSeries(series, DAILY)}>Daily</Dropdown.Item>
         <Dropdown.Divider />
