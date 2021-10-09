@@ -15,7 +15,7 @@ export default function Table() {
 
   return (
     <div>
-      <table>
+      <table className="screener-table">
         <thead>
           <tr>
             <th>Symbol and Name</th>
@@ -31,7 +31,7 @@ export default function Table() {
             stocksList.map(stock => <Row key={stock.symbol} stock={stock} />)
           ) : (
             <tr>
-              <td>Maximum API calls have been reached! Please try again later.</td>
+              <td>Loading...</td>
             </tr>
           )}
         </tbody>
