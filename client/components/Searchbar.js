@@ -22,9 +22,9 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="search-bar">
+    <div className="top-search-bar">
       <input
-        className="search-input"
+        className="top-search-input"
         placeholder="Search"
         onKeyDown={event => attemptSearch(event)}
         onChange={event => handleChange(event)}

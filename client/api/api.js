@@ -179,24 +179,24 @@ export async function fetchScreenerStocks(query = '', limit = 500) {
 //* Function to return stock price data, for charting the stock price
 //* You can select a timeseries below
 //* -----------------------------------
-export const MINUTE = '1min'
-export const FIVE_MINUTE = '5min'
-export const FIFTEEN_MINUTE = '15min'
-export const THIRTY_MINUTE = '30min'
-export const HOUR = '1hour'
-export const FOUR_HOUR = '4hour'
+export const MINUTE = '1 min'
+export const FIVE_MINUTE = '5 min'
+export const FIFTEEN_MINUTE = '15 min'
+export const THIRTY_MINUTE = '30 min'
+export const HOUR = '1 hour'
+export const FOUR_HOUR = '4 hour'
 export const DAILY = 'Daily'
 //* -----------------------------------
 //* You can select a data range from those listed below as well.
 //* -----------------------------------
-export const WEEK = 'WEEK'
-export const MONTH = 'MONTH'
-export const THREE_MONTH = 'THREE_MONTH'
-export const SIX_MONTH = 'SIX_MONTH'
-export const YEAR = 'YEAR'
-export const FIVE_YEAR = 'FIVE_YEAR'
-export const TEN_YEAR = 'TEN_YEAR'
-export const ALL = 'ALL'
+export const WEEK = 'Week'
+export const MONTH = 'Month'
+export const THREE_MONTH = '3 Month'
+export const SIX_MONTH = '6 Month'
+export const YEAR = '1 Year'
+export const FIVE_YEAR = '5 Year'
+export const TEN_YEAR = '10 Year'
+export const ALL = 'All'
 //* -----------------------------------
 //* Function to return stock price data, for charting the stock price
 export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL) {
@@ -204,14 +204,29 @@ export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = AL
   const query = `${range !== ALL ? getDataRange(range) : ''}&serietype=line`
   const link = getFMPLink(ticker, type, query)
   const data = await fetchData(link)
-  return data
+  return splitProperties(await formatTimeSeriesData(series === DAILY ? data.historical : data))
 }
 
 //* Function used to make the axios calls and return the data
 async function fetchData(link) {
   try {
+    const { data } = await axios.get(link)
+    //! Remove (This is here so we can debug!)
+    //! Remove (This is here so we can debug!)
+    console.log('--------------------')
+    console.log(
+      'Fetching data: Try to fetch data as little as possible (once per chart/datapoint)!'
+    )
+    console.log('--------------------')
+    console.log(link)
+    console.log('--------------------')
+    console.log('Data:', data)
+    console.log('--------------------')
+    //! Remove (This is here so we can debug!)
+    //! Remove (This is here so we can debug!)
     //* Make axios call, return the data
-    return (await axios.get(link)).data
+    return data
+    // return (await axios.get(link)).data
   } catch (error) {
     //* Something went wrong
     logError(error, 'Failed to make axios call for ' + link)

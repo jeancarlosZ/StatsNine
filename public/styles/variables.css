@@ -10,14 +10,14 @@
 
 */
 
-* {
+:root {
   /* BACKGROUND COLORS */
   --bgPrimary: #131722;
   --bgSecondary: #1e222d;
   --bgAccent: #434651;
 
   /* FONT COLORS */
-  --fontColor: #d0d3db;
+  --fontColor: #d0d3db; /** rgba(208, 211, 219, 1) */
   --fontHighlight: #2962fe;
 
   /* SHADES OF BLUE_ */
@@ -48,4 +48,34 @@
   /* OTHER COLORS */
   --pinkShade1: #f38eb0;
   --purpleShade2: #a900fe;
+}
+
+/*
+*==================================
+*        Border Shadow Effects
+*==================================
+*/
+
+.shadow {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.shadow:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.shadow-nohover {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.shadow-deep {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.shadow-deep:hover {
+  box-shadow: 0 14px 22px 0 rgba(0, 0, 0, 0.2);
+}
+
+.shadow-deep-nohover {
+  box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.2);
 }
