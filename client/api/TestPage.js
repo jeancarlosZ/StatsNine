@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import 'simplebar/dist/simplebar.min.css'
-import { DAILY, fetchChartPrice, WEEK } from './api'
+import React, { useEffect, useState } from 'react';
+import 'simplebar/dist/simplebar.min.css';
+import { DAILY, fetchChartPrice, WEEK } from './api';
 
 export default function APITestPage() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   //* const [balanceData, setBalanceData] = useState({})
 
   useEffect(() => {
@@ -30,15 +30,15 @@ export default function APITestPage() {
       // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
       // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
     }
-    getData()
-  }, [])
+    getData();
+  }, []);
 
-  console.log('Data:', data)
+  console.log('Data:', data);
 
-  const { keys, values } = data
+  const { keys, values } = data;
 
-  console.log('Keys:', keys)
-  console.log('Values:', values)
+  console.log('Keys:', keys);
+  console.log('Values:', values);
 
-  return <></>
+  return <></>;
 }

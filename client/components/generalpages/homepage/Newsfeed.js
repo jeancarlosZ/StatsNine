@@ -2,40 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { fetchStockNews } from '../../../api/api';
 
 export default function Newsfeed() {
-  const [data, setData] = useState({});
+  const [stockNewsList, setStockNewsList] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      setData(await fetchStockNews(['AAPL', 'MSFT', 'GOOG'], 3));
+    async function getStockNewsList() {
+      setStockNewsList(
+        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 5)
+      );
     }
-    getData();
+    getStockNewsList();
   }, []);
 
-  console.log('Data:', data);
+  console.log('Data:', stockNewsList);
 
-  const { keys, values } = data;
+  const { keys, values } = stockNewsList;
 
   console.log('Keys:', keys);
   console.log('Values:', values);
 
-  const dataset = [];
-  console.log(dataset);
   return (
     <div>
-      <h2>News feed</h2>
+      <h2>Latest News</h2>
       <div className="table-responsive">
         <table className="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">Company</th>
-              <th scope="col">Real-time news</th>
+              <th scope="col">Headline</th>
             </tr>
           </thead>
           <tbody>
-            {dataset.map(company => {
+            {stockNewsList.map(company => {
               return (
-                <tr key={company.symbol}>
-                  <td>{company.symbol}</td>
+                <tr key={company.publishedDate}>
+                  <td>
+                    <img
+                      src={company.image}
+                      width="50"
+                      alt={company.symbol}></img>
+                  </td>
                   <td>{company.title}</td>
                 </tr>
               );
@@ -43,15 +48,6 @@ export default function Newsfeed() {
           </tbody>
         </table>
       </div>
-
-      {/* <UniversalChart
-              className="my-4 w-100 chartjs-render-monitor"
-              title="SnP500"
-              id="myChart"
-              width="1304"
-              height="550"
-              style="display: block; height: 275px; width: 652px;"
-            /> */}
     </div>
   );
 }
