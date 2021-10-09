@@ -1,6 +1,7 @@
 import React from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
+import FinTable from './FinTable';
 
 export default function Income() {
   return (
@@ -10,7 +11,7 @@ export default function Income() {
         <IncomeChart />
       </div>
       <Buttons />
-      <Table />
+      <FinTable />
     </React.Fragment>
   );
 }
@@ -19,7 +20,7 @@ function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
       <div className="company-info pos-rel">
-        <span className="company-name bold">MICROSOFT CORP.</span>
+        <span className="company-name bold">INCOME CORP.</span>
         <div className="ticker-container flex-row justify-between">
           <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
@@ -35,7 +36,7 @@ function IncomeChart() {
 
   dataset.push({
     name: 'Income',
-    type: 'bar',
+    type: 'scatter',
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
     values: [38, 27, 18, 10, 7],
     hoverinfo: 'label+percent+name',
@@ -51,11 +52,6 @@ function IncomeChart() {
     />
   );
 }
-
-function Table() {
-  return <div className="table">Table</div>;
-}
-
 function Buttons() {
   return (
     <div className="fin-button-container align-self pos-rel">

@@ -1,12 +1,15 @@
-import React from "react";
-import Searchbar from "./Searchbar";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import Searchbar from './Searchbar';
+import { useHistory } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Header() {
   const history = useHistory();
 
   return (
-    <div className="header">
+    <div className="our-company-header">
       <div className="our-company-name">StatsNine</div>
       <div className="header-space-one"></div>
       <Searchbar />

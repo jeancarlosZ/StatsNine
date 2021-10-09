@@ -1,38 +1,38 @@
-.our-company-header {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 0.2rem 0.1rem #434651;
-  padding: 1rem;
-  font-size: 1.15rem;
-  height: 5rem;
-  width: 100vw;
+.header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
   color: #d0d3db;
   background-color: #131722;
+  box-shadow: 0 0.1rem 0.1rem #434651;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  font-size: 1.25rem;
 }
 
 .our-company-name {
   color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-left: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: bolder;
+  margin-left: 2rem;
 }
 
 .header-space-one {
   flex-grow: 2;
 }
 
-.top-search-bar {
-  margin-left: 1rem;
+.search-bar {
+  margin-left: 2rem;
+  margin-right: 1rem;
 }
 
-.top-search-input {
+.search-input {
   border-radius: 1.5rem;
   background-color: #434651;
-  font-size: 1.15rem;
-  width: 38vw;
+  font-size: 1.25rem;
+  width: 38rem;
   color: lightgray;
   padding: 0.3rem;
   padding-left: 1rem;
@@ -46,7 +46,6 @@
 .go-to-screener,
 .go-to-about-us {
   margin: 1rem;
-  font-weight: 500;
 }
 
 .go-to-dashboard:hover,

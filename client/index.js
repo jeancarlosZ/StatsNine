@@ -1,3 +1,4 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -10,6 +11,7 @@ import 'font-awesome/css/font-awesome.css'
 import '../public/style.css'
 import '../public/fin.css'
 import '../public/styles/keymetrics.css'
+import '../public/styles/overview.css';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,5 +19,6 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('app')
-)
+  document.getElementById('app'))
+);
+
