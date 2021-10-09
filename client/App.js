@@ -7,8 +7,6 @@ import Homepage from './components/generalpages/homepage/Homepage';
 const App = () => {
   return (
     <div>
-      <Homepage />
-      <Newsfeed />
       <Header />
       <Routes />
     </div>
