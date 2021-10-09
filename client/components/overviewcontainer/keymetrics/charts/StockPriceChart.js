@@ -13,6 +13,7 @@ import {
   WEEK,
   YEAR
 } from '../../../../api/api'
+import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
@@ -33,8 +34,17 @@ export default function StockPriceChart() {
     async function getData() {
       if (update) {
         //* Now update the state with the response
-        // TODO: Add a ticker to redux store so we can load data from there
-        setData({ ...data, [range]: await fetchChartPrice('MSFT', series, range) })
+        // setData({ ...data, [range]: await fetchChartPrice('MSFT', series, range) })
+        //* Set the data
+        setData({
+          ...data, //* Upate data  { ...data, [range]: newData }
+          [range]: await getLocalData(
+            'close', //* key
+            fetchChartPrice, //* func
+            [series, range], //* args
+            `price${series}${range}` //* saveas
+          )
+        })
         setUpdate(false)
       }
     }
@@ -62,7 +72,8 @@ export default function StockPriceChart() {
       fill: 'tonexty',
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
-      values: values.map(x => x.close)
+      // values: values.map(x => x.close)
+      values: values
     })
   }
 

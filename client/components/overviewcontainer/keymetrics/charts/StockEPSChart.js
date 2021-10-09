@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchIncomeStatement } from '../../../../api/api'
+import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
@@ -18,9 +19,17 @@ export default function StockEPSChart() {
     //* you will call all of the functions required apon load.
     async function getData() {
       if (update) {
-        //* Now update the state with the response
-        // TODO: Add a ticker to redux store so we can load data from there
-        setData({ ...data, [dataType]: await fetchIncomeStatement('MSFT', false, dataType) })
+        // setData({ ...data, [dataType]: await fetchIncomeStatement('MSFT', false, dataType) })
+        //* Set the data
+        setData({
+          ...data, //* Upate data  { ...data, [dataType]: newData }
+          [dataType]: await getLocalData(
+            'eps', //* Key
+            fetchIncomeStatement, //* func
+            [false, dataType], //* args
+            `eps${dataType}` //* save as
+          )
+        })
         setUpdate(false)
       }
     }
@@ -46,7 +55,8 @@ export default function StockEPSChart() {
       outline: 'rgba(0, 136, 123, 1)',
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
-      values: values.map(x => x.eps)
+      // values: values.map(x => x.eps)
+      values: values
     })
   }
 
