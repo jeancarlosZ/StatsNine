@@ -64,7 +64,6 @@ function CompanyInfo() {
           <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
         </div>
-        <Price />
       </div>
     </div>
   );
