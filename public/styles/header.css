@@ -1,15 +1,35 @@
 .header {
+  /* position: relative;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  color: #d0d3db;
-  background-color: #131722;
-  box-shadow: 0 0.1rem 0.1rem #434651;
-  margin-bottom: 0.5rem;
+  z-index: 99 !important; */
+  /* flex-direction: row; */
+
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+
+  box-shadow: 0 0.2rem 0.1rem #434651;
+  /* margin-bottom: 0.5rem; */
   padding: 1rem;
   font-size: 1.25rem;
+
+  height: 80px;
+  width: 100vw;
+
+  height: 80px;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  color: #d0d3db;
+  background-color: #131722;
 }
 
 .our-company-name {

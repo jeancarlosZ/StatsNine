@@ -14,7 +14,7 @@ export default function OverallDetermination() {
 }
 
 function Header() {
-  return <div className="header">Overall Determination</div>;
+  return <div className="headerTwo">Overall Determination</div>;
 }
 
 function Determination() {

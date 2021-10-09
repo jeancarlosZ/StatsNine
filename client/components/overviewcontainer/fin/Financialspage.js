@@ -1,17 +1,19 @@
-import React from 'react';
-import UniversalChart from '../../UniversalChart';
-import { Price } from '../PriceChart';
-import Income from './Income';
+import React from 'react'
+import Subheader from '../../Subheader'
+import Income from './Income'
 
 export default function Financialspage() {
   return (
-    <div className="main flex-col justify-center">
-      <div className="card flex-col align-self justify-around">
-        <FinancialsNavBar />
-        <Income />
+    <>
+      <Subheader />
+      <div className="main flex-col justify-center">
+        <div className="card align-self justify-around">
+          <FinancialsNavBar />
+          <Income />
+        </div>
       </div>
-    </div>
-  );
+    </>
+  )
 }
 
 function FinancialsNavBar() {
@@ -22,5 +24,5 @@ function FinancialsNavBar() {
       <button className="buttons nav-button inactive">Cash Flow</button>
       <button className="buttons nav-button inactive">Dividends</button>
     </nav>
-  );
+  )
 }
