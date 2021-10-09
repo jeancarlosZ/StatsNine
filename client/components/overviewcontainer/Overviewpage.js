@@ -1,6 +1,6 @@
-import React from 'react'
-import Subheader from '../Subheader'
-import Overview from './overview/Overview'
+import React from 'react';
+import Subheader from '../Subheader';
+import Overview from './overview/Overview';
 
 export default function Overviewpage() {
   return (
@@ -8,5 +8,5 @@ export default function Overviewpage() {
       <Subheader />
       <Overview />
     </div>
-  )
+  );
 }
