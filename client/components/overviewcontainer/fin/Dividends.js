@@ -6,6 +6,7 @@ import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
 
 export default function Dividends() {
+  let values;
   return (
     <>
       <Subheader />
@@ -17,7 +18,7 @@ export default function Dividends() {
             <DividendsChart />
           </div>
           <Buttons />
-          <FinTable />
+          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
         </div>
       </div>
     </>

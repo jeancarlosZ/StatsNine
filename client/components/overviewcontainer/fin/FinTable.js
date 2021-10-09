@@ -1,42 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { roundNumberDec, formatNumber } from '../../../utils';
 
-export default function FinTable() {
-  return <Table />;
-}
-
-const rows = [1, 2, 3, 4];
-const cols = [1, 2, 3, 4, 5, 6, 7];
-
-function Table() {
+export default function FinTable(props) {
   return (
-    <>
-      <div className="fin-date-container flex-row justify-evenly">
-        {cols.map((col) => (
-          <FinDate />
-        ))}
-      </div>
-      <div className="fin-table">
-        {rows.map((row) => (
-          <FinRow num={row} />
-        ))}
-      </div>
-    </>
+    <table className="screener-table">
+      {props.rowInfo.map((info) => (
+        <FinRow rowInfo={info} key={info} />
+      ))}
+    </table>
   );
 }
 
 function FinRow(props) {
-  return (
-    <div className="fin-row flex-row">
-      {cols.map((info) => (
-        <Info />
-      ))}
-    </div>
-  );
-}
+  const row = props.rowInfo.map((info) => formatNumber(info));
 
-function FinDate(props) {
-  return <div className="fin-date">{props.year}</div>;
-}
-function Info(props) {
-  return <div className="fin-info">Info</div>;
+  return (
+    <tbody>
+      <tr>
+        {row.map((info, index) => (
+          <td key={index}>{info}</td>
+        ))}
+      </tr>
+    </tbody>
+  );
 }
