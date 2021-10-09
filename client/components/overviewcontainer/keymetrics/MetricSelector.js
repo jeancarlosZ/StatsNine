@@ -16,6 +16,7 @@ export default function MetricSelector() {
         {getSelectorLabel('Growth', history, selected)}
         {getSelectorLabel('Quality', history, selected)}
         {getSelectorLabel('Safety', history, selected)}
+        {/* TODO: Remove this */}
       </div>
     </div>
   )
