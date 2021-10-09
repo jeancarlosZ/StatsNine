@@ -64,7 +64,7 @@ body {
   justify-content: center;
 
   /* TODO color*/
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 .key-metrics-container .sub-container {
@@ -79,7 +79,7 @@ body {
   border-radius: var(--metricsSubcontainerBorderRadius);
 
   /* TODO color*/
-  background-color: green;
+  /* background-color: green; */
 }
 
 /*
@@ -98,7 +98,7 @@ body {
 
   border-bottom: 3px solid var(--bgAccent);
   /* TODO color*/
-  background-color: brown;
+  /* background-color: brown; */
 
   overflow: hidden;
 }
@@ -152,7 +152,7 @@ body {
   display: flex;
 
   /* TODO color*/
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 /*
@@ -181,7 +181,7 @@ body {
   /* grid-template-columns: 25%; */
 
   /* TODO color*/
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 /*
@@ -197,7 +197,7 @@ body {
   display: flex;
 
   /* TODO color*/
-  background-color: rgba(146, 23, 23, 0.2);
+  /* background-color: rgba(146, 23, 23, 0.2); */
 }
 
 .metric-metrics .metrics {
@@ -254,17 +254,17 @@ body {
   /* row-gap: 10px; */
 
   /* TODO color*/
-  background-color: rgba(31, 15, 90, 0.6);
+  /* background-color: rgba(31, 15, 90, 0.6); */
 }
 
 .metric-charts .metric-chart {
   height: var(--metricsChartContainerHeight);
   width: var(--metricsChartviewWidth);
 
-  /* border-radius: 30px; */
+  border-radius: 30px;
 
   /* TODO color*/
-  background-color: rgba(225, 225, 225, 0.4);
+  /* background-color: rgba(225, 225, 225, 0.4); */
 }
 
 .metric-charts .metric-chart .wrapper {
@@ -275,50 +275,87 @@ body {
   margin-top: var(--chartPadding);
 
   /** chart height minus selector height */
-  height: calc(var(--metricsChartWrapperHeight) - 30px);
+  height: calc(var(--metricsChartWrapperHeight) - 35px);
   width: var(--metricsChartWrapperWidth);
 
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  background-color: rgba(30, 34, 45, 0.3);
+
   /* background-color: rgba(160, 160, 37, 0.03); */
-  background-color: rgba(223, 223, 35, 0.4);
+  /* background-color: rgba(223, 223, 35, 0.4); */
 }
 
 .metric-charts .metric-chart .stock-price-chart {
   /* height: calc((100%) - (var(--chartPadding) * 2)); */
   /* width: calc((100%) - (var(--chartPadding) * 2)); */
-  /* border-radius: 30px; */
 
   /** chart height minus selector height */
-  height: calc(var(--metricsChartWrapperHeight) - 30px);
+  height: calc(var(--metricsChartWrapperHeight) - 35px);
   width: var(--metricsChartWrapperWidth);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 }
 
 /*
 *=========[ CHART SELECTOR ]============
 */
 
-.selector {
-  height: 30px;
+.metric-chart .selector {
+  height: 35px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  background-color: rgba(30, 34, 45, 0.3);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
-.selector label {
-  margin: auto 10px;
+.metric-chart .selector label {
+  margin: auto 10px auto 30px;
   font-weight: 600;
   /* font-size: 1.1rem; */
   color: var(--fontColor);
 }
 
-.selector .dropdown-selector {
-  margin: auto 20px;
+.metric-chart .selector .dropdown-selector {
+  margin: auto 5px;
+  color: rgba(208, 211, 219, 0.6);
 }
 
-.selector .dropdown-selector button {
+.metric-chart .selector .dropdown-selector button {
+  margin: auto 5px;
   background-color: rgba(30, 34, 45, 0.3);
   border: none;
 }
 
-.selector .show .dropdown-toggle {
+.metric-chart .selector .show .dropdown-toggle {
   background-color: #1e222d;
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors button {
+  margin: 5px 5px 0px 5px;
+  color: rgba(208, 211, 219, 0.6);
+  background-color: rgba(30, 34, 45, 0.6);
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors button:hover {
+  color: var(--fontColor);
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.metric-chart .selector .selectors .selected {
+  color: var(--fontColor);
+  background-color: rgba(30, 34, 45, 1);
   border: none;
 }

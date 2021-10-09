@@ -17,7 +17,7 @@
   --bgAccent: #434651;
 
   /* FONT COLORS */
-  --fontColor: #d0d3db;
+  --fontColor: #d0d3db; /** rgba(208, 211, 219, 1) */
   --fontHighlight: #2962fe;
 
   /* SHADES OF BLUE_ */

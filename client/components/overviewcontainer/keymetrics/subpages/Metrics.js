@@ -1,6 +1,7 @@
 import React from 'react'
 import Star from '../../../../assets/icons/star'
 import { getStarColor } from '../../../../utils'
+import StockEPSChart from '../charts/StockEPSChart'
 import StockPriceChart from '../charts/StockPriceChart'
 
 //* The default test results for stonk
@@ -25,11 +26,11 @@ export default function Metrics() {
     <div className="metric-sub-container">
       <div className="metric-metrics">{getMetricOverview()}</div>
       <div className="metric-charts">
-        <div className="metric-chart shadow-deep">
+        <div className="metric-chart shadow-deep-nohover">
           <StockPriceChart />
         </div>
         <div className="metric-chart shadow-deep-nohover">
-          <StockPriceChart />
+          <StockEPSChart />
         </div>
       </div>
     </div>

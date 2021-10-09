@@ -97,7 +97,8 @@ export default function StockPriceChart() {
           keys={keys}
           dataset={dataset}
           showlegend={false}
-          backgroundColor="rgba(30, 34, 45, 0.3)"
+          // rgba(30, 34, 45, 0.3)
+          backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
         />
       </div>
