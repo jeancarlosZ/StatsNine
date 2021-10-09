@@ -34,14 +34,14 @@
   --metricsOverviewWidth: calc(var(--metricInnerSubcontainerWidth) / 4);
   --metricsChartviewWidth: calc(var(--metricInnerSubcontainerWidth) - var(--metricsOverviewWidth));
 
-  --chartGap: 10px;
-  --chartPadding: 10px;
+  --chartGap: 5px;
+  --chartPadding: 0px;
   --chartPaddings: calc(var(--chartPadding) * 2);
 
   --metricsChartContainerHeight: calc((var(--metricInnerSubcontainerHeight) / 2) - var(--chartGap));
 
   --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight) - var(--chartPaddings));
-  --metricsChartWrapperWidth: calc(var(--metricInnerSubcontainerWidth) - var(--chartPaddings));
+  --metricsChartWrapperWidth: calc(var(--metricsChartviewWidth) - var(--chartPaddings));
 }
 
 /*
@@ -215,6 +215,7 @@ body {
 /** Individual metric container */
 .metric-metrics .metrics .metric {
   color: var(--fontColor);
+  overflow: hidden;
 }
 
 /** Used to adjust the location of the metrics */
@@ -257,7 +258,6 @@ body {
 }
 
 .metric-charts .metric-chart {
-  padding: var(--chartPaddings);
   height: var(--metricsChartContainerHeight);
   width: var(--metricsChartviewWidth);
 
@@ -270,12 +270,16 @@ body {
 .metric-charts .metric-chart .wrapper {
   /* height: calc((100%) - (var(--chartPadding) * 2)); */
   /* width: calc((100%) - (var(--chartPadding) * 2)); */
-  margin: auto;
 
-  height: var(--metricsChartWrapperHeight);
+  margin: auto;
+  margin-top: var(--chartPadding);
+
+  /** chart height minus selector height */
+  height: calc(var(--metricsChartWrapperHeight) - 30px);
   width: var(--metricsChartWrapperWidth);
 
-  background-color: rgba(160, 160, 37, 0.03);
+  /* background-color: rgba(160, 160, 37, 0.03); */
+  background-color: rgba(223, 223, 35, 0.4);
 }
 
 .metric-charts .metric-chart .stock-price-chart {
@@ -283,6 +287,38 @@ body {
   /* width: calc((100%) - (var(--chartPadding) * 2)); */
   /* border-radius: 30px; */
 
-  height: var(--metricsChartWrapperHeight);
+  /** chart height minus selector height */
+  height: calc(var(--metricsChartWrapperHeight) - 30px);
   width: var(--metricsChartWrapperWidth);
+}
+
+/*
+*=========[ CHART SELECTOR ]============
+*/
+
+.selector {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector label {
+  margin: auto 10px;
+  font-weight: 600;
+  /* font-size: 1.1rem; */
+  color: var(--fontColor);
+}
+
+.selector .dropdown-selector {
+  margin: auto 20px;
+}
+
+.selector .dropdown-selector button {
+  background-color: rgba(30, 34, 45, 0.3);
+  border: none;
+}
+
+.selector .show .dropdown-toggle {
+  background-color: #1e222d;
+  border: none;
 }

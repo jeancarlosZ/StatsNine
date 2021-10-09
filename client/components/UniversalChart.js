@@ -13,7 +13,7 @@ export default function UniversalChart(props) {
     //* The classname of the plot (so you can css)
     className = 'default-chart',
     //* The title of the chart
-    title = 'Default Title',
+    title,
     //* The data that will fill the xAxis
     keys,
     //* This is the dataset the chart will use
