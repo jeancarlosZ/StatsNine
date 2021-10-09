@@ -6,6 +6,7 @@ import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
 
 export default function Cash() {
+  let values;
   return (
     <>
       <Subheader />
@@ -17,7 +18,7 @@ export default function Cash() {
             <CashChart />
           </div>
           <Buttons />
-          <FinTable />
+          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
         </div>
       </div>
     </>

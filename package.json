@@ -1,7 +1,7 @@
 {
   "name": "statsnine",
   "version": "2.0.0",
-  "description": "A stock advisor website that focuses on 9 key metrics.",
+  "description": "A stock analysis website that focuses on 9 key metrics.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",

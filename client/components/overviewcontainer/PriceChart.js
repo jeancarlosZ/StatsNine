@@ -1,41 +1,73 @@
-import React from 'react';
-import UniversalChart from '../UniversalChart';
+import React, { useState, useEffect } from 'react'
+import UniversalChart from '../UniversalChart'
+import { fetchChartPrice, DAILY, YEAR } from '../../api/api'
 
 export default function PriceChart() {
+  const [stockPrices, setStockPrices] = useState([])
+
+  useEffect(() => {
+    async function getStockPrices() {
+      setStockPrices(await fetchChartPrice('MSFT', DAILY, YEAR, false))
+    }
+
+    getStockPrices()
+  }, [])
+
   return (
-    <div className="price-chart flex-col align-self">
-      <span className="price-container flex-row justify-evenly pos-rel">
-        <Price />
+    <div className='price-chart flex-col align-self'>
+      <span className='price-container flex-row pos-rel'>
+        <Price stockPrices={stockPrices} />
         <USD />
       </span>
-      <OverviewChart />
+      <OverviewChart stockPrices={stockPrices} />
     </div>
-  );
+  )
 }
 
-function OverviewChart() {
-  const dataset = [];
-  dataset.push({
-    name: 'Liabilities',
-    type: 'line',
-    labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    values: [38, 27, 18, 10, 7],
-    hoverinfo: 'label+percent+name',
-    domain: { row: 1, column: 0 },
-  });
+function OverviewChart(props) {
+  const dataset = []
+  const keys = props.stockPrices.keys
+  const values = props.stockPrices.values
+
+  if (values.length) {
+    dataset.push({
+      customSet: {
+        name: 'MSFT Stock Chart',
+        type: 'candlestick',
+        x: keys,
+        close: values.map(e => e.close),
+        decreasing: { line: { color: 'red' } },
+        high: values.map(e => e.high),
+        increasing: { line: { color: 'green' } },
+        line: { color: 'yellow' },
+        low: values.map(e => e.low),
+        open: values.map(e => e.open),
+        xaxis: 'x',
+        yaxis: 'y',
+      },
+    })
+  }
+
   return (
     <UniversalChart
-      className="example-chart align-self justify-center"
-      title="Net Income"
+      className='stock-price-chart'
+      title='MSFT Stock Chart'
       dataset={dataset}
       showlegend={false}
     />
-  );
+  )
 }
-export function Price() {
-  return <div className="bold">$289.65</div>;
+
+function Price(props) {
+  let price = 0
+
+  if (props.stockPrices.values[0]) {
+    price = props.stockPrices.values[0].close
+  }
+
+  return <div className='bold'>${price}</div>
 }
 
 function USD() {
-  return <div className="usd pos-rel">USD</div>;
+  return <div className='usd pos-rel'>USD</div>
 }

@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import FinTable from './FinTable';
+import { fetchIncomeStatement } from '../../../api/api';
 
 export default function Income() {
+  const [incomeInfo, setIncomeInfo] = useState({});
+
+  useEffect(() => {
+    async function getIncomeInfo() {
+      setIncomeInfo(await fetchIncomeStatement('MSFT'));
+    }
+    getIncomeInfo();
+  }, []);
+
+  const { values } = incomeInfo;
+  let info;
+  let infoArray;
+
+  if (values) {
+    info = values.splice(values.length - 6).reverse();
+    const dates = info.map((info) => info.date);
+    const grossProfit = info.map((info) => info.grossProfit);
+    const operatingExpenses = info.map((info) => info.operatingExpenses);
+    const operatingIncome = info.map((info) => info.operatingIncome);
+    const incomeBeforeTax = info.map((info) => info.incomeBeforeTax);
+    const incomeTaxExpense = info.map((info) => info.incomeTaxExpense);
+    infoArray = [
+      dates,
+      grossProfit,
+      operatingExpenses,
+      operatingIncome,
+      incomeBeforeTax,
+      incomeTaxExpense,
+    ];
+  }
+
   return (
     <React.Fragment>
       <div className="income-container flex-row justify-around">
@@ -11,7 +43,7 @@ export default function Income() {
         <IncomeChart />
       </div>
       <Buttons />
-      <FinTable />
+      {values ? <FinTable rowInfo={infoArray} /> : <div>Loading...</div>}
     </React.Fragment>
   );
 }
