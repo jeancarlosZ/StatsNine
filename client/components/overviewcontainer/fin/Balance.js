@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
+import { fetchBalanceStatement } from '../../../api/api';
 
 export default function Balance() {
-  let values;
+  const [balanceInfo, setBalanceInfo] = useState({});
+
+  useEffect(() => {
+    async function getBalanceInfo() {
+      setBalanceInfo(await fetchBalanceStatement('MSFT'));
+    }
+    getBalanceInfo();
+  }, []);
+
+  const { values } = balanceInfo;
+  let info;
+  let infoArray;
+  if (values) {
+    info = values.splice(values.length - 6).reverse();
+    const dates = info.map((info) => info.date);
+    const totalAssets = info.map((info) => info.totalAssets);
+    const totalLiabilities = info.map((info) => info.totalLiabilities);
+    const totalEquity = info.map((info) => info.totalStockholdersEquity);
+    const totalDebt = info.map((info) => info.totalDebt);
+    const longTermDebt = info.map((info) => info.longTermDebt);
+    infoArray = [
+      dates,
+      totalAssets,
+      totalLiabilities,
+      totalEquity,
+      totalDebt,
+      longTermDebt,
+    ];
+  }
+  console.log(info);
   return (
     <>
       <Subheader />
@@ -18,7 +48,7 @@ export default function Balance() {
             <BalanceChart />
           </div>
           <Buttons />
-          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
+          {values ? <FinTable rowInfo={infoArray} /> : <div>Loading...</div>}
         </div>
       </div>
     </>

@@ -17,8 +17,8 @@ function FinRow(props) {
   return (
     <tbody>
       <tr>
-        {row.map((info) => (
-          <td key={info}>{info}</td>
+        {row.map((info, index) => (
+          <td key={index}>{info}</td>
         ))}
       </tr>
     </tbody>
