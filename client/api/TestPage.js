@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'simplebar/dist/simplebar.min.css'
 import { getLocalData } from '../store/local/localActions'
-import { fetchIncomeStatement } from './api'
+import { fetchFullStatement, fetchIncomeStatement, getTickerResults } from './api'
 
 export default function APITestPage() {
   const [data, setData] = useState({})
@@ -30,8 +30,16 @@ export default function APITestPage() {
       // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
       // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
       // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
-
-      setData(await getLocalData('eps', fetchIncomeStatement, [false, 'annual']))
+      // setData(await getLocalData('eps', fetchIncomeStatement, [false, 'annual']))
+      // setData(
+      //   await getLocalData(
+      //     ['assets', 'liabilities', 'commonstocksharesoutstanding'],
+      //     fetchFullStatement,
+      //     [false, 'annual'],
+      //     ['assetsannual', 'liabilitiesannual', 'stockannual']
+      //   )
+      // )
+      console.log(await getTickerResults())
     }
     getData()
   }, [])
@@ -40,12 +48,12 @@ export default function APITestPage() {
   // can call a function to say
   // setData(await getLocalData('eps', fetchFullStatement, [false, 'annual']))
 
-  console.log('Data:', data)
+  // console.log('Data:', data)
 
-  const { keys, values } = data
+  // const { keys, values } = data
 
-  console.log('Keys:', keys)
-  console.log('Values:', values)
+  // console.log('Keys:', keys)
+  // console.log('Values:', values)
 
   return <></>
 }

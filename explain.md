@@ -725,6 +725,72 @@ This should hopefully help you find the data you need.
 "growthFreeCashFlow" : 0.24567033414832926
 ```
 
+#### KEY METRICS
+##### (fetchKeyMetics())
+
+```
+"revenuePerShareTTM" : 20.876015094016484,
+"netIncomePerShareTTM" : 5.2198005564972965,
+"operatingCashFlowPerShareTTM" : 6.278890524482255,
+"freeCashFlowPerShareTTM" : 5.698832505450747,
+"cashPerShareTTM" : 3.7100621544855787,
+"bookValuePerShareTTM" : 3.865449871796113,
+"tangibleBookValuePerShareTTM" : 3.865449871796113,
+"shareholdersEquityPerShareTTM" : 3.865449871796113,
+"interestDebtPerShareTTM" : 7.480619681886946,
+"marketCapTTM" : 2376337115900,
+"enterpriseValueTTM" : 2464078115900,
+"peRatioTTM" : 27.975725,
+"priceToSalesRatioTTM" : 6.845176119888811,
+"pocfratioTTM" : 22.75879782308886,
+"pfcfRatioTTM" : 25.075311454288368,
+"pbRatioTTM" : 36.96853011667704,
+"ptbRatioTTM" : 36.96853011667704,
+"evToSalesTTM" : 7.097919130935749,
+"enterpriseValueOverEBITDATTM" : 21.527101236196533,
+"evToOperatingCashFlowTTM" : 23.599116171203097,
+"evToFreeCashFlowTTM" : 26.001161952346784,
+"earningsYieldTTM" : 0.03652764560180053,
+"freeCashFlowYieldTTM" : 0.039879863579081506,
+"debtToEquityTTM" : 4.131300560049782,
+"debtToAssetsTTM" : 0.8051176327916566,
+"netDebtToEBITDATTM" : 0.766537950796757,
+"currentRatioTTM" : 1.0618909738849602,
+"interestCoverageTTM" : 38.33448408131952,
+"incomeQualityTTM" : 1.2028985507246377,
+"dividendYieldTTM" : 0.0059482155353393976,
+"dividendYieldPercentageTTM" : 0.5948215535339397600,
+"payoutRatioTTM" : 0.16284147081864472,
+"salesGeneralAndAdministrativeToRevenueTTM" : 0.014218432688568507,
+"researchAndDevelopementToRevenueTTM" : 0.060837378116403336,
+"intangiblesToTotalAssetsTTM" : 0.0,
+"capexToOperatingCashFlowTTM" : -0.09238224759131917,
+"capexToRevenueTTM" : -0.02778585934236868,
+"capexToDepreciationTTM" : -0.8771483131763208,
+"stockBasedCompensationToRevenueTTM" : 0.022137085739799226,
+"grahamNumberTTM" : 21.306800353832095,
+"roicTTM" : 0.4499968480678656,
+"returnOnTangibleAssetsTTM" : 0.26316395828280376,
+"grahamNetNetTTM" : -10.574302539765334,
+"workingCapitalTTM" : 6669000000,
+"tangibleAssetValueTTM" : null,
+"netCurrentAssetValueTTM" : -9.088557829397155,
+"investedCapitalTTM" : 1.8946950840074672,
+"averageReceivablesTTM" : 33472000000,
+"averagePayablesTTM" : 40268000000,
+"averageInventoryTTM" : 5198500000,
+"daysSalesOutstandingTTM" : 35.650991631979956,
+"daysPayablesOutstandingTTM" : 72.01658659010566,
+"daysOfInventoryOnHandTTM" : 9.228188902560497,
+"receivablesTurnoverTTM" : 10.238144390704258,
+"payablesTurnoverTTM" : 5.068276869014328,
+"inventoryTurnoverTTM" : 39.552723059096174,
+"roeTTM" : 1.3101150474868029,
+"capexPerShareTTM" : -0.5800580190315076,
+"dividendPerShareTTM" : 0.85,
+"debtToMarketCapTTM" : 0.11175182099507096
+```
+
 ### Universal Chart
 
 Please note, I have already created an **ExamplePage** which shows a working example
