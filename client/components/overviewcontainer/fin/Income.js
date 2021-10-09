@@ -1,6 +1,7 @@
 import React from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
+import FinTable from './FinTable';
 
 export default function Income() {
   return (
@@ -10,7 +11,7 @@ export default function Income() {
         <IncomeChart />
       </div>
       <Buttons />
-      <Table />
+      <FinTable />
     </React.Fragment>
   );
 }
@@ -51,11 +52,6 @@ function IncomeChart() {
     />
   );
 }
-
-function Table() {
-  return <div className="table">Table</div>;
-}
-
 function Buttons() {
   return (
     <div className="fin-button-container align-self pos-rel">

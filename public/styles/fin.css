@@ -58,7 +58,33 @@
   width: 150px;
 }
 
-.table {
-  border: solid white;
+.fin-table {
+  /* border: solid white; */
   height: 300px;
+}
+
+.fin-row {
+  border: solid orange;
+  height: 80px;
+  color: white;
+}
+.fin-date-container {
+  border: solid red;
+  color: white;
+}
+
+.fin-info {
+  width: 200px;
+  border: solid green;
+  color: white;
+  align-content: flex-end;
+}
+
+.fin-date {
+  border: solid white;
+  width: 200px;
+  height: 30px;
+}
+
+.grey {
 }

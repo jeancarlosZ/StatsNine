@@ -3,6 +3,7 @@ import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
+import FinTable from './FinTable';
 
 export default function Dividends() {
   return (
@@ -16,7 +17,7 @@ export default function Dividends() {
             <DividendsChart />
           </div>
           <Buttons />
-          <Table />
+          <FinTable />
         </div>
       </div>
     </>
@@ -58,10 +59,6 @@ function DividendsChart() {
       showlegend={false}
     />
   );
-}
-
-function Table() {
-  return <div className="table">Table</div>;
 }
 
 function Buttons() {
