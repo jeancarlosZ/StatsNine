@@ -8,13 +8,13 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import '../public/style.css';
-import '../public/fin.css';
-
+import '../public/styles/fin.css';
+import '../public/styles/overview.css';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <App />
     </Router>
   </Provider>,
-  document.getElementById("app"),
+  document.getElementById('app')
 );

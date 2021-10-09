@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Overview from './overviewcontainer/overview/Overview';
-import Financialspage from './overviewcontainer/fin/Financialspage';
-import KeyMetrics from './overviewcontainer/keymetrics/KeyMetrics';
 
 export default function Subheader() {
   const history = useHistory();
@@ -11,21 +8,18 @@ export default function Subheader() {
     <div>
       <nav className="sub-header">
         <button
-          value="overview"
           className="buttons sub-button pos-rel bold"
-          onClick={() => history.push('/overviewpage/overview')}
+          onClick={() => history.push('/overviewpage')}
         >
           Overview
         </button>
         <button
-          value="keyMetrics"
           className="buttons sub-button pos-rel bold"
           onClick={() => history.push('/overviewpage/keyMetrics')}
         >
           Key Metrics
         </button>
         <button
-          value="financials"
           className="buttons sub-button pos-rel bold"
           onClick={() => history.push('/overviewpage/financials')}
         >
