@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import store from '../index.js'
 import { SET_TICKER, UPDATE_LOCAL } from '.'
 import { logError } from '../../utils.js'
+import { load } from 'cheerio'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
@@ -63,7 +64,13 @@ export async function getLocalData(key, func, args, save) {
       //* saved within the state
       toLoad.map(pair => {
         const { a, b } = pair
-        const individualData = { keys: loadedData.keys, values: loadedData.values.map(x => x[a]) }
+        let individualData
+
+        if (!Array.isArray(loadedData))
+          individualData = { keys: loadedData.keys, values: loadedData.values.map(x => x[key]) }
+        else if (Array.isArray(loadedData)) individualData = loadedData[0][key]
+        else individualData = loadedData[key]
+
         data[a] = individualData
         //* Update the local store
         store.dispatch(updateLocalData(b, individualData))
@@ -84,7 +91,20 @@ async function handleLocalData(state, save, func, args, key) {
   if (local) return local
   //* If not in local store, load data from API
   const loadedData = await func(state.local.ticker, ...args)
-  const data = { keys: loadedData.keys, values: loadedData.values.map(x => x[key]) }
+
+  //! Remove
+  console.log('--------------------')
+  console.log('save:', save)
+  console.log('loadedData:', loadedData)
+  console.log('--------------------')
+  //! Remove
+
+  let data
+  //* Because data may not be time series data we must add a check
+  if (!Array.isArray(loadedData))
+    data = { keys: loadedData.keys, values: loadedData.values.map(x => x[key]) }
+  else if (Array.isArray(loadedData)) data = loadedData[0][key]
+  else data = loadedData[key]
   //* Update the local store
   store.dispatch(updateLocalData(save, data))
   return data
