@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import UniversalChart from '../../UniversalChart';
-import { fetchMarketCap } from '../../../api/api';
+import { fetchIncomeStatement } from '../../../api/api';
 
 export default function SnP500() {
-  const [marketData, setMarketData] = useState({});
+  const [progressData, setProgressData] = useState({});
 
   useEffect(() => {
     async function getData() {
-      setMarketData(await fetchMarketCap('AAPL'));
+      setProgressData(await fetchIncomeStatement('AAPL'));
     }
+
     getData();
   }, []);
 
-  console.log('Market Data:', marketData);
+  console.log('Progress Data:', progressData);
 
-  const { keys, values } = marketData;
+  const { keys, values } = progressData;
 
   console.log('Keys:', keys);
   console.log('Values:', values);
@@ -23,21 +24,21 @@ export default function SnP500() {
 
   if (values) {
     dataset.push({
-      name: 'S&P 500',
-      type: 'bar',
+      name: 'current progress',
+      type: 'line',
       color: '#00887b',
       outline: '#34b87d',
-      domain: { row: 1, column: 0 },
 
-      // values: values.map(x => x.price),
+      values: values.map(x => x.netIncome),
     });
   }
 
   return (
     <>
       <UniversalChart
-        className="example-chart"
-        title="Market Data"
+        className="monitor-chart"
+        title=""
+        keys={keys}
         dataset={dataset}
         showlegend={false}
       />
