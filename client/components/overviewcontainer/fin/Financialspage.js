@@ -17,30 +17,30 @@ export default function Financialspage() {
   );
 }
 
-function FinancialsNavBar() {
+export function FinancialsNavBar() {
   const history = useHistory();
   return (
     <nav className="fin-nav">
       <button
         className="buttons nav-button"
-        onClick={() => history.push('/overviewpage/financials/income')}
+        onClick={() => history.push('/overviewpage/financials')}
       >
         Income Statement
       </button>
       <button
-        className="buttons nav-button inactive"
+        className="buttons nav-button"
         onClick={() => history.push('/overviewpage/financials/balance')}
       >
         Balance Sheet
       </button>
       <button
-        className="buttons nav-button inactive"
+        className="buttons nav-button"
         onClick={() => history.push('/overviewpage/financials/cashflow')}
       >
         Cash Flow
       </button>
       <button
-        className="buttons nav-button inactive"
+        className="buttons nav-button"
         onClick={() => history.push('/overviewpage/financials/dividends')}
       >
         Dividends

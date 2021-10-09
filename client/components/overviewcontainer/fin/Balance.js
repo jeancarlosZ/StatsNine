@@ -1,17 +1,25 @@
 import React from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
+import Subheader from '../../Subheader';
+import { FinancialsNavBar } from './Financialspage';
 
 export default function Balance() {
   return (
-    <React.Fragment>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo />
-        <IncomeChart />
+    <>
+      <Subheader />
+      <div className="main flex-col justify-center">
+        <div className="card align-self justify-around">
+          <FinancialsNavBar />
+          <div className="income-container flex-row justify-around">
+            <CompanyInfo />
+            <BalanceChart />
+          </div>
+          <Buttons />
+          <Table />
+        </div>
       </div>
-      <Buttons />
-      <Table />
-    </React.Fragment>
+    </>
   );
 }
 
@@ -19,7 +27,7 @@ function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
       <div className="company-info pos-rel">
-        <span className="company-name bold">MICROSOFT CORP.</span>
+        <span className="company-name bold">BALANCE CORP.</span>
         <div className="ticker-container flex-row justify-between">
           <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
@@ -30,7 +38,7 @@ function CompanyInfo() {
   );
 }
 
-function IncomeChart() {
+function BalanceChart() {
   const dataset = [];
 
   dataset.push({
