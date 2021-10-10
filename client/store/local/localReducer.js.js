@@ -9,7 +9,9 @@ const initialState = {
 export default function localReducer(state = initialState, action) {
   switch (action.type) {
     case SET_TICKER:
-      return { ...state, ticker: action.payload }
+      //* When the ticker changes, we clear the object!
+      //* This is so we don't display the wrong data
+      return { ticker: action.payload }
     case UPDATE_LOCAL:
       return { ...state, [action.key]: action.payload }
     default:

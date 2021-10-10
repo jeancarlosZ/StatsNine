@@ -256,15 +256,14 @@ async function fetchData(link) {
     const { data } = await axios.get(link);
     //! Remove (This is here so we can debug!)
     //! Remove (This is here so we can debug!)
-    console.log('--------------------');
-    console.log(
-      'Fetching data: Try to fetch data as little as possible (once per chart/datapoint)!'
-    );
-    console.log('--------------------');
-    console.log(link);
-    console.log('--------------------');
-    console.log('Data:', data);
-    console.log('--------------------');
+    console.log('--------------------')
+    console.log('Fetching data: ', {
+      data: data,
+      link: link
+        .replace('https://financialmodelingprep.com/api/', '')
+        .replace('&apikey=0235b47c3f99a539c04921b8cec8ad18', '')
+    })
+    console.log('--------------------')
     //! Remove (This is here so we can debug!)
     //! Remove (This is here so we can debug!)
     //* Make axios call, return the data

@@ -7,6 +7,7 @@ import Metrics from './subpages/Metrics'
 import PriceMetric from './subpages/PriceMetric'
 import QualityMetric from './subpages/QualityMetric'
 import SafetyMetric from './subpages/SafetyMetric'
+import TestPage from '../../../api/TestPage'
 
 export default function KeyMetrics() {
   const location = useLocation()
@@ -36,6 +37,9 @@ function getCorrectPage(selected) {
       return <QualityMetric />
     case 'safety':
       return <SafetyMetric />
+    // TODO: !Remove this
+    case 'test':
+      return <TestPage />
     default:
       return <Metrics />
   }
