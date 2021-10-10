@@ -1,43 +1,34 @@
-import React from 'react';
+import React from 'react'
 
 export default function Searchbar() {
   async function attemptSearch(event) {
-    const value = event.target.value;
+    const value = event.target.value
     if (event.key !== 'Enter') {
-      return;
+      return
     } else {
       if (value.length >= 1) {
         console.log(
-          'Make API call for selected value and take user to overview page for that particular value.'
-        );
+          'Make API call for selected value and take user to overview page for that particular value.',
+        )
       }
     }
   }
 
   async function handleChange(event) {
-    const value = event.target.value;
+    const value = event.target.value
     if (value.length >= 1) {
-      console.log('Make API call to display query results.');
+      console.log('Make API call to display query results.')
     }
   }
 
   return (
-    <div className="top-search-bar">
+    <div className='top-search-bar'>
       <input
-        className="top-search-input"
-        placeholder="Search"
+        className='top-search-input'
+        placeholder='Search'
         onKeyDown={event => attemptSearch(event)}
         onChange={event => handleChange(event)}
       />
     </div>
-  );
-}
-
-{
-  /* <div className="input-group search-area ml-auto d-inline-flex">
-<input type="text" className="form-control" placeholder="Search here" spellcheck="false" data-ms-editor="true">
-<div class="input-group-append">
-<button type="button" className="input-group-text"><i className="flaticon-381-search-2"></i></button>
-</div>
-</div> */
+  )
 }
