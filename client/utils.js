@@ -3,6 +3,8 @@
 //*
 //* (Please comment your functions so we know what they do)
 
+import { BAD, GOOD } from './store/local/localActions'
+
 //* Check if two objects are the same.
 export function isSameObject(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2)
@@ -104,5 +106,5 @@ export function logError(error, desc = '') {
 //* Function used to get the corresponding star color
 //* Based on the type of rating the metric received
 export function getStarColor(rating) {
-  return rating === 'good' ? '#2CDD9B' : rating === 'bad' ? '#FE5252' : '#FAAD14'
+  return rating === GOOD ? '#2CDD9B' : rating === BAD ? '#FE5252' : '#FAAD14'
 }
