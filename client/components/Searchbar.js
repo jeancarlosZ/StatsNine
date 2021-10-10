@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Searchbar() {
-  async function attemptSearch(event) {
+  function attemptSearch(event) {
     const value = event.target.value
     if (event.key !== 'Enter') {
       return
@@ -14,7 +14,7 @@ export default function Searchbar() {
     }
   }
 
-  async function handleChange(event) {
+  function handleChange(event) {
     const value = event.target.value
     if (value.length >= 1) {
       console.log('Make API call to display query results.')
