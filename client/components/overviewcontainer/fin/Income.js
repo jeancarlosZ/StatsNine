@@ -60,7 +60,7 @@ export default function Income() {
 
   return (
     <React.Fragment>
-      <div className="income-container flex-row justify-around">
+      <div className="income-container flex-row justify-between">
         <CompanyInfo
           companyName={companyProfile.companyName}
           symbol={companyProfile.symbol}

@@ -15,25 +15,24 @@
   font-size: 20px;
 }
 
-.card {
-  border: solid red;
-  border-radius: 15px;
-  background: rgba(30, 34, 45, 0.3);
-}
-
 /**Income.js**/
 .income-container {
   height: 300px;
 }
 
 .company-container {
-  width: 400px;
-  height: 130px;
-  background-color: rgb(196, 196, 196, 0.1);
+  top: 15px;
+  left: 15px;
+  width: 600px;
+  height: 230px;
+  background-color: rgba(30, 34, 45, 0.6);
   color: #d0d3db;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
 }
 
 .company-info {
+  width: 530px;
   left: 40px;
   top: 25px;
 }

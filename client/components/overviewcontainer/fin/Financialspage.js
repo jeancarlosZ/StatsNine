@@ -35,8 +35,6 @@ function getCorrectPage(selected) {
       return <EnterpriseValue />;
     default:
       return <Income />;
-    // default:
-    //   return <Metrics />;
   }
 }
 
