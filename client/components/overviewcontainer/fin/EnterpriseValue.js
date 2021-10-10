@@ -21,7 +21,7 @@ export default function EnterpriseValue() {
   let info;
   let infoArray = [];
   const labels = [
-    'Date',
+    '',
     'Enterprise Value',
     'Market Cap',
     'Number Of Shares',

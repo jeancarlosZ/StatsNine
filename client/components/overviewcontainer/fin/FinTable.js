@@ -17,17 +17,19 @@ export default function FinTable(props) {
 }
 
 function FinRow(props) {
-  let className = props.index % 2 ? 'light' : 'dark';
-  className = `${className} fin-row center-text`;
+  let className;
+  let color = props.index % 2 ? 'light' : 'dark';
+  let bold = props.index === 0 ? 'fin-date' : '';
+  className = `${color} ${bold} fin-row center-text`;
   const row =
-    props.label !== 'Date'
+    props.label !== ''
       ? props.rowInfo.map((info) => formatNumber(info))
       : props.rowInfo.map((info) => info.slice(0, 4));
 
   return (
     <tbody>
       <tr className={className}>
-        <td className="fin-col">{props.label}</td>
+        <td className="fin-col fin-label">{props.label}</td>
         {row.map((info, index) => (
           <td key={index} className="fin-col">
             {info}

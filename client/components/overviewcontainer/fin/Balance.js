@@ -20,7 +20,7 @@ export default function Balance() {
   let info;
   let infoArray = [];
   const labels = [
-    'Date',
+    '',
     'Total Assets',
     'Total Liabilities',
     'Total Equity',

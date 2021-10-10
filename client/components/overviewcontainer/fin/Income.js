@@ -15,13 +15,14 @@ export default function Income() {
   }, []);
 
   const { values } = incomeInfo;
+
   let info;
   let infoArray = [];
   const labels = [
-    'Date',
+    '',
     'Gross Profit',
     'Operating Expenses',
-    'OperatingIncome',
+    'Operating Income',
     'Pretax Income',
     'Income Taxes',
   ];

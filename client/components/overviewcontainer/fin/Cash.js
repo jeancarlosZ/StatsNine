@@ -20,7 +20,7 @@ export default function Cash() {
   let info;
   let infoArray = [];
   const labels = [
-    'Date',
+    '',
     'Capital Expenditure',
     'Cash Flow',
     'Operating',
