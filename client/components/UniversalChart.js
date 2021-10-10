@@ -220,15 +220,15 @@ export default function UniversalChart(props) {
         data={data}
         layout={fullLayout ? fullLayout : layout}
         useResizeHandler={true}
-        onClick={() => whenClick()}
-        onDoubleClick={() => onDoubleClick()}
-        onHover={() => onHover()}
-        onUnhover={() => onUnhover()}
-        onLegendClick={() => onLegendClick()}
-        onLegendDoubleClick={() => onLegendDoubleClick()}
-        onSelected={() => onSelected()}
-        onSelecting={() => onSelecting()}
-        onDeselect={() => onDeselect()}
+        onClick={data => whenClick(data)}
+        onDoubleClick={data => onDoubleClick(data)}
+        onHover={data => onHover(data)}
+        onUnhover={data => onUnhover(data)}
+        onLegendClick={data => onLegendClick(data)}
+        onLegendDoubleClick={data => onLegendDoubleClick(data)}
+        onSelected={data => onSelected(data)}
+        onSelecting={data => onSelecting(data)}
+        onDeselect={data => onDeselect(data)}
       />
     </>
   )
