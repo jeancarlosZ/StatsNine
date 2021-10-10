@@ -3,7 +3,7 @@ import { roundNumberDec, formatNumber } from '../../../utils';
 
 export default function FinTable(props) {
   return (
-    <table className="screener-table">
+    <table className="fin-table">
       {props.rowInfo.map((info, index) => (
         <FinRow
           rowInfo={info}

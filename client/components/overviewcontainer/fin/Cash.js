@@ -36,7 +36,6 @@ export default function Cash() {
     infoArray.push(info.map((info) => info.otherInvestingActivites));
     infoArray.push(info.map((info) => info.otherFinancingActivites));
   }
-  console.log(values);
   return (
     <>
       <Subheader />
@@ -51,7 +50,7 @@ export default function Cash() {
           {values ? (
             <FinTable rowInfo={infoArray} labels={labels} />
           ) : (
-            <div>Loading...</div>
+            <div className="table-space">Loading...</div>
           )}
         </div>
       </div>
@@ -97,7 +96,7 @@ function CashChart() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>

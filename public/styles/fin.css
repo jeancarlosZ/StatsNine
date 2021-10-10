@@ -54,8 +54,8 @@
 
 .fin-button-container {
   bottom: 15px;
-  right: 25px;
-  width: 150px;
+  right: 10px;
+  width: 200px;
 }
 
 .fin-table {
@@ -98,4 +98,19 @@
 
 .dark {
   background-color: rgba(95, 95, 95, 0.1);
+}
+
+.fin-table {
+  padding: 1rem;
+  font-size: 1.15rem;
+  margin: 1rem;
+  color: #d0d3db;
+  background-color: #131722;
+}
+
+.table-space {
+  width: 1266px;
+  height: 300px;
+  color: white;
+  margin: 1rem;
 }

@@ -51,7 +51,7 @@ export default function EnterpriseValue() {
           {values ? (
             <FinTable rowInfo={infoArray} labels={labels} />
           ) : (
-            <div>Loading...</div>
+            <div className="table-space">Loading...</div>
           )}
         </div>
       </div>
@@ -63,7 +63,7 @@ function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
       <div className="company-info pos-rel">
-        <span className="company-name bold">DIVIDENDS CORP.</span>
+        <span className="company-name bold">ENTERPRISE VALUE</span>
         <div className="ticker-container flex-row justify-between">
           <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
@@ -97,7 +97,7 @@ function DividendsChart() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>

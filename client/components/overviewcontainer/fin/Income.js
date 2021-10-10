@@ -46,7 +46,7 @@ export default function Income() {
       {values ? (
         <FinTable rowInfo={infoArray} labels={labels} />
       ) : (
-        <div>Loading...</div>
+        <div className="table-space">Loading...</div>
       )}
     </React.Fragment>
   );
@@ -89,7 +89,7 @@ function IncomeChart() {
 }
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>
