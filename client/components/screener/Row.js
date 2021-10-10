@@ -29,7 +29,7 @@ export default function Row(props) {
       <td className='screen-border screen-num screen-green'>{lastAnnualDividend} USD</td>
       <td className='screen-border screen-num'>{volume}</td>
       <td className='screen-border screen-num'>{marketCap} USD</td>
-      <td className='screen-border'>{sector}</td>
+      <td className='screen-border screen-small'>{sector}</td>
     </tr>
   )
 }

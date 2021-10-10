@@ -10,7 +10,7 @@
 .screen-border {
   border: 0.1rem solid #434651;
   padding: 1rem;
-  width: 13vw;
+  width: 13.5vw;
 }
 
 .screen-border-h {
@@ -35,7 +35,7 @@
 }
 
 .screen-name {
-  width: 32.3vw;
+  width: 29.8vw;
 }
 
 .screen-green {
@@ -46,4 +46,8 @@
   color: #3e6fb9;
   font-weight: 700;
   font-size: larger;
+}
+
+.screen-small {
+  font-size: small;
 }
