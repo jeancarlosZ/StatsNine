@@ -14,10 +14,11 @@ import {
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
-export function setTickerSymbol(ticker) {
+//* UPDATE: Made change to allow for stock.name
+export function setCurrentStock(ticker, companyName) {
   return {
     type: SET_TICKER,
-    payload: ticker.toUpperCase()
+    payload: { ticker: ticker, companyName: companyName }
   }
 }
 

@@ -15,7 +15,9 @@ export default function Header() {
 
   return (
     <div className="our-company-header shadow-deep-nohover">
-      <div className="our-company-name">StatsNine</div>
+      <div className="our-company-name" onClick={() => history.push('/home')}>
+        StatsNine
+      </div>
       <div className="header-space-one"></div>
       <Searchbar />
       <div className="header-space-two"></div>
