@@ -1,0 +1,50 @@
+.aboutus-container {
+  padding: 1rem;
+  color: white;
+  font-weight: 300;
+  margin-top: 0.25rem;
+  height: 91.5vh;
+  width: 100vw;
+  background-image: url('https://images.unsplash.com/photo-1563610565075-002447a1e162?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2371&q=80');
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: auto;
+}
+
+.aboutus-hfont {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.aboutus {
+  background-color: #1e222d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  height: max-content;
+  align-items: center;
+  padding-top: 2.8rem;
+}
+
+.aboutus-sn {
+  grid-column: 1 / span 9;
+  grid-row: 1;
+}
+
+.aboutus-contact {
+  grid-column: 18 / span 3;
+  grid-row: 1;
+  text-align: center;
+}
+
+.aboutus-careers {
+  grid-column: 3 / span 9;
+  grid-row: 2;
+}
+
+.aboutus-you {
+  grid-column: 16 / span 5;
+  grid-row: 10;
+  text-align: center;
+}
