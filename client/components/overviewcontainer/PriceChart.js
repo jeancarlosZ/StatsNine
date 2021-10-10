@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import UniversalChart from '../UniversalChart'
 import { fetchChartPrice, DAILY, YEAR } from '../../api/api'
 
 export default function PriceChart() {
+  const { ticker } = useSelector(state => state.local)
   const [stockPrices, setStockPrices] = useState([])
 
   useEffect(() => {
     async function getStockPrices() {
-      setStockPrices(await fetchChartPrice('MSFT', DAILY, YEAR, false))
+      setStockPrices(await fetchChartPrice(ticker, DAILY, YEAR, false))
     }
 
     getStockPrices()
@@ -19,7 +21,7 @@ export default function PriceChart() {
         <Price stockPrices={stockPrices} />
         <USD />
       </span>
-      <OverviewChart stockPrices={stockPrices} />
+      <OverviewChart stockPrices={stockPrices} ticker={ticker} />
     </div>
   )
 }
@@ -28,11 +30,12 @@ function OverviewChart(props) {
   const dataset = []
   const keys = props.stockPrices.keys
   const values = props.stockPrices.values
+  const symbol = props.ticker
 
   if (values.length) {
     dataset.push({
       customSet: {
-        name: 'MSFT Stock Chart',
+        name: `${symbol} Stock Chart`,
         type: 'candlestick',
         x: keys,
         close: values.map(e => e.close),
@@ -51,7 +54,7 @@ function OverviewChart(props) {
   return (
     <UniversalChart
       className='stock-price-chart'
-      title='MSFT Stock Chart'
+      title={`${symbol} Stock Chart`}
       dataset={dataset}
       showlegend={false}
     />
