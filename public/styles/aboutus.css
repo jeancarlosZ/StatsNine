@@ -1,0 +1,60 @@
+.aboutus-container {
+  padding: 1rem;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-weight: 300;
+  margin-top: 0.25rem;
+  height: 91.5vh;
+  width: 100vw;
+  background-image: url('https://images.unsplash.com/photo-1563610565075-002447a1e162?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2371&q=80');
+  background-size: cover;
+}
+
+.aboutus-sn {
+  width: 45vw;
+  background-color: #1e222d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  height: max-content;
+}
+
+.aboutus-hfont {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.aboutus-contact {
+  background-color: #1e222d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  height: max-content;
+  position: relative;
+  left: 39vw;
+}
+
+.aboutus-careers {
+  background-color: #1e222d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  position: relative;
+  height: max-content;
+  bottom: 10vh;
+  left: 15vw;
+  width: 45vw;
+}
+
+.aboutus-you {
+  background-color: #1e222d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  position: relative;
+  height: max-content;
+  top: 17vw;
+  left: 31vw;
+}
