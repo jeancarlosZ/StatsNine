@@ -221,20 +221,21 @@ export async function getTickerResults() {
     pfcf: avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
     pfcfdata: avgfcf,
     revgrowth: revg[0] < revg[revg.length - 1] ? GOOD : BAD,
-    revgrowthdata: revg,
+    revgrowthdata: { k: revenue.keys.slice(-5), v: revg },
     cashgrowth: cashg[0] < cashg[cashg.length - 1] ? GOOD : BAD,
-    cashgrowthdata: cashg,
+    cashgrowthdata: { k: freeCashFlow.keys.slice(-5), v: cashg },
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
-    netincomedata: netg,
+    netincomedata: { k: netIncome.keys.slice(-5), v: netg },
     roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
     roicdata: roicTTM,
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
-    assetsdata: { a: totalAssets.values.slice(-1), b: totalLiabilities.values.slice(-1) },
+    assetsdata: { a: totalAssets.values.slice(-5), b: totalLiabilities.values.slice(-5) },
     ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
     ltldata: ltlyears
   }
+
   store.dispatch(updateLocalData('results', results))
   return results
 }

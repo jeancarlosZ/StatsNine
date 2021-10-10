@@ -2,7 +2,7 @@
   --headerHeight: 80px;
   --subHeaderHeight: 40px;
 
-  --gmetricsPageHeight: calc(175vh - (var(--subHeaderHeight) + var(--headerHeight)));
+  --gmetricsPageHeight: calc(200vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --gmetricsPageWidth: 100vw;
 
   --gmetricsMargin: 15px;
@@ -36,7 +36,7 @@
     var(--gmetricInnerSubcontainerWidth) - var(--gmetricsOverviewWidth)
   );
 
-  --chartGap: 5px;
+  --chartGap: 20px;
   --chartPadding: 0px;
   --chartPaddings: calc(var(--chartPadding) * 2);
 
@@ -403,10 +403,11 @@ body {
 .growthmetrics {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 
   flex: 1;
   margin-left: 10px;
+  margin-right: 10px;
 
   /* TODO color*/
   /* background-color: gray; */

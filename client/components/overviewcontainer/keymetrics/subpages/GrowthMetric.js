@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { fetchCashflowStatement, fetchIncomeStatement, fetchRatios } from '../../../../api/api'
 import Star from '../../../../assets/icons/star'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
-import { formatNumber, getStarColor, roundNumberDec, trimDate } from '../../../../utils'
+import {
+  formatNumber,
+  getDifferenceBetween,
+  getFirstLastArr,
+  getPercentDifference,
+  getStarColor,
+  roundNumberDec,
+  trimDate
+} from '../../../../utils'
+import Growthchart from '../charts/GrowthChart'
 import PeHistChart from '../charts/PEHistChart'
 import PFCFHistChart from '../charts/PFCFHistChart'
 import MetricSelector from '../MetricSelector'
@@ -11,31 +20,40 @@ import MetricSelector from '../MetricSelector'
 //* Shown at /overviewpage/keymetrics/price
 export default function GrowthMetric() {
   const [results, setResults] = useState({})
+  //* Selected Range, series, and the chart data
+  const [dataType, setDataType] = useState({ fcf: 'quarter', net: 'quarter', rev: 'quarter' })
   const [data, setData] = useState({})
 
   useEffect(() => {
     async function getData() {
       setResults(await getTickerResults())
       //* Load the data from the API
-      const { freeCashFlow, netIncome } = await getLocalData(
-        ['freeCashFlow', 'netIncome'],
+      const netIncome = await getLocalData(
+        'netIncome',
         fetchCashflowStatement,
-        [false, 'annual'],
-        ['fcfannual', 'netincomeannual']
+        [false, dataType.net],
+        `netincome${dataType.net}`
+      )
+      //* Load the data from the API
+      const freeCashFlow = await getLocalData(
+        'freeCashFlow',
+        fetchCashflowStatement,
+        [false, dataType.fcf],
+        `fcf${dataType.fcf}`
       )
       //* Load the data from the API
       const revenue = await getLocalData(
         'revenue',
         fetchIncomeStatement,
-        [false, 'annual'],
-        'revenueannual'
+        [false, dataType.rev],
+        `revenue${dataType.rev}`
       )
 
       //* Save the data to the state here for the charts
       setData({ freeCashFlow, netIncome, revenue })
     }
     getData()
-  }, [])
+  }, [dataType])
 
   return (
     <div className="growth-metrics-container">
@@ -46,19 +64,46 @@ export default function GrowthMetric() {
             <div className="slot gnetincome">
               {getGrowthOverview(results, data, 'netincome')}
               <div className="gmetric-chart shadow-nohover">
-                <PeHistChart data={data.netIncome} />
+                <Growthchart
+                  title="Net Income"
+                  color="rgba(250, 173, 20, 0.3)"
+                  outline="rgba(250, 173, 20, 0.6)"
+                  type=""
+                  name="net"
+                  data={data.netIncome}
+                  dataType={dataType}
+                  setDataType={setDataType}
+                />
               </div>
             </div>
             <div className="slot gcashflow">
               <div className="gmetric-chart shadow-nohover">
-                <PeHistChart data={data.freeCashFlow} />
+                <Growthchart
+                  title="Cash Flow"
+                  color="rgba(41, 98, 254, 0.3)"
+                  outline="rgba(41, 98, 254, 0.6)"
+                  type=""
+                  name="fcf"
+                  data={data.freeCashFlow}
+                  dataType={dataType}
+                  setDataType={setDataType}
+                />
               </div>
-              {getGrowthOverview(results, data, 'netincome')}
+              {getGrowthOverview(results, data, 'cashflow')}
             </div>
             <div className="slot grevenue">
-              {getGrowthOverview(results, data, 'netincome')}
+              {getGrowthOverview(results, data, 'revenue')}
               <div className="gmetric-chart shadow-nohover">
-                <PeHistChart data={data.revenue} />
+                <Growthchart
+                  title="Revenue"
+                  color="rgba(243, 142, 176, 0.4)"
+                  outline="rgba(243, 142, 176, 0.6)"
+                  type=""
+                  name="rev"
+                  data={data.revenue}
+                  dataType={dataType}
+                  setDataType={setDataType}
+                />
               </div>
             </div>
           </div>
@@ -75,12 +120,15 @@ function getGrowthOverview(results, data, growthType) {
   if (!results) return
   switch (growthType) {
     case 'netincome': {
+      const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
       return (
         <div className="growthmetrics">
           <div className="metric-spacer"></div>
           <div className="metric">
             {getMetricItem('5yr Net Income Growth', results.netincome)}
-            <span className="result">{`${results.ticker} Mircosoft’s has increased it’s net income by $35.78B over the last 5 years or a total increase of 140.369%!`}</span>
+            <span className="result">{`${results.ticker} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
                 Net income is the profit that remains after all expenses and costs have been
@@ -90,7 +138,61 @@ function getGrowthOverview(results, data, growthType) {
                 bottom of the income statement.
               </p>
             </div>
-            <div className="previewcontainer">{getDataPreview(data ? data.netIncome : null)}</div>
+            <div className="previewcontainer">
+              {getDataPreview(results ? results.netincomedata : null)}
+            </div>
+          </div>
+          <div className="metric-spacer"></div>
+        </div>
+      )
+    }
+    case 'cashflow': {
+      const dataarr = results.cashgrowthdata ? results.cashgrowthdata.v.slice(-5) : null
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
+      return (
+        <div className="growthmetrics">
+          <div className="metric-spacer"></div>
+          <div className="metric">
+            {getMetricItem('5yr Cash Flow Growth', results.cashgrowth)}
+            <span className="result">{`${results.ticker} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <div className="desc">
+              <p>
+                Free cash flow (FCF) represents the cash a company generates after accounting for
+                cash outflows to support operations and maintain its capital assets. Because FCF
+                accounts for changes in working capital, it can provide important insights into the
+                value of a company and the health of its fundamental trends.
+              </p>
+            </div>
+            <div className="metric-spacer"></div>
+            <div className="previewcontainer">
+              {getDataPreview(results ? results.cashgrowthdata : null)}
+            </div>
+          </div>
+        </div>
+      )
+    }
+    case 'revenue': {
+      const dataarr = results.revgrowthdata ? results.revgrowthdata.v.slice(-5) : null
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
+      return (
+        <div className="growthmetrics">
+          <div className="metric-spacer"></div>
+          <div className="metric">
+            {getMetricItem('5yr Revenue Growth', results.revgrowth)}
+            <span className="result">{`${results.ticker} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <div className="desc">
+              <p>
+                Revenue is the money generated from normal business operations, calculated as the
+                average sales price times the number of units sold. Revenue is known as the top line
+                because it appears first on a company's income statement. There is a profit when
+                revenues exceed expenses.
+              </p>
+            </div>
+            <div className="previewcontainer">
+              {getDataPreview(results ? results.revgrowthdata : null)}
+            </div>
           </div>
           <div className="metric-spacer"></div>
         </div>
@@ -104,14 +206,14 @@ function getGrowthOverview(results, data, growthType) {
 //* whenever the user clicks on it!
 function getDataPreview(data) {
   if (!data) return <div className="preview">Loading...</div>
-  const { keys, values } = data
+  const { k, v } = data
   return (
     <div className="preview shadow-nohover zoomable-med">
       <div className="prev-wrapper">
         <table>
           <tbody>
-            <tr>{getTableDatas(keys.slice(-5), trimDate, 'head')}</tr>
-            <tr>{getTableDatas(values.slice(-5), formatNumber)}</tr>
+            <tr>{getTableDatas(k, trimDate, 'head')}</tr>
+            <tr>{getTableDatas(v, formatNumber)}</tr>
           </tbody>
         </table>
       </div>

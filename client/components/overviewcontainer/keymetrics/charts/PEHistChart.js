@@ -19,9 +19,9 @@ export default function PeHistChart({ data }) {
     //* In this case I am going to make a chart to display the net income
     dataset.push({
       name: 'PE Ratio',
-      type: 'bar',
-      color: 'rgba(44, 221, 155, 0.3)',
-      outline: 'rgba(44, 221, 155, 0.6)',
+      type: 'line',
+      color: 'rgba(44, 221, 155, 0.6)',
+      outline: 'rgba(44, 221, 155, 0.8)',
       // color: 'rgba(0, 136, 123, 0.5)',
       // outline: 'rgba(0, 136, 123, 1)',
       //* Since our VALUES array contains many different values, we must select
