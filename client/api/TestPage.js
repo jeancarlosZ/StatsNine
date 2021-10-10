@@ -3,6 +3,7 @@ import 'simplebar/dist/simplebar.min.css'
 import { DAILY, fetchChartPrice, WEEK } from './api'
 import { getLocalData } from '../store/local/localActions'
 import { fetchFullStatement, fetchIncomeStatement, getTickerResults } from './api'
+import MetricSelector from '../components/overviewcontainer/keymetrics/MetricSelector'
 
 export default function APITestPage() {
   const [data, setData] = useState({})
@@ -63,5 +64,14 @@ export default function APITestPage() {
   // console.log('Keys:', keys)
   // console.log('Values:', values)
 
-  return <></>
+  return (
+    <div className="key-metrics-container">
+      <div className="sub-container shadow-deep-nohover">
+        <MetricSelector />
+        <div className="metric-container">
+          <div className="metric-sub-container"></div>
+        </div>
+      </div>
+    </div>
+  )
 }

@@ -1,5 +1,5 @@
 * {
-  --headerHeight: 80px;
+  --headerHeight: var(--mainHeaderHeight);
   --subHeaderHeight: 40px;
 
   --gmetricsPageHeight: calc(200vh - (var(--subHeaderHeight) + var(--headerHeight)));

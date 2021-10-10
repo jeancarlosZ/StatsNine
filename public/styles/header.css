@@ -1,27 +1,45 @@
+* {
+  --mainHeaderHeight: 60px;
+}
+
 .our-company-header {
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  box-shadow: 0 0.2rem 0.1rem #434651;
-  padding: 1rem;
+  padding: auto 1vw;
   font-size: 1.15rem;
-  height: 5rem;
-  width: 100vw;
+
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   color: #d0d3db;
   background-color: #131722;
+  border-bottom: 2px solid var(--bgAccent);
+
+  height: var(--mainHeaderHeight);
+  width: 100vw;
 }
 
 .our-company-name {
   color: #ffffff;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-left: 1.5rem;
 }
 
 .header-space-one {
   flex-grow: 2;
+}
+
+/** the search icon */
+.search-icon {
+  width: 24px;
+  height: 24px;
+  color: #434651;
+
+  /** moving it to pos */
+  position: relative;
+  right: 35px;
 }
 
 .top-search-bar {
@@ -30,12 +48,20 @@
 
 .top-search-input {
   border-radius: 1.5rem;
-  background-color: #434651;
-  font-size: 1.15rem;
+  font-size: 0.8rem;
   width: 38vw;
-  color: lightgray;
+  background-color: rgba(67, 70, 81, 0.3);
+  border-color: rgba(67, 70, 81, 0.6);
+  color: #434651;
+  font-weight: bold;
   padding: 0.3rem;
   padding-left: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.top-search-input:hover {
+  background-color: rgba(67, 70, 81, 0.2);
+  border-color: rgba(67, 70, 81, 0.5);
 }
 
 .header-space-two {
@@ -45,12 +71,23 @@
 .go-to-dashboard,
 .go-to-screener,
 .go-to-about-us {
-  margin: 1rem;
+  margin: auto 10px;
   font-weight: 500;
+  color: rgba(208, 211, 219, 0.6);
+  transition: color 0.3s ease;
+}
+
+.go-to-about-us {
+  margin-right: 20px;
 }
 
 .go-to-dashboard:hover,
 .go-to-screener:hover,
 .go-to-about-us:hover {
   cursor: pointer;
+  color: rgba(208, 211, 219, 1);
+}
+
+.currentlink {
+  color: rgba(208, 211, 219, 1);
 }

@@ -17,7 +17,7 @@ import {
 export function setTickerSymbol(ticker) {
   return {
     type: SET_TICKER,
-    payload: ticker
+    payload: ticker.toUpperCase()
   }
 }
 
