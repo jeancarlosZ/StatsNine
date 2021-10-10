@@ -9,15 +9,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 export default function Financialspage() {
   const location = useLocation();
   const selected = location.pathname.split('/').pop().toLowerCase();
-  console.log(selected, 'is being logged');
 
   return (
     <>
       <Subheader />
-      <div>
-        <div className="card align-self justify-around">
+      <div className="key-metrics-container">
+        <div className="sub-container shadow-deep-nohover">
           <FinancialsNavBar />
-          <div className="metric-container">{getCorrectPage(selected)}</div>
+          <div>{getCorrectPage(selected)}</div>
         </div>
       </div>
     </>

@@ -16,10 +16,9 @@
 }
 
 .card {
+  border: solid red;
   border-radius: 15px;
   background: rgba(30, 34, 45, 0.3);
-  width: 1300px;
-  height: 800px;
 }
 
 /**Income.js**/
@@ -97,7 +96,7 @@
   background-color: #131722;
   height: 300px;
   table-layout: fixed;
-  width: 1266px;
+  width: 1847px;
 }
 
 .table-space {
