@@ -1,7 +1,49 @@
-.screener-table {
+.screen-table {
   padding: 1rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
   margin: 1rem;
   color: #d0d3db;
   background-color: #131722;
+  font-weight: 500;
+}
+
+.screen-border {
+  border: 0.1rem solid #434651;
+  padding: 1rem;
+  width: 13vw;
+}
+
+.screen-border-h {
+  border: 0.1rem solid #434651;
+  padding: 1rem;
+  height: 8vh;
+  align-items: center;
+  text-align: center;
+  font-size: larger;
+}
+
+.screen-color:hover {
+  background-color: #671212;
+}
+
+.screen-row {
+  background-color: #1e222d;
+}
+
+.screen-num {
+  text-align: right;
+}
+
+.screen-name {
+  width: 32.3vw;
+}
+
+.screen-green {
+  color: #36a355;
+}
+
+.screen-blue {
+  color: #3e6fb9;
+  font-weight: 700;
+  font-size: larger;
 }
