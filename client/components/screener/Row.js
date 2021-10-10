@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { roundNumberDec, formatNumber } from '../../utils'
-import { setCurrentStock } from '../../store/local/localActions'
+import { loadStockProfile, setCurrentStock } from '../../store/local/localActions'
 
 export default function Row(props) {
   let { companyName, lastAnnualDividend, marketCap, price, sector, symbol, volume } = props.stock
@@ -16,6 +16,7 @@ export default function Row(props) {
 
   async function handleClick() {
     await dispatch(setCurrentStock(symbol, companyName))
+    await loadStockProfile()
     await history.push('/overviewpage')
   }
 

@@ -1,6 +1,5 @@
 * {
   --headerHeight: var(--mainHeaderHeight);
-  --subHeaderHeight: 40px;
 
   --metricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --metricsPageWidth: 100vw;

@@ -2,7 +2,7 @@ import { SET_TICKER, UPDATE_LOCAL } from '.'
 
 //* Initial state
 const initialState = {
-  ticker: 'MSFT'
+  symbol: 'MSFT'
 }
 
 //* Reducer

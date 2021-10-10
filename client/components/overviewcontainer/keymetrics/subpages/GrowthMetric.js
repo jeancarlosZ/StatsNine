@@ -128,7 +128,7 @@ function getGrowthOverview(results, data, growthType) {
           <div className="metric-spacer"></div>
           <div className="metric">
             {getMetricItem('5yr Net Income Growth', results.netincome)}
-            <span className="result">{`${results.ticker} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <span className="result">{`${results.symbol} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
                 Net income is the profit that remains after all expenses and costs have been
@@ -155,7 +155,7 @@ function getGrowthOverview(results, data, growthType) {
           <div className="metric-spacer"></div>
           <div className="metric">
             {getMetricItem('5yr Cash Flow Growth', results.cashgrowth)}
-            <span className="result">{`${results.ticker} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <span className="result">{`${results.symbol} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
                 Free cash flow (FCF) represents the cash a company generates after accounting for
@@ -181,7 +181,7 @@ function getGrowthOverview(results, data, growthType) {
           <div className="metric-spacer"></div>
           <div className="metric">
             {getMetricItem('5yr Revenue Growth', results.revgrowth)}
-            <span className="result">{`${results.ticker} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <span className="result">{`${results.symbol} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
                 Revenue is the money generated from normal business operations, calculated as the

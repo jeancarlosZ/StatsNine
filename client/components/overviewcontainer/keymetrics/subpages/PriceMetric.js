@@ -61,7 +61,7 @@ function getPriceOverview(results, data) {
       <div className="metric">
         {getMetricItem('5yr P/E Ratio < 20', results.pe)}
         <span className="result">{`${
-          results.ticker
+          results.symbol
         } has a 5yr average P/E Ratio of ${roundNumberDec(results.pedata)}!`}</span>
         <div className="desc">
           <p>
@@ -78,7 +78,7 @@ function getPriceOverview(results, data) {
       <div className="metric">
         {getMetricItem('5yr P/FCF Ratio < 20', results.pfcf)}
         <span className="result">{`${
-          results.ticker
+          results.symbol
         } has a 5yr average P/FCF Ratio of ${roundNumberDec(results.pfcfdata)}!`}</span>
         <div className="desc">
           <p>

@@ -1,24 +1,23 @@
-import { useSelector } from 'react-redux'
-import store from '../index.js'
 import { SET_TICKER, UPDATE_LOCAL } from '.'
-import { logError } from '../../utils.js'
-import { load } from 'cheerio'
 import {
   fetchBalanceStatement,
   fetchCashflowStatement,
   fetchEnterpriseValue,
   fetchIncomeStatement,
   fetchKeyMetrics,
-  fetchRatios
+  fetchRatios,
+  fetchStockProfile
 } from '../../api/api.js'
+import { logError } from '../../utils.js'
+import store from '../index.js'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
 //* UPDATE: Made change to allow for stock.name
-export function setCurrentStock(ticker, companyName) {
+export function setCurrentStock(symbol, companyName) {
   return {
     type: SET_TICKER,
-    payload: { ticker: ticker, companyName: companyName }
+    payload: { symbol: symbol, companyName: companyName }
   }
 }
 
@@ -70,8 +69,9 @@ export async function getLocalData(key, func, args, save) {
       //* If there is actually any data we need to load!
       if (toLoad.length > 0) {
         //* Load the data from the API
-        const loadedData = await func(state.local.ticker, ...args)
-
+        const loadedData = args
+          ? await func(state.local.symbol, ...args)
+          : await func(state.local.symbol)
         //* Now we must load all of the data that wasn't already
         //* saved within the state
         toLoad.map(pair => {
@@ -106,7 +106,7 @@ async function handleLocalData(state, save, func, args, key) {
   //* Try to get data from local store, if it do be
   if (local) return local
   //* If not in local store, load data from API
-  const loadedData = await func(state.local.ticker, ...args)
+  const loadedData = args ? await func(state.local.symbol, ...args) : await func(state.local.symbol)
   let data
   //* Because data may not be time series data we must add a check
   if (!Array.isArray(loadedData))
@@ -216,7 +216,7 @@ export async function getTickerResults() {
   const ltlyears = totalLiabilities.values.slice(-1) / avgcash
 
   const results = {
-    ticker: state.local.ticker,
+    symbol: state.local.symbol,
     pe: avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
     pedata: avgPe,
     pfcf: avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
@@ -239,4 +239,56 @@ export async function getTickerResults() {
 
   store.dispatch(updateLocalData('results', results))
   return results
+}
+
+//* This function is used to load a stocks profile, THIS SHOULD ONLY BE CALLED ONCE!
+//* You should be using getLocalData() to load each thing you need!
+export async function loadStockProfile() {
+  const state = store.getState()
+  const local = state.local.profile
+  //* Check to see if this has already been loaded
+  //* The stock profile data, should only be loaded once!
+  if (local) return
+  const profile = await getLocalData(
+    [
+      'price',
+      'beta',
+      'volAvg',
+      'mktCap',
+      'lastDiv',
+      'companyName',
+      'industry',
+      'website',
+      'description',
+      'ceo',
+      'sector',
+      'fullTimeEmployees',
+      'dcf',
+      'image',
+      'ipoDate'
+    ],
+    fetchStockProfile,
+    [],
+    [
+      'price',
+      'beta',
+      'volAvg',
+      'mktCap',
+      'lastDiv',
+      'companyName',
+      'industry',
+      'website',
+      'description',
+      'ceo',
+      'sector',
+      'fullTimeEmployees',
+      'dcf',
+      'image',
+      'ipoDate'
+    ]
+  )
+  //* Set profile loaded to true
+  store.dispatch(updateLocalData('profile', true))
+
+  return profile
 }
