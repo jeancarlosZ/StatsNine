@@ -54,37 +54,61 @@
 
 .fin-button-container {
   bottom: 15px;
-  right: 25px;
-  width: 150px;
+  right: 10px;
+  width: 200px;
 }
 
-.fin-table {
-  /* border: solid white; */
-  height: 300px;
+/**Fin Table**/
+.fin-row:hover {
+  background-color: rgba(120, 40, 40, 0.5);
 }
 
 .fin-row {
-  border: solid orange;
-  height: 80px;
+  height: 50px;
   color: white;
+  border: solid thin rgba(113, 113, 113, 0.1);
 }
-.fin-date-container {
-  border: solid red;
+.fin-col {
   color: white;
+  border: solid thin rgba(113, 113, 113, 0.1);
 }
 
-.fin-info {
-  width: 200px;
-  border: solid green;
+.fin-label {
+  text-align: left;
+  font-weight: 500;
+}
+.center-text {
+  text-align: center;
+  font-size: smaller;
+}
+.light {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark {
+  background-color: rgba(147, 147, 147, 0.1);
+}
+
+.fin-table {
+  padding: 1rem;
+  font-size: 1.15rem;
+  margin: 1rem;
+  color: #d0d3db;
+  background-color: #131722;
+  height: 300px;
+  table-layout: fixed;
+  width: 1266px;
+}
+
+.table-space {
+  width: 1266px;
+  height: 300px;
   color: white;
-  align-content: flex-end;
+  margin: 1rem;
 }
 
 .fin-date {
-  border: solid white;
-  width: 200px;
-  height: 30px;
-}
-
-.grey {
+  font-weight: 500;
+  background-color: rgb(30, 34, 45, 0.3);
+  border: transparent;
 }

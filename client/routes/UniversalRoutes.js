@@ -12,7 +12,7 @@ import Financialspage from '../components/overviewcontainer/fin/Financialspage';
 import Income from '../components/overviewcontainer/fin/Income';
 import Balance from '../components/overviewcontainer/fin/Balance';
 import Cash from '../components/overviewcontainer/fin/Cash';
-import Dividends from '../components/overviewcontainer/fin/Dividends';
+import EnterpriseValue from '../components/overviewcontainer/fin/EnterpriseValue';
 
 //* ^ Import components ^
 
@@ -35,13 +35,14 @@ class UniversalRoutes extends Component {
         <Route
           exact
           path="/overviewpage/financials/dividends"
-          component={Dividends}
+          component={EnterpriseValue}
         />
         <Route
           exact
           path="/overviewpage/financials/cashflow"
           component={Cash}
         />
+        <Route path="/overviewpage/keymetrics" component={KeyMetrics} />
         {/* <Route path="/overviewpage/keymetrics" component={KeyMetrics} /> */}
         <Route
           exact

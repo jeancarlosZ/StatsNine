@@ -18,25 +18,24 @@ export default function Balance() {
 
   const { values } = balanceInfo;
   let info;
-  let infoArray;
+  let infoArray = [];
+  const labels = [
+    '',
+    'Total Assets',
+    'Total Liabilities',
+    'Total Equity',
+    'Total Debt',
+    'Longterm Debt',
+  ];
   if (values) {
-    info = values.splice(values.length - 6).reverse();
-    const dates = info.map((info) => info.date);
-    const totalAssets = info.map((info) => info.totalAssets);
-    const totalLiabilities = info.map((info) => info.totalLiabilities);
-    const totalEquity = info.map((info) => info.totalStockholdersEquity);
-    const totalDebt = info.map((info) => info.totalDebt);
-    const longTermDebt = info.map((info) => info.longTermDebt);
-    infoArray = [
-      dates,
-      totalAssets,
-      totalLiabilities,
-      totalEquity,
-      totalDebt,
-      longTermDebt,
-    ];
+    info = values.slice(values.length - 6).reverse();
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.totalAssets));
+    infoArray.push(info.map((info) => info.totalLiabilities));
+    infoArray.push(info.map((info) => info.totalStockholdersEquity));
+    infoArray.push(info.map((info) => info.totalDebt));
+    infoArray.push(info.map((info) => info.longTermDebt));
   }
-  console.log(info);
   return (
     <>
       <Subheader />
@@ -48,7 +47,11 @@ export default function Balance() {
             <BalanceChart />
           </div>
           <Buttons />
-          {values ? <FinTable rowInfo={infoArray} /> : <div>Loading...</div>}
+          {values ? (
+            <FinTable rowInfo={infoArray} labels={labels} />
+          ) : (
+            <div className="table-space">Loading...</div>
+          )}
         </div>
       </div>
     </>
@@ -93,7 +96,7 @@ function BalanceChart() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>

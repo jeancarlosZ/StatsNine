@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
+import { fetchCashflowStatement } from '../../../api/api';
 
 export default function Cash() {
-  let values;
+  const [cashflowInfo, setCashflowInfo] = useState({});
+
+  useEffect(() => {
+    async function getCashflowInfo() {
+      setCashflowInfo(await fetchCashflowStatement('MSFT'));
+    }
+    getCashflowInfo();
+  }, []);
+
+  const { values } = cashflowInfo;
+  let info;
+  let infoArray = [];
+  const labels = [
+    '',
+    'Capital Expenditure',
+    'Cash Flow',
+    'Operating',
+    'Investing Activity',
+    'Financial Activity',
+  ];
+  if (values) {
+    info = values.slice(values.length - 6).reverse();
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.capitalExpenditure));
+    infoArray.push(info.map((info) => info.freeCashFlow));
+    infoArray.push(info.map((info) => info.operatingCashFlow));
+    infoArray.push(info.map((info) => info.otherInvestingActivites));
+    infoArray.push(info.map((info) => info.otherFinancingActivites));
+  }
   return (
     <>
       <Subheader />
@@ -18,7 +47,11 @@ export default function Cash() {
             <CashChart />
           </div>
           <Buttons />
-          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
+          {values ? (
+            <FinTable rowInfo={infoArray} labels={labels} />
+          ) : (
+            <div className="table-space">Loading...</div>
+          )}
         </div>
       </div>
     </>
@@ -63,7 +96,7 @@ function CashChart() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>
