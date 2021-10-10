@@ -65,7 +65,6 @@ function getMetricOverview(results) {
   )
 }
 
-// TODO: Pass in the metric info to color the stars correctly
 function getMetricItem(metric, rating) {
   return (
     <div className="metric-item">

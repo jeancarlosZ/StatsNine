@@ -210,15 +210,25 @@ export async function getTickerResults() {
   const ltlyears = totalLiabilities.values.slice(-1) / avgcash
 
   const results = {
+    ticker: state.local.ticker,
     pe: avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
+    pedata: avgPe,
     pfcf: avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
+    pfcfdata: avgfcf,
     revgrowth: revg[0] < revg[revg.length - 1] ? GOOD : BAD,
+    revgrowthdata: revg,
     cashgrowth: cashg[0] < cashg[cashg.length - 1] ? GOOD : BAD,
+    cashgrowthdata: cashg,
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
+    netincomedata: netg,
     roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
+    roicdata: roicTTM,
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
+    sharesdata: shareg,
     assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
-    ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY
+    assetsdata: { a: totalAssets.values.slice(-1), b: totalLiabilities.values.slice(-1) },
+    ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
+    ltldata: ltlyears
   }
   store.dispatch(updateLocalData('results', results))
   return results
