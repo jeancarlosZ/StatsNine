@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
+import { fetchEnterpriseValue } from '../../../api/api';
 
-export default function Dividends() {
-  let values;
+export default function EnterpriseValue() {
+  const [enterpriseInfo, setEnterpriseInfo] = useState({});
+
+  useEffect(() => {
+    async function getEnterpriseInfo() {
+      setEnterpriseInfo(await fetchEnterpriseValue('MSFT'));
+    }
+    getEnterpriseInfo();
+  }, []);
+
+  console.log(enterpriseInfo);
+  const { values } = enterpriseInfo;
+  let info;
+  let infoArray = [];
+  const labels = [
+    'Date',
+    'Enterprise Value',
+    'Market Cap',
+    'Number Of Shares',
+    'Add Total Debt',
+  ];
+
+  if (values) {
+    info = values.splice(values.length - 6).reverse();
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.enterpriseValue));
+    infoArray.push(info.map((info) => info.marketCapitalization));
+    infoArray.push(info.map((info) => info.numberOfShares));
+    infoArray.push(info.map((info) => info.addTotalDebt));
+  }
+
   return (
     <>
       <Subheader />
@@ -18,7 +48,11 @@ export default function Dividends() {
             <DividendsChart />
           </div>
           <Buttons />
-          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
+          {values ? (
+            <FinTable rowInfo={infoArray} labels={labels} />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </div>
     </>

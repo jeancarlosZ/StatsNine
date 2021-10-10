@@ -64,8 +64,10 @@
 }
 
 .fin-row {
-  border: solid orange;
-  height: 80px;
+  height: 50px;
+  color: white;
+}
+.fin-col {
   color: white;
 }
 .fin-date-container {
@@ -86,5 +88,14 @@
   height: 30px;
 }
 
-.grey {
+.center-text {
+  text-align: center;
+  font-size: smaller;
+}
+.light {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark {
+  background-color: rgba(95, 95, 95, 0.1);
 }
