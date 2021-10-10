@@ -27,7 +27,7 @@ export default function Income() {
   ];
 
   if (values) {
-    info = values.splice(values.length - 6).reverse();
+    info = values.slice(values.length - 6).reverse();
     infoArray.push(info.map((info) => info.date));
     infoArray.push(info.map((info) => info.grossProfit));
     infoArray.push(info.map((info) => info.operatingExpenses));

@@ -29,7 +29,7 @@ export default function EnterpriseValue() {
   ];
 
   if (values) {
-    info = values.splice(values.length - 6).reverse();
+    info = values.slice(values.length - 6).reverse();
     infoArray.push(info.map((info) => info.date));
     infoArray.push(info.map((info) => info.enterpriseValue));
     infoArray.push(info.map((info) => info.marketCapitalization));

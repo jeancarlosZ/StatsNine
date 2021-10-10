@@ -28,7 +28,7 @@ export default function Balance() {
     'Longterm Debt',
   ];
   if (values) {
-    info = values.splice(values.length - 6).reverse();
+    info = values.slice(values.length - 6).reverse();
     infoArray.push(info.map((info) => info.date));
     infoArray.push(info.map((info) => info.totalAssets));
     infoArray.push(info.map((info) => info.totalLiabilities));
