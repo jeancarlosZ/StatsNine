@@ -7,7 +7,7 @@ import ExamplePage from '../api/ExamplePage';
 import TestPage from '../api/TestPage';
 import AboutUs from '../components/generalpages/aboutus/AboutUs';
 import Table from '../components/screener/Table';
-import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics';
+//import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics';
 import Financialspage from '../components/overviewcontainer/fin/Financialspage';
 import Income from '../components/overviewcontainer/fin/Income';
 import Balance from '../components/overviewcontainer/fin/Balance';
@@ -21,7 +21,7 @@ class UniversalRoutes extends Component {
     return (
       <Switch>
         <Route exact path="/overviewpage" component={Overviewpage} />
-        <Route exact path="/overviewpage/keymetrics" component={KeyMetrics} />
+        {/* <Route exact path="/overviewpage/keymetrics" component={KeyMetrics} /> */}
         <Route
           exact
           path="/overviewpage/financials"
@@ -43,6 +43,7 @@ class UniversalRoutes extends Component {
           component={Cash}
         />
         <Route path="/overviewpage/keymetrics" component={KeyMetrics} />
+        {/* <Route path="/overviewpage/keymetrics" component={KeyMetrics} /> */}
         <Route
           exact
           path="/overviewpage/financials"
