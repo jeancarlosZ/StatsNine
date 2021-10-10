@@ -47,6 +47,7 @@ function updateLocalData(key, data) {
 export async function getLocalData(key, func, args, save) {
   try {
     const state = store.getState()
+
     //* If we are selecting data in batch
     if (Array.isArray(save)) {
       //* Both must be arrays, and same length
