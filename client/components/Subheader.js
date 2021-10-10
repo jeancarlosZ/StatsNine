@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import { fetchStockProfile } from '../api/api'
 import { getLocalData } from '../store/local/localActions'
 
 export default function Subheader() {
@@ -11,11 +12,22 @@ export default function Subheader() {
 
   useEffect(() => {
     async function getData() {
-      // const a = getLocalData()
-      setData({})
+      const { symbol, companyName, image } = await getLocalData(
+        ['symbol', 'companyName', 'image'],
+        fetchStockProfile,
+        [],
+        ['symbol', 'companyName', 'image']
+      )
+      setData({ symbol, companyName, image })
     }
     getData()
   }, [])
+
+  //! Remove
+  console.log('--------------------')
+  console.log('data:', data)
+  console.log('--------------------')
+  //! Remove
 
   return (
     <div>
@@ -42,7 +54,19 @@ export default function Subheader() {
             </div>
           </div>
         </div>
-        <div className="stock-preview-container"></div>
+        <div className="preview-spacer"></div>
+        <div className="stock-preview-container">
+          <img
+            className="company-logo"
+            // style={{ height: 48, width: 48, borderRadius: 90 }}
+            src={data.image ? data.image : ''}
+            alt="temp"
+          />
+          <div>
+            <label>{data.companyName}</label>
+            <span>{data.symbol}</span>
+          </div>
+        </div>
       </nav>
     </div>
   )

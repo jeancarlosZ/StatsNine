@@ -13,6 +13,7 @@ import '../public/styles/keymetrics.css'
 import '../public/styles/pricemetrics.css'
 import '../public/styles/growthmetrics.css'
 import '../public/styles/overview.css'
+import '../public/styles/header.css'
 
 ReactDOM.render(
   <Provider store={store}>

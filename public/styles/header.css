@@ -1,6 +1,6 @@
 * {
-  --mainHeaderHeight: 60px;
-  --subHeaderHeight: 80px;
+  --mainHeaderHeight: 55px;
+  --subHeaderHeight: 65px;
 }
 
 /*
@@ -55,7 +55,7 @@
 
 .top-search-input {
   border-radius: 1.5rem;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   width: 38vw;
   background-color: rgba(67, 70, 81, 0.3);
   border-color: rgba(67, 70, 81, 0.6);
@@ -181,3 +181,52 @@
 }
 
 /** =========[STOCK PREVIEW]============*/
+
+.sub-header .preview-spacer {
+  flex: 1;
+}
+
+.stock-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 35px;
+
+  color: rgba(172, 176, 184, 1);
+}
+
+.stock-preview-container .company-logo {
+  text-align: center;
+
+  border-radius: 90px;
+  height: 40px;
+  width: 40px;
+
+  max-height: 40px;
+  max-width: 60px;
+
+  background-color: white;
+  border: 2px solid var(--bgAccent);
+
+  overflow: hidden;
+}
+.stock-preview-container div {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stock-preview-container label {
+  font-weight: 700;
+  margin: none;
+  padding: none;
+}
+
+.stock-preview-container span {
+  font-weight: 600;
+  font-size: 0.6rem;
+  margin: none;
+  padding: none;
+}
