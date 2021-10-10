@@ -16,12 +16,13 @@ export default function KeyMetrics() {
   return (
     <>
       <Subheader />
-      <div className="key-metrics-container">
-        <div className="sub-container shadow-deep-nohover">
-          <MetricSelector />
-          <div className="metric-container">{getCorrectPage(selected)}</div>
-        </div>
-      </div>
+      {getCorrectPage(selected)}
+      {/* <div className="key-metrics-container"> */}
+      {/* <div className="sub-container shadow-deep-nohover"> */}
+      {/* <MetricSelector /> */}
+      {/* <div className="metric-container">{getCorrectPage(selected)}</div> */}
+      {/* </div> */}
+      {/* </div> */}
     </>
   )
 }

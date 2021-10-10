@@ -5,10 +5,11 @@ import { getLocalData, getTickerResults } from '../../../../store/local/localAct
 import { formatNumber, getStarColor, roundNumberDec, trimDate } from '../../../../utils'
 import PeHistChart from '../charts/PEHistChart'
 import PFCFHistChart from '../charts/PFCFHistChart'
+import MetricSelector from '../MetricSelector'
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
-export default function Metrics() {
+export default function PriceMetric() {
   const [results, setResults] = useState({})
   const [data, setData] = useState({})
 
@@ -28,14 +29,21 @@ export default function Metrics() {
   }, [])
 
   return (
-    <div className="metric-sub-container">
-      <div className="metric-metrics">{getPriceOverview(results, data)}</div>
-      <div className="metric-charts">
-        <div className="metric-chart shadow-nohover">
-          <PeHistChart data={data.priceEarningsRatio} />
-        </div>
-        <div className="metric-chart shadow-nohover">
-          <PFCFHistChart data={data.priceToFreeCashFlowsRatio} />
+    <div className="key-metrics-container">
+      <div className="sub-container shadow-deep-nohover">
+        <MetricSelector />
+        <div className="metric-container">
+          <div className="metric-sub-container">
+            <div className="metric-metrics">{getPriceOverview(results, data)}</div>
+            <div className="metric-charts">
+              <div className="metric-chart shadow-nohover">
+                <PeHistChart data={data.priceEarningsRatio} />
+              </div>
+              <div className="metric-chart shadow-nohover">
+                <PFCFHistChart data={data.priceToFreeCashFlowsRatio} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

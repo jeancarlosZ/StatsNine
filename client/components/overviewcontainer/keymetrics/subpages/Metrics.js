@@ -4,6 +4,7 @@ import { getTickerResults } from '../../../../store/local/localActions'
 import { getStarColor } from '../../../../utils'
 import StockEPSChart from '../charts/StockEPSChart'
 import StockPriceChart from '../charts/StockPriceChart'
+import MetricSelector from '../MetricSelector'
 
 //* This is the default/overview metrics page.
 //* Shown at /overviewpage/keymetrics
@@ -18,14 +19,21 @@ export default function Metrics() {
   }, [])
 
   return (
-    <div className="metric-sub-container">
-      <div className="metric-metrics">{getMetricOverview(results)}</div>
-      <div className="metric-charts">
-        <div className="metric-chart shadow-nohover">
-          <StockPriceChart />
-        </div>
-        <div className="metric-chart shadow-nohover">
-          <StockEPSChart />
+    <div className="key-metrics-container">
+      <div className="sub-container shadow-deep-nohover">
+        <MetricSelector />
+        <div className="metric-container">
+          <div className="metric-sub-container">
+            <div className="metric-metrics">{getMetricOverview(results)}</div>
+            <div className="metric-charts">
+              <div className="metric-chart shadow-nohover">
+                <StockPriceChart />
+              </div>
+              <div className="metric-chart shadow-nohover">
+                <StockEPSChart />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

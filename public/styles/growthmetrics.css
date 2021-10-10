@@ -1,0 +1,534 @@
+* {
+  --headerHeight: 80px;
+  --subHeaderHeight: 40px;
+
+  --gmetricsPageHeight: calc(175vh - (var(--subHeaderHeight) + var(--headerHeight)));
+  --gmetricsPageWidth: 100vw;
+
+  --gmetricsMargin: 15px;
+  --gmetricsMargins: calc(var(--gmetricsMargin) * 2);
+
+  --gmetricsSubcontainerHeight: calc(var(--gmetricsPageHeight) - var(--gmetricsMargins));
+  --gmetricsSubcontainerWidth: calc(var(--gmetricsPageWidth) - var(--gmetricsMargins));
+
+  --gmetricsSubcontainerBorderRadius: 30px;
+
+  --gmetricsSelectorHeight: calc(var(--gmetricsSubcontainerHeight) / 22);
+
+  --gmetricsInnercontainerHeight: calc(
+    var(--gmetricsSubcontainerHeight) - var(--gmetricsSelectorHeight)
+  );
+  --gmetricsInnercontainerWidth: var(--gmetricsSubcontainerWidth);
+
+  --gmetricsInnercontainerPadding: 10px;
+  --gmetricsInnercontainerPaddings: calc(var(--gmetricsInnercontainerPadding) * 2);
+
+  --gmetricInnerSubcontainerHeight: calc(
+    var(--gmetricsInnercontainerHeight) - var(--gmetricsInnercontainerPaddings)
+  );
+
+  --gmetricInnerSubcontainerWidth: calc(
+    var(--gmetricsInnercontainerWidth) - var(--gmetricsInnercontainerPaddings)
+  );
+
+  --gmetricsOverviewWidth: calc(var(--gmetricInnerSubcontainerWidth) / 4);
+  --gmetricsChartviewWidth: calc(
+    var(--gmetricInnerSubcontainerWidth) - var(--gmetricsOverviewWidth)
+  );
+
+  --chartGap: 5px;
+  --chartPadding: 0px;
+  --chartPaddings: calc(var(--chartPadding) * 2);
+
+  --gmetricsChartContainerHeight: calc(
+    (var(--gmetricInnerSubcontainerHeight) / 3) - var(--chartGap)
+  );
+
+  --gmetricsChartWrapperHeight: calc(var(--gmetricsChartContainerHeight) - var(--chartPaddings));
+  --gmetricsChartWrapperWidth: calc(var(--gmetricsChartviewWidth) - var(--chartPaddings));
+}
+
+/*
+*==================================
+*      KEY METRICS CONTAINERS
+*==================================
+*/
+
+*,
+body {
+  font-family: 'Spartan', sans-serif;
+}
+
+.growth-metrics-container {
+  background-color: var(--bgPrimary);
+  height: var(--gmetricsPageHeight);
+  width: var(--gmetricsPageWidth);
+
+  display: flex;
+  justify-content: center;
+
+  /* TODO color*/
+  /* background-color: gray; */
+}
+
+.growth-metrics-container .sub-container {
+  background-color: rgba(30, 34, 45, 0.3);
+  height: var(--gmetricsSubcontainerHeight);
+  width: var(--gmetricsSubcontainerWidth);
+
+  display: flex;
+  flex-direction: column;
+
+  margin: auto;
+  border-radius: var(--gmetricsSubcontainerBorderRadius);
+
+  /* TODO color*/
+  /* background-color: green; */
+}
+
+/*
+*==================================
+*      KEY METRICS SELECTOR
+*==================================
+*/
+
+.growth-metrics-selector {
+  height: var(--gmetricsSelectorHeight);
+
+  display: flex;
+  /** Match border radius of parent */
+  border-top-left-radius: var(--gmetricsSubcontainerBorderRadius);
+  border-top-right-radius: var(--gmetricsSubcontainerBorderRadius);
+
+  border-bottom: 3px solid var(--bgAccent);
+  /* TODO color*/
+  /* background-color: brown; */
+
+  overflow: hidden;
+}
+
+/** The tabs container */
+.growth-metrics-selector .selectors {
+  margin: auto 35px;
+
+  display: flex;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  /* TODO color*/
+  /* background-color: burlywood; */
+}
+
+/** These are the tabs */
+.growth-metrics-selector .selectors label {
+  margin-top: 5px;
+  margin-right: 25px;
+  color: rgba(208, 211, 219, 0.2);
+  transition: font-size 0.3s ease, color 0.3s ease;
+}
+
+/** These are the tabs */
+.growth-metrics-selector .selectors label:hover {
+  color: rgba(208, 211, 219, 0.6);
+}
+
+/** Used to highlight selected tab */
+.growth-metrics-selector .selectors .selected {
+  color: rgba(208, 211, 219, 0.6);
+}
+
+/** Used to highlight selected tab */
+.growth-metrics-selector .selectors .selected:hover {
+  color: rgba(208, 211, 219, 0.8);
+}
+
+/*
+*==================================
+*      KEY METRIC CONTINER
+*==================================
+*/
+
+.growth-metrics-container .metric-container {
+  height: var(--gmetricsInnercontainerHeight);
+  width: var(--gmetricsInnercontainerWidth);
+
+  display: flex;
+
+  /* TODO color*/
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+/*
+*==================================
+*      MAIN METRIC PAGE
+*==================================
+*/
+
+/** This is the star icon*/
+.metric-star {
+  width: 24px;
+  height: 24px;
+}
+
+.growth-metrics-container .gmetric-sub-container {
+  margin: auto;
+
+  height: var(--gmetricInnerSubcontainerHeight);
+  width: var(--gmetricInnerSubcontainerWidth);
+
+  display: grid;
+  /** Grid size */
+  grid-template-rows: 1/3;
+
+  /* TODO color*/
+  /* background-color: rgba(71, 42, 42, 0.2); */
+}
+
+/*
+*=========[ METRIC CONTAINER ]============
+*/
+
+.gmetric-sub-container .gmetric-metrics {
+  grid-column: 1;
+
+  height: var(--gmetricInnerSubcontainerHeight);
+  width: var(--gmetricsOverviewWidth);
+  /* margin: auto; */
+  display: flex;
+
+  /* TODO color*/
+  /* background-color: rgba(146, 23, 23, 0.2); */
+}
+
+.gmetric-metrics .metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  flex: 1;
+  margin-left: 10%;
+
+  /* TODO color*/
+  /* background-color: gray; */
+}
+
+/** Individual metric container */
+.gmetric-metrics .metrics .metric {
+  color: var(--fontColor);
+  overflow: hidden;
+}
+
+/** Used to adjust the location of the metrics */
+.gmetric-metrics .metrics .metric-spacer {
+  flex: 1;
+}
+
+/** Title of each metric */
+.gmetric-metrics .metrics .metric label {
+  margin: 30px 0px 5px 44px;
+  font-weight: 600;
+}
+
+/** The desc of each metric*/
+.gmetric-metrics .metrics .metric span {
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.gmetric-metrics .metrics .metric .king {
+  color: var(--orangeShade2);
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.gmetric-metrics .metrics .metric .result {
+  margin: 15px 20px auto 0px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.gmetric-metrics .metrics .metric .desc {
+  margin: 10px 0px auto 0px;
+  padding-right: 10px;
+}
+
+.gmetric-metrics .metrics .metric .desc p {
+  margin: none;
+  text-align: left;
+  color: rgba(208, 211, 219, 0.5);
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/** The desc of each metric*/
+.gmetric-metrics .metrics .metric .metric-item {
+  margin-bottom: 5px;
+}
+
+/*
+*=========[ CHARTS CONTAINER ]============
+*/
+
+/*! TEST*/
+.gmetric-sub-container .gmetric-charts {
+  grid-column: 2;
+  height: var(--gmetricInnerSubcontainerHeight);
+  width: var(--gmetricsChartviewWidth);
+
+  /* display: grid; */
+  /* grid-template-rows: 50%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* row-gap: 10px; */
+
+  /* TODO color*/
+  /* background-color: rgba(31, 15, 90, 0.6); */
+}
+
+.gmetric-chart {
+  height: var(--gmetricsChartContainerHeight);
+  width: var(--gmetricsChartviewWidth);
+
+  border-radius: 30px;
+
+  /* TODO color*/
+  /* background-color: rgba(225, 225, 225, 0.4); */
+}
+
+.gmetric-chart .wrapper {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+
+  margin: auto;
+  margin-top: var(--chartPadding);
+
+  /** chart height minus selector height */
+  height: calc(var(--gmetricsChartWrapperHeight) - 35px);
+  width: var(--gmetricsChartWrapperWidth);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  background-color: rgba(30, 34, 45, 0.3);
+
+  /* background-color: rgba(160, 160, 37, 0.03); */
+  /* background-color: rgba(223, 223, 35, 0.4); */
+}
+
+.gmetric-chart .stock-price-chart {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+
+  /** chart height minus selector height */
+  height: calc(var(--gmetricsChartWrapperHeight) - 35px);
+  width: var(--gmetricsChartWrapperWidth);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+/*
+*=========[ CHART SELECTOR ]============
+*/
+
+.gmetric-chart .selector {
+  height: 35px;
+  display: flex;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  background-color: rgba(30, 34, 45, 0.3);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.gmetric-chart .selector label {
+  margin: auto 10px auto 30px;
+  font-weight: 600;
+  /* font-size: 1.1rem; */
+  color: var(--fontColor);
+}
+
+.gmetric-chart .selector .dropdown-selector {
+  margin: auto 5px;
+  color: rgba(208, 211, 219, 0.6);
+}
+
+.gmetric-chart .selector .dropdown-selector button {
+  margin: auto 5px;
+  background-color: rgba(30, 34, 45, 0.3);
+  border: none;
+}
+
+.gmetric-chart .selector .show .dropdown-toggle {
+  background-color: #1e222d;
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.gmetric-chart .selector .selectors button {
+  margin: 5px 5px 0px 5px;
+  color: rgba(208, 211, 219, 0.6);
+  background-color: rgba(30, 34, 45, 0.6);
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/** Quarterly / annual buttons */
+.gmetric-chart .selector .selectors button:hover {
+  color: var(--fontColor);
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.gmetric-chart .selector .selectors .selected {
+  color: var(--fontColor);
+  background-color: rgba(30, 34, 45, 1);
+  border: none;
+}
+
+/*
+*==================================
+*      GROWTH METRIC SPECIFC
+*==================================
+*/
+
+.growthmetrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  flex: 1;
+  margin-left: 10px;
+
+  /* TODO color*/
+  /* background-color: gray; */
+}
+
+/** Individual metric container */
+.growthmetrics .metric {
+  color: var(--fontColor);
+  overflow: hidden;
+  padding-bottom: 10px;
+  /* margin: 100px auto; */
+}
+
+/** Title of each metric */
+.growthmetrics .metric label {
+  margin: 30px 0px 5px 44px;
+  font-weight: 600;
+}
+
+/** The desc of each metric*/
+.growthmetrics .metric span {
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.growthmetrics .metric .king {
+  color: var(--orangeShade2);
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.growthmetrics .metric .result {
+  margin: 15px 20px auto 0px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.growthmetrics .metric .desc {
+  margin: 10px 0px auto 0px;
+  padding-right: 10px;
+}
+
+.growthmetrics .metric .desc p {
+  margin: none;
+  text-align: left;
+  color: rgba(208, 211, 219, 0.5);
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/** The desc of each metric*/
+.growthmetrics .metric .metric-item {
+  margin-bottom: 10px;
+}
+
+/** The preview of each metric*/
+.growthmetrics .metric .previewcontainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+/** The preview of each metric*/
+.growthmetrics .metric .preview {
+  background-color: rgba(30, 34, 45, 0.2);
+  padding: 5px;
+  border-radius: 45px;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.growthmetrics .metric .preview .prev-wrapper {
+  overflow: hidden;
+}
+
+/** The preview of each metric*/
+.growthmetrics .metric .preview table {
+  border-spacing: 5px;
+  border-collapse: separate;
+}
+
+/** The preview of each metric*/
+.growthmetrics .metric .preview td {
+  border-radius: 10px;
+  /* background-color: rgba(67, 70, 81, 0.1); */
+  color: rgba(208, 211, 219, 0.7);
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+/** The preview of each metric*/
+.growthmetrics .metric .preview .head {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+/*
+*==================================
+*      SLOTS FOR GROWTH
+*==================================
+*/
+
+.growth-metrics-container .slot {
+  margin: var(--chartGap) 0px;
+  display: flex;
+
+  /* TODO COLOR */
+  /* background-color: rgba(0, 128, 0, 0.575); */
+}
+
+.growth-metrics-container .gnetincome {
+  grid-row: 1;
+}
+
+.growth-metrics-container .gcashflow {
+  grid-row: 2;
+}
+
+.growth-metrics-container .grevenue {
+  grid-row: 3;
+}
