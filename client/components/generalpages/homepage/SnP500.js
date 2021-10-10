@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import UniversalChart from '../../UniversalChart';
-import { fetchIncomeStatement } from '../../../api/api';
+import { fetchChartPrice, DAILY, WEEK } from '../../../api/api';
 
 export default function SnP500() {
   const [progressData, setProgressData] = useState({});
 
   useEffect(() => {
     async function getData() {
-      setProgressData(await fetchIncomeStatement('AAPL'));
+      setProgressData(await fetchChartPrice('AAPL', DAILY, WEEK));
     }
 
     getData();
   }, []);
 
-  console.log('Progress Data:', progressData);
+  // console.log('Progress Data:', progressData);
 
   const { keys, values } = progressData;
 
-  console.log('Keys:', keys);
-  console.log('Values:', values);
+  // console.log('Keys:', keys);
+  // console.log('Values:', values);
 
   const dataset = [];
 
@@ -29,19 +29,21 @@ export default function SnP500() {
       color: '#00887b',
       outline: '#34b87d',
 
-      values: values.map(x => x.netIncome),
+      values: values.map(x => x.close),
     });
   }
 
   return (
     <>
-      <UniversalChart
-        className="monitor-chart"
-        title=""
-        keys={keys}
-        dataset={dataset}
-        showlegend={false}
-      />
+      <div className="flex-col align-self">
+        <UniversalChart
+          className="monitor-chart"
+          title="Apple"
+          keys={keys}
+          dataset={dataset}
+          showlegend={false}
+        />
+      </div>
     </>
   );
 }

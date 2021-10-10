@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { fetchScreenerStocks } from "../../api/api";
-import Row from "./Row";
+import React, { useState, useEffect } from 'react'
+import { fetchScreenerStocks } from '../../api/api'
+import Row from './Row'
 
 export default function Table() {
-  const [stocksList, setStocksList] = useState([]);
+  const [stocksList, setStocksList] = useState([])
 
   useEffect(() => {
     async function getStocksList() {
-      setStocksList(await fetchScreenerStocks());
+      setStocksList(await fetchScreenerStocks())
     }
 
-    getStocksList();
-  }, []);
+    getStocksList()
+  }, [])
 
   return (
     <div>
-      <table className="screener-table">
+      <table className='screen-table'>
         <thead>
           <tr>
-            <th>Symbol and Name</th>
-            <th>Last Price</th>
-            <th>Annual Dividend</th>
-            <th>Volume</th>
-            <th>Market Cap</th>
-            <th>Sector</th>
+            <th className='screen-border-h'>Symbol and Name</th>
+            <th className='screen-border-h'>Last Price</th>
+            <th className='screen-border-h'>Annual Dividend</th>
+            <th className='screen-border-h'>Volume</th>
+            <th className='screen-border-h'>Market Cap</th>
+            <th className='screen-border-h'>Sector</th>
           </tr>
         </thead>
         <tbody>
           {stocksList.length ? (
-            stocksList.map(stock => <Row key={stock.symbol} stock={stock} />)
+            stocksList.map((stock, i) => <Row key={stock.symbol} stock={stock} index={i} />)
           ) : (
             <tr>
               <td>Loading...</td>
@@ -37,5 +37,5 @@ export default function Table() {
         </tbody>
       </table>
     </div>
-  );
+  )
 }

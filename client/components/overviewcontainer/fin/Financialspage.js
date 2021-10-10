@@ -43,7 +43,7 @@ export function FinancialsNavBar() {
         className="buttons nav-button"
         onClick={() => history.push('/overviewpage/financials/dividends')}
       >
-        Dividends
+        Enterprise Value
       </button>
     </nav>
   );

@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
+import { fetchEnterpriseValue } from '../../../api/api';
 
-export default function Dividends() {
-  let values;
+export default function EnterpriseValue() {
+  const [enterpriseInfo, setEnterpriseInfo] = useState({});
+
+  useEffect(() => {
+    async function getEnterpriseInfo() {
+      setEnterpriseInfo(await fetchEnterpriseValue('MSFT'));
+    }
+    getEnterpriseInfo();
+  }, []);
+
+  console.log(enterpriseInfo);
+  const { values } = enterpriseInfo;
+  let info;
+  let infoArray = [];
+  const labels = [
+    '',
+    'Enterprise Value',
+    'Market Cap',
+    'Number Of Shares',
+    'Add Total Debt',
+  ];
+
+  if (values) {
+    info = values.slice(values.length - 6).reverse();
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.enterpriseValue));
+    infoArray.push(info.map((info) => info.marketCapitalization));
+    infoArray.push(info.map((info) => info.numberOfShares));
+    infoArray.push(info.map((info) => info.addTotalDebt));
+  }
+
   return (
     <>
       <Subheader />
@@ -18,7 +48,11 @@ export default function Dividends() {
             <DividendsChart />
           </div>
           <Buttons />
-          {values ? <FinTable rowInfo={info} /> : <div>Loading...</div>}
+          {values ? (
+            <FinTable rowInfo={infoArray} labels={labels} />
+          ) : (
+            <div className="table-space">Loading...</div>
+          )}
         </div>
       </div>
     </>
@@ -29,7 +63,7 @@ function CompanyInfo() {
   return (
     <div className="company-container align-self flex-col">
       <div className="company-info pos-rel">
-        <span className="company-name bold">DIVIDENDS CORP.</span>
+        <span className="company-name bold">ENTERPRISE VALUE</span>
         <div className="ticker-container flex-row justify-between">
           <span className="ticker bold">MSFT</span>
           <span className="bold">NASDAQ</span>
@@ -63,7 +97,7 @@ function DividendsChart() {
 
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>

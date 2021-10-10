@@ -15,25 +15,26 @@ export default function Income() {
   }, []);
 
   const { values } = incomeInfo;
+
   let info;
-  let infoArray;
+  let infoArray = [];
+  const labels = [
+    '',
+    'Gross Profit',
+    'Operating Expenses',
+    'Operating Income',
+    'Pretax Income',
+    'Income Taxes',
+  ];
 
   if (values) {
-    info = values.splice(values.length - 6).reverse();
-    const dates = info.map((info) => info.date);
-    const grossProfit = info.map((info) => info.grossProfit);
-    const operatingExpenses = info.map((info) => info.operatingExpenses);
-    const operatingIncome = info.map((info) => info.operatingIncome);
-    const incomeBeforeTax = info.map((info) => info.incomeBeforeTax);
-    const incomeTaxExpense = info.map((info) => info.incomeTaxExpense);
-    infoArray = [
-      dates,
-      grossProfit,
-      operatingExpenses,
-      operatingIncome,
-      incomeBeforeTax,
-      incomeTaxExpense,
-    ];
+    info = values.slice(values.length - 6).reverse();
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.grossProfit));
+    infoArray.push(info.map((info) => info.operatingExpenses));
+    infoArray.push(info.map((info) => info.operatingIncome));
+    infoArray.push(info.map((info) => info.incomeBeforeTax));
+    infoArray.push(info.map((info) => info.incomeTaxExpense));
   }
 
   return (
@@ -43,7 +44,11 @@ export default function Income() {
         <IncomeChart />
       </div>
       <Buttons />
-      {values ? <FinTable rowInfo={infoArray} /> : <div>Loading...</div>}
+      {values ? (
+        <FinTable rowInfo={infoArray} labels={labels} />
+      ) : (
+        <div className="table-space">Loading...</div>
+      )}
     </React.Fragment>
   );
 }
@@ -85,7 +90,7 @@ function IncomeChart() {
 }
 function Buttons() {
   return (
-    <div className="fin-button-container align-self pos-rel">
+    <div className="fin-button-container align-self pos-rel flex-row justify-around">
       <button className="buttons">Annual</button>
       <button className="buttons">Quarterly</button>
     </div>
