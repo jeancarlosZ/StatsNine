@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import UniversalChart from '../../UniversalChart';
-import { fetchChartPrice, DAILY, WEEK } from '../../../api/api';
+import UniversalChart from '../UniversalChart';
+import { fetchChartPrice, DAILY, WEEK } from '../../api/api';
 
 export default function SnP500() {
   const [progressData, setProgressData] = useState({});
