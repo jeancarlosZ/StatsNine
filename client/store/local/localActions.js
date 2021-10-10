@@ -59,33 +59,37 @@ export async function getLocalData(key, func, args, save) {
       key.map((k, index) => {
         //* Try to get data from local store, if it do be
         const local = state.local[save[index]]
+
         //* If it is we add it to the obj
         if (local) data[k] = local
         //* Otherwise we add the data to be loaded
         else toLoad.push({ a: k, b: save[index] })
       })
 
-      //* Load the data from the API
-      const loadedData = await func(state.local.ticker, ...args)
+      //* If there is actually any data we need to load!
+      if (toLoad.length > 0) {
+        //* Load the data from the API
+        const loadedData = await func(state.local.ticker, ...args)
 
-      //* Now we must load all of the data that wasn't already
-      //* saved within the state
-      toLoad.map(pair => {
-        const { a, b } = pair
-        let individualData
+        //* Now we must load all of the data that wasn't already
+        //* saved within the state
+        toLoad.map(pair => {
+          const { a, b } = pair
+          let individualData
 
-        if (!Array.isArray(loadedData))
-          individualData = {
-            keys: loadedData.keys,
-            values: loadedData.values.map(x => x[a])
-          }
-        else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
-        else individualData = loadedData[a]
+          if (!Array.isArray(loadedData))
+            individualData = {
+              keys: loadedData.keys,
+              values: loadedData.values.map(x => x[a])
+            }
+          else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
+          else individualData = loadedData[a]
 
-        data[a] = individualData
-        //* Update the local store
-        store.dispatch(updateLocalData(b, individualData))
-      })
+          data[a] = individualData
+          //* Update the local store
+          store.dispatch(updateLocalData(b, individualData))
+        })
+      }
 
       return data
       //* Otherwise we can return the single peice of data
