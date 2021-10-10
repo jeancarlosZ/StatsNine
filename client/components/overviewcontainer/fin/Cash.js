@@ -4,75 +4,51 @@ import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
-import { fetchCashflowStatement } from '../../../api/api';
+import CompanyInfo from './CompanyInfo';
+import { fetchCashflowStatement, fetchStockProfile } from '../../../api/api';
+import { useSelector } from 'react-redux';
+import { returnProfile, returnTableInfo } from './finUtils';
+import { FinButtons } from './FinButtons';
 
+//Right now I'm fetching from API at every sub page
+//That's not what we want and I'll be optimizing with some of the tools we have
 export default function Cash() {
+  const { ticker } = useSelector((state) => state.local);
   const [cashflowInfo, setCashflowInfo] = useState({});
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getCashflowInfo() {
-      setCashflowInfo(await fetchCashflowStatement('MSFT'));
+      setCashflowInfo(await fetchCashflowStatement(ticker));
+      setProfile(await fetchStockProfile(ticker));
     }
     getCashflowInfo();
   }, []);
 
+  const companyProfile = returnProfile(profile);
+
+  //These are the values returned from the fetch. Can be used in our charts!
   const { values } = cashflowInfo;
-  let info;
-  let infoArray = [];
+
+  //Labels for Financials Tables
+  //Right now formatting the labels and using them to fetch
+  //Empty string is for date
   const labels = [
     '',
     'Capital Expenditure',
-    'Cash Flow',
-    'Operating',
-    'Investing Activity',
-    'Financial Activity',
+    'Free Cash Flow',
+    'Operating Cash Flow',
+    'Other Investing Activites',
+    'Other Financing Activites',
   ];
-  if (values) {
-    info = values.slice(values.length - 6).reverse();
-    infoArray.push(info.map((info) => info.date));
-    infoArray.push(info.map((info) => info.capitalExpenditure));
-    infoArray.push(info.map((info) => info.freeCashFlow));
-    infoArray.push(info.map((info) => info.operatingCashFlow));
-    infoArray.push(info.map((info) => info.otherInvestingActivites));
-    infoArray.push(info.map((info) => info.otherFinancingActivites));
-  }
-  return (
-    <>
-      <Subheader />
-      <div className="main flex-col justify-center">
-        <div className="card align-self justify-around">
-          <FinancialsNavBar />
-          <div className="income-container flex-row justify-around">
-            <CompanyInfo />
-            <CashChart />
-          </div>
-          <Buttons />
-          {values ? (
-            <FinTable rowInfo={infoArray} labels={labels} />
-          ) : (
-            <div className="table-space">Loading...</div>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
 
-function CompanyInfo() {
-  return (
-    <div className="company-container align-self flex-col">
-      <div className="company-info pos-rel">
-        <span className="company-name bold">CASH FLOW CORP.</span>
-        <div className="ticker-container flex-row justify-between">
-          <span className="ticker bold">MSFT</span>
-          <span className="bold">NASDAQ</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+  //Returning a 2D array
+  //Every inner array is a row of info relating to the above labels
+  const infoArray = values ? returnTableInfo(values, labels) : [];
 
-function CashChart() {
+  //This is for our Chart information
+  //Generate the data set and pass it into UniversalChart which is already in the return statement
+  //Right now it's all place holder data
   const dataset = [];
 
   dataset.push({
@@ -85,20 +61,26 @@ function CashChart() {
   });
 
   return (
-    <UniversalChart
-      className="income-chart"
-      title="Net Income"
-      dataset={dataset}
-      showlegend={false}
-    />
-  );
-}
-
-function Buttons() {
-  return (
-    <div className="fin-button-container align-self pos-rel flex-row justify-around">
-      <button className="buttons">Annual</button>
-      <button className="buttons">Quarterly</button>
-    </div>
+    <>
+      <div className="income-container flex-row justify-around">
+        <CompanyInfo
+          companyName={companyProfile.companyName}
+          symbol={companyProfile.symbol}
+          ticker={companyProfile.exchangeShortName}
+        />
+        <UniversalChart
+          className="income-chart"
+          title="Net Income"
+          dataset={dataset}
+          showlegend={false}
+        />
+      </div>
+      <FinButtons />
+      {values ? (
+        <FinTable rowInfo={infoArray} labels={labels} />
+      ) : (
+        <div className="table-space">Loading...</div>
+      )}
+    </>
   );
 }

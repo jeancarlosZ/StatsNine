@@ -2,72 +2,51 @@ import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import { Price } from '../PriceChart';
 import FinTable from './FinTable';
-import { fetchIncomeStatement } from '../../../api/api';
+import CompanyInfo from './CompanyInfo';
+import { fetchIncomeStatement, fetchStockProfile } from '../../../api/api';
+import { useSelector } from 'react-redux';
+import { returnProfile, returnTableInfo } from './finUtils';
+import { FinButtons } from './FinButtons';
 
+//Right now I'm fetching from API at every sub page
+//That's not what we want and I'll be optimizing with some of the tools we have
 export default function Income() {
+  const { ticker } = useSelector((state) => state.local);
   const [incomeInfo, setIncomeInfo] = useState({});
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getIncomeInfo() {
-      setIncomeInfo(await fetchIncomeStatement('MSFT'));
+      setIncomeInfo(await fetchIncomeStatement(ticker));
+      setProfile(await fetchStockProfile(ticker));
     }
     getIncomeInfo();
   }, []);
 
+  const companyProfile = returnProfile(profile);
+
+  //These are the values returned from the fetch. Can be used in our charts!
   const { values } = incomeInfo;
 
-  let info;
-  let infoArray = [];
+  //Labels for Financials Tables
+  //Right now formatting the labels and using them to fetch
+  //Empty string is for date
   const labels = [
     '',
     'Gross Profit',
     'Operating Expenses',
     'Operating Income',
-    'Pretax Income',
-    'Income Taxes',
+    'Income Before Tax',
+    'Income Tax Expense',
   ];
 
-  if (values) {
-    info = values.slice(values.length - 6).reverse();
-    infoArray.push(info.map((info) => info.date));
-    infoArray.push(info.map((info) => info.grossProfit));
-    infoArray.push(info.map((info) => info.operatingExpenses));
-    infoArray.push(info.map((info) => info.operatingIncome));
-    infoArray.push(info.map((info) => info.incomeBeforeTax));
-    infoArray.push(info.map((info) => info.incomeTaxExpense));
-  }
+  //Returning a 2D array
+  //Every inner array is a row of info relating to the above labels
+  const infoArray = values ? returnTableInfo(values, labels) : [];
 
-  return (
-    <React.Fragment>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo />
-        <IncomeChart />
-      </div>
-      <Buttons />
-      {values ? (
-        <FinTable rowInfo={infoArray} labels={labels} />
-      ) : (
-        <div className="table-space">Loading...</div>
-      )}
-    </React.Fragment>
-  );
-}
-
-function CompanyInfo() {
-  return (
-    <div className="company-container align-self flex-col">
-      <div className="company-info pos-rel">
-        <span className="company-name bold">INCOME CORP.</span>
-        <div className="ticker-container flex-row justify-between">
-          <span className="ticker bold">MSFT</span>
-          <span className="bold">NASDAQ</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IncomeChart() {
+  //This is for our Chart information
+  //Generate the data set and pass it into UniversalChart which is already in the return statement
+  //Right now it's all place holder data
   const dataset = [];
 
   dataset.push({
@@ -80,19 +59,26 @@ function IncomeChart() {
   });
 
   return (
-    <UniversalChart
-      className="income-chart"
-      title="Net Income"
-      dataset={dataset}
-      showlegend={false}
-    />
-  );
-}
-function Buttons() {
-  return (
-    <div className="fin-button-container align-self pos-rel flex-row justify-around">
-      <button className="buttons">Annual</button>
-      <button className="buttons">Quarterly</button>
-    </div>
+    <React.Fragment>
+      <div className="income-container flex-row justify-around">
+        <CompanyInfo
+          companyName={companyProfile.companyName}
+          symbol={companyProfile.symbol}
+          ticker={companyProfile.exchangeShortName}
+        />
+        <UniversalChart
+          className="income-chart"
+          title="Net Income"
+          dataset={dataset}
+          showlegend={false}
+        />
+      </div>
+      <FinButtons />
+      {values ? (
+        <FinTable rowInfo={infoArray} labels={labels} />
+      ) : (
+        <div className="table-space">Loading...</div>
+      )}
+    </React.Fragment>
   );
 }
