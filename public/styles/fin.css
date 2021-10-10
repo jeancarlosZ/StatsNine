@@ -59,15 +59,18 @@
 }
 
 /**Fin Table**/
+.fin-row:hover {
+  background-color: rgba(254, 114, 0, 0.1);
+}
 
 .fin-row {
   height: 50px;
   color: white;
-  border: solid thin rgba(147, 147, 147, 0.1);
+  border: solid thin rgba(113, 113, 113, 0.1);
 }
 .fin-col {
   color: white;
-  border: solid thin rgba(147, 147, 147, 0.1);
+  border: solid thin rgba(113, 113, 113, 0.1);
 }
 
 .fin-label {
@@ -109,21 +112,3 @@
   background-color: rgb(30, 34, 45, 0.3);
   border: transparent;
 }
-/**Forgot what I used these for**/
-/* .fin-date-container {
-  border: solid red;
-  color: white;
-}
-
-.fin-info {
-  width: 200px;
-  border: solid green;
-  color: white;
-  align-content: flex-end;
-}
-
-.fin-date {
-  border: solid white;
-  width: 200px;
-  height: 30px;
-} */
