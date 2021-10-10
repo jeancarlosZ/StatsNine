@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import Homepage from '../components/generalpages/homepage/Homepage';
 import Overviewpage from '../components/overviewcontainer/Overviewpage';
@@ -13,6 +13,7 @@ import Income from '../components/overviewcontainer/fin/Income';
 import Balance from '../components/overviewcontainer/fin/Balance';
 import Cash from '../components/overviewcontainer/fin/Cash';
 import Dividends from '../components/overviewcontainer/fin/Dividends';
+import NotFound from '../components/generalpages/homepage/NotFound';
 
 //* ^ Import components ^
 
@@ -20,43 +21,23 @@ class UniversalRoutes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/overviewpage" component={Overviewpage} />
-        {/* <Route exact path="/overviewpage/keymetrics" component={KeyMetrics} /> */}
         <Route
-          exact
-          path="/overviewpage/financials"
-          component={Financialspage}
-        />
-        <Route
-          exact
-          path="/overviewpage/financials/balance"
-          component={Balance}
-        />
-        <Route
-          exact
           path="/overviewpage/financials/dividends"
           component={Dividends}
         />
-        <Route
-          exact
-          path="/overviewpage/financials/cashflow"
-          component={Cash}
-        />
+        <Route path="/overviewpage/financials/balance" component={Balance} />
+        <Route path="/overviewpage/financials/cashflow" component={Cash} />
+        <Route path="/overviewpage/financials" component={Financialspage} />
         {/* <Route path="/overviewpage/keymetrics" component={KeyMetrics} /> */}
-        <Route
-          exact
-          path="/overviewpage/financials"
-          component={Financialspage}
-        />
-        {/* <Route path="/about" component={About} /> */}
-
+        <Route path="/overviewpage" exact component={Overviewpage} />
         <Route path="/test" component={TestPage} />
         <Route path="/example" component={ExamplePage} />
         <Route path="/screener" component={Table} />
         <Route path="/aboutus" component={AboutUs} />
+        <Route path="/not-found" component={NotFound} />
         <Route path="/home" component={Homepage} />
-        <Route exact path="/" component={Homepage} />
-        {/* <Route exact path="/" component={Homepage} /> */}
+        <Route path="/" exact component={Homepage} />
+        <Redirect to="/not-found" />
       </Switch>
     );
   }
