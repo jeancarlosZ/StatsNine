@@ -14,13 +14,16 @@ export default function Homepage() {
     <div>
       <Dashboard />
       <Container fluid>
-        <Row xs={1} md={2}>
+        <Row>
           <Col>
             <Newsfeed />
           </Col>
           <Col>
             <SnP500 />
           </Col>
+        </Row>
+        <Row>
+          <Col>2</Col>
           <Col>
             <Calendar />
           </Col>

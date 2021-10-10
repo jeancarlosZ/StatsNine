@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import 'simplebar/dist/simplebar.min.css';
 import { DAILY, fetchChartPrice, WEEK } from './api';
-import { getLocalData } from '../store/local/localActions'
-import { fetchFullStatement, fetchIncomeStatement, getTickerResults } from './api'
+import { getLocalData } from '../store/local/localActions';
+import {
+  fetchFullStatement,
+  fetchIncomeStatement,
+  getTickerResults,
+} from './api';
 
 export default function APITestPage() {
   const [data, setData] = useState({});
@@ -40,7 +44,7 @@ export default function APITestPage() {
       //     ['assetsannual', 'liabilitiesannual', 'stockannual']
       //   )
       // )
-      console.log(await getTickerResults())
+      console.log(await getTickerResults());
     }
     getData();
   }, []);
