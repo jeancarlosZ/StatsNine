@@ -16,24 +16,24 @@ export default function Income() {
 
   const { values } = incomeInfo;
   let info;
-  let infoArray;
+  let infoArray = [];
+  const labels = [
+    'Date',
+    'Gross Profit',
+    'Operating Expenses',
+    'OperatingIncome',
+    'Pretax Income',
+    'Income Taxes',
+  ];
 
   if (values) {
     info = values.splice(values.length - 6).reverse();
-    const dates = info.map((info) => info.date);
-    const grossProfit = info.map((info) => info.grossProfit);
-    const operatingExpenses = info.map((info) => info.operatingExpenses);
-    const operatingIncome = info.map((info) => info.operatingIncome);
-    const incomeBeforeTax = info.map((info) => info.incomeBeforeTax);
-    const incomeTaxExpense = info.map((info) => info.incomeTaxExpense);
-    infoArray = [
-      dates,
-      grossProfit,
-      operatingExpenses,
-      operatingIncome,
-      incomeBeforeTax,
-      incomeTaxExpense,
-    ];
+    infoArray.push(info.map((info) => info.date));
+    infoArray.push(info.map((info) => info.grossProfit));
+    infoArray.push(info.map((info) => info.operatingExpenses));
+    infoArray.push(info.map((info) => info.operatingIncome));
+    infoArray.push(info.map((info) => info.incomeBeforeTax));
+    infoArray.push(info.map((info) => info.incomeTaxExpense));
   }
 
   return (
@@ -43,7 +43,11 @@ export default function Income() {
         <IncomeChart />
       </div>
       <Buttons />
-      {values ? <FinTable rowInfo={infoArray} /> : <div>Loading...</div>}
+      {values ? (
+        <FinTable rowInfo={infoArray} labels={labels} />
+      ) : (
+        <div>Loading...</div>
+      )}
     </React.Fragment>
   );
 }
