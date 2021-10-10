@@ -3,7 +3,7 @@ import React from 'react'
 export default function AboutUs() {
   return (
     <div className='aboutus-container'>
-      <div className='aboutus-sn'>
+      <div className='aboutus aboutus-sn'>
         <h1 className='aboutus-hfont'>What is StatsNine?</h1>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
@@ -15,10 +15,10 @@ export default function AboutUs() {
           PageMaker including versions of Lorem Ipsum.
         </p>
       </div>
-      <div className='aboutus-contact'>
+      <div className='aboutus aboutus-contact'>
         <h1 className='aboutus-hfont'>Contact Us!</h1>
       </div>
-      <div className='aboutus-careers'>
+      <div className='aboutus aboutus-careers'>
         <h1 className='aboutus-hfont'>Careers:</h1>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
@@ -30,7 +30,7 @@ export default function AboutUs() {
           PageMaker including versions of Lorem Ipsum.
         </p>
       </div>
-      <div className='aboutus-you'>
+      <div className='aboutus aboutus-you'>
         <h1 className='aboutus-hfont'>What can we do for you?</h1>
       </div>
     </div>
