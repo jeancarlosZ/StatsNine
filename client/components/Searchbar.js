@@ -16,6 +16,7 @@ export default function Searchbar() {
         return
       } else {
         if (value.length >= 1) {
+          event.target.value = ''
           await dispatch(setTickerSymbol(value))
           await history.push('/overviewpage')
         }
