@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { fetchSearchQuery } from '../../api/api'
+import React from 'react'
 import SearchRow from './SearchRow'
 
 export default function SearchTable(props) {
-  const [stocksList, setStocksList] = useState([])
   const close = props.close
-
-  useEffect(() => {
-    async function getStocksList() {
-      try {
-        setStocksList(await fetchSearchQuery(props.query, 20))
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    getStocksList()
-  }, [props.query])
+  const stocksList = props.stocksList
 
   return (
     <div className='search-table'>
