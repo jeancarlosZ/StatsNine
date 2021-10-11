@@ -30,7 +30,18 @@ function FinRow(props) {
         {props.rowInfo.map((info, index) => (
           <td key={index} className="fin-col">
             <div>{info}</div>
-            <div className="yearly-change">{props.yearlyChanges[index]}</div>
+            {console.log(props.yearlyChanges[index])}
+            <div
+              className={
+                props.yearlyChanges[index]
+                  ? props.yearlyChanges[index].includes('-')
+                    ? 'red'
+                    : 'green'
+                  : 'yearly-changes'
+              }
+            >
+              {props.yearlyChanges[index]}
+            </div>
           </td>
         ))}
       </tr>

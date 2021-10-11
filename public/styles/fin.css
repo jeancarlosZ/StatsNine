@@ -130,9 +130,11 @@
 }
 
 .red {
-  color: red;
+  color: rgb(251, 0, 0);
+  font-size: x-small;
 }
 
 .green {
   color: yellowgreen;
+  font-size: x-small;
 }
