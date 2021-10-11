@@ -39,7 +39,6 @@ export default function Balance() {
   //Right now formatting the labels and using them to fetch
   //Empty string is for date
   const labels = [
-    '',
     'Total Assets',
     'Total Liabilities',
     'Long Term Investments',

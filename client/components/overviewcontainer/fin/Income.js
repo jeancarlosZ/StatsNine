@@ -37,7 +37,6 @@ export default function Income() {
   //Right now formatting the labels and using them to fetch
   //Empty string is for date
   const labels = [
-    '',
     'Gross Profit',
     'Operating Expenses',
     'Operating Income',

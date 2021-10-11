@@ -17,7 +17,7 @@ export function returnTableInfo(values, labels) {
   let infoArray = [];
 
   info = values.slice(values.length - 13).reverse();
-  infoArray.push(info.map((info) => info.date.slice(0, 4)));
+  // infoArray.push(info.map((info) => info.date.slice(0, 4)));
   labels.forEach(function (label) {
     if (label !== '') {
       const string = formatString(label);
@@ -41,26 +41,24 @@ export function calcYearlyChanges(array) {
   const result = [];
   array.forEach(function (innerArray, index) {
     const array = [];
-    if (index) {
-      innerArray.forEach(function (ele, index) {
-        if (index != innerArray.length - 1) {
-          const yearlyChange =
-            Number(innerArray[index]) - Number(innerArray[index + 1]);
-          array.push(formatNumber(yearlyChange));
-        }
-      });
-    }
+
+    innerArray.forEach(function (ele, index) {
+      if (index != innerArray.length - 1) {
+        const yearlyChange =
+          Number(innerArray[index]) - Number(innerArray[index + 1]);
+        array.push(formatNumber(yearlyChange));
+      }
+    });
+
     result.push(array);
   });
   return result;
 }
 
 export function formatNestedArrayNums(nestedArray) {
-  return nestedArray.map(function (innerArray, index) {
-    if (index) {
-      return innerArray.map(function (num) {
-        return formatNumber(num);
-      });
-    } else return innerArray;
+  return nestedArray.map(function (innerArray) {
+    return innerArray.map(function (num) {
+      return formatNumber(num);
+    });
   });
 }

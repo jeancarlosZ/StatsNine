@@ -30,7 +30,6 @@ function FinRow(props) {
         {props.rowInfo.map((info, index) => (
           <td key={index} className="fin-col">
             <div>{info}</div>
-            {console.log(props.yearlyChanges[index])}
             <div
               className={
                 props.yearlyChanges[index]

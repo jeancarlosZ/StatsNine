@@ -39,7 +39,6 @@ export default function Cash() {
   //Right now formatting the labels and using them to fetch
   //Empty string is for date
   const labels = [
-    '',
     'Capital Expenditure',
     'Free Cash Flow',
     'Operating Cash Flow',

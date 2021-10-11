@@ -39,7 +39,6 @@ export default function EnterpriseValue() {
   //Right now formatting the labels and using them to fetch
   //Empty string is for date
   const labels = [
-    '',
     'Enterprise Value',
     'Market Capitalization',
     'Number Of Shares',
