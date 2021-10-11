@@ -9,10 +9,10 @@ export default function SearchRow(props) {
   const history = useHistory()
   const close = props.close
 
-  async function handleClick(ticker) {
+  async function handleClick(symbol) {
     try {
       await close(false)
-      await dispatch(setCurrentStock(ticker, name))
+      await dispatch(setCurrentStock(symbol, name))
       await history.push('/overviewpage')
     } catch (err) {
       console.log(err)
@@ -20,10 +20,10 @@ export default function SearchRow(props) {
   }
 
   return (
-    <tr className="search-row" onClick={() => handleClick(symbol)}>
-      <td className="search-cell">{symbol}</td>
-      <td className="search-cell2">{name}</td>
-      <td className="search-cell">{exchangeShortName}</td>
+    <tr className='search-row' onClick={() => handleClick(symbol)}>
+      <td className='search-cell'>{symbol}</td>
+      <td className='search-cell2'>{name}</td>
+      <td className='search-cell'>{exchangeShortName}</td>
     </tr>
   )
 }
