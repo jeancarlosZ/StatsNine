@@ -12,7 +12,7 @@ export default function Searchbar() {
 
   async function attemptSearch(event) {
     try {
-      const value = event.target.value
+      const value = event.target.value.toUpperCase()
       if (event.key !== 'Enter') {
         return
       } else {
@@ -40,7 +40,7 @@ export default function Searchbar() {
       <div className='top-search-bar'>
         <input
           className='top-search-input'
-          placeholder='Search'
+          placeholder='Search by Symbol'
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}
