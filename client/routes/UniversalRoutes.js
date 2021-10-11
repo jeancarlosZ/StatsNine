@@ -14,6 +14,7 @@ import Balance from '../components/overviewcontainer/fin/Balance';
 import Cash from '../components/overviewcontainer/fin/Cash';
 import Dividends from '../components/overviewcontainer/fin/Dividends';
 import NotFound from '../components/home/NotFound';
+import Calendar from '../components/home/Calendar';
 
 //* ^ Import components ^
 
@@ -35,6 +36,7 @@ class UniversalRoutes extends Component {
         <Route path="/screener" component={Table} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/not-found" component={NotFound} />
+        <Route path="/calendar" component={Calendar} />
         <Route path="/home" component={Homepage} />
         <Route path="/" exact component={Homepage} />
         <Redirect to="/not-found" />

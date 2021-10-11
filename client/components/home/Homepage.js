@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Newsfeed from './Newsfeed';
 import SnP500 from './SnP500';
 import Calendar from './Calendar';
+import Calendar1 from './Welcome';
 import Dashboard from './Dashboard';
 
 export default function Homepage() {
@@ -30,13 +31,10 @@ export default function Homepage() {
         </Row>
         <Row>
           <div>
-            <h1 className="display-4 font-weight-bold mb-3 text-white">
-              Modern, Flexible and Responsive ReactJS Gurus working for you
-            </h1>
             <p className="lead font-weight-light mb-3 landing-text">
-              A professional package that comes with hunderds of UI components,
-              forms, tables, charts, dashboards, pages and svg icons. Each one
-              is fully customizable, responsive and easy to use.
+              This tool does not provide financial advice. It is intended for
+              information and educational purpose only. It is not a substitution
+              for professional financial advise.
             </p>
           </div>
         </Row>
