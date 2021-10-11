@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { DAILY, fetchChartPrice, YEAR } from '../../api/api'
 import UniversalChart from '../UniversalChart'
 
-export default function PriceChart() {
-  const { symbol } = useSelector(state => state.local)
+export default function PriceChart(props) {
+  const symbol = props.symbol
   const [stockPrices, setStockPrices] = useState([])
 
   useEffect(() => {
@@ -17,11 +16,11 @@ export default function PriceChart() {
     }
 
     getStockPrices()
-  }, [])
+  }, [symbol])
 
   return (
-    <div className="price-chart flex-col align-self">
-      <span className="price-container flex-row pos-rel">
+    <div className='price-chart flex-col align-self'>
+      <span className='price-container flex-row pos-rel'>
         <Price stockPrices={stockPrices} />
         <USD />
       </span>
@@ -50,14 +49,14 @@ function OverviewChart(props) {
         low: values.map(e => e.low),
         open: values.map(e => e.open),
         xaxis: 'x',
-        yaxis: 'y'
-      }
+        yaxis: 'y',
+      },
     })
   }
 
   return (
     <UniversalChart
-      className="stock-price-chart"
+      className='stock-price-chart'
       title={`${symbol} Stock Chart`}
       dataset={dataset}
       showlegend={false}
@@ -69,12 +68,12 @@ function Price(props) {
   let price = 0
 
   if (props.stockPrices.values[0]) {
-    price = props.stockPrices.values[0].close
+    price = props.stockPrices.values[0].close.toFixed(2)
   }
 
-  return <div className="bold">${price}</div>
+  return <div className='bold'>${price}</div>
 }
 
 function USD() {
-  return <div className="usd pos-rel">USD</div>
+  return <div className='usd pos-rel'>USD</div>
 }

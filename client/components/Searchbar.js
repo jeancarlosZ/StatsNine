@@ -8,7 +8,7 @@ import SearchTable from './searchoverlay/SearchTable'
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState('bitcoin')
+  const [query, setQuery] = useState('a')
   const dispatch = useDispatch()
   const history = useHistory()
   const [stocksList, setStocksList] = useState([])
@@ -56,15 +56,15 @@ export default function Searchbar() {
 
   return (
     <div>
-      <div className="top-search-bar">
+      <div className='top-search-bar'>
         <input
-          className="top-search-input"
-          placeholder="Search by Symbol"
+          className='top-search-input'
+          placeholder='Search by Symbol'
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}
         />
-        <SearchIcon className="search-icon" />
+        <SearchIcon className='search-icon' />
       </div>
       {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
     </div>
