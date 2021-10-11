@@ -73,7 +73,8 @@
 
 .fin-label {
   text-align: left;
-  font-weight: 500;
+  font-weight: lighter;
+  font-size: small;
 }
 .center-text {
   text-align: center;
@@ -142,4 +143,21 @@
 .green {
   color: yellowgreen;
   font-size: x-small;
+}
+
+.fin-button-container {
+  left: 675px;
+  bottom: 280px;
+}
+
+.fin-buttons {
+  background-color: #1e222d;
+  border: none;
+  color: lightgray;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 15px;
 }
