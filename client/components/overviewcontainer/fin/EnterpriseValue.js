@@ -7,7 +7,12 @@ import FinTable from './FinTable';
 import CompanyInfo from './CompanyInfo';
 import { fetchEnterpriseValue, fetchStockProfile } from '../../../api/api';
 import { useSelector } from 'react-redux';
-import { returnProfile, returnTableInfo } from './finUtils';
+import {
+  returnProfile,
+  returnTableInfo,
+  calcYearlyChanges,
+  formatNestedArrayNums,
+} from './finUtils';
 import { FinButtons } from './FinButtons';
 
 //Right now I'm fetching from API at every sub page
@@ -43,7 +48,10 @@ export default function EnterpriseValue() {
 
   //Returning a 2D array
   //Every inner array is a row of info relating to the above labels
-  const infoArray = values ? returnTableInfo(values, labels) : [];
+  const unformatedDataNums = values ? returnTableInfo(values, labels) : [];
+
+  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
 
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
@@ -78,7 +86,11 @@ export default function EnterpriseValue() {
       </div>
       <FinButtons />
       {values ? (
-        <FinTable rowInfo={infoArray} labels={labels} />
+        <FinTable
+          rowInfo={infoArray}
+          labels={labels}
+          yearlyChanges={yearlyChanges}
+        />
       ) : (
         <div className="table-space">Loading...</div>
       )}
