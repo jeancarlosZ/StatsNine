@@ -14,6 +14,7 @@ import '../public/styles/header.css'
 import '../public/styles/keymetrics.css'
 import '../public/styles/overview.css'
 import '../public/styles/pricemetrics.css'
+import '../public/styles/safetymetrics.css'
 
 ReactDOM.render(
   <Provider store={store}>

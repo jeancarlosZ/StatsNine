@@ -108,6 +108,7 @@ export default function StockPriceChart() {
           showlegend={false}
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
+          margin={{ l: 50, r: 50, b: 25, t: 35 }}
         />
       </div>
     </>

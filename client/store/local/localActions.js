@@ -241,7 +241,11 @@ export async function getTickerResults() {
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
-    assetsdata: { a: totalAssets.values.slice(-5), b: totalLiabilities.values.slice(-5) },
+    assetsdata: {
+      k: totalAssets.keys.slice(-5),
+      a: totalAssets.values.slice(-5),
+      b: totalLiabilities.values.slice(-5)
+    },
     ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
     ltldata: ltlyears
   }
