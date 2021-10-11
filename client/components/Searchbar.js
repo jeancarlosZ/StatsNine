@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { fetchSearchQuery } from '../api/api'
@@ -12,6 +12,27 @@ export default function Searchbar() {
   const dispatch = useDispatch()
   const history = useHistory()
   const [stocksList, setStocksList] = useState([])
+  const searchRef = useRef(null)
+
+  useEffect(() => {
+    async function handleClickOutside(event) {
+      try {
+        if (searchRef.current && !searchRef.current.contains(event.target)) {
+          setOpen(false)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [searchRef, open])
 
   useEffect(() => {
     async function getStocksList() {
@@ -55,7 +76,7 @@ export default function Searchbar() {
   }
 
   return (
-    <div>
+    <div ref={searchRef}>
       <div className='top-search-bar'>
         <input
           className='top-search-input'
@@ -69,27 +90,4 @@ export default function Searchbar() {
       {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
     </div>
   )
-}
-
-{
-  /* <div className="input-group search-area ml-auto d-inline-flex">
-<input type="text" className="form-control" placeholder="Search here" spellcheck="false" data-ms-editor="true">
-<div class="input-group-append">
-<button type="button" className="input-group-text"><i className="flaticon-381-search-2"></i></button>
-</div>
-
-</div> */
-  //   <div>
-  //     <div className='top-search-bar'>
-  //      <input
-  //      className='top-search-input'
-  //    placeholder='Search by Symbol'
-  //       onKeyDown={event => attemptSearch(event)}
-  //        onChange={event => handleChange(event)}
-  //          onClick={() => setOpen(true)}
-  //        />
-  //      </div>
-  //      {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
-  //    </div>
-  //  )
 }
