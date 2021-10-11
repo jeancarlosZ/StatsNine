@@ -29,7 +29,7 @@ export default function Searchbar() {
   }
 
   function handleChange(event) {
-    const value = event.target.value
+    const value = event.target.value.toUpperCase()
     if (value.length >= 1) {
       setQuery(value)
     }
