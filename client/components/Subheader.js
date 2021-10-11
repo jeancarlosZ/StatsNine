@@ -7,11 +7,11 @@ export default function Subheader() {
   const history = useHistory()
   const location = useLocation()
   const selected = location.pathname.toLowerCase()
-
   const [data, setData] = useState({})
 
   useEffect(() => {
     async function getData() {
+      //* Fetch data from API
       const { symbol, companyName, image } = await getLocalData(
         ['symbol', 'companyName', 'image'],
         fetchStockProfile,
@@ -22,12 +22,6 @@ export default function Subheader() {
     }
     getData()
   }, [])
-
-  //! Remove
-  console.log('--------------------')
-  console.log('data:', data)
-  console.log('--------------------')
-  //! Remove
 
   return (
     <div>
@@ -56,12 +50,7 @@ export default function Subheader() {
         </div>
         <div className="preview-spacer"></div>
         <div className="stock-preview-container">
-          <img
-            className="company-logo"
-            // style={{ height: 48, width: 48, borderRadius: 90 }}
-            src={data.image ? data.image : ''}
-            alt="temp"
-          />
+          <img className="company-logo" src={data.image ? data.image : ''} alt="temp" />
           <div>
             <label>{data.companyName}</label>
             <span>{data.symbol}</span>
@@ -75,7 +64,8 @@ export default function Subheader() {
 //* Check if current route is selected
 function getSelected(selected, route) {
   let isRoute = false
-  if (selected.includes(route)) isRoute = true
+  //* If URL includes(route)
+  if (selected.includes(route)) isRoute = true //* If route is overviewpage overview page must be the last /..
   if (route === 'overviewpage' && selected.split('/').pop() != route) isRoute = false
   return isRoute ? ' selectedpage' : ''
 }

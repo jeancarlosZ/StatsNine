@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchCashflowStatement, fetchIncomeStatement, fetchRatios } from '../../../../api/api'
+import { fetchCashflowStatement, fetchIncomeStatement } from '../../../../api/api'
 import Star from '../../../../assets/icons/star'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
 import {
@@ -8,12 +8,9 @@ import {
   getFirstLastArr,
   getPercentDifference,
   getStarColor,
-  roundNumberDec,
   trimDate
 } from '../../../../utils'
 import Growthchart from '../charts/GrowthChart'
-import PeHistChart from '../charts/PEHistChart'
-import PFCFHistChart from '../charts/PFCFHistChart'
 import MetricSelector from '../MetricSelector'
 
 //* This is the price metrics page.
