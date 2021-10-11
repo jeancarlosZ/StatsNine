@@ -110,3 +110,29 @@
   background-color: rgb(30, 34, 45, 0.3);
   border: transparent;
 }
+
+.fin-chart-container {
+  position: relative;
+  top: 15px;
+  right: 15px;
+  width: 1200px;
+}
+
+.fin-chart {
+  height: 100px;
+  width: 1192px;
+  height: 290px;
+}
+
+.yearly-change {
+  font-size: x-small;
+  color: greenyellow;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: yellowgreen;
+}

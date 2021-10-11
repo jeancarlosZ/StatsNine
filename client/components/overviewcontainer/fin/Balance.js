@@ -7,7 +7,12 @@ import FinTable from './FinTable';
 import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
 import CompanyInfo from './CompanyInfo';
 import { useSelector } from 'react-redux';
-import { returnProfile, returnTableInfo } from './finUtils';
+import {
+  returnProfile,
+  returnTableInfo,
+  calcYearlyChanges,
+  formatNestedArrayNums,
+} from './finUtils';
 import { FinButtons } from './FinButtons';
 
 //Right now I'm fetching from API at every sub page
@@ -44,7 +49,10 @@ export default function Balance() {
 
   //Returning a 2D array
   //Every inner array is a row of info relating to the above labels
-  const infoArray = values ? returnTableInfo(values, labels) : [];
+  const unformatedDataNums = values ? returnTableInfo(values, labels) : [];
+
+  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
 
   const dataset = [];
 
@@ -62,22 +70,28 @@ export default function Balance() {
 
   return (
     <>
-      <div className="income-container flex-row justify-around">
+      <div className="income-container flex-row justify-between">
         <CompanyInfo
           companyName={companyProfile.companyName}
           symbol={companyProfile.symbol}
           ticker={companyProfile.exchangeShortName}
         />
-        <UniversalChart
-          className="income-chart"
-          title="Net Income"
-          dataset={dataset}
-          showlegend={false}
-        />
+        <div className="fin-chart-container">
+          <UniversalChart
+            className="balance-chart fin-chart"
+            title="Net Income"
+            dataset={dataset}
+            showlegend={false}
+          />
+        </div>
       </div>
       <FinButtons />
       {values ? (
-        <FinTable rowInfo={infoArray} labels={labels} />
+        <FinTable
+          rowInfo={infoArray}
+          yearlyChanges={yearlyChanges}
+          labels={labels}
+        />
       ) : (
         <div className="table-space">Loading...</div>
       )}

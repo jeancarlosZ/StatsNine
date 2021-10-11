@@ -7,6 +7,7 @@ export default function FinTable(props) {
       {props.rowInfo.map((info, index) => (
         <FinRow
           rowInfo={info}
+          yearlyChanges={props.yearlyChanges[index]}
           key={info}
           label={props.labels[index]}
           index={index}
@@ -21,18 +22,15 @@ function FinRow(props) {
   let color = props.index % 2 ? 'light' : 'dark';
   let bold = props.index === 0 ? 'fin-date' : '';
   className = `${color} ${bold} fin-row center-text`;
-  const row =
-    props.label !== ''
-      ? props.rowInfo.map((info) => formatNumber(info))
-      : props.rowInfo.map((info) => info.slice(0, 4));
 
   return (
     <tbody>
       <tr className={className}>
         <td className="fin-col fin-label">{props.label}</td>
-        {row.map((info, index) => (
+        {props.rowInfo.map((info, index) => (
           <td key={index} className="fin-col">
-            {info}
+            <div>{info}</div>
+            <div className="yearly-change">{props.yearlyChanges[index]}</div>
           </td>
         ))}
       </tr>

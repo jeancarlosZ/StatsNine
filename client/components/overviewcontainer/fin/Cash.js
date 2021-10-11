@@ -62,18 +62,20 @@ export default function Cash() {
 
   return (
     <>
-      <div className="income-container flex-row justify-around">
+      <div className="income-container flex-row justify-between">
         <CompanyInfo
           companyName={companyProfile.companyName}
           symbol={companyProfile.symbol}
           ticker={companyProfile.exchangeShortName}
         />
-        <UniversalChart
-          className="income-chart"
-          title="Net Income"
-          dataset={dataset}
-          showlegend={false}
-        />
+        <div className="fin-chart-container">
+          <UniversalChart
+            className="cash-chart fin-chart"
+            title="Net Income"
+            dataset={dataset}
+            showlegend={false}
+          />
+        </div>
       </div>
       <FinButtons />
       {values ? (
