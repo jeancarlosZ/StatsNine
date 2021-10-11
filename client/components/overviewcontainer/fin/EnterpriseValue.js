@@ -4,76 +4,59 @@ import { Price } from '../PriceChart';
 import Subheader from '../../Subheader';
 import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
-import { fetchEnterpriseValue } from '../../../api/api';
+import CompanyInfo from './CompanyInfo';
+import { fetchEnterpriseValue, fetchStockProfile } from '../../../api/api';
+import { useSelector } from 'react-redux';
+import {
+  returnProfile,
+  returnTableInfo,
+  calcYearlyChanges,
+  formatNestedArrayNums,
+  getDates,
+} from './finUtils';
+import { FinButtons } from './FinButtons';
 
+//Right now I'm fetching from API at every sub page
+//That's not what we want and I'll be optimizing with some of the tools we have
 export default function EnterpriseValue() {
+  const { ticker } = useSelector((state) => state.local);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getEnterpriseInfo() {
-      setEnterpriseInfo(await fetchEnterpriseValue('MSFT'));
+      setEnterpriseInfo(await fetchEnterpriseValue(ticker));
+      setProfile(await fetchStockProfile(ticker));
     }
     getEnterpriseInfo();
   }, []);
 
-  console.log(enterpriseInfo);
+  const companyProfile = returnProfile(profile);
+
+  //These are the values returned from the fetch. Can be used in our charts!
   const { values } = enterpriseInfo;
-  let info;
-  let infoArray = [];
+
+  //Labels for Financials Tables
+  //Right now formatting the labels and using them to fetch
+  //Empty string is for date
   const labels = [
-    '',
     'Enterprise Value',
-    'Market Cap',
+    'Market Capitalization',
     'Number Of Shares',
     'Add Total Debt',
   ];
 
-  if (values) {
-    info = values.slice(values.length - 6).reverse();
-    infoArray.push(info.map((info) => info.date));
-    infoArray.push(info.map((info) => info.enterpriseValue));
-    infoArray.push(info.map((info) => info.marketCapitalization));
-    infoArray.push(info.map((info) => info.numberOfShares));
-    infoArray.push(info.map((info) => info.addTotalDebt));
-  }
+  //Returning a 2D array
+  //Every inner array is a row of info relating to the above labels
+  const unformatedDataNums = values ? returnTableInfo(values, labels) : [];
 
-  return (
-    <>
-      <Subheader />
-      <div className="main flex-col justify-center">
-        <div className="card align-self justify-around">
-          <FinancialsNavBar />
-          <div className="income-container flex-row justify-around">
-            <CompanyInfo />
-            <DividendsChart />
-          </div>
-          <Buttons />
-          {values ? (
-            <FinTable rowInfo={infoArray} labels={labels} />
-          ) : (
-            <div className="table-space">Loading...</div>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
+  const dates = values ? getDates(values) : [];
+  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
 
-function CompanyInfo() {
-  return (
-    <div className="company-container align-self flex-col">
-      <div className="company-info pos-rel">
-        <span className="company-name bold">ENTERPRISE VALUE</span>
-        <div className="ticker-container flex-row justify-between">
-          <span className="ticker bold">MSFT</span>
-          <span className="bold">NASDAQ</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DividendsChart() {
+  //This is for our Chart information
+  //Generate the data set and pass it into UniversalChart which is already in the return statement
+  //Right now it's all place holder data
   const dataset = [];
 
   dataset.push({
@@ -86,20 +69,33 @@ function DividendsChart() {
   });
 
   return (
-    <UniversalChart
-      className="income-chart"
-      title="Net Income"
-      dataset={dataset}
-      showlegend={false}
-    />
-  );
-}
-
-function Buttons() {
-  return (
-    <div className="fin-button-container align-self pos-rel flex-row justify-around">
-      <button className="buttons">Annual</button>
-      <button className="buttons">Quarterly</button>
-    </div>
+    <>
+      <div className="income-container flex-row justify-between">
+        <CompanyInfo
+          companyName={companyProfile.companyName}
+          symbol={companyProfile.symbol}
+          ticker={companyProfile.exchangeShortName}
+        />
+        <div className="fin-chart-container">
+          <UniversalChart
+            className="enterprise-chart fin-chart "
+            title="Net Income"
+            dataset={dataset}
+            showlegend={false}
+          />
+        </div>
+      </div>
+      <FinButtons />
+      {values ? (
+        <FinTable
+          dates={dates}
+          rowInfo={infoArray}
+          labels={labels}
+          yearlyChanges={yearlyChanges}
+        />
+      ) : (
+        <div className="table-space">Loading...</div>
+      )}
+    </>
   );
 }

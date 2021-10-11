@@ -14,10 +14,15 @@ export default function Row(props) {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  async function handleClick() {
-    await dispatch(setCurrentStock(symbol, companyName))
-    await loadStockProfile()
-    await history.push('/overviewpage')
+
+  async function handleClick(ticker) {
+    try {
+      await dispatch(setCurrentStock(symbol, companyName))
+      await loadStockProfile()
+      await history.push('/overviewpage')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

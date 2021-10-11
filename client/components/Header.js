@@ -2,8 +2,6 @@ import React from 'react'
 import Searchbar from './Searchbar'
 import { useHistory, useLocation } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 export default function Header() {
   const history = useHistory()
