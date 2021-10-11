@@ -3,7 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { fetchStockProfile } from '../api/api'
 import { getLocalData } from '../store/local/localActions'
 
-export default function Subheader() {
+export default function Subheader(props) {
+  const symbol = props.symbol
   const history = useHistory()
   const location = useLocation()
   const selected = location.pathname.toLowerCase()
@@ -16,18 +17,18 @@ export default function Subheader() {
         ['symbol', 'companyName', 'image'],
         fetchStockProfile,
         [],
-        ['symbol', 'companyName', 'image']
+        ['symbol', 'companyName', 'image'],
       )
       setData({ symbol, companyName, image })
     }
     getData()
-  }, [])
+  }, [symbol])
 
   return (
     <div>
-      <nav className="sub-header">
-        <div className="sub-header-pages-container">
-          <div className="sub-header-pages">
+      <nav className='sub-header'>
+        <div className='sub-header-pages-container'>
+          <div className='sub-header-pages'>
             <div
               className={`sub-page${getSelected(selected, 'overviewpage')}`}
               onClick={() => history.push('/overviewpage')}
@@ -48,9 +49,9 @@ export default function Subheader() {
             </div>
           </div>
         </div>
-        <div className="preview-spacer"></div>
-        <div className="stock-preview-container">
-          <img className="company-logo" src={data.image ? data.image : ''} alt="temp" />
+        <div className='preview-spacer'></div>
+        <div className='stock-preview-container'>
+          <img className='company-logo' src={data.image ? data.image : ''} alt='temp' />
           <div>
             <label>{data.companyName}</label>
             <span>{data.symbol}</span>

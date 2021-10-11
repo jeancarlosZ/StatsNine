@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import UniversalChart from '../../UniversalChart';
-import { fetchChartPrice, DAILY, WEEK } from '../../../api/api';
+import UniversalChart from '../UniversalChart';
+import { fetchChartPrice, DAILY, WEEK } from '../../api/api';
 
 export default function SnP500() {
   const [progressData, setProgressData] = useState({});
@@ -26,7 +26,7 @@ export default function SnP500() {
     dataset.push({
       name: 'current progress',
       type: 'line',
-      color: '#00887b',
+      color: '#007AFF',
       outline: '#34b87d',
 
       values: values.map(x => x.close),

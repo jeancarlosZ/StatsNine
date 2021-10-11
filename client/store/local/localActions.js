@@ -17,8 +17,14 @@ import store from '../index.js'
 export function setCurrentStock(symbol, companyName) {
   return {
     type: SET_TICKER,
-    payload: { symbol: symbol, companyName: companyName }
+    payload: getPayload(symbol, companyName)
   }
+}
+
+//* Func to get the payload for above!
+function getPayload(symbol, companyName) {
+  if (companyName) return { symbol: symbol, companyName: companyName }
+  return { symbol: symbol }
 }
 
 //* This func will update the local data.
@@ -48,7 +54,7 @@ export async function getLocalData(key, func, args, save) {
   try {
     const state = store.getState()
 
-    //* If we are selecting data in batch
+    //* If we are selecting data in batch or an [] of data
     if (Array.isArray(save)) {
       //* Both must be arrays, and same length
       if (!Array.isArray(key) || save.length !== key.length) return
@@ -100,12 +106,15 @@ export async function getLocalData(key, func, args, save) {
   }
 }
 
+//* companyName: 'aaple'
+//* state.local.companyName = exists
+
 //* Function to handle loading a single peice of data from local/API
 async function handleLocalData(state, save, func, args, key) {
   const local = state.local[save]
   //* Try to get data from local store, if it do be
   if (local) return local
-  //* If not in local store, load data from API
+  //* If not in local store, load data from API  // (ticker, false, 'quarter')
   const loadedData = args ? await func(state.local.symbol, ...args) : await func(state.local.symbol)
   let data
   //* Because data may not be time series data we must add a check
@@ -232,7 +241,11 @@ export async function getTickerResults() {
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
-    assetsdata: { a: totalAssets.values.slice(-5), b: totalLiabilities.values.slice(-5) },
+    assetsdata: {
+      k: totalAssets.keys.slice(-5),
+      a: totalAssets.values.slice(-5),
+      b: totalLiabilities.values.slice(-5)
+    },
     ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
     ltldata: ltlyears
   }

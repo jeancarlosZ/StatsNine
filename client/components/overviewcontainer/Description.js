@@ -1,32 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 
-export default function Description() {
+export default function Description(props) {
+  const symbol = props.symbol
+
+  useEffect(() => {}, [symbol])
+
   return (
-    <div className="description flex-col justify-around">
-      <Header />
+    <div className='description flex-col justify-around'>
+      <Header symbol={symbol} />
       <Text />
     </div>
-  );
+  )
 }
 
-function Header() {
-  return (
-    <div className="headerTwo company-details pos-rel">Company Details:</div>
-  );
+function Header(props) {
+  const symbol = props.symbol
+
+  return <div className='headerTwo company-details pos-rel'>{`${symbol} Company Details:`}</div>
 }
 
 function Text() {
   return (
-    <div className="description-text align-self">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book. It has survived not only five centuries, but
-      also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset
-      sheets containing Lorem Ipsum passages, and more recently with desktop
-      publishing software like Aldus PageMaker including versions of Lorem
-      Ipsum.
+    <div className='description-text align-self'>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+      galley of type and scrambled it to make a type specimen book. It has survived not only five
+      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
+      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+      passages, and more recently with desktop publishing software like Aldus PageMaker including
+      versions of Lorem Ipsum.
     </div>
-  );
+  )
 }

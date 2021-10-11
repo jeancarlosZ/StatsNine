@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Homepage from './components/generalpages/homepage/Homepage';
 import UniversalRoutes from './routes/UniversalRoutes';
 
 /**
