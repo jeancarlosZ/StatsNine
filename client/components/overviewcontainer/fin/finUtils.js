@@ -13,8 +13,8 @@ export function returnProfile(profile) {
 
 export function getDates(values) {
   let info;
-  info = values.slice(values.length - 14).reverse();
-  const dates = info.map((info) => info.date.slice(0, 4));
+  info = values.slice(values.length - 15).reverse();
+  const dates = info.map((info) => info.slice(0, 4));
   dates.pop();
   dates.unshift('');
   return dates;
@@ -51,11 +51,11 @@ export function calcYearlyChanges(array) {
   const result = [];
   array.forEach(function (innerArray, index) {
     const array = [];
-
-    innerArray.forEach(function (ele, index) {
-      if (index != innerArray.length - 1) {
-        const yearlyChange =
-          Number(innerArray[index]) - Number(innerArray[index + 1]);
+    let info;
+    info = innerArray.slice(innerArray.length - 15).reverse();
+    info.forEach(function (ele, index) {
+      if (index != info.length - 1) {
+        const yearlyChange = Number(info[index]) - Number(info[index + 1]);
         array.push(formatNumber(yearlyChange));
       }
     });
@@ -68,11 +68,30 @@ export function calcYearlyChanges(array) {
 export function formatNestedArrayNums(nestedArray) {
   return nestedArray.map(function (innerArray) {
     const array = [];
-    innerArray.forEach(function (num, index) {
+    let info;
+    info = innerArray.slice(innerArray.length - 14).reverse();
+    info.forEach(function (num, index) {
       if (index !== innerArray.length - 1) {
         array.push(formatNumber(num));
       }
     });
     return array;
   });
+}
+
+export const incomeArray = [
+  'dates',
+  'grossProfit',
+  'operatingExpenses',
+  'operatingIncome',
+  'incomeBeforeTax',
+  'incomeTaxExpense',
+];
+
+export function returnUnformatedData(incomeInfo, arrayOfItems) {
+  const result = [];
+  arrayOfItems.forEach((item) => {
+    result.push(incomeInfo[item].values);
+  });
+  return result;
 }
