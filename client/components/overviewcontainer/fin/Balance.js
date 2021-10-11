@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import UniversalChart from '../../UniversalChart';
-import { Price } from '../PriceChart';
-import Subheader from '../../Subheader';
-import { FinancialsNavBar } from './Financialspage';
-import FinTable from './FinTable';
-import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
-import CompanyInfo from './CompanyInfo';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import UniversalChart from '../../UniversalChart'
+import { Price } from '../PriceChart'
+import Subheader from '../../Subheader'
+import { FinancialsNavBar } from './Financialspage'
+import FinTable from './FinTable'
+import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api'
+import CompanyInfo from './CompanyInfo'
+import { useSelector } from 'react-redux'
 import {
   returnProfile,
   returnTableInfo,
   calcYearlyChanges,
   formatNestedArrayNums,
-  getDates,
-} from './finUtils';
-import { FinButtons } from './FinButtons';
+  getDates
+} from './finUtils'
+import { FinButtons } from './FinButtons'
 
 //Right now I'm fetching from API at every sub page
 //That's not what we want and I'll be optimizing with some of the tools we have
 export default function Balance() {
-  const { ticker } = useSelector((state) => state.local);
-  const [balanceInfo, setBalanceInfo] = useState({});
-  const [profile, setProfile] = useState({});
+  const { symbol } = useSelector(state => state.local)
+  const [balanceInfo, setBalanceInfo] = useState({})
+  const [profile, setProfile] = useState({})
 
   useEffect(() => {
     async function getBalanceInfo() {
-      setBalanceInfo(await fetchBalanceStatement(ticker));
-      setProfile(await fetchStockProfile(ticker));
+      setBalanceInfo(await fetchBalanceStatement(symbol))
+      setProfile(await fetchStockProfile(symbol))
     }
-    getBalanceInfo();
-  }, []);
+    getBalanceInfo()
+  }, [])
 
-  const companyProfile = returnProfile(profile);
+  const companyProfile = returnProfile(profile)
 
   //These are the values returned from the fetch. Can be used in our charts!
-  const { values } = balanceInfo;
+  const { values } = balanceInfo
 
   //Labels for Financials Tables
   //Right now formatting the labels and using them to fetch
@@ -44,18 +44,18 @@ export default function Balance() {
     'Total Liabilities',
     'Long Term Investments',
     'Total Debt',
-    'Common Stock',
-  ];
+    'Common Stock'
+  ]
 
   //Returning a 2D array
   //Every inner array is a row of info relating to the above labels
-  const unformatedDataNums = values ? returnTableInfo(values, labels) : [];
+  const unformatedDataNums = values ? returnTableInfo(values, labels) : []
 
-  const dates = values ? getDates(values) : [];
-  const infoArray = formatNestedArrayNums(unformatedDataNums);
-  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
+  const dates = values ? getDates(values) : []
+  const infoArray = formatNestedArrayNums(unformatedDataNums)
+  const yearlyChanges = calcYearlyChanges(unformatedDataNums)
 
-  const dataset = [];
+  const dataset = []
 
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
@@ -66,8 +66,8 @@ export default function Balance() {
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
     values: [38, 27, 18, 10, 7],
     hoverinfo: 'label+percent+name',
-    domain: { row: 1, column: 0 },
-  });
+    domain: { row: 1, column: 0 }
+  })
 
   return (
     <>
@@ -88,15 +88,10 @@ export default function Balance() {
       </div>
       <FinButtons />
       {values ? (
-        <FinTable
-          dates={dates}
-          rowInfo={infoArray}
-          yearlyChanges={yearlyChanges}
-          labels={labels}
-        />
+        <FinTable dates={dates} rowInfo={infoArray} yearlyChanges={yearlyChanges} labels={labels} />
       ) : (
         <div className="table-space">Loading...</div>
       )}
     </>
-  );
+  )
 }
