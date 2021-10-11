@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
-import ExamplePage from '../api/ExamplePage'
-import TestPage from '../api/TestPage'
-import AboutUs from '../components/home/aboutus'
-import Calendar from '../components/home/Calendar'
-import Homepage from '../components/home/Homepage'
-import NotFound from '../components/home/NotFound'
-import Financialspage from '../components/overviewcontainer/fin/Financialspage'
-import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics'
-import Overviewpage from '../components/overviewcontainer/Overviewpage'
-import Table from '../components/screener/Table'
+import React, { Component } from 'react';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import ExamplePage from '../api/ExamplePage';
+import TestPage from '../api/TestPage';
+import AboutUs from '../components/home/aboutus';
+import Calendar from '../components/home/Calendar';
+import Homepage from '../components/home/Homepage';
+import NotFound from '../components/home/NotFound';
+import Financialspage from '../components/overviewcontainer/fin/Financialspage';
+import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics';
+import Overviewpage from '../components/overviewcontainer/Overviewpage';
+import Table from '../components/screener/Table';
 
 class UniversalRoutes extends Component {
   render() {
@@ -26,11 +26,11 @@ class UniversalRoutes extends Component {
         <Route path="/not-found" component={NotFound} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/home" component={Homepage} />
-        <Route exact path="/" component={Homepage} />
-        {/* <Redirect to="/not-found" /> */}
+        <Route path="/" exact component={Homepage} />
+        <Redirect to="/not-found" />
       </Switch>
-    )
+    );
   }
 }
 
-export default withRouter(UniversalRoutes)
+export default withRouter(UniversalRoutes);
