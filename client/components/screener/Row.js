@@ -15,8 +15,12 @@ export default function Row(props) {
   const history = useHistory()
 
   async function handleClick(ticker) {
-    await dispatch(setTickerSymbol(ticker))
-    await history.push('/overviewpage')
+    try {
+      await dispatch(setTickerSymbol(ticker))
+      await history.push('/overviewpage')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

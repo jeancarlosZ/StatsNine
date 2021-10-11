@@ -9,7 +9,11 @@ export default function PriceChart() {
 
   useEffect(() => {
     async function getStockPrices() {
-      setStockPrices(await fetchChartPrice(ticker, DAILY, YEAR, false))
+      try {
+        setStockPrices(await fetchChartPrice(ticker, DAILY, YEAR, false))
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     getStockPrices()

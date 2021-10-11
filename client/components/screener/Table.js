@@ -7,7 +7,11 @@ export default function Table() {
 
   useEffect(() => {
     async function getStocksList() {
-      setStocksList(await fetchScreenerStocks())
+      try {
+        setStocksList(await fetchScreenerStocks())
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     getStocksList()
