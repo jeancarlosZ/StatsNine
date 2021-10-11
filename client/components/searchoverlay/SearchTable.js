@@ -9,7 +9,7 @@ export default function SearchTable(props) {
   useEffect(() => {
     async function getStocksList() {
       try {
-        setStocksList(await fetchSearchQuery(props.query))
+        setStocksList(await fetchSearchQuery(props.query, 20))
       } catch (err) {
         console.log(err)
       }
