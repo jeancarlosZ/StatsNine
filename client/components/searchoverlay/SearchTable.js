@@ -4,6 +4,7 @@ import SearchRow from './SearchRow'
 
 export default function SearchTable(props) {
   const [stocksList, setStocksList] = useState([])
+  const close = props.close
 
   useEffect(() => {
     async function getStocksList() {
@@ -29,7 +30,7 @@ export default function SearchTable(props) {
         </thead>
         <tbody>
           {stocksList.length ? (
-            stocksList.map(stock => <SearchRow key={stock.symbol} stock={stock} />)
+            stocksList.map(stock => <SearchRow key={stock.symbol} stock={stock} close={close} />)
           ) : (
             <tr>
               <td>Loading...</td>

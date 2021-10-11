@@ -5,6 +5,7 @@ import { setTickerSymbol } from '../store/local/localActions'
 import SearchTable from './searchoverlay/SearchTable'
 
 export default function Searchbar() {
+  const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('bitcoin')
   const dispatch = useDispatch()
   const history = useHistory()
@@ -17,6 +18,7 @@ export default function Searchbar() {
       } else {
         if (value.length >= 1) {
           event.target.value = ''
+          await setOpen(false)
           await dispatch(setTickerSymbol(value))
           await history.push('/overviewpage')
         }
@@ -41,9 +43,10 @@ export default function Searchbar() {
           placeholder='Search'
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
+          onClick={() => setOpen(true)}
         />
       </div>
-      <SearchTable query={query} />
+      {open ? <SearchTable query={query} close={setOpen} /> : ''}
     </div>
   )
 }

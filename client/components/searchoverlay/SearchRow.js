@@ -7,9 +7,11 @@ export default function SearchRow(props) {
   const { symbol, name, exchangeShortName } = props.stock
   const dispatch = useDispatch()
   const history = useHistory()
+  const close = props.close
 
   async function handleClick(ticker) {
     try {
+      await close(false)
       await dispatch(setTickerSymbol(ticker))
       await history.push('/overviewpage')
     } catch (err) {
