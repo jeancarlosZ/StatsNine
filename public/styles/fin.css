@@ -109,9 +109,11 @@
 }
 
 .fin-date {
-  font-weight: 500;
+  font-weight: lighter;
   background-color: rgb(30, 34, 45, 0.3);
   border: transparent;
+  text-align: center;
+  font-size: small;
 }
 
 .fin-chart-container {

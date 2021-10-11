@@ -10,6 +10,7 @@ import {
   returnTableInfo,
   calcYearlyChanges,
   formatNestedArrayNums,
+  getDates,
 } from './finUtils';
 import { FinButtons } from './FinButtons';
 
@@ -48,6 +49,7 @@ export default function Income() {
   //Every inner array is a row of info relating to the above labels
   const unformatedDataNums = values ? returnTableInfo(values, labels) : [];
 
+  const dates = values ? getDates(values) : [];
   const infoArray = formatNestedArrayNums(unformatedDataNums);
   const yearlyChanges = calcYearlyChanges(unformatedDataNums);
 
@@ -85,6 +87,7 @@ export default function Income() {
       <FinButtons />
       {values ? (
         <FinTable
+          dates={dates}
           rowInfo={infoArray}
           yearlyChanges={yearlyChanges}
           labels={labels}

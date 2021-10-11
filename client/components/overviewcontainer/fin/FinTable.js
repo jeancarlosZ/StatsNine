@@ -4,6 +4,15 @@ import { roundNumberDec, formatNumber } from '../../../utils';
 export default function FinTable(props) {
   return (
     <table className="fin-table">
+      <tbody>
+        <tr>
+          {props.dates.map((date) => (
+            <td className="fin-date" key={date}>
+              {date}
+            </td>
+          ))}
+        </tr>
+      </tbody>
       {props.rowInfo.map((info, index) => (
         <FinRow
           rowInfo={info}
@@ -20,8 +29,7 @@ export default function FinTable(props) {
 function FinRow(props) {
   let className;
   let color = props.index % 2 ? 'light' : 'dark';
-  let bold = props.index === 0 ? 'fin-date' : '';
-  className = `${color} ${bold} fin-row center-text`;
+  className = `${color} bold fin-row center-text`;
 
   return (
     <tbody>

@@ -1,4 +1,3 @@
-import { formatTimeSeriesData } from '../../../api/api';
 import { formatNumber } from '../../../utils';
 
 export function returnProfile(profile) {
@@ -10,6 +9,15 @@ export function returnProfile(profile) {
     symbol,
     exchangeShortName,
   };
+}
+
+export function getDates(values) {
+  let info;
+  info = values.slice(values.length - 14).reverse();
+  const dates = info.map((info) => info.date.slice(0, 4));
+  dates.pop();
+  dates.unshift('');
+  return dates;
 }
 
 export function returnTableInfo(values, labels) {
