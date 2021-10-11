@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { DAILY, fetchChartPrice, YEAR } from '../../api/api'
 import UniversalChart from '../UniversalChart'
-import { fetchChartPrice, DAILY, YEAR } from '../../api/api'
 
 export default function PriceChart() {
   const { symbol } = useSelector(state => state.local)

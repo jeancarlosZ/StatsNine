@@ -32,11 +32,10 @@ export default function Searchbar() {
         return
       } else {
         if (value.length >= 1) {
-          //* map over the stocks,
           if (stocksList.map(stock => stock.symbol).includes(value)) {
             event.target.value = ''
-            await setOpen(false) //* this needs symbol & company name
-            await dispatch(setCurrentStock(value, 'TEST'))
+            await setOpen(false)
+            await dispatch(setCurrentStock(value))
             await history.push('/overviewpage')
           } else {
             alert('Symbol not found!')

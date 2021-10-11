@@ -35,12 +35,12 @@
     var(--gmetricInnerSubcontainerWidth) - var(--gmetricsOverviewWidth)
   );
 
-  --chartGap: 20px;
+  --gchartGap: 20px;
   --chartPadding: 0px;
   --chartPaddings: calc(var(--chartPadding) * 2);
 
   --gmetricsChartContainerHeight: calc(
-    (var(--gmetricInnerSubcontainerHeight) / 3) - var(--chartGap)
+    (var(--gmetricInnerSubcontainerHeight) / 3) - var(--gchartGap)
   );
 
   --gmetricsChartWrapperHeight: calc(var(--gmetricsChartContainerHeight) - var(--chartPaddings));
@@ -514,7 +514,7 @@ body {
 */
 
 .growth-metrics-container .slot {
-  margin: var(--chartGap) 0px;
+  margin: var(--gchartGap) 0px;
   display: flex;
 
   /* TODO COLOR */
