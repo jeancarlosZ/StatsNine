@@ -19,15 +19,6 @@ export default function Header() {
       <div className="header-space-one"></div>
       <Searchbar />
       <div className="header-space-two"></div>
-<<<<<<< HEAD
-      <div className="go-to-dashboard" onClick={() => history.push('/home')}>
-        Dashboard
-      </div>
-      <div className="go-to-screener" onClick={() => history.push('/screener')}>
-        Screener
-      </div>
-      <div className="go-to-about-us" onClick={() => history.push('/aboutus')}>
-=======
       <div
         className={`go-to-dashboard${getSelected(selected, 'home')}`}
         onClick={() => history.push('/home')}
@@ -44,7 +35,6 @@ export default function Header() {
         className={`go-to-about-us${getSelected(selected, 'aboutus')}`}
         onClick={() => history.push('/aboutus')}
       >
->>>>>>> 25761b5e967f2263941788099ed55840050bc335
         About Us
       </div>
     </div>
