@@ -41,7 +41,7 @@ export default function PFCFHistChart({ data }) {
           keys={keys}
           dataset={dataset}
           showlegend={false}
-          //rgba(30, 34, 45, 0.3)
+          margin={{ l: 50, r: 50, b: 25, t: 35 }}
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
           hoverdistance={50}

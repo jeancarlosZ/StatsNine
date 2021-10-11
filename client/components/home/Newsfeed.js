@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { fetchStockNews } from '../../api/api';
+import React, { useEffect, useState } from 'react'
+import { fetchStockNews } from '../../api/api'
 
 export default function Newsfeed() {
-  const [stockNewsList, setStockNewsList] = useState([]);
+  const [stockNewsList, setStockNewsList] = useState([])
 
   useEffect(() => {
     async function getStockNewsList() {
-      setStockNewsList(
-        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10)
-      );
+      setStockNewsList(await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10))
     }
-    getStockNewsList();
-  }, []);
+    getStockNewsList()
+  }, [])
 
   // console.log('Data:', stockNewsList);
 
-  const { keys, values } = stockNewsList;
+  const { keys, values } = stockNewsList
 
   // console.log('Keys:', keys);
   // console.log('Values:', values);
@@ -36,18 +34,15 @@ export default function Newsfeed() {
               return (
                 <tr key={company.publishedDate}>
                   <td>
-                    <img
-                      src={company.image}
-                      width="50"
-                      alt={company.symbol}></img>
+                    <img src={company.image} width="50" alt={company.symbol}></img>
                   </td>
                   <td>{company.title}</td>
                 </tr>
-              );
+              )
             })}
           </tbody>
         </table>
       </div>
     </div>
-  );
+  )
 }

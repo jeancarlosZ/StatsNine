@@ -39,7 +39,8 @@
 
   --metricsChartContainerHeight: calc((var(--metricInnerSubcontainerHeight) / 2) - var(--chartGap));
 
-  --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight) - var(--chartPaddings));
+  /* --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight) - var(--chartPaddings)); */
+  --metricsChartWrapperHeight: calc(var(--metricsChartContainerHeight));
   --metricsChartWrapperWidth: calc(var(--metricsChartviewWidth) - var(--chartPaddings));
 }
 
@@ -324,7 +325,10 @@ body {
 
   /** chart height minus selector height */
   height: calc(var(--metricsChartWrapperHeight) - 35px);
+  /* height: calc(var(--metricsChartWrapperHeight) + 35px); */
   width: var(--metricsChartWrapperWidth);
+
+  /* margin: auto; */
 
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;

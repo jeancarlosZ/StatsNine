@@ -2,6 +2,7 @@ import React from 'react'
 import Searchbar from './Searchbar'
 import { useHistory, useLocation } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
   const history = useHistory()
@@ -10,6 +11,7 @@ export default function Header() {
   //* highlighed on the navbar (dashboard, screener, aboutus)
   const location = useLocation()
   const selected = location.pathname.split('/').pop().toLowerCase()
+  const { isDefault } = useSelector(state => state.local)
 
   return (
     <div className="our-company-header shadow-deep-nohover">
@@ -19,6 +21,7 @@ export default function Header() {
       <div className="header-space-one"></div>
       <Searchbar />
       <div className="header-space-two"></div>
+      {getOverview(isDefault, selected, history)}
       <div
         className={`go-to-dashboard${getSelected(selected, 'home')}`}
         onClick={() => history.push('/home')}
@@ -37,6 +40,19 @@ export default function Header() {
       >
         About Us
       </div>
+    </div>
+  )
+}
+
+// TODO: style this go-to-screener to overview
+function getOverview(isDefault, selected, history) {
+  if (!isDefault) return <></>
+  return (
+    <div
+      className={`go-to-screener${getSelected(selected, 'overviewpage')}`}
+      onClick={() => history.push('/overviewpage')}
+    >
+      Overview
     </div>
   )
 }
