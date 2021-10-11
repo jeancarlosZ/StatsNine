@@ -1,6 +1,9 @@
 import React from 'react'
+import SearchTable from './searchoverlay/SearchTable'
 
 export default function Searchbar() {
+  let query = ''
+
   function attemptSearch(event) {
     const value = event.target.value
     if (event.key !== 'Enter') {
@@ -17,18 +20,21 @@ export default function Searchbar() {
   function handleChange(event) {
     const value = event.target.value
     if (value.length >= 1) {
-      console.log('Make API call to display query results.')
+      query = value
     }
   }
 
   return (
-    <div className='top-search-bar'>
-      <input
-        className='top-search-input'
-        placeholder='Search'
-        onKeyDown={event => attemptSearch(event)}
-        onChange={event => handleChange(event)}
-      />
+    <div>
+      <div className='top-search-bar'>
+        <input
+          className='top-search-input'
+          placeholder='Search'
+          onKeyDown={event => attemptSearch(event)}
+          onChange={event => handleChange(event)}
+        />
+      </div>
+      <SearchTable query={query} />
     </div>
   )
 }

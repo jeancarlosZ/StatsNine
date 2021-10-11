@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setTickerSymbol } from '../../store/local/localActions'
 
-export default function Row(props) {
+export default function SearchRow(props) {
   const { symbol, companyName, exchangeShortName } = props.stock
   const dispatch = useDispatch()
   const history = useHistory()
