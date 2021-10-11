@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { setTickerSymbol } from '../../store/local/localActions'
 
 export default function SearchRow(props) {
-  const { symbol, companyName, exchangeShortName } = props.stock
+  const { symbol, name, exchangeShortName } = props.stock
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -18,10 +18,10 @@ export default function SearchRow(props) {
   }
 
   return (
-    <tr onClick={() => handleClick(symbol)}>
-      <td>{symbol}</td>
-      <td>{companyName}</td>
-      <td>{exchangeShortName}</td>
+    <tr className='search-row' onClick={() => handleClick(symbol)}>
+      <td className='search-cell'>{symbol}</td>
+      <td className='search-cell2'>{name}</td>
+      <td className='search-cell'>{exchangeShortName}</td>
     </tr>
   )
 }

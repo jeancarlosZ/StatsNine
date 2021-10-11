@@ -15,21 +15,21 @@ export default function SearchTable(props) {
     }
 
     getStocksList()
-  }, [])
+  }, [props.query])
 
   return (
-    <div>
+    <div className='search-table'>
       <table>
         <thead>
           <tr>
-            <th>Symbol </th>
-            <th>Name</th>
-            <th>Exchange</th>
+            <th className='search-cell'>Symbol </th>
+            <th className='search-cell2'>Name</th>
+            <th className='search-cell'>Exchange</th>
           </tr>
         </thead>
         <tbody>
           {stocksList.length ? (
-            stocksList.map((stock, i) => <SearchRow key={stock.symbol} stock={stock} index={i} />)
+            stocksList.map(stock => <SearchRow key={stock.symbol} stock={stock} />)
           ) : (
             <tr>
               <td>Loading...</td>

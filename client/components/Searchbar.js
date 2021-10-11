@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchTable from './searchoverlay/SearchTable'
 
 export default function Searchbar() {
-  let query = ''
+  const [query, setQuery] = useState('bitcoin')
 
   function attemptSearch(event) {
     const value = event.target.value
@@ -20,7 +20,7 @@ export default function Searchbar() {
   function handleChange(event) {
     const value = event.target.value
     if (value.length >= 1) {
-      query = value
+      setQuery(value)
     }
   }
 
