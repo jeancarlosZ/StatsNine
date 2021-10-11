@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchStockNews } from '../../../api/api';
+import { fetchStockNews } from '../../api/api';
 
 export default function Newsfeed() {
   const [stockNewsList, setStockNewsList] = useState([]);

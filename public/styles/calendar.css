@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* html {
+  font-size: 62.5%;
+} */
+
+/* .container {
+  width: 100%;
+  height: 100vh;
+  background-color: #12121f;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.calendar {
+  color: #d0d3db;
+}
+
+.rdtSwitch {
+  width: 100%;
+  height: 12rem;
+  flex-direction: row;
+  justify-content: space-around;
+  color: #d0d3db;
+  /* background-color: #222227; */
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  text-align: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+/* .rdtSwitch span {
+  font-size: 2.5rem;
+  cursor: pointer;
+} */
+
+.rdtSwitch th {
+  font-size: 3rem;
+  font-weight: 400;
+  flex-direction: row;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+/* .rdtSwitch p {
+  font-size: 1.6rem;
+} */
+
+.dow {
+  width: 100%;
+  height: 5rem;
+  padding: 0 0.4rem;
+  flex-direction: row;
+  justify-content: space-around;
+  color: #d0d3db;
+  /* display: flex; */
+  align-items: center;
+}
+
+.dow th {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  flex-direction: row;
+  width: calc(44.2rem / 7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.rdtDay {
+  width: 100%;
+  /* display: flex; */
+  color: #d0d3db;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 0.2rem;
+}
+
+.rdtDay td {
+  font-size: 1.4rem;
+  color: #d0d3db;
+  margin: 0.3rem;
+  width: calc(40.2rem / 7);
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  transition: background-color 0.2s;
+}
+
+.rdtDays td:hover:not(.today) {
+  background-color: #f99393;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}
+
+.rdtOld,
+.rdtNew {
+  opacity: 0.5;
+}
+
+.today {
+  background-color: #f99393;
+}
