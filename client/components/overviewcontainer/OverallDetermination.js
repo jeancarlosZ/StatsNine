@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Star from '../../assets/icons/star'
+import { getTickerResults } from '../../store/local/localActions'
+import { getStarColor } from '../../utils'
+import store from '../../store/index'
 
 export default function OverallDetermination() {
+  const [results, setResults] = useState({})
+
+  useEffect(() => {
+    async function getData() {
+      //* Get the metric results (to color stars)
+      setResults(await getTickerResults())
+    }
+    getData()
+  }, [])
+
   return (
     <div className="overall-determination flex-col justify-around">
       <Header />
       <div className="flex-row justify-around justify-center">
-        <StarsContainer />
+        <StarsContainer results={results} />
         <Determination />
       </div>
       <EndingText />
@@ -35,23 +48,24 @@ function EndingText() {
   )
 }
 
-function StarsContainer() {
+function StarsContainer({ results }) {
+  if (!results) return
   return (
     <div className="stars-container flex-row justify-evenly">
       <div className=" star-col flex-col justify-evenly">
-        <MetricStar color="#2CDD9B" />
-        <MetricStar color="#2CDD9B" />
-        <MetricStar color="#2CDD9B" />
+        <MetricStar rating={results.revgrowth} />
+        <MetricStar rating={results.cashgrowth} />
+        <MetricStar rating={results.netincome} />
       </div>
       <div className=" star-col flex-col justify-evenly">
-        <MetricStar color="#2CDD9B" />
-        <MetricStar color="#2CDD9B" />
-        <MetricStar color="#2CDD9B" />
+        <MetricStar rating={results.roic} />
+        <MetricStar rating={results.shares} />
+        <MetricStar rating={results.assets} />
       </div>
       <div className=" star-col flex-col justify-evenly">
-        <MetricStar color="#FAAD14" />
-        <MetricStar color="#FE5252" />
-        <MetricStar color="#FE5252" />
+        <MetricStar rating={results.pe} />
+        <MetricStar rating={results.pfcf} />
+        <MetricStar rating={results.ltl} />
       </div>
     </div>
   )
@@ -62,10 +76,10 @@ function StarsContainer() {
 // }
 
 // TODO: Pass in the metric info to color the stars correctly
-function MetricStar(props) {
+function MetricStar({ rating }) {
   return (
     <div className="star">
-      <Star className="metric-star" fill={props.color} />
+      <Star className="metric-star" fill={getStarColor(rating)} />
     </div>
   )
 }

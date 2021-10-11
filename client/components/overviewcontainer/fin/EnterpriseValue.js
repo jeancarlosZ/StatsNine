@@ -5,7 +5,7 @@ import Subheader from '../../Subheader'
 import { FinancialsNavBar } from './Financialspage'
 import FinTable from './FinTable'
 import CompanyInfo from './CompanyInfo'
-import { fetchCashflowStatement, fetchStockProfile } from '../../../api/api'
+import { fetchEnterpriseValue, fetchStockProfile } from '../../../api/api'
 import { useSelector } from 'react-redux'
 import {
   returnProfile,
@@ -18,34 +18,28 @@ import { FinButtons } from './FinButtons'
 
 //Right now I'm fetching from API at every sub page
 //That's not what we want and I'll be optimizing with some of the tools we have
-export default function Cash() {
+export default function EnterpriseValue() {
   const { symbol } = useSelector(state => state.local)
-  const [cashflowInfo, setCashflowInfo] = useState({})
+  const [enterpriseInfo, setEnterpriseInfo] = useState({})
   const [profile, setProfile] = useState({})
 
   useEffect(() => {
-    async function getCashflowInfo() {
-      setCashflowInfo(await fetchCashflowStatement(symbol))
+    async function getEnterpriseInfo() {
+      setEnterpriseInfo(await fetchEnterpriseValue(symbol))
       setProfile(await fetchStockProfile(symbol))
     }
-    getCashflowInfo()
+    getEnterpriseInfo()
   }, [])
 
   const companyProfile = returnProfile(profile)
 
   //These are the values returned from the fetch. Can be used in our charts!
-  const { values } = cashflowInfo
+  const { values } = enterpriseInfo
 
   //Labels for Financials Tables
   //Right now formatting the labels and using them to fetch
   //Empty string is for date
-  const labels = [
-    'Capital Expenditure',
-    'Free Cash Flow',
-    'Operating Cash Flow',
-    'Other Investing Activites',
-    'Other Financing Activites'
-  ]
+  const labels = ['Enterprise Value', 'Market Capitalization', 'Number Of Shares', 'Add Total Debt']
 
   //Returning a 2D array
   //Every inner array is a row of info relating to the above labels
@@ -62,7 +56,7 @@ export default function Cash() {
 
   dataset.push({
     name: 'Income',
-    type: 'pie',
+    type: 'scatter',
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
     values: [38, 27, 18, 10, 7],
     hoverinfo: 'label+percent+name',
@@ -79,7 +73,7 @@ export default function Cash() {
         />
         <div className="fin-chart-container">
           <UniversalChart
-            className="cash-chart fin-chart"
+            className="enterprise-chart fin-chart "
             title="Net Income"
             dataset={dataset}
             showlegend={false}
@@ -88,7 +82,7 @@ export default function Cash() {
       </div>
       <FinButtons />
       {values ? (
-        <FinTable dates={dates} rowInfo={infoArray} yearlyChanges={yearlyChanges} labels={labels} />
+        <FinTable dates={dates} rowInfo={infoArray} labels={labels} yearlyChanges={yearlyChanges} />
       ) : (
         <div className="table-space">Loading...</div>
       )}

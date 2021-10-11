@@ -1,6 +1,5 @@
 * {
-  --headerHeight: 80px;
-  --subHeaderHeight: 40px;
+  --headerHeight: var(--mainHeaderHeight);
 
   --metricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --metricsPageWidth: 100vw;
@@ -96,7 +95,7 @@ body {
   border-top-left-radius: var(--metricsSubcontainerBorderRadius);
   border-top-right-radius: var(--metricsSubcontainerBorderRadius);
 
-  border-bottom: 3px solid var(--bgAccent);
+  border-bottom: 2px solid var(--bgAccent);
   /* TODO color*/
   /* background-color: brown; */
 
@@ -233,6 +232,38 @@ body {
 .metric-metrics .metrics .metric span {
   margin: auto 20px;
   font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-metrics .metrics .metric .king {
+  color: var(--orangeShade2);
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-metrics .metrics .metric .result {
+  margin: 15px 20px auto 0px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-metrics .metrics .metric .desc {
+  margin: 10px 0px auto 0px;
+  padding-right: 10px;
+}
+
+.metric-metrics .metrics .metric .desc p {
+  margin: none;
+  text-align: left;
+  color: rgba(208, 211, 219, 0.5);
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/** The desc of each metric*/
+.metric-metrics .metrics .metric .metric-item {
+  margin-bottom: 5px;
 }
 
 /*

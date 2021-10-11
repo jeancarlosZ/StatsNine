@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import 'simplebar/dist/simplebar.min.css';
-import { DAILY, fetchChartPrice, WEEK } from './api';
-import { getLocalData } from '../store/local/localActions';
-import {
-  fetchFullStatement,
-  fetchIncomeStatement,
-  getTickerResults,
-} from './api';
+import React, { useEffect, useState } from 'react'
+import 'simplebar/dist/simplebar.min.css'
+import { DAILY, fetchChartPrice, WEEK } from './api'
+import { getLocalData } from '../store/local/localActions'
+import { fetchFullStatement, fetchIncomeStatement, getTickerResults } from './api'
+import MetricSelector from '../components/overviewcontainer/keymetrics/MetricSelector'
 
 export default function APITestPage() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({})
   //* const [balanceData, setBalanceData] = useState({})
 
   useEffect(() => {
@@ -44,17 +41,18 @@ export default function APITestPage() {
       //     ['assetsannual', 'liabilitiesannual', 'stockannual']
       //   )
       // )
-      console.log(await getTickerResults());
+      // console.log(await getTickerResults())
+      // console.log(await getTickerResults());
     }
-    getData();
-  }, []);
+    getData()
+  }, [])
 
-  console.log('Data:', data);
+  // console.log('Data:', data)
 
-  const { keys, values } = data;
+  // const { keys, values } = data
 
-  console.log('Keys:', keys);
-  console.log('Values:', values);
+  // console.log('Keys:', keys)
+  // console.log('Values:', values)
   // setData(await getLocalData('eps', fetchFullStatement, [false, dataType]))
   // can call a function to say
   // setData(await getLocalData('eps', fetchFullStatement, [false, 'annual']))
@@ -66,5 +64,14 @@ export default function APITestPage() {
   // console.log('Keys:', keys)
   // console.log('Values:', values)
 
-  return <></>;
+  return (
+    <div className="key-metrics-container">
+      <div className="sub-container shadow-deep-nohover">
+        <MetricSelector />
+        <div className="metric-container">
+          <div className="metric-sub-container"></div>
+        </div>
+      </div>
+    </div>
+  )
 }

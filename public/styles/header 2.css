@@ -12,16 +12,16 @@
   font-size: 1.25rem;
 }
 
-.our-company-name {
+/* .our-company-name {
   color: #ffffff;
   font-size: 1.75rem;
   font-weight: bolder;
   margin-left: 2rem;
-}
+} */
 
-.header-space-one {
+/* .header-space-one {
   flex-grow: 2;
-}
+} */
 
 .search-bar {
   margin-left: 2rem;

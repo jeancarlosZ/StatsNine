@@ -14,40 +14,40 @@
   /* BACKGROUND COLORS */
   --bgPrimary: #131722;
   --bgSecondary: #1e222d;
-  --bgAccent: #434651;
+  --bgAccent: #434651; /** rgba(67, 70, 81, 1) */
 
   /* FONT COLORS */
   --fontColor: #d0d3db; /** rgba(208, 211, 219, 1) */
   --fontHighlight: #2962fe;
 
   /* SHADES OF BLUE_ */
-  --blueShade1: #275be8;
-  --blueShade2: #2962fe;
+  --blueShade1: #275be8; /** rgba(39, 91, 232, 1) */
+  --blueShade2: #2962fe; /** rgba(41, 98, 254, 1) */
   --blueShade3: #2bbaff;
   --blueShade4: #26c5d9;
   --blueShade5: #1890ff;
   --blueShade6: #3091ec;
 
   /* SHADES OF GREEN_ */
-  --greenShade1: #00887b;
-  --greenShade2: #34b87d;
-  --greenShade3: #00bea4;
-  --greenShade4: #2cdd9b;
+  --greenShade1: #00887b; /** rgba(0, 136, 123, 1)*/
+  --greenShade2: #34b87d; /** rgba(52, 184, 125, 1)*/
+  --greenShade3: #00bea4; /** rgba(0, 190, 164, 1)*/
+  --greenShade4: #2cdd9b; /** rgba(44, 221, 155, 1)*/
   --greenShade5: #4cae50;
 
   /* SHADES OF RED_ */
-  --redShade1: #cf3935;
+  --redShade1: #cf3935; /** rgba(207, 57, 53, 1) */
   --redShade2: #f34336;
   --redShade3: #fe5252;
   --redShade4: #e34f32;
 
   /* SHADES OF ORANGE_ */
   --orangeShade1: #fe9700;
-  --orangeShade2: #faad14;
+  --orangeShade2: #faad14; /** rgba(250, 173, 20, 1)*/
 
   /* OTHER COLORS */
-  --pinkShade1: #f38eb0;
-  --purpleShade2: #a900fe;
+  --pinkShade1: #f38eb0; /** rgba(243, 142, 176, 1)*/
+  --purpleShade2: #a900fe; /** rgba(169, 0, 254, 1)*/
 }
 
 /*
@@ -78,4 +78,28 @@
 
 .shadow-deep-nohover {
   box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*
+*==================================
+*      Zooming Effects
+*==================================
+*/
+
+.zoomable-lg :hover {
+  transform: scale(1.1);
+}
+
+.zoomable-med:hover {
+  transform: scale(1.05);
+}
+
+.zoomable:hover {
+  transform: scale(1.005);
+}
+
+.zoomable-lg,
+.zoomable-med,
+.zoomable {
+  transition: transform 0.3s ease;
 }

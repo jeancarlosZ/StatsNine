@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import UniversalChart from '../UniversalChart'
 import { fetchChartPrice, DAILY, YEAR } from '../../api/api'
 
 export default function PriceChart() {
+  const { symbol } = useSelector(state => state.local)
   const [stockPrices, setStockPrices] = useState([])
 
   useEffect(() => {
     async function getStockPrices() {
-      setStockPrices(await fetchChartPrice('MSFT', DAILY, YEAR, false))
+      try {
+        setStockPrices(await fetchChartPrice(symbol, DAILY, YEAR, false))
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     getStockPrices()
   }, [])
 
   return (
-    <div className='price-chart flex-col align-self'>
-      <span className='price-container flex-row pos-rel'>
+    <div className="price-chart flex-col align-self">
+      <span className="price-container flex-row pos-rel">
         <Price stockPrices={stockPrices} />
         <USD />
       </span>
-      <OverviewChart stockPrices={stockPrices} />
+      <OverviewChart stockPrices={stockPrices} symbol={symbol} />
     </div>
   )
 }
@@ -28,11 +34,12 @@ function OverviewChart(props) {
   const dataset = []
   const keys = props.stockPrices.keys
   const values = props.stockPrices.values
+  const symbol = props.symbol
 
   if (values.length) {
     dataset.push({
       customSet: {
-        name: 'MSFT Stock Chart',
+        name: `${symbol} Stock Chart`,
         type: 'candlestick',
         x: keys,
         close: values.map(e => e.close),
@@ -43,15 +50,15 @@ function OverviewChart(props) {
         low: values.map(e => e.low),
         open: values.map(e => e.open),
         xaxis: 'x',
-        yaxis: 'y',
-      },
+        yaxis: 'y'
+      }
     })
   }
 
   return (
     <UniversalChart
-      className='stock-price-chart'
-      title='MSFT Stock Chart'
+      className="stock-price-chart"
+      title={`${symbol} Stock Chart`}
       dataset={dataset}
       showlegend={false}
     />
@@ -65,9 +72,9 @@ function Price(props) {
     price = props.stockPrices.values[0].close
   }
 
-  return <div className='bold'>${price}</div>
+  return <div className="bold">${price}</div>
 }
 
 function USD() {
-  return <div className='usd pos-rel'>USD</div>
+  return <div className="usd pos-rel">USD</div>
 }

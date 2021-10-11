@@ -1,27 +1,52 @@
+* {
+  --mainHeaderHeight: 55px;
+  --subHeaderHeight: 65px;
+}
+
+/*
+*==================================
+*      MAIN HEADER
+*==================================
+*/
+
 .our-company-header {
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  box-shadow: 0 0.2rem 0.1rem #434651;
-  padding: 1rem;
+  padding: auto 1vw;
   font-size: 1.15rem;
-  height: 5rem;
-  width: 100vw;
+
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   color: #d0d3db;
   background-color: #131722;
+  border-bottom: 2px solid var(--bgAccent);
+
+  height: var(--mainHeaderHeight);
+  width: 100vw;
 }
 
 .our-company-name {
   color: #ffffff;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-left: 1.5rem;
 }
 
 .header-space-one {
   flex-grow: 2;
+}
+
+/** the search icon */
+.search-icon {
+  width: 24px;
+  height: 24px;
+  color: #434651;
+
+  /** moving it to pos */
+  position: relative;
+  right: 35px;
 }
 
 .top-search-bar {
@@ -30,12 +55,20 @@
 
 .top-search-input {
   border-radius: 1.5rem;
-  background-color: #434651;
-  font-size: 1.15rem;
+  font-size: 0.65rem;
   width: 38vw;
-  color: lightgray;
+  background-color: rgba(67, 70, 81, 0.3);
+  border-color: rgba(67, 70, 81, 0.6);
+  color: #434651;
+  font-weight: bold;
   padding: 0.3rem;
   padding-left: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.top-search-input:hover {
+  background-color: rgba(67, 70, 81, 0.2);
+  border-color: rgba(67, 70, 81, 0.5);
 }
 
 .header-space-two {
@@ -45,12 +78,155 @@
 .go-to-dashboard,
 .go-to-screener,
 .go-to-about-us {
-  margin: 1rem;
+  margin: auto 10px;
   font-weight: 500;
+  color: rgba(208, 211, 219, 0.6);
+  transition: color 0.3s ease;
+}
+
+.go-to-about-us {
+  margin-right: 20px;
 }
 
 .go-to-dashboard:hover,
 .go-to-screener:hover,
 .go-to-about-us:hover {
   cursor: pointer;
+  color: rgba(208, 211, 219, 1);
+}
+
+.currentlink {
+  color: rgba(208, 211, 219, 1);
+}
+
+/*
+*==================================
+*      SUB HEADER
+*==================================
+*/
+
+.sub-header {
+  height: var(--subHeaderHeight);
+
+  background-color: #1e222d;
+  border-bottom: 2px solid var(--bgAccent);
+
+  display: flex;
+}
+
+.sub-header-pages-container {
+  margin-left: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  /* background-color: rgba(63, 32, 32, 0.603); */
+}
+
+.sub-header-pages {
+  display: flex;
+
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.sub-header-pages .sub-page {
+  margin: auto 10px;
+}
+
+.sub-header-pages .sub-page {
+  --spacing: 0.1em;
+  text-decoration: none;
+  color: rgba(172, 176, 184, 0.6);
+  position: relative;
+  transition: font-size 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.sub-header-pages .sub-page:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: var(--spacing);
+  right: var(--spacing);
+  height: 2px;
+  background: currentColor;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  transition: -webkit-transform 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
+  transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out;
+}
+
+.sub-header-pages .sub-page:hover::after {
+  -webkit-transform: scaleX(0.9);
+  transform: scaleX(0.9);
+}
+.sub-header-pages .sub-page:hover {
+  color: rgba(172, 176, 184, 0.8);
+}
+
+.sub-header-pages .selectedpage:hover {
+  color: #275be8;
+}
+
+.sub-header-pages .selectedpage {
+  color: #2962fe;
+}
+
+.sub-header-pages .selectedpage::after {
+  color: #2962fe;
+  -webkit-transform: scaleX(0.9);
+  transform: scaleX(0.9);
+}
+
+/** =========[STOCK PREVIEW]============*/
+
+.sub-header .preview-spacer {
+  flex: 1;
+}
+
+.stock-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 35px;
+
+  color: rgba(172, 176, 184, 1);
+}
+
+.stock-preview-container .company-logo {
+  text-align: center;
+
+  border-radius: 90px;
+  height: 40px;
+  width: 40px;
+
+  max-height: 40px;
+  max-width: 60px;
+
+  background-color: white;
+  border: 2px solid var(--bgAccent);
+
+  overflow: hidden;
+}
+.stock-preview-container div {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stock-preview-container label {
+  font-weight: 700;
+  margin: none;
+  padding: none;
+}
+
+.stock-preview-container span {
+  font-weight: 600;
+  font-size: 0.6rem;
+  margin: none;
+  padding: none;
 }
