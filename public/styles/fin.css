@@ -15,26 +15,24 @@
   font-size: 20px;
 }
 
-.card {
-  border-radius: 15px;
-  background: rgba(30, 34, 45, 0.3);
-  width: 1300px;
-  height: 800px;
-}
-
 /**Income.js**/
 .income-container {
   height: 300px;
 }
 
 .company-container {
-  width: 400px;
-  height: 130px;
-  background-color: rgb(196, 196, 196, 0.1);
+  top: 25px;
+  left: 15px;
+  width: 600px;
+  height: 230px;
+  background-color: rgba(30, 34, 45, 0.6);
   color: #d0d3db;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
 }
 
 .company-info {
+  width: 530px;
   left: 40px;
   top: 25px;
 }
@@ -75,18 +73,22 @@
 
 .fin-label {
   text-align: left;
-  font-weight: 500;
+  font-weight: lighter;
+  font-size: small;
 }
 .center-text {
   text-align: center;
   font-size: smaller;
 }
 .light {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(110, 110, 110, 0.1);
+  font-weight: 500;
 }
 
 .dark {
-  background-color: rgba(147, 147, 147, 0.1);
+  background-color: rgb(30, 34, 45, 0.3);
+  border: transparent;
+  font-weight: 500;
 }
 
 .fin-table {
@@ -97,7 +99,7 @@
   background-color: #131722;
   height: 300px;
   table-layout: fixed;
-  width: 1266px;
+  width: 1847px;
 }
 
 .table-space {
@@ -108,7 +110,54 @@
 }
 
 .fin-date {
-  font-weight: 500;
+  font-weight: lighter;
   background-color: rgb(30, 34, 45, 0.3);
   border: transparent;
+  text-align: center;
+  font-size: small;
+}
+
+.fin-chart-container {
+  position: relative;
+  top: 15px;
+  right: 15px;
+  width: 1200px;
+}
+
+.fin-chart {
+  height: 100px;
+  width: 1192px;
+  height: 290px;
+}
+
+.yearly-change {
+  font-size: x-small;
+  color: greenyellow;
+}
+
+.red {
+  color: rgb(251, 0, 0);
+  font-size: x-small;
+}
+
+.green {
+  color: yellowgreen;
+  font-size: x-small;
+}
+
+.fin-button-container {
+  left: 675px;
+  bottom: 280px;
+}
+
+.fin-buttons {
+  background-color: #1e222d;
+  border: none;
+  color: lightgray;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 15px;
 }
