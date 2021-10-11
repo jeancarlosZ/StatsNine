@@ -16,13 +16,15 @@ export function returnTableInfo(values, labels) {
   let info;
   let infoArray = [];
 
-  info = values.slice(values.length - 13).reverse();
+  info = values.slice(values.length - 14).reverse();
   // infoArray.push(info.map((info) => info.date.slice(0, 4)));
-  labels.forEach(function (label) {
-    if (label !== '') {
-      const string = formatString(label);
-      infoArray.push(info.map((info) => info[string]));
-    }
+  labels.map(function (label) {
+    const string = formatString(label);
+    infoArray.push(
+      info.map(function (info) {
+        return info[string];
+      })
+    );
   });
   return infoArray;
 }
@@ -57,8 +59,12 @@ export function calcYearlyChanges(array) {
 
 export function formatNestedArrayNums(nestedArray) {
   return nestedArray.map(function (innerArray) {
-    return innerArray.map(function (num) {
-      return formatNumber(num);
+    const array = [];
+    innerArray.forEach(function (num, index) {
+      if (index !== innerArray.length - 1) {
+        array.push(formatNumber(num));
+      }
     });
+    return array;
   });
 }
