@@ -5,7 +5,17 @@ import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
-export default function PFCFHistChart({ data }) {
+export default function Growthchart({
+  data,
+  title,
+  color,
+  outline,
+  type,
+  name,
+  args = {},
+  dataType,
+  setDataType
+}) {
   //* Get the keys and values from the data
   const { keys, values } = data ? data : {}
 
@@ -18,22 +28,39 @@ export default function PFCFHistChart({ data }) {
     //* Now we must fill our dataset with some 'traces' or 'sets' of data
     //* In this case I am going to make a chart to display the net income
     dataset.push({
-      name: 'PFCF Ratio',
-      type: 'line',
-      color: 'rgba(169, 0, 254, 0.6)',
-      outline: 'rgba(169, 0, 254, 0.8)',
-      //* Since our VALUES array contains many different values, we must select
-      //* one VALUE per 'trace' or 'set' to display.
-      // values: values.map(x => x.eps)
-      values: values
+      name: name,
+      type: type ? type : 'bar',
+      color: color ? color : 'rgba(44, 221, 155, 0.3)',
+      outline: outline ? outline : 'rgba(44, 221, 155, 0.6)',
+      values: values,
+      ...args
     })
+  }
+
+  //* Change the series and update the data
+  function updateDataType(newType) {
+    if (dataType[name] !== newType) setDataType({ ...dataType, [name]: newType })
   }
 
   //* Return the chart
   return (
     <>
       <div className="selector">
-        <label>P/FCF Ratio</label>
+        <label>{title}</label>
+        <div className="selectors">
+          <button
+            className={dataType[name] === 'quarter' ? 'selected' : ''}
+            onClick={() => updateDataType('quarter')}
+          >
+            Quarterly
+          </button>
+          <button
+            className={dataType[name] === 'annual' ? 'selected' : ''}
+            onClick={() => updateDataType('annual')}
+          >
+            Annual
+          </button>
+        </div>
       </div>
       <div className="wrapper">
         <UniversalChart
@@ -41,7 +68,6 @@ export default function PFCFHistChart({ data }) {
           keys={keys}
           dataset={dataset}
           showlegend={false}
-          //rgba(30, 34, 45, 0.3)
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
           hoverdistance={50}

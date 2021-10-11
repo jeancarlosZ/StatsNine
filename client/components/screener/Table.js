@@ -19,15 +19,15 @@ export default function Table() {
 
   return (
     <div>
-      <table className='screen-table'>
+      <table className="screen-table">
         <thead>
           <tr>
-            <th className='screen-border-h'>Symbol and Name</th>
-            <th className='screen-border-h'>Last Price</th>
-            <th className='screen-border-h'>Annual Dividend</th>
-            <th className='screen-border-h'>Volume</th>
-            <th className='screen-border-h'>Market Cap</th>
-            <th className='screen-border-h'>Sector</th>
+            <th className="screen-border-h">Symbol and Name</th>
+            <th className="screen-border-h">Last Price</th>
+            <th className="screen-border-h">Annual Dividend</th>
+            <th className="screen-border-h">Volume</th>
+            <th className="screen-border-h">Market Cap</th>
+            <th className="screen-border-h">Sector</th>
           </tr>
         </thead>
         <tbody>

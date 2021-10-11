@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Star from '../../assets/icons/star'
 import { getTickerResults } from '../../store/local/localActions'
 import { getStarColor } from '../../utils'
+import store from '../../store/index'
 
 export default function OverallDetermination() {
   const [results, setResults] = useState({})

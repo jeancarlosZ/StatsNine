@@ -21,8 +21,8 @@
   --fontHighlight: #2962fe;
 
   /* SHADES OF BLUE_ */
-  --blueShade1: #275be8;
-  --blueShade2: #2962fe;
+  --blueShade1: #275be8; /** rgba(39, 91, 232, 1) */
+  --blueShade2: #2962fe; /** rgba(41, 98, 254, 1) */
   --blueShade3: #2bbaff;
   --blueShade4: #26c5d9;
   --blueShade5: #1890ff;
@@ -36,7 +36,7 @@
   --greenShade5: #4cae50;
 
   /* SHADES OF RED_ */
-  --redShade1: #cf3935;
+  --redShade1: #cf3935; /** rgba(207, 57, 53, 1) */
   --redShade2: #f34336;
   --redShade3: #fe5252;
   --redShade4: #e34f32;

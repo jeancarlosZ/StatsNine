@@ -1,6 +1,5 @@
 * {
-  --headerHeight: 80px;
-  --subHeaderHeight: 40px;
+  --headerHeight: var(--mainHeaderHeight);
 
   --metricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --metricsPageWidth: 100vw;
@@ -96,7 +95,7 @@ body {
   border-top-left-radius: var(--metricsSubcontainerBorderRadius);
   border-top-right-radius: var(--metricsSubcontainerBorderRadius);
 
-  border-bottom: 3px solid var(--bgAccent);
+  border-bottom: 2px solid var(--bgAccent);
   /* TODO color*/
   /* background-color: brown; */
 

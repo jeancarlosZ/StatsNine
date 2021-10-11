@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { setTickerSymbol } from '../store/local/localActions'
 import SearchTable from './searchoverlay/SearchTable'
 import { fetchSearchQuery } from '../api/api'
+import SearchIcon from '../assets/icons/saved_search'
+
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false)
@@ -45,7 +47,7 @@ export default function Searchbar() {
       console.log(err)
     }
   }
-
+  
   function handleChange(event) {
     const value = event.target.value.toUpperCase()
     if (value.length >= 1) {
@@ -55,16 +57,40 @@ export default function Searchbar() {
 
   return (
     <div>
-      <div className='top-search-bar'>
-        <input
-          className='top-search-input'
-          placeholder='Search by Symbol'
-          onKeyDown={event => attemptSearch(event)}
-          onChange={event => handleChange(event)}
-          onClick={() => setOpen(true)}
-        />
-      </div>
-      {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
+    <div className="top-search-bar">
+      <input
+        className="top-search-input"
+        placeholder='Search by Symbol'
+        onKeyDown={event => attemptSearch(event)}
+        onChange={event => handleChange(event)}
+        onClick={() => setOpen(true)}
+      />
+      <SearchIcon className="search-icon" />
+    </div>
+    {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
     </div>
   )
+}
+
+{
+  /* <div className="input-group search-area ml-auto d-inline-flex">
+<input type="text" className="form-control" placeholder="Search here" spellcheck="false" data-ms-editor="true">
+<div class="input-group-append">
+<button type="button" className="input-group-text"><i className="flaticon-381-search-2"></i></button>
+</div>
+
+</div> */
+//   <div>
+//     <div className='top-search-bar'>
+//      <input
+//      className='top-search-input'
+//    placeholder='Search by Symbol'
+//       onKeyDown={event => attemptSearch(event)}
+//        onChange={event => handleChange(event)}
+//          onClick={() => setOpen(true)}
+//        />
+//      </div>
+//      {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
+//    </div>
+//  )
 }

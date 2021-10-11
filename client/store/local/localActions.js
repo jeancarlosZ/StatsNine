@@ -1,23 +1,23 @@
-import { useSelector } from 'react-redux'
-import store from '../index.js'
 import { SET_TICKER, UPDATE_LOCAL } from '.'
-import { logError } from '../../utils.js'
-import { load } from 'cheerio'
 import {
   fetchBalanceStatement,
   fetchCashflowStatement,
   fetchEnterpriseValue,
   fetchIncomeStatement,
   fetchKeyMetrics,
-  fetchRatios
+  fetchRatios,
+  fetchStockProfile
 } from '../../api/api.js'
+import { logError } from '../../utils.js'
+import store from '../index.js'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
-export function setTickerSymbol(ticker) {
+//* UPDATE: Made change to allow for stock.name
+export function setCurrentStock(symbol, companyName) {
   return {
     type: SET_TICKER,
-    payload: ticker
+    payload: { symbol: symbol, companyName: companyName }
   }
 }
 
@@ -59,33 +59,38 @@ export async function getLocalData(key, func, args, save) {
       key.map((k, index) => {
         //* Try to get data from local store, if it do be
         const local = state.local[save[index]]
+
         //* If it is we add it to the obj
         if (local) data[k] = local
         //* Otherwise we add the data to be loaded
         else toLoad.push({ a: k, b: save[index] })
       })
 
-      //* Load the data from the API
-      const loadedData = await func(state.local.ticker, ...args)
+      //* If there is actually any data we need to load!
+      if (toLoad.length > 0) {
+        //* Load the data from the API
+        const loadedData = args
+          ? await func(state.local.symbol, ...args)
+          : await func(state.local.symbol)
+        //* Now we must load all of the data that wasn't already
+        //* saved within the state
+        toLoad.map(pair => {
+          const { a, b } = pair
+          let individualData
 
-      //* Now we must load all of the data that wasn't already
-      //* saved within the state
-      toLoad.map(pair => {
-        const { a, b } = pair
-        let individualData
+          if (!Array.isArray(loadedData))
+            individualData = {
+              keys: loadedData.keys,
+              values: loadedData.values.map(x => x[a])
+            }
+          else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
+          else individualData = loadedData[a]
 
-        if (!Array.isArray(loadedData))
-          individualData = {
-            keys: loadedData.keys,
-            values: loadedData.values.map(x => x[a])
-          }
-        else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
-        else individualData = loadedData[a]
-
-        data[a] = individualData
-        //* Update the local store
-        store.dispatch(updateLocalData(b, individualData))
-      })
+          data[a] = individualData
+          //* Update the local store
+          store.dispatch(updateLocalData(b, individualData))
+        })
+      }
 
       return data
       //* Otherwise we can return the single peice of data
@@ -101,7 +106,7 @@ async function handleLocalData(state, save, func, args, key) {
   //* Try to get data from local store, if it do be
   if (local) return local
   //* If not in local store, load data from API
-  const loadedData = await func(state.local.ticker, ...args)
+  const loadedData = args ? await func(state.local.symbol, ...args) : await func(state.local.symbol)
   let data
   //* Because data may not be time series data we must add a check
   if (!Array.isArray(loadedData))
@@ -211,26 +216,79 @@ export async function getTickerResults() {
   const ltlyears = totalLiabilities.values.slice(-1) / avgcash
 
   const results = {
-    ticker: state.local.ticker,
+    symbol: state.local.symbol,
     pe: avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
     pedata: avgPe,
     pfcf: avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
     pfcfdata: avgfcf,
     revgrowth: revg[0] < revg[revg.length - 1] ? GOOD : BAD,
-    revgrowthdata: revg,
+    revgrowthdata: { k: revenue.keys.slice(-5), v: revg },
     cashgrowth: cashg[0] < cashg[cashg.length - 1] ? GOOD : BAD,
-    cashgrowthdata: cashg,
+    cashgrowthdata: { k: freeCashFlow.keys.slice(-5), v: cashg },
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
-    netincomedata: netg,
+    netincomedata: { k: netIncome.keys.slice(-5), v: netg },
     roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
     roicdata: roicTTM,
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
-    assetsdata: { a: totalAssets.values.slice(-1), b: totalLiabilities.values.slice(-1) },
+    assetsdata: { a: totalAssets.values.slice(-5), b: totalLiabilities.values.slice(-5) },
     ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
     ltldata: ltlyears
   }
+
   store.dispatch(updateLocalData('results', results))
   return results
+}
+
+//* This function is used to load a stocks profile, THIS SHOULD ONLY BE CALLED ONCE!
+//* You should be using getLocalData() to load each thing you need!
+export async function loadStockProfile() {
+  const state = store.getState()
+  const local = state.local.profile
+  //* Check to see if this has already been loaded
+  //* The stock profile data, should only be loaded once!
+  if (local) return
+  const profile = await getLocalData(
+    [
+      'price',
+      'beta',
+      'volAvg',
+      'mktCap',
+      'lastDiv',
+      'companyName',
+      'industry',
+      'website',
+      'description',
+      'ceo',
+      'sector',
+      'fullTimeEmployees',
+      'dcf',
+      'image',
+      'ipoDate'
+    ],
+    fetchStockProfile,
+    [],
+    [
+      'price',
+      'beta',
+      'volAvg',
+      'mktCap',
+      'lastDiv',
+      'companyName',
+      'industry',
+      'website',
+      'description',
+      'ceo',
+      'sector',
+      'fullTimeEmployees',
+      'dcf',
+      'image',
+      'ipoDate'
+    ]
+  )
+  //* Set profile loaded to true
+  store.dispatch(updateLocalData('profile', true))
+
+  return profile
 }
