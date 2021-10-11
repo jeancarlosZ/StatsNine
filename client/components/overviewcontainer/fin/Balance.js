@@ -1,61 +1,74 @@
-import React, { useState, useEffect } from 'react'
-import UniversalChart from '../../UniversalChart'
-import { Price } from '../PriceChart'
-import Subheader from '../../Subheader'
-import { FinancialsNavBar } from './Financialspage'
-import FinTable from './FinTable'
-import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api'
-import CompanyInfo from './CompanyInfo'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import UniversalChart from '../../UniversalChart';
+import { Price } from '../PriceChart';
+import Subheader from '../../Subheader';
+import { FinancialsNavBar } from './Financialspage';
+import FinTable from './FinTable';
+import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
+import { getLocalData } from '../../../store/local/localActions';
+import { balanceTableLabels, balanceIndentifiers } from './finTableLabels';
+import CompanyInfo from './CompanyInfo';
+import { FinButtons } from './FinButtons';
 import {
   returnProfile,
-  returnTableInfo,
   calcYearlyChanges,
   formatNestedArrayNums,
-  getDates
-} from './finUtils'
-import { FinButtons } from './FinButtons'
+  getDates,
+  returnUnformatedData,
+} from './finUtils';
 
-//Right now I'm fetching from API at every sub page
-//That's not what we want and I'll be optimizing with some of the tools we have
+//Using the getLocalData method
+//This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
+//that into the local component sate and redux state
 export default function Balance() {
-  const { symbol } = useSelector(state => state.local)
-  const [balanceInfo, setBalanceInfo] = useState({})
-  const [profile, setProfile] = useState({})
+  const [balanceInfo, setBalanceInfo] = useState({});
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getBalanceInfo() {
-      setBalanceInfo(await fetchBalanceStatement(symbol))
-      setProfile(await fetchStockProfile(symbol))
+      setBalanceInfo(
+        //here we are fetching only what we need from the income statement
+        await getLocalData(
+          [...balanceIndentifiers],
+          fetchBalanceStatement,
+          [false, 'annual'],
+          [...balanceIndentifiers]
+        )
+      );
     }
-    getBalanceInfo()
-  }, [])
+    getBalanceInfo();
+  }, []);
 
-  const companyProfile = returnProfile(profile)
+  const companyProfile = returnProfile(profile);
 
-  //These are the values returned from the fetch. Can be used in our charts!
-  const { values } = balanceInfo
+  //**------------------------------------------------------------------------------------------------ */
 
-  //Labels for Financials Tables
-  //Right now formatting the labels and using them to fetch
-  //Empty string is for date
-  const labels = [
-    'Total Assets',
-    'Total Liabilities',
-    'Long Term Investments',
-    'Total Debt',
-    'Common Stock'
-  ]
+  let unformatedDataNums = [];
+  let rawDates;
 
-  //Returning a 2D array
-  //Every inner array is a row of info relating to the above labels
-  const unformatedDataNums = values ? returnTableInfo(values, labels) : []
+  //incomeInfo will be returned in this format
+  //{dates: {keys: [...etc], values: [...etc]} grossProfit: {keys: [...etc], values: [...etc]}}
 
-  const dates = values ? getDates(values) : []
-  const infoArray = formatNestedArrayNums(unformatedDataNums)
-  const yearlyChanges = calcYearlyChanges(unformatedDataNums)
+  if (Object.keys(balanceInfo).length) {
+    //When incomeInfo has been populated we'll destructure what we need
+    // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
+    const { dates } = balanceInfo;
+    rawDates = dates.keys;
 
-  const dataset = []
+    //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
+    //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
+    unformatedDataNums = returnUnformatedData(balanceInfo, balanceIndentifiers);
+  }
+  //Here i'm passing the rawDates to be processed to look like this...'2021'
+  const dates = Object.keys(balanceInfo).length ? getDates(rawDates) : [];
+  //Here i'm passing in the raw income numbers to be processed and look like this...'123.3T' instead of '123300000000000'
+  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  //Here i'm calculating the change between a year and the previous year
+  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
+
+  //**------------------------------------------------------------------------------------------------ */
+
+  const dataset = [];
 
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
@@ -66,8 +79,8 @@ export default function Balance() {
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
     values: [38, 27, 18, 10, 7],
     hoverinfo: 'label+percent+name',
-    domain: { row: 1, column: 0 }
-  })
+    domain: { row: 1, column: 0 },
+  });
 
   return (
     <>
@@ -87,11 +100,16 @@ export default function Balance() {
         </div>
       </div>
       <FinButtons />
-      {values ? (
-        <FinTable dates={dates} rowInfo={infoArray} yearlyChanges={yearlyChanges} labels={labels} />
+      {Object.keys(balanceInfo).length ? (
+        <FinTable
+          dates={dates}
+          rowInfo={infoArray}
+          yearlyChanges={yearlyChanges}
+          labels={balanceTableLabels}
+        />
       ) : (
         <div className="table-space">Loading...</div>
       )}
     </>
-  )
+  );
 }

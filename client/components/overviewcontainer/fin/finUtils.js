@@ -90,8 +90,10 @@ export const incomeArray = [
 
 export function returnUnformatedData(incomeInfo, arrayOfItems) {
   const result = [];
-  arrayOfItems.forEach((item) => {
-    result.push(incomeInfo[item].values);
+  arrayOfItems.forEach((item, index) => {
+    if (index) {
+      result.push(incomeInfo[item].values);
+    }
   });
   return result;
 }
