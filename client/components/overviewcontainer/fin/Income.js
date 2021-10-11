@@ -5,7 +5,8 @@ import FinTable from './FinTable';
 import CompanyInfo from './CompanyInfo';
 import { fetchIncomeStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import incomeTableLabels from './finTableLabels';
+import { incomeTablelabels } from './finTableLabels';
+import { FinButtons } from './FinButtons';
 import {
   returnProfile,
   // returnTableInfo,
@@ -15,8 +16,10 @@ import {
   incomeArray,
   returnUnformatedData,
 } from './finUtils';
-import { FinButtons } from './FinButtons';
 
+//Using the getLocalData method
+//This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need an log
+//that into the local component sate and redux state
 export default function Income() {
   const [incomeInfo, setIncomeInfo] = useState({});
   const [profile, setProfile] = useState({});
@@ -24,6 +27,7 @@ export default function Income() {
   useEffect(() => {
     async function getIncomeInfo() {
       setIncomeInfo(
+        //here we are fetching an array of items
         await getLocalData(
           [...incomeArray],
           fetchIncomeStatement,
@@ -36,27 +40,16 @@ export default function Income() {
   }, []);
 
   const companyProfile = returnProfile(profile);
-
-  //Labels for Financials Tables
-  //Right now formatting the labels and using them to fetch
-  //Empty string is for date
-  const labels = [
-    'Gross Profit',
-    'Operating Expenses',
-    'Operating Income',
-    'Income Before Tax',
-    'Income Tax Expense',
-  ];
-
   let unformatedDataNums = [];
   let rawDates;
+  //**------------------------------------------------------------------------------------------------ */
+
+  //incomeInfo will be returned in this format
+  //{dates: {keys: [...etc], values: [...etc]} grossProfitL {keys: [...etc], values: [...etc]}}
 
   if (Object.keys(incomeInfo).length) {
-    const {
-      dates: { keys: keyDates },
-    } = incomeInfo;
-
-    rawDates = keyDates;
+    const { dates } = incomeInfo;
+    rawDates = dates.keys;
 
     unformatedDataNums = returnUnformatedData(incomeInfo, [
       'grossProfit',
@@ -71,6 +64,7 @@ export default function Income() {
   const infoArray = formatNestedArrayNums(unformatedDataNums);
   const yearlyChanges = calcYearlyChanges(unformatedDataNums);
 
+  //**------------------------------------------------------------------------------------------------ */
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
   //Right now it's all place holder data
@@ -84,7 +78,7 @@ export default function Income() {
     hoverinfo: 'label+percent+name',
     domain: { row: 1, column: 0 },
   });
-
+  //**-------------------------------------------------------------------------------------------------- */
   return (
     <React.Fragment>
       <div className="income-container flex-row justify-between">
@@ -108,7 +102,7 @@ export default function Income() {
           dates={dates}
           rowInfo={infoArray}
           yearlyChanges={yearlyChanges}
-          labels={labels}
+          labels={incomeTablelabels}
         />
       ) : (
         <div className="table-space">Loading...</div>

@@ -20,29 +20,29 @@ export function getDates(values) {
   return dates;
 }
 
-export function returnTableInfo(values, labels) {
-  let info;
-  let infoArray = [];
+// export function returnTableInfo(values, labels) {
+//   let info;
+//   let infoArray = [];
 
-  info = values.slice(values.length - 14).reverse();
-  // infoArray.push(info.map((info) => info.date.slice(0, 4)));
-  labels.map(function (label) {
-    const string = formatString(label);
-    infoArray.push(
-      info.map(function (info) {
-        return info[string];
-      })
-    );
-  });
-  return infoArray;
-}
+//   info = values.slice(values.length - 14).reverse();
+//   // infoArray.push(info.map((info) => info.date.slice(0, 4)));
+//   labels.map(function (label) {
+//     const string = formatString(label);
+//     infoArray.push(
+//       info.map(function (info) {
+//         return info[string];
+//       })
+//     );
+//   });
+//   return infoArray;
+// }
 
 //Formating the label to be used as a key to grab all the values from the object returned from the API
-function formatString(string) {
-  const newString =
-    string[0].toLowerCase() + string.split(' ').join('').slice(1);
-  return newString;
-}
+// function formatString(string) {
+//   const newString =
+//     string[0].toLowerCase() + string.split(' ').join('').slice(1);
+//   return newString;
+// }
 
 //Calculating the changes from year to year
 //Looping over the information that is to placed in the table
