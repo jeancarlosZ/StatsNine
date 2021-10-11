@@ -1,19 +1,27 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { setTickerSymbol } from '../store/local/localActions'
 import SearchTable from './searchoverlay/SearchTable'
 
 export default function Searchbar() {
   const [query, setQuery] = useState('bitcoin')
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-  function attemptSearch(event) {
-    const value = event.target.value
-    if (event.key !== 'Enter') {
-      return
-    } else {
-      if (value.length >= 1) {
-        console.log(
-          'Make API call for selected value and take user to overview page for that particular value.',
-        )
+  async function attemptSearch(event) {
+    try {
+      const value = event.target.value
+      if (event.key !== 'Enter') {
+        return
+      } else {
+        if (value.length >= 1) {
+          await dispatch(setTickerSymbol(value))
+          await history.push('/overviewpage')
+        }
       }
+    } catch (err) {
+      console.log(err)
     }
   }
 
