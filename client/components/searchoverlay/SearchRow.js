@@ -9,6 +9,7 @@ export default function SearchRow(props) {
   const history = useHistory()
   const close = props.close
 
+  // This function closes the query search box, sets the selected stock in the redux store, and sends the user to the overviewpage loaded with information for the selected stock when a stock is clicked on the search query box.
   async function handleClick(symbol) {
     try {
       await close(false)

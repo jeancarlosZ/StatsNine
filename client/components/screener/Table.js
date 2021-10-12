@@ -10,6 +10,7 @@ export default function Table() {
   const [shownStocks, setShownStocks] = useState([])
 
   useEffect(() => {
+    // This function fetches information for 500 stocks and stores it in the local state used for rendering. It uses information from the API call.
     async function getStocksList() {
       try {
         const stocks = await fetchScreenerStocks('isEtf=false', 1000)
@@ -24,6 +25,7 @@ export default function Table() {
   }, [])
 
   return (
+    <div>
     <div className="screener-container">
       <div className="screener-scroll-container">
         <div>{getScreenerControls(stocksList, setShownStocks)}</div>
@@ -98,3 +100,25 @@ function getScreenerControls(stockList, setShownStocks) {
     )
   return <></>
 }
+
+//<table className='screen-table'>
+//       <thead>
+//         <tr>
+//           <th className='screen-border-h'>Symbol and Name</th>
+//           <th className='screen-border-h'>Last Price</th>
+//           <th className='screen-border-h'>Annual Dividend</th>
+//           <th className='screen-border-h'>Volume</th>
+//           <th className='screen-border-h'>Market Cap</th>
+//           <th className='screen-border-h'>Sector</th>
+//         </tr>
+//       </thead>
+//       <tbody>
+//         {stocksList.length ? (
+//           stocksList.map((stock, i) => <Row key={stock.symbol} stock={stock} index={i} />)
+//         ) : (
+//           <tr>
+//             <td>Loading...</td>
+//           </tr>
+//         )}
+//       </tbody>
+//     </table>
