@@ -100,11 +100,9 @@ export default function Cash() {
   dataset.push({
     name: 'Cash Flow',
     type: 'bar',
-    color: 'rgba(0, 100, 200, 0.3)',
-    // outline: 'rgba(255, 255, 255, 0.1)',
-    connectgaps: false,
+    color: 'rgba(0, 0, 100, 0.1)',
     values: chartData,
-    hoverinfo: 'label+percent+name',
+    hoverinfo: 'name',
   });
 
   return (
