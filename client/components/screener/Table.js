@@ -6,6 +6,7 @@ export default function Table() {
   const [stocksList, setStocksList] = useState([])
 
   useEffect(() => {
+    // This function fetches information for 500 stocks and stores it in the local state used for rendering. It uses information from the API call.
     async function getStocksList() {
       try {
         setStocksList(await fetchScreenerStocks())
@@ -19,15 +20,15 @@ export default function Table() {
 
   return (
     <div>
-      <table className="screen-table">
+      <table className='screen-table'>
         <thead>
           <tr>
-            <th className="screen-border-h">Symbol and Name</th>
-            <th className="screen-border-h">Last Price</th>
-            <th className="screen-border-h">Annual Dividend</th>
-            <th className="screen-border-h">Volume</th>
-            <th className="screen-border-h">Market Cap</th>
-            <th className="screen-border-h">Sector</th>
+            <th className='screen-border-h'>Symbol and Name</th>
+            <th className='screen-border-h'>Last Price</th>
+            <th className='screen-border-h'>Annual Dividend</th>
+            <th className='screen-border-h'>Volume</th>
+            <th className='screen-border-h'>Market Cap</th>
+            <th className='screen-border-h'>Sector</th>
           </tr>
         </thead>
         <tbody>

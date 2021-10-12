@@ -7,6 +7,7 @@ export default function PriceChart(props) {
   const [stockPrices, setStockPrices] = useState([])
 
   useEffect(() => {
+    // This function sets the stock information from the API call to local storage.
     async function getStockPrices() {
       try {
         setStockPrices(await fetchChartPrice(symbol, DAILY, YEAR, false))
@@ -29,6 +30,7 @@ export default function PriceChart(props) {
   )
 }
 
+// This function uses information from props to render a candlestick chart.
 function OverviewChart(props) {
   const dataset = []
   const keys = props.stockPrices.keys
@@ -64,6 +66,7 @@ function OverviewChart(props) {
   )
 }
 
+// This function displays the price of the stock from information from props.
 function Price(props) {
   let price = 0
 
@@ -74,6 +77,7 @@ function Price(props) {
   return <div className='bold'>${price}</div>
 }
 
+// This function generates a fancy looking text with the following content: 'USD'.
 function USD() {
   return <div className='usd pos-rel'>USD</div>
 }

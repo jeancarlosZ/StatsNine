@@ -15,6 +15,7 @@ export default function Searchbar() {
   const searchRef = useRef(null)
 
   useEffect(() => {
+    // This function closes the search query box if a mouseclick occurs outside search bar or search query box.
     async function handleClickOutside(event) {
       try {
         if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -35,6 +36,7 @@ export default function Searchbar() {
   }, [searchRef, open])
 
   useEffect(() => {
+    // This function sets the query results up to 20 in the local state to be used for rendering.  It uses information from the API call.
     async function getStocksList() {
       try {
         setStocksList(await fetchSearchQuery(query, 20))
@@ -46,6 +48,7 @@ export default function Searchbar() {
     getStocksList()
   }, [query])
 
+  // This function closes the search query box, sets the selected stock in the redux store, and sends the user to the overview page loaded with information for the selected stock if 'Enter' key is pressed and the search value matches a symbol and has length of at least one character.
   async function attemptSearch(event) {
     try {
       const value = event.target.value.toUpperCase()
@@ -68,6 +71,7 @@ export default function Searchbar() {
     }
   }
 
+  // This function sets the value of the search bar to local state if it has at least one character.  The query value is used to render results for the search query box.
   function handleChange(event) {
     const value = event.target.value.toUpperCase()
     if (value.length >= 1) {

@@ -14,6 +14,7 @@ export default function Row(props) {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  // This function sets the selected stock in the redux store and sends the user to the overview page that will be loaded with information for the selected stock.
   async function handleClick() {
     try {
       await dispatch(setCurrentStock(symbol, companyName))
