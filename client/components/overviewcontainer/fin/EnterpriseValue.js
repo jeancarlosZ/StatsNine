@@ -57,11 +57,8 @@ export default function EnterpriseValue() {
   let unformatedData = [];
   let rawDates;
 
-  //incomeInfo will be returned in this format
-  //{dates: {keys: [...etc], values: [...etc]} grossProfit: {keys: [...etc], values: [...etc]}}
-
   if (Object.keys(enterpriseInfo).length) {
-    //When incomeInfo has been populated we'll destructure what we need
+    //When enterpriseInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = enterpriseInfo;
     rawDates = dates.keys;

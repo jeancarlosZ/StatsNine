@@ -17,7 +17,6 @@ import {
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 
-//Fetching the data for the Income table
 export default function Cash() {
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
@@ -57,11 +56,8 @@ export default function Cash() {
   let unformatedData = [];
   let rawDates;
 
-  //incomeInfo will be returned in this format
-  //{dates: {keys: [...etc], values: [...etc]} grossProfit: {keys: [...etc], values: [...etc]}}
-
   if (Object.keys(cashflowInfo).length) {
-    //When incomeInfo has been populated we'll destructure what we need
+    //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = cashflowInfo;
     rawDates = dates.keys;

@@ -55,11 +55,8 @@ export default function Balance() {
   let unformatedData = [];
   let rawDates;
 
-  //incomeInfo will be returned in this format
-  //{dates: {keys: [...etc], values: [...etc]} grossProfit: {keys: [...etc], values: [...etc]}}
-
   if (Object.keys(balanceInfo).length) {
-    //When incomeInfo has been populated we'll destructure what we need
+    //When balanceInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = balanceInfo;
     rawDates = dates.keys;
