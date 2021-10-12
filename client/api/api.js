@@ -228,7 +228,11 @@ export async function fetchStockNews(query, limit = 50) {
 //* Example: 'marketCapMoreThan=1000000000&betaMoreThan=1&volumeMoreThan=10000&sector=Technology&exchange=NASDAQ&dividendMoreThan=0'
 //* If you require help or explaination please lmk ~ brynn
 export async function fetchScreenerStocks(query = '', limit = 500) {
-  const link = getFMPLink('stock-screener', '', `limit=${limit}${query ? '&' + query : ''}`)
+  const link = getFMPLink(
+    'stock-screener',
+    '',
+    `exchange=NASDAQ&limit=${limit}${query ? '&' + query : ''}`
+  )
   return await fetchData(link)
 }
 

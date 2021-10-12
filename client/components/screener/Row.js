@@ -14,8 +14,8 @@ export default function Row(props) {
   const dispatch = useDispatch()
   const history = useHistory()
 
-
-  async function handleClick(ticker) {
+  // This function sets the selected stock in the redux store and sends the user to the overview page that will be loaded with information for the selected stock.
+  async function handleClick() {
     try {
       await dispatch(setCurrentStock(symbol, companyName))
       await loadStockProfile()
@@ -27,15 +27,15 @@ export default function Row(props) {
 
   return (
     <tr className={rowColor} onClick={() => handleClick()}>
-      <td className="screen-border screen-name">
-        <div className="screen-blue">{symbol}</div>
+      <td className='screen-border screen-name'>
+        <div className='screen-blue'>{symbol}</div>
         <div>{companyName}</div>
       </td>
-      <td className="screen-border screen-num">{price} USD</td>
-      <td className="screen-border screen-num screen-green">{lastAnnualDividend} USD</td>
-      <td className="screen-border screen-num">{volume}</td>
-      <td className="screen-border screen-num">{marketCap} USD</td>
-      <td className="screen-border screen-small">{sector}</td>
+      <td className='screen-border screen-num'>{price} USD</td>
+      <td className='screen-border screen-num screen-green'>{lastAnnualDividend} USD</td>
+      <td className='screen-border screen-num'>{volume}</td>
+      <td className='screen-border screen-num'>{marketCap} USD</td>
+      <td className='screen-border screen-small'>{sector}</td>
     </tr>
   )
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import ExamplePage from '../api/ExamplePage';
 import TestPage from '../api/TestPage';
-import AboutUs from '../components/home/aboutus';
+import AboutUs from '../components/home/AboutUs'
 import Calendar from '../components/home/Calendar';
 import Homepage from '../components/home/Homepage';
 import NotFound from '../components/home/NotFound';
@@ -10,6 +10,7 @@ import Financialspage from '../components/overviewcontainer/fin/Financialspage';
 import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics';
 import Overviewpage from '../components/overviewcontainer/Overviewpage';
 import Table from '../components/screener/Table';
+
 
 class UniversalRoutes extends Component {
   render() {

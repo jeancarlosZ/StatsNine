@@ -9,10 +9,11 @@ export default function SearchRow(props) {
   const history = useHistory()
   const close = props.close
 
-  async function handleClick(ticker) {
+  // This function closes the query search box, sets the selected stock in the redux store, and sends the user to the overviewpage loaded with information for the selected stock when a stock is clicked on the search query box.
+  async function handleClick(symbol) {
     try {
       await close(false)
-      await dispatch(setCurrentStock(ticker, name))
+      await dispatch(setCurrentStock(symbol, name))
       await history.push('/overviewpage')
     } catch (err) {
       console.log(err)
@@ -20,10 +21,10 @@ export default function SearchRow(props) {
   }
 
   return (
-    <tr className="search-row" onClick={() => handleClick(symbol)}>
-      <td className="search-cell">{symbol}</td>
-      <td className="search-cell2">{name}</td>
-      <td className="search-cell">{exchangeShortName}</td>
+    <tr className='search-row' onClick={() => handleClick(symbol)}>
+      <td className='search-cell'>{symbol}</td>
+      <td className='search-cell2'>{name}</td>
+      <td className='search-cell'>{exchangeShortName}</td>
     </tr>
   )
 }

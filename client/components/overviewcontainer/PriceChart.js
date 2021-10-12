@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { DAILY, fetchChartPrice, YEAR } from '../../api/api'
 import UniversalChart from '../UniversalChart'
 
-export default function PriceChart() {
-  const { symbol } = useSelector(state => state.local)
+export default function PriceChart(props) {
+  const symbol = props.symbol
   const [stockPrices, setStockPrices] = useState([])
 
   useEffect(() => {
+    // This function sets the stock information from the API call to local storage.
     async function getStockPrices() {
       try {
         setStockPrices(await fetchChartPrice(symbol, DAILY, YEAR, false))
@@ -17,11 +17,11 @@ export default function PriceChart() {
     }
 
     getStockPrices()
-  }, [])
+  }, [symbol])
 
   return (
-    <div className="price-chart flex-col align-self">
-      <span className="price-container flex-row pos-rel">
+    <div className='price-chart flex-col align-self'>
+      <span className='price-container flex-row pos-rel'>
         <Price stockPrices={stockPrices} />
         <USD />
       </span>
@@ -30,6 +30,7 @@ export default function PriceChart() {
   )
 }
 
+// This function uses information from props to render a candlestick chart.
 function OverviewChart(props) {
   const dataset = []
   const keys = props.stockPrices.keys
@@ -50,14 +51,14 @@ function OverviewChart(props) {
         low: values.map(e => e.low),
         open: values.map(e => e.open),
         xaxis: 'x',
-        yaxis: 'y'
-      }
+        yaxis: 'y',
+      },
     })
   }
 
   return (
     <UniversalChart
-      className="stock-price-chart"
+      className='stock-price-chart'
       title={`${symbol} Stock Chart`}
       dataset={dataset}
       showlegend={false}
@@ -65,16 +66,18 @@ function OverviewChart(props) {
   )
 }
 
+// This function displays the price of the stock from information from props.
 function Price(props) {
   let price = 0
 
   if (props.stockPrices.values[0]) {
-    price = props.stockPrices.values[0].close
+    price = props.stockPrices.values[0].close.toFixed(2)
   }
 
-  return <div className="bold">${price}</div>
+  return <div className='bold'>${price}</div>
 }
 
+// This function generates a fancy looking text with the following content: 'USD'.
 function USD() {
-  return <div className="usd pos-rel">USD</div>
+  return <div className='usd pos-rel'>USD</div>
 }

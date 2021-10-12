@@ -134,10 +134,12 @@ export function getPercentDifference(num1, num2, includeSign = true, format = tr
 //* Get the difference between the first and last number
 //* In a given array [5, 6, 8] would result in -> 3
 export function getDifferenceBetween(arr, reverse = false) {
-  return reverse ? arr.shift() - arr.pop() : arr.pop() - arr.shift()
+  const narr = [...arr]
+  return reverse ? narr.shift() - narr.pop() : narr.pop() - narr.shift()
 }
 
 //* Get the between the first and last number of an array
 export function getFirstLastArr(arr, reverse = false) {
-  return reverse ? [arr.shift(), arr.pop()] : [arr.pop(), arr.shift()]
+  const narr = [...arr]
+  return reverse ? [narr.shift(), narr.pop()] : [narr.pop(), narr.shift()]
 }

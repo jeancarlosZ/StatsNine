@@ -1,0 +1,96 @@
+/** The preview of each metric*/
+.safety-preview {
+  background-color: rgba(30, 34, 45, 0.2);
+  padding: 5px;
+  border-radius: 45px;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.safety-preview .prev-wrapper {
+  overflow: hidden;
+}
+
+/** The preview of each metric*/
+.safety-preview table {
+  border-spacing: 5px;
+  border-collapse: separate;
+}
+
+/** The preview of each metric*/
+.safety-preview td {
+  border-radius: 10px;
+  /* background-color: rgba(67, 70, 81, 0.1); */
+  color: rgba(208, 211, 219, 0.7);
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+/** The preview of each metric*/
+.safety-preview .head {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+/** The preview of each metric*/
+.safety-preview .assets {
+  color: rgba(44, 221, 155, 0.6);
+}
+
+.safety-preview .liabilities {
+  color: rgba(169, 0, 254, 0.8);
+}
+
+.stock-fcfltl-chart {
+  /* height: calc((100%) - (var(--chartPadding) * 2)); */
+  /* width: calc((100%) - (var(--chartPadding) * 2)); */
+
+  /** chart height minus selector height */
+  height: calc(var(--metricsChartWrapperHeight) - 70px);
+  width: calc(var(--metricsChartWrapperWidth) / 2);
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.safety-lowerhalf {
+  padding-top: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.metric-charts .clean {
+  width: calc(var(--metricsChartWrapperWidth) / 2);
+}
+
+.fcftoltl {
+  color: rgba(208, 211, 219, 0.8);
+  font-weight: 400;
+  margin-bottom: 50px;
+}
+
+.fcftoltl div {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.fcftoltl label {
+  color: var(--fontColor);
+  font-weight: 500;
+  margin-right: 15px;
+}
+
+.metric-chart .safetyselector {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.metric-chart .safetyselector label {
+  font-weight: 600;
+  color: var(--fontColor);
+}
