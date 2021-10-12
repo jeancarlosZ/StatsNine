@@ -19,24 +19,26 @@ export default function Newsfeed() {
   // console.log('Values:', values);
 
   return (
-    <div>
+    <div className="text-white">
       <h2>Latest News</h2>
-      <div className="table-responsive">
-        <table className="table table-striped table-sm">
+      <div className="table-responsive ">
+        <table className="table table-sm  table-borderless border-0 table-hover">
           <thead>
-            <tr>
-              <th scope="col">Company</th>
-              <th scope="col">Headline</th>
-            </tr>
+            <tr></tr>
           </thead>
           <tbody>
             {stockNewsList.map(company => {
               return (
-                <tr key={company.publishedDate}>
+                <tr
+                  key={company.publishedDate}
+                  className="btn-group me-2 btn btn-sm btn-outline-secondary list-group list-group-flush border-0 rounded-pill shadow-none "
+                  type="button">
                   <td>
                     <img src={company.image} width="50" alt={company.symbol}></img>
                   </td>
-                  <td>{company.title}</td>
+                  <td className="text-white list-group-item">
+                    {company.title}
+                  </td>
                 </tr>
               )
             })}

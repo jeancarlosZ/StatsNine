@@ -1,49 +1,107 @@
 import React, { useEffect, useState } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import { ALL, DAILY, fetchChartPrice, MONTH, WEEK } from '../../api/api';
+import { getLocalData } from '../../store/local/localActions';
 import UniversalChart from '../UniversalChart';
-import { fetchChartPrice, DAILY, WEEK } from '../../api/api';
 
-export default function SnP500() {
-  const [progressData, setProgressData] = useState({});
+export default function StockPriceChart() {
+  const [range, setRange] = useState(MONTH);
+  const [series, setSeries] = useState(DAILY);
+  const [data, setData] = useState({});
+
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
     async function getData() {
-      setProgressData(await fetchChartPrice('AAPL', DAILY, WEEK));
+      if (update) {
+        setData({
+          ...data, //* Upate data  { ...data, [range]: newData }
+          [range]: await getLocalData(
+            'close', //* key
+            fetchChartPrice, //* func
+            [series, range], //* args
+            `price${series}${range}` //* saveas
+          ),
+        });
+        setUpdate(false);
+      }
     }
 
     getData();
-  }, []);
+  }, [series, range]);
 
-  // console.log('Progress Data:', progressData);
-
-  const { keys, values } = progressData;
-
-  // console.log('Keys:', keys);
-  // console.log('Values:', values);
+  const { keys, values } = !data[range] ? data : data[range];
 
   const dataset = [];
 
   if (values) {
     dataset.push({
-      name: 'current progress',
+      name: 'Stock Price',
       type: 'line',
       color: '#007AFF',
-      outline: '#34b87d',
+      outline: 'rgba(39, 91, 232, 1)',
+      fillcolor: 'rgba(244, 247, 255, .6)',
+      fill: 'tonexty',
 
-      values: values.map(x => x.close),
+      values: values,
     });
   }
 
+  function updateSeries(series, newSeries) {
+    if (series !== newSeries) {
+      setSeries(newSeries);
+      setUpdate(true);
+    }
+  }
+
+  function updateRange(range, newRange) {
+    if (range !== newRange) {
+      setRange(newRange);
+      if (!data[newRange]) setUpdate(true);
+    }
+  }
+
   return (
-    <>
-      <div className="flex-col align-self">
+    <div className="rounded-3 ">
+      <div className="selector rounded-3">
+        <label className="text-white">Stock Price</label>
+        {getSelectors(series, range, updateSeries, updateRange)}
+      </div>
+      <div className="wrapper">
         <UniversalChart
-          className="monitor-chart"
-          title="Apple"
+          className="stock-price-chart"
           keys={keys}
           dataset={dataset}
           showlegend={false}
+          backgroundColor="fff"
+          plotBackgroundColor="rgba(30, 34, 45, 0)"
         />
       </div>
-    </>
+    </div>
+  );
+}
+
+function getSelectors(series, range, updateSeries, updateRange) {
+  return (
+    <div>
+      <DropdownButton
+        className="dropdown-selector"
+        title={range}
+        size="sm"
+        variant="secondary">
+        <Dropdown.Item onClick={() => updateRange(range, ALL)}>
+          All
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>
+          1 month
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>
+          1 Week
+        </Dropdown.Item>
+      </DropdownButton>
+    </div>
   );
 }
