@@ -5,6 +5,8 @@ import { fetchSearchQuery } from '../api/api'
 import SearchIcon from '../assets/icons/saved_search'
 import { setCurrentStock } from '../store/local/localActions'
 import SearchTable from './searchoverlay/SearchTable'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false)
@@ -58,11 +60,12 @@ export default function Searchbar() {
         if (value.length >= 1) {
           if (stocksList.map(stock => stock.symbol).includes(value)) {
             event.target.value = ''
+            toast.success('Symbol Found!')
             await setOpen(false)
             await dispatch(setCurrentStock(value))
             await history.push('/overviewpage')
           } else {
-            alert('Symbol not found!')
+            toast.error('Symbol Not Found!')
           }
         }
       }
@@ -91,6 +94,7 @@ export default function Searchbar() {
         />
         <SearchIcon className='search-icon' />
       </div>
+      <ToastContainer theme='dark' />
       {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
     </div>
   )
