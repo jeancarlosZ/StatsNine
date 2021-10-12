@@ -221,8 +221,10 @@ export async function getTickerResults() {
   const shareg = numberOfShares.values.slice(-5)
   //* 5y avg cashflow
   const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
+  //* Current liabs
+  const currentLiabilities = [...totalLiabilities.values].pop()
   //* LTL / 5 yr avg cashflow ^
-  const ltlyears = totalLiabilities.values.slice(-1) / avgcash
+  const ltlyears = currentLiabilities / avgcash
 
   const results = {
     symbol: state.local.symbol,
@@ -240,14 +242,34 @@ export async function getTickerResults() {
     roicdata: roicTTM,
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
-    assets: totalAssets.values.slice(-1) > totalLiabilities.values.slice(-1) ? GOOD : BAD,
+    assets: [...totalAssets.values].pop() > [...totalLiabilities.values].pop() ? GOOD : BAD,
     assetsdata: {
       k: totalAssets.keys.slice(-5),
       a: totalAssets.values.slice(-5),
       b: totalLiabilities.values.slice(-5)
     },
     ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
-    ltldata: ltlyears
+    ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities }
+  }
+
+  //* Calcuate the stock's score!
+  const score = Math.ceil(
+    getPoints('pe') +
+      getPoints('pfcf') +
+      getPoints('revgrowth') +
+      getPoints('cashgrowth') +
+      getPoints('netincome') +
+      getPoints('roic') +
+      getPoints('shares') +
+      getPoints('assets') +
+      getPoints('ltl')
+  )
+
+  results.score = score
+
+  function getPoints(type) {
+    const result = results[type]
+    return result === GOOD ? 11.11 : result === BAD ? 0 : 5.55
   }
 
   store.dispatch(updateLocalData('results', results))

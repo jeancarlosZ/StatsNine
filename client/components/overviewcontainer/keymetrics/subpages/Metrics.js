@@ -65,7 +65,7 @@ function getMetricOverview(results) {
       </div>
       <div className="metric">
         <label>{'Saftey Metrics'}</label>
-        {getMetricItem('Assets < Liabilities', results.assets)}
+        {getMetricItem('Assets > Liabilities', results.assets)}
         {getMetricItem('LT Liabilities / 5 Yr FCF; < 5', results.ltl)}
       </div>
       <div className="metric-spacer"></div>
