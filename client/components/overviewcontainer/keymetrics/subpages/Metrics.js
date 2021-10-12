@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Star from '../../../../assets/icons/star'
 import { getTickerResults } from '../../../../store/local/localActions'
-import { getStarColor } from '../../../../utils'
 import StockEPSChart from '../charts/StockEPSChart'
 import StockPriceChart from '../charts/StockPriceChart'
 import MetricSelector from '../MetricSelector'
+import { getMetricItem } from './UtilMetrics'
 
 //* This is the default/overview metrics page.
 //* Shown at /overviewpage/keymetrics
@@ -69,15 +68,6 @@ function getMetricOverview(results) {
         {getMetricItem('LT Liabilities / 5 Yr FCF; < 5', results.ltl)}
       </div>
       <div className="metric-spacer"></div>
-    </div>
-  )
-}
-
-function getMetricItem(metric, rating) {
-  return (
-    <div className="metric-item">
-      <Star className="metric-star" fill={getStarColor(rating)} />
-      <span>{metric}</span>
     </div>
   )
 }

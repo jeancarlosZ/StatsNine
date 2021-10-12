@@ -1,0 +1,30 @@
+* {
+  --qualityHalfHeight: calc(var(--metricInnerSubcontainerHeight) / 2);
+}
+
+.key-metrics-container .quality-subcontainer {
+  margin: auto;
+
+  height: var(--metricInnerSubcontainerHeight);
+  width: var(--metricInnerSubcontainerWidth);
+
+  /*! FLEX */
+  display: flex;
+  flex-direction: column;
+
+  /* display: grid;  */
+  /** Grid size */
+  /* grid-template-columns: 25%; */
+
+  /* TODO color*/
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.quality-subcontainer .qualityhalf {
+  height: var(--qualityHalfHeight);
+  width: var(--metricInnerSubcontainerWidth);
+
+  display: flex;
+  /* TODO color*/
+  background-color: rgba(255, 255, 255, 0.2);
+}

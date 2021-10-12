@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Star from '../../../../assets/icons/star'
 import { getTickerResults, GOOD } from '../../../../store/local/localActions'
 import {
   formatNumber,
   getDifferenceBetween,
-  getFirstLastArr,
   getPercentDifference,
-  getStarColor,
   isSameObject,
   roundNumberDec,
   trimDate
@@ -14,6 +11,7 @@ import {
 import AssetsVsLiabilities from '../charts/AssetsVsLiabilities'
 import SimplePie from '../charts/SimplePie'
 import MetricSelector from '../MetricSelector'
+import { getMetricItem } from './UtilMetrics'
 
 export default function SafetyMetric() {
   const [results, setResults] = useState({})
@@ -144,14 +142,4 @@ function getTableDatas(arr, formatFunc, className) {
       {formatFunc(x)}
     </td>
   ))
-}
-
-//* Func to get a metric item, and the star related to it
-function getMetricItem(metric, rating) {
-  return (
-    <div className="metric-item">
-      <Star className="metric-star" fill={getStarColor(rating)} />
-      <span className="king">{metric}</span>
-    </div>
-  )
 }

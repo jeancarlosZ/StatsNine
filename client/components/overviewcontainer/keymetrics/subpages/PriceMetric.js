@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { fetchRatios } from '../../../../api/api'
-import Star from '../../../../assets/icons/star'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
-import { formatNumber, getStarColor, roundNumberDec, trimDate } from '../../../../utils'
+import { formatNumber, roundNumberDec, trimDate } from '../../../../utils'
 import PeHistChart from '../charts/PEHistChart'
 import PFCFHistChart from '../charts/PFCFHistChart'
 import MetricSelector from '../MetricSelector'
+import { getMetricItem } from './UtilMetrics'
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
@@ -125,14 +125,4 @@ function getTableDatas(arr, formatFunc, className) {
       {formatFunc(x)}
     </td>
   ))
-}
-
-//* Func to get a metric item, and the star related to it
-function getMetricItem(metric, rating) {
-  return (
-    <div className="metric-item">
-      <Star className="metric-star" fill={getStarColor(rating)} />
-      <span className="king">{metric}</span>
-    </div>
-  )
 }
