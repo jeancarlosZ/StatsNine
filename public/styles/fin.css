@@ -99,11 +99,15 @@
   margin: 1rem;
   color: #d0d3db;
   background-color: #131722;
-  height: 300px;
+  /* height: 300px; */
   table-layout: fixed;
   width: 1847px;
 }
 
+.temp-class {
+  overflow-y: scroll;
+  height: 400px;
+}
 .table-space {
   width: 1266px;
   height: 300px;
@@ -127,7 +131,7 @@
 }
 
 .fin-chart {
-  width: 61vw;
+  width: 63vw;
   height: 275px;
 }
 

@@ -139,7 +139,9 @@ export default function Income() {
         </div>
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
+      <div className="temp-class">
+        <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
+      </div>
     </>
   );
 }
