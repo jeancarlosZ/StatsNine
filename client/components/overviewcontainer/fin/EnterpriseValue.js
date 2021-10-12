@@ -112,7 +112,7 @@ export default function EnterpriseValue() {
           />
         </div>
       </div>
-      <FinButtons />
+      {/* <FinButtons /> */}
       <FinTable tableInfo={tableInfo} />
     </>
   );

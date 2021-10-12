@@ -112,7 +112,7 @@ export default function Income() {
           />
         </div>
       </div>
-      <FinButtons />
+      {/* <FinButtons /> */}
       <FinTable tableInfo={tableInfo} />
     </>
   );

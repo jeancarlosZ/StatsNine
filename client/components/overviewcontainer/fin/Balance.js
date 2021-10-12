@@ -111,7 +111,7 @@ export default function Balance() {
           />
         </div>
       </div>
-      <FinButtons />
+      {/* <FinButtons /> */}
       <FinTable tableInfo={tableInfo} />
     </>
   );

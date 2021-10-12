@@ -113,7 +113,7 @@ export default function Cash() {
           />
         </div>
       </div>
-      <FinButtons />
+      {/* <FinButtons /> */}
       <FinTable tableInfo={tableInfo} />
     </>
   );
