@@ -48,7 +48,7 @@ export function formatRows(nestedArray) {
   });
 }
 
-export function returnFormatedData(incomeInfo, arrayOfItems) {
+export function returnUnformatedData(incomeInfo, arrayOfItems) {
   //This function maps over arrayOfItems and for each item it extracts data from the incomeInfo object
   const result = [];
   arrayOfItems.forEach((item, index) => {

@@ -10,7 +10,7 @@ import {
   calcYearlyChanges,
   formatRows,
   formatDates,
-  returnFormatedData,
+  returnUnformatedData,
 } from './finUtils';
 
 //**------------------------------------------------------------------------------------------------ */
@@ -57,7 +57,17 @@ export default function Income() {
   let unformatedData = [];
   let rawDates;
 
+  let chartData = [];
+  let keys = [];
+
   if (Object.keys(incomeInfo).length) {
+    //----------------------------------------//
+    //chartData testing
+    chartData = incomeInfo.grossProfit.values;
+    keys = incomeInfo.grossProfit.keys;
+
+    // console.log(chartData, 'chartData...');
+    //----------------------------------------//
     //When incomeInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = incomeInfo;
@@ -65,7 +75,8 @@ export default function Income() {
 
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
-    unformatedData = returnFormatedData(incomeInfo, incomeIndentifiers);
+    unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);
+    console.log(unformatedData, 'unformated income data...');
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
   const dates = Object.keys(incomeInfo).length ? formatDates(rawDates) : [];
@@ -87,12 +98,12 @@ export default function Income() {
   const dataset = [];
 
   dataset.push({
-    name: 'Income',
-    type: 'scatter',
-    labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    values: [38, 27, 18, 10, 7],
+    name: 'Gross Profit',
+    type: 'bar',
+    color: 'rgba(44, 221, 155, 0.3)',
+    outline: 'rgba(44, 221, 155, 0.6)',
+    values: chartData,
     hoverinfo: 'label+percent+name',
-    domain: { row: 1, column: 0 },
   });
   //**-------------------------------------------------------------------------------------------------- */
   return (
@@ -102,9 +113,14 @@ export default function Income() {
         <div className="fin-chart-container">
           <UniversalChart
             className="income-chart fin-chart"
-            title="Net Income"
+            title="Gross Profit"
+            keys={keys}
+            margin={{ l: 50, r: 50, b: 25, t: 35 }}
+            plotBackgroundColor="rgba(30, 34, 45, 0)"
             dataset={dataset}
             showlegend={false}
+            hoverdistance={50}
+            hovermode="x"
           />
         </div>
       </div>

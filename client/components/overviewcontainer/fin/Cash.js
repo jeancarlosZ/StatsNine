@@ -10,7 +10,7 @@ import {
   calcYearlyChanges,
   formatRows,
   formatDates,
-  returnFormatedData,
+  returnUnformatedData,
 } from './finUtils';
 
 //Using the getLocalData method
@@ -56,7 +56,17 @@ export default function Cash() {
   let unformatedData = [];
   let rawDates;
 
+  let chartData = [];
+  let keys = [];
+
   if (Object.keys(cashflowInfo).length) {
+    //----------------------------------------//
+    //chartData testing
+    chartData = cashflowInfo.freeCashFlow.values;
+    keys = cashflowInfo.freeCashFlow.keys;
+
+    // console.log(chartData, 'chartData...');
+    //----------------------------------------//
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = cashflowInfo;
@@ -64,7 +74,7 @@ export default function Cash() {
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
-    unformatedData = returnFormatedData(cashflowInfo, cashflowIndentifiers);
+    unformatedData = returnUnformatedData(cashflowInfo, cashflowIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
   const dates = Object.keys(cashflowInfo).length ? formatDates(rawDates) : [];
@@ -88,12 +98,13 @@ export default function Cash() {
   const dataset = [];
 
   dataset.push({
-    name: 'Income',
-    type: 'pie',
-    labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    values: [38, 27, 18, 10, 7],
+    name: 'Cash Flow',
+    type: 'bar',
+    color: 'rgba(0, 100, 200, 0.3)',
+    // outline: 'rgba(255, 255, 255, 0.1)',
+    connectgaps: false,
+    values: chartData,
     hoverinfo: 'label+percent+name',
-    domain: { row: 1, column: 0 },
   });
 
   return (
@@ -102,10 +113,15 @@ export default function Cash() {
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
-            className="cash-chart fin-chart"
-            title="Net Income"
+            className="income-chart fin-chart"
+            title="Cash Flow"
+            keys={keys}
+            margin={{ l: 50, r: 50, b: 25, t: 35 }}
+            plotBackgroundColor="rgba(30, 34, 45, 0)"
             dataset={dataset}
             showlegend={false}
+            hoverdistance={50}
+            hovermode="x"
           />
         </div>
       </div>
