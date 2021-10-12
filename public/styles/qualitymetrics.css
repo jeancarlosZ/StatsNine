@@ -1,12 +1,13 @@
 * {
   --qualityHalfHeight: calc(var(--metricInnerSubcontainerHeight) / 2);
+  --qualityHalfWidth: var(--metricInnerSubcontainerWidth);
 }
 
 .key-metrics-container .quality-subcontainer {
   margin: auto;
 
   height: var(--metricInnerSubcontainerHeight);
-  width: var(--metricInnerSubcontainerWidth);
+  width: var(--qualityHalfWidth);
 
   /*! FLEX */
   display: flex;
@@ -22,9 +23,22 @@
 
 .quality-subcontainer .qualityhalf {
   height: var(--qualityHalfHeight);
-  width: var(--metricInnerSubcontainerWidth);
+  width: var(--qualityHalfWidth);
 
-  display: flex;
   /* TODO color*/
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+/*
+*==================================
+*      QUALITY UPPER HALF
+*==================================
+*/
+
+.quality-subcontainer .upper {
+  display: flex;
+}
+
+/** Container of the two pie charts*/
+.quality-subcontainer .upper .roic-chart {
 }

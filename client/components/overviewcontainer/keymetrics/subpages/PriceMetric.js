@@ -5,7 +5,7 @@ import { formatNumber, roundNumberDec, trimDate } from '../../../../utils'
 import PeHistChart from '../charts/PEHistChart'
 import PFCFHistChart from '../charts/PFCFHistChart'
 import MetricSelector from '../MetricSelector'
-import { getMetricItem } from './UtilMetrics'
+import { getMetricItem, getTableDatas } from './UtilMetrics'
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
@@ -116,13 +116,4 @@ function getDataPreview(data) {
       </div>
     </div>
   )
-}
-
-//* Function to get the table data
-function getTableDatas(arr, formatFunc, className) {
-  return arr.map((x, i) => (
-    <td className={className} key={i}>
-      {formatFunc(x)}
-    </td>
-  ))
 }

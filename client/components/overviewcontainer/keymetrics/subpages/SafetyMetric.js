@@ -11,7 +11,7 @@ import {
 import AssetsVsLiabilities from '../charts/AssetsVsLiabilities'
 import SimplePie from '../charts/SimplePie'
 import MetricSelector from '../MetricSelector'
-import { getMetricItem } from './UtilMetrics'
+import { getMetricItem, getTableDatas } from './UtilMetrics'
 
 export default function SafetyMetric() {
   const [results, setResults] = useState({})
@@ -133,13 +133,4 @@ function getDataPreview(k, a, b) {
       </div>
     </div>
   )
-}
-
-//* Function to get the table data
-function getTableDatas(arr, formatFunc, className) {
-  return arr.map((x, i) => (
-    <td className={className} key={i}>
-      {formatFunc(x)}
-    </td>
-  ))
 }

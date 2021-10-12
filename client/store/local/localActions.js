@@ -173,11 +173,11 @@ export async function getTickerResults() {
   //* Check to see if we have already saved this info
   if (local) return local
 
-  const { totalAssets, totalLiabilities } = await getLocalData(
-    ['totalAssets', 'totalLiabilities'],
+  const { totalAssets, totalLiabilities, totalInvestments } = await getLocalData(
+    ['totalAssets', 'totalLiabilities', 'totalInvestments'],
     fetchBalanceStatement,
     [false, 'annual'],
-    ['assetsannual', 'liabilitiesannual']
+    ['assetsannual', 'liabilitiesannual', 'investmentsannual']
   )
   const { freeCashFlow, netIncome } = await getLocalData(
     ['freeCashFlow', 'netIncome'],
@@ -191,7 +191,7 @@ export async function getTickerResults() {
     [false, 'annual'],
     'revenueannual'
   )
-  const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
+  // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
   const numberOfShares = await getLocalData(
     'numberOfShares',
     fetchEnterpriseValue,
@@ -225,6 +225,17 @@ export async function getTickerResults() {
   //* LTL / 5 yr avg cashflow ^
   const ltlyears = currentLiabilities / avgcash
 
+  const investedCap = totalInvestments.values.slice(-5)
+  //* calculate yearly roic
+  const roics = [...netg].map((netI, i) => {
+    return netI / investedCap[i]
+  })
+  //* 5 Year average roic
+  const roicAvg =
+    roics.reduce((prev, curr) => {
+      return prev + curr
+    }, 0) / 5
+
   const results = {
     symbol: state.local.symbol,
     pe: avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
@@ -237,8 +248,10 @@ export async function getTickerResults() {
     cashgrowthdata: { k: freeCashFlow.keys.slice(-5), v: cashg },
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
     netincomedata: { k: netIncome.keys.slice(-5), v: netg },
-    roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
-    roicdata: roicTTM,
+    // roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
+    // roicdata: roicTTM,
+    roic: roicAvg >= 0.1 ? GOOD : roicAvg <= 0.08 ? BAD : OKAY,
+    roicdata: { avg: roicAvg, vals: roics },
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: [...totalAssets.values].pop() > [...totalLiabilities.values].pop() ? GOOD : BAD,
