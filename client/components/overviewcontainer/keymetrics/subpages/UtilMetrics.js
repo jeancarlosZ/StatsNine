@@ -3,11 +3,11 @@ import { getStarColor } from '../../../../utils'
 import Star from '../../../../assets/icons/star'
 
 //* Func to get a metric item, and the star related to it
-export function getMetricItem(metric, rating) {
+export function getMetricItem(metric, rating, colored = true) {
   return (
     <div className="metric-item">
       <Star className="metric-star" fill={getStarColor(rating)} />
-      <span className="king">{metric}</span>
+      <span className={colored ? 'king' : ''}>{metric}</span>
     </div>
   )
 }

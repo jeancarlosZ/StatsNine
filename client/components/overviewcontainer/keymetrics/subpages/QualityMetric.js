@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getTickerResults } from '../../../../store/local/localActions'
 import { formatNumber, trimDate } from '../../../../utils'
-import RoicPieChart from '../charts/RoicPieChart'
+import ROICPieChart from '../charts/RoicPieChart'
 import MetricSelector from '../MetricSelector'
 import { getTableDatas } from './UtilMetrics'
 
@@ -34,11 +34,12 @@ export default function QualityMetric() {
 //* Metrics page
 function getQualityHalfOne(results) {
   if (!results.roic) return <></>
+  const { avg, vals } = results.roicdata
   return (
     <>
-      <div className="roic-chart">
-        <RoicPieChart data={results.roicdata} />
-        {/* Chart 2 */}
+      <div className="roic-charts">
+        <ROICPieChart data={vals[vals.length - 1]} label="TTM" />
+        <ROICPieChart data={avg} label="5yr" />
       </div>
       <div className="metric-roic">
         {/* Get Metric */}

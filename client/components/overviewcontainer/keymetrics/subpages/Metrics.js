@@ -48,24 +48,24 @@ function getMetricOverview(results) {
     <div className="metrics">
       <div className="metric">
         <label>{'Price Metrics'}</label>
-        {getMetricItem('5yr P/E Ratio < 20', results.pe)}
-        {getMetricItem('5yr P/FCF Ratio < 20', results.pfcf)}
+        {getMetricItem('5yr P/E Ratio < 20', results.pe, false)}
+        {getMetricItem('5yr P/FCF Ratio < 20', results.pfcf, false)}
       </div>
       <div className="metric">
         <label>{'Growth Metrics'}</label>
-        {getMetricItem('5yr Revenue Growth', results.revgrowth)}
-        {getMetricItem('5yr Cash Flow Growth', results.cashgrowth)}
-        {getMetricItem('5yr Net Income Growth', results.netincome)}
+        {getMetricItem('5yr Revenue Growth', results.revgrowth, false)}
+        {getMetricItem('5yr Cash Flow Growth', results.cashgrowth, false)}
+        {getMetricItem('5yr Net Income Growth', results.netincome, false)}
       </div>
       <div className="metric">
         <label>{'Quality Metrics'}</label>
-        {getMetricItem('5yr ROIC >= 10%', results.roic)}
-        {getMetricItem('5yr Shares Outstanding  (Decreasing)', results.shares)}
+        {getMetricItem('5yr ROIC >= 10%', results.roic, false)}
+        {getMetricItem('5yr Shares Outstanding  (Decreasing)', results.shares, false)}
       </div>
       <div className="metric">
         <label>{'Saftey Metrics'}</label>
-        {getMetricItem('Assets > Liabilities', results.assets)}
-        {getMetricItem('LT Liabilities / 5 Yr FCF; < 5', results.ltl)}
+        {getMetricItem('Assets > Liabilities', results.assets, false)}
+        {getMetricItem('LT Liabilities / 5 Yr FCF; < 5', results.ltl, false)}
       </div>
       <div className="metric-spacer"></div>
     </div>

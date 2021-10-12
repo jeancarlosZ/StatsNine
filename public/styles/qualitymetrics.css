@@ -1,6 +1,17 @@
 * {
   --qualityHalfHeight: calc(var(--metricInnerSubcontainerHeight) / 2);
   --qualityHalfWidth: var(--metricInnerSubcontainerWidth);
+
+  --roicChartSelectorHeight: 50px;
+  --roicChartPadding: 15px;
+  --roicChartPaddings: calc(var(--roicChartPadding) * 2);
+  --roicChartWidthMulti: 3;
+  --roicChartsWidth: calc(
+    (var(--qualityHalfWidth) / var(--roicChartWidthMulti)) - var(--roicChartPaddings)
+  );
+  --roicChartHeight: calc(
+    (var(--qualityHalfHeight) - var(--roicChartSelectorHeight)) - var(--roicChartPaddings)
+  );
 }
 
 .key-metrics-container .quality-subcontainer {
@@ -40,5 +51,31 @@
 }
 
 /** Container of the two pie charts*/
-.quality-subcontainer .upper .roic-chart {
+.quality-subcontainer .upper .roic-charts {
+  display: flex;
+  height: var(--qualityHalfHeight);
+  width: var(--roicChartsWidth);
+}
+
+.roic-charts .roic-chart {
+  display: flex;
+  flex-direction: column;
+  padding: var(--roicChartPadding);
+  background-color: brown;
+}
+
+.roic-charts .roic-selector {
+  text-align: center;
+  background-color: green;
+  height: var(--roicChartSelectorHeight);
+}
+
+.roic-charts .wrapper {
+  height: var(--roicChartHeight);
+  width: calc(var(--roicChartsWidth) / 2);
+}
+
+.stock-roic-chart {
+  height: var(--roicChartHeight);
+  width: calc(var(--roicChartsWidth) / 2);
 }
