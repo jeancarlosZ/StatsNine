@@ -20,7 +20,7 @@ export default function SimplePie({ data }) {
         type: 'pie',
         labels: ['LTL', 'FCF'],
         marker: {
-          colors: ['rgba(39, 91, 232, .6)', 'rgba(250, 173, 20, .6)']
+          colors: ['rgba(43, 186, 255, .6)', 'rgba(250, 173, 20, .6)']
         },
         // values: [difference, left],
         values: [libs, avg],
