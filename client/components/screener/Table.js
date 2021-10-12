@@ -25,7 +25,6 @@ export default function Table() {
   }, [])
 
   return (
-    <div>
     <div className="screener-container">
       <div className="screener-scroll-container">
         <div>{getScreenerControls(stocksList, setShownStocks)}</div>
@@ -101,6 +100,7 @@ function getScreenerControls(stockList, setShownStocks) {
   return <></>
 }
 
+//  <div>
 //<table className='screen-table'>
 //       <thead>
 //         <tr>
