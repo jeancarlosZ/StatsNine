@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
-import { Price } from '../PriceChart';
-import Subheader from '../../Subheader';
-import { FinancialsNavBar } from './Financialspage';
 import FinTable from './FinTable';
 import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
@@ -10,11 +7,10 @@ import { balanceTableLabels, balanceIndentifiers } from './finTableLabels';
 import CompanyInfo from './CompanyInfo';
 import { FinButtons } from './FinButtons';
 import {
-  returnProfile,
   calcYearlyChanges,
-  formatNestedArrayNums,
-  getDates,
-  returnUnformatedData,
+  formatRows,
+  formatDates,
+  returnFormatedData,
 } from './finUtils';
 
 //Using the getLocalData method
@@ -39,11 +35,24 @@ export default function Balance() {
     getBalanceInfo();
   }, []);
 
-  const companyProfile = returnProfile(profile);
+  //Fetching the company profile
+  useEffect(() => {
+    async function getData() {
+      //* Fetch data from API
+      const { symbol, companyName, image } = await getLocalData(
+        ['symbol', 'companyName', 'image'],
+        fetchStockProfile,
+        [],
+        ['symbol', 'companyName', 'image']
+      );
+      setProfile({ symbol, companyName, image });
+    }
+    getData();
+  }, []);
 
   //**------------------------------------------------------------------------------------------------ */
 
-  let unformatedDataNums = [];
+  let unformatedData = [];
   let rawDates;
 
   //incomeInfo will be returned in this format
@@ -57,14 +66,21 @@ export default function Balance() {
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
-    unformatedDataNums = returnUnformatedData(balanceInfo, balanceIndentifiers);
+    unformatedData = returnFormatedData(balanceInfo, balanceIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const dates = Object.keys(balanceInfo).length ? getDates(rawDates) : [];
+  const dates = Object.keys(balanceInfo).length ? formatDates(rawDates) : [];
   //Here i'm passing in the raw income numbers to be processed and look like this...'123.3T' instead of '123300000000000'
-  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  const rows = formatRows(unformatedData);
   //Here i'm calculating the change between a year and the previous year
-  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
+  const yearlyChanges = calcYearlyChanges(unformatedData);
+  //Here i'm creating an object with all of my relevent table info that I can pass on to the table
+  const tableInfo = {
+    dates,
+    rows,
+    yearlyChanges,
+    labels: balanceTableLabels,
+  };
 
   //**------------------------------------------------------------------------------------------------ */
 
@@ -85,11 +101,7 @@ export default function Balance() {
   return (
     <>
       <div className="income-container flex-row justify-between">
-        <CompanyInfo
-          companyName={companyProfile.companyName}
-          symbol={companyProfile.symbol}
-          ticker={companyProfile.exchangeShortName}
-        />
+        <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
             className="balance-chart fin-chart"
@@ -100,16 +112,7 @@ export default function Balance() {
         </div>
       </div>
       <FinButtons />
-      {Object.keys(balanceInfo).length ? (
-        <FinTable
-          dates={dates}
-          rowInfo={infoArray}
-          yearlyChanges={yearlyChanges}
-          labels={balanceTableLabels}
-        />
-      ) : (
-        <div className="table-space">Loading...</div>
-      )}
+      <FinTable tableInfo={tableInfo} />
     </>
   );
 }

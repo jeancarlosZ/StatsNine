@@ -7,15 +7,17 @@ import { getLocalData } from '../../../store/local/localActions';
 import { cashflowTableLabels, cashflowIndentifiers } from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
-  returnProfile,
   calcYearlyChanges,
-  formatNestedArrayNums,
-  getDates,
-  returnUnformatedData,
+  formatRows,
+  formatDates,
+  returnFormatedData,
 } from './finUtils';
 
-//Right now I'm fetching from API at every sub page
-//That's not what we want and I'll be optimizing with some of the tools we have
+//Using the getLocalData method
+//This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
+//that into the local component sate and redux state
+
+//Fetching the data for the Income table
 export default function Cash() {
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
@@ -35,11 +37,24 @@ export default function Cash() {
     getCashflowInfo();
   }, []);
 
-  const companyProfile = returnProfile(profile);
+  //Fetching the company profile
+  useEffect(() => {
+    async function getData() {
+      //* Fetch data from API
+      const { symbol, companyName, image } = await getLocalData(
+        ['symbol', 'companyName', 'image'],
+        fetchStockProfile,
+        [],
+        ['symbol', 'companyName', 'image']
+      );
+      setProfile({ symbol, companyName, image });
+    }
+    getData();
+  }, []);
 
   //**------------------------------------------------------------------------------------------------ */
 
-  let unformatedDataNums = [];
+  let unformatedData = [];
   let rawDates;
 
   //incomeInfo will be returned in this format
@@ -53,20 +68,27 @@ export default function Cash() {
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
-    unformatedDataNums = returnUnformatedData(
-      cashflowInfo,
-      cashflowIndentifiers
-    );
+    unformatedData = returnFormatedData(cashflowInfo, cashflowIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const dates = Object.keys(cashflowInfo).length ? getDates(rawDates) : [];
-  //Here i'm passing in the raw income numbers to be processed and look like this...'123.3T' instead of '123300000000000'
-  const infoArray = formatNestedArrayNums(unformatedDataNums);
+  const dates = Object.keys(cashflowInfo).length ? formatDates(rawDates) : [];
+  //Here i'm passing in the raw numbers to be processed and look like this...'123.3T' instead of '123300000000000'
+  const rows = formatRows(unformatedData);
   //Here i'm calculating the change between a year and the previous year
-  const yearlyChanges = calcYearlyChanges(unformatedDataNums);
+  const yearlyChanges = calcYearlyChanges(unformatedData);
+  //Here i'm creating an object with all of my relevent table info that I can pass on to the table
+  const tableInfo = {
+    dates,
+    rows,
+    yearlyChanges,
+    labels: cashflowTableLabels,
+  };
 
   //**------------------------------------------------------------------------------------------------ */
 
+  //This is for our Chart information
+  //Generate the data set and pass it into UniversalChart which is already in the return statement
+  //Right now it's all place holder data
   const dataset = [];
 
   dataset.push({
@@ -81,11 +103,7 @@ export default function Cash() {
   return (
     <>
       <div className="income-container flex-row justify-between">
-        <CompanyInfo
-          companyName={companyProfile.companyName}
-          symbol={companyProfile.symbol}
-          ticker={companyProfile.exchangeShortName}
-        />
+        <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
             className="cash-chart fin-chart"
@@ -96,16 +114,7 @@ export default function Cash() {
         </div>
       </div>
       <FinButtons />
-      {Object.keys(cashflowInfo).length ? (
-        <FinTable
-          dates={dates}
-          rowInfo={infoArray}
-          yearlyChanges={yearlyChanges}
-          labels={cashflowTableLabels}
-        />
-      ) : (
-        <div className="table-space">Loading...</div>
-      )}
+      <FinTable tableInfo={tableInfo} />
     </>
   );
 }
