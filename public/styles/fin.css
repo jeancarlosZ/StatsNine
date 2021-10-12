@@ -66,6 +66,7 @@
   height: 50px;
   color: white;
   border: solid thin rgba(113, 113, 113, 0.1);
+  cursor: grab;
 }
 .fin-col {
   color: white;
