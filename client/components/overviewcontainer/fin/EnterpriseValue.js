@@ -128,7 +128,7 @@ export default function EnterpriseValue() {
 
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -141,6 +141,7 @@ export default function EnterpriseValue() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
           />
         </div>
       </div>

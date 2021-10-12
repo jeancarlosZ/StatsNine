@@ -105,6 +105,7 @@ export default function Income() {
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
   //Right now it's all place holder data
+
   const dataset = [];
 
   dataset.push({
@@ -118,7 +119,7 @@ export default function Income() {
   //**-------------------------------------------------------------------------------------------------- */
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -131,6 +132,9 @@ export default function Income() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
+            // paper_bgcolor={'rgba(0,0,0,0)'}
+            // plot_bgcolor="rgba(0,0,0,0)"
           />
         </div>
       </div>
