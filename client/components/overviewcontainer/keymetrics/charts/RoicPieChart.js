@@ -26,7 +26,7 @@ export default function ROICPieChart({ data, label }) {
   return (
     <div className="roic-chart">
       <div className="roic-selector">
-        <label>{label}</label>
+        <span>{label}</span>
         <label>ROIC</label>
       </div>
       <div className="wrapper">

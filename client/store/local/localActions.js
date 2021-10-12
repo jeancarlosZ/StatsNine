@@ -251,7 +251,7 @@ export async function getTickerResults() {
     // roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
     // roicdata: roicTTM,
     roic: roicAvg >= 0.1 ? GOOD : roicAvg <= 0.08 ? BAD : OKAY,
-    roicdata: { avg: roicAvg, vals: roics },
+    roicdata: { avg: roicAvg, vals: { k: netIncome.keys.slice(-5), v: roics } },
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: shareg,
     assets: [...totalAssets.values].pop() > [...totalLiabilities.values].pop() ? GOOD : BAD,

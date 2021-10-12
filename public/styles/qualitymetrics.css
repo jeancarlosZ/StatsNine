@@ -12,6 +12,8 @@
   --roicChartHeight: calc(
     (var(--qualityHalfHeight) - var(--roicChartSelectorHeight)) - var(--roicChartPaddings)
   );
+
+  --roicRemainderWidth: calc(var(--qualityHalfWidth) - var(--roicChartsWidth));
 }
 
 .key-metrics-container .quality-subcontainer {
@@ -66,8 +68,15 @@
 
 .roic-charts .roic-selector {
   text-align: center;
+  color: var(--fontColor);
+  font-weight: 500;
+
   background-color: green;
   height: var(--roicChartSelectorHeight);
+}
+
+.roic-selector span {
+  font-weight: 400;
 }
 
 .roic-charts .wrapper {
@@ -78,4 +87,109 @@
 .stock-roic-chart {
   height: var(--roicChartHeight);
   width: calc(var(--roicChartsWidth) / 2);
+}
+
+/*
+*==================================
+*      METRIC ITSELF
+*==================================
+*/
+
+/** Individual metric container */
+.metric-roic {
+  color: var(--fontColor);
+  overflow: hidden;
+  padding-bottom: 10px;
+  /* margin: 100px auto; */
+
+  width: var(--roicRemainderWidth);
+
+  background-color: burlywood;
+}
+
+/** Title of each metric */
+.metric-roic label {
+  margin: 30px 0px 5px 44px;
+  font-weight: 600;
+}
+
+/** The desc of each metric*/
+.metric-roic span {
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-roic .king {
+  color: var(--orangeShade2);
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-roic .result {
+  margin: 15px 20px auto 0px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-roic .desc {
+  margin: 10px 0px auto 0px;
+  padding-right: 10px;
+}
+
+.metric-roic .desc p {
+  margin: none;
+  text-align: left;
+  color: rgba(208, 211, 219, 0.5);
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/** The desc of each metric*/
+.metric-roic .metric-item {
+  margin-bottom: 10px;
+}
+
+/** The preview of each metric*/
+.metric-roic .previewcontainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+/** The preview of each metric*/
+.metric-roic .preview {
+  background-color: rgba(30, 34, 45, 0.2);
+  padding: 5px;
+  border-radius: 45px;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.metric-roic .preview .prev-wrapper {
+  overflow: hidden;
+}
+
+/** The preview of each metric*/
+.metric-roic .preview table {
+  border-spacing: 5px;
+  border-collapse: separate;
+}
+
+/** The preview of each metric*/
+.metric-roic .preview td {
+  border-radius: 10px;
+  /* background-color: rgba(67, 70, 81, 0.1); */
+  color: rgba(208, 211, 219, 0.7);
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+/** The preview of each metric*/
+.metric-roic .preview .head {
+  font-weight: 400;
+  font-size: 0.8rem;
 }
