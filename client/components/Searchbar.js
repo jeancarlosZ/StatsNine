@@ -60,12 +60,12 @@ export default function Searchbar() {
         if (value.length >= 1) {
           if (stocksList.map(stock => stock.symbol).includes(value)) {
             event.target.value = ''
-            toast.success('Symbol Found!')
+            toast.success('Success!')
             await setOpen(false)
             await dispatch(setCurrentStock(value))
             await history.push('/overviewpage')
           } else {
-            toast.error('Symbol Not Found!')
+            toast.error('Not Found!')
           }
         }
       }
@@ -94,7 +94,7 @@ export default function Searchbar() {
         />
         <SearchIcon className='search-icon' />
       </div>
-      <ToastContainer theme='dark' />
+      <ToastContainer theme='dark' newestOnTop autoClose={3000} />
       {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
     </div>
   )
