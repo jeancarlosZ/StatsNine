@@ -12,6 +12,7 @@ import {
   trimDate
 } from '../../../../utils'
 import AssetsVsLiabilities from '../charts/AssetsVsLiabilities'
+import SimplePie from '../charts/SimplePie'
 import MetricSelector from '../MetricSelector'
 
 export default function SafetyMetric() {
@@ -36,8 +37,24 @@ export default function SafetyMetric() {
               <div className="metric-chart shadow-nohover">
                 <AssetsVsLiabilities />
               </div>
-              <div className="metric-chart shadow-nohover">
-                <AssetsVsLiabilities />
+              <div className="safety-lowerhalf">
+                <div className="metric-chart clean">
+                  <SimplePie data={results.ltldata} />
+                </div>
+                <div className="fcftoltl">
+                  <div>
+                    <label>Total Current Liabilities:</label>
+                    <span>{`$${results.ltldata ? formatNumber(results.ltldata.libs) : '0'}`}</span>
+                  </div>
+                  <div>
+                    <label>5yr Avg. Free Cash Flow:</label>
+                    <span>{`$${results.ltldata ? formatNumber(results.ltldata.avg) : '0'}`}</span>
+                  </div>
+                  <div>
+                    <label>Years to pay off debt:</label>
+                    <span>{results.ltldata ? roundNumberDec(results.ltldata.years) : '0'}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -57,17 +74,19 @@ function getPriceOverview(results) {
   const difference = getDifferenceBetween(a)
   const percdiffc = getPercentDifference(a[a.length - 1], b[b.length - 1])
 
+  const result = results.assets
+
   const assetsresults = `${results.symbol} has ${roundNumberDec(percdiffc)}% greater ${
-    results.assets === GOOD ? 'Assets' : 'Liabilities'
-  } than ${results.assets === GOOD ? 'Liabilities' : 'Assets'}! That's a five year ${
+    result === GOOD ? 'Assets' : 'Liabilities'
+  } than ${result === GOOD ? 'Liabilities' : 'Assets'}! That's a five year ${
     difference > 0 ? 'increase' : 'decrease'
-  } of ${formatNumber(difference)} in assets!`
+  } of $${formatNumber(difference)} in assets!`
 
   return (
     <div className="pricemetrics">
       <div className="metric-spacer"></div>
       <div className="metric">
-        {getMetricItem('Assets < Liabilities', results.assets)}
+        {getMetricItem('Assets > Liabilities', result)}
         <span className="result">{assetsresults}</span>
         <div className="desc">
           <p>
@@ -81,16 +100,16 @@ function getPriceOverview(results) {
         <div className="previewcontainer">{getDataPreview(k, a, b)}</div>
       </div>
       <div className="metric">
-        {getMetricItem('5yr P/E Ratio < 20', results.pe)}
-        <span className="result">{`${
-          results.symbol
-        } has a 5yr average P/E Ratio of ${roundNumberDec(results.pedata)}!`}</span>
+        {getMetricItem('LT Liabilties / 5yr FCF; < 5', results.ltl)}
+        <span className="result">{`It would take ${results.symbol} aprox ${roundNumberDec(
+          results.ltldata.years
+        )} years to pay of their debt!`}</span>
         <div className="desc">
           <p>
-            The price-to-earnings ratio (P/E ratio) is the ratio for valuing a company that measures
-            its current share price relative to its earnings per share (EPS). A high P/E ratio could
-            mean that a company's stock is overvalued, or else that investors are expecting high
-            growth rates in the future.
+            The Free Cash Flow to Long Term Debt ratio measures the sustainability of the debt
+            structure based on available free cash flow and is an indicator of the company’s
+            financial leverage. The higher this ratio, the longer it would take the company to pay
+            off their debt and therefore it is less sustainable!
           </p>
         </div>
       </div>

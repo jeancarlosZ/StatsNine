@@ -1,20 +1,61 @@
-.screen-table {
-  padding: 1rem;
+.screener-container {
+  --screenerPadding: 50px;
+  --scrollContainerHeight: calc(100vh - var(--mainHeaderHeight) - (var(--screenerPadding) * 2));
+  --screenerControlsHeight: 35px;
+
+  height: calc(100vh - var(--mainHeaderHeight));
+  width: 100vw;
+  padding: var(--screenerPadding);
+}
+
+.screener-scroll-container {
+  height: var(--scrollContainerHeight);
+}
+
+.screener-scroll {
+  height: calc(var(--scrollContainerHeight) - var(--screenerControlsHeight));
+}
+
+.screener-controls {
+  height: var(--screenerControlsHeight);
+
+  display: flex;
+  justify-content: flex-start;
+  padding: auto 10px;
+  align-content: center;
+  text-align: center;
   font-size: 1rem;
-  margin: 1rem;
+
+  color: #d0d3db;
+  border: 0.1rem solid rgba(67, 70, 81, 0.5);
+}
+
+.screener-controls div {
+  margin: auto 10px;
+  font-weight: 400;
+}
+
+.screen-table {
+  margin: auto;
+
+  /* margin-top: 3vh; */
+  /* padding: 1rem; */
+  /* margin: 3vw; */
+
+  font-size: 1rem;
   color: #d0d3db;
   background-color: #131722;
   font-weight: 500;
 }
 
 .screen-border {
-  border: 0.1rem solid #434651;
+  border: 0.1rem solid rgba(67, 70, 81, 0.5);
   padding: 1rem;
   width: 13.5vw;
 }
 
 .screen-border-h {
-  border: 0.1rem solid #434651;
+  border: 0.1rem solid rgba(67, 70, 81, 0.5);
   padding: 1rem;
   height: 8vh;
   align-items: center;
@@ -23,7 +64,7 @@
 }
 
 .screen-color:hover {
-  background-color: #671212;
+  background-color: rgba(103, 18, 18, 0.3);
 }
 
 .screen-row {
