@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { fetchIncomeStatement } from '../../../../api/api'
-import { getLocalData } from '../../../../store/local/localActions'
-import { getPercentDifference } from '../../../../utils'
+import React from 'react'
 import UniversalChart from '../../../UniversalChart'
 
 export default function SimplePie({ data }) {
@@ -20,7 +17,7 @@ export default function SimplePie({ data }) {
         type: 'pie',
         labels: ['LTL', 'FCF'],
         marker: {
-          colors: ['rgba(43, 186, 255, .6)', 'rgba(250, 173, 20, .6)']
+          colors: ['rgba(38, 197, 217, .6)', 'rgba(250, 173, 20, .7)']
         },
         // values: [difference, left],
         values: [libs, avg],

@@ -13,7 +13,7 @@ export default function Table() {
     // This function fetches information for 500 stocks and stores it in the local state used for rendering. It uses information from the API call.
     async function getStocksList() {
       try {
-        const stocks = await fetchScreenerStocks('isEtf=false', 1000)
+        const stocks = await fetchScreenerStocks('isEtf=false', 500)
         setStocksList(stocks)
         setShownStocks(stocks)
       } catch (err) {

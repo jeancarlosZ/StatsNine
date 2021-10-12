@@ -50,9 +50,10 @@ function updateLocalData(key, data) {
 //*
 //*  ---> (LOOK BELOW AND FIND THE getTickerResults() FOR USE CASES) <---
 //*
-export async function getLocalData(key, func, args, save) {
+export async function getLocalData(key, func, args, save, overrideTicker) {
   try {
     const state = store.getState()
+    const symbol = overrideTicker ? overrideTicker : state.local.symbol
 
     //* If we are selecting data in batch or an [] of data
     if (Array.isArray(save)) {
@@ -75,9 +76,7 @@ export async function getLocalData(key, func, args, save) {
       //* If there is actually any data we need to load!
       if (toLoad.length > 0) {
         //* Load the data from the API
-        const loadedData = args
-          ? await func(state.local.symbol, ...args)
-          : await func(state.local.symbol)
+        const loadedData = args ? await func(symbol, ...args) : await func(symbol)
         //* Now we must load all of the data that wasn't already
         //* saved within the state
         toLoad.map(pair => {
@@ -100,7 +99,7 @@ export async function getLocalData(key, func, args, save) {
 
       return data
       //* Otherwise we can return the single peice of data
-    } else return await handleLocalData(state, save, func, args, key)
+    } else return await handleLocalData(state, save, func, args, key, symbol)
   } catch (error) {
     logError(error, `Failed to load data! ${key}--${args}--${save}`)
   }
@@ -110,12 +109,12 @@ export async function getLocalData(key, func, args, save) {
 //* state.local.companyName = exists
 
 //* Function to handle loading a single peice of data from local/API
-async function handleLocalData(state, save, func, args, key) {
+async function handleLocalData(state, save, func, args, key, overrideTicker) {
   const local = state.local[save]
   //* Try to get data from local store, if it do be
   if (local) return local
   //* If not in local store, load data from API  // (ticker, false, 'quarter')
-  const loadedData = args ? await func(state.local.symbol, ...args) : await func(state.local.symbol)
+  const loadedData = args ? await func(overrideTicker, ...args) : await func(overrideTicker)
   let data
   //* Because data may not be time series data we must add a check
   if (!Array.isArray(loadedData))

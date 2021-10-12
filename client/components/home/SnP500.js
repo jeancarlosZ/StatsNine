@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import { ALL, DAILY, fetchChartPrice, MONTH, WEEK } from '../../api/api';
-import { getLocalData } from '../../store/local/localActions';
-import UniversalChart from '../UniversalChart';
+import React, { useEffect, useState } from 'react'
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import { ALL, DAILY, fetchChartPrice, MONTH, WEEK } from '../../api/api'
+import { getLocalData } from '../../store/local/localActions'
+import UniversalChart from '../UniversalChart'
 
 export default function StockPriceChart() {
-  const [range, setRange] = useState(MONTH);
-  const [series, setSeries] = useState(DAILY);
-  const [data, setData] = useState({});
+  const [range, setRange] = useState(MONTH)
+  const [series, setSeries] = useState(DAILY)
+  const [data, setData] = useState({})
 
-  const [update, setUpdate] = useState(true);
+  const [update, setUpdate] = useState(true)
 
   useEffect(() => {
     async function getData() {
@@ -21,19 +21,20 @@ export default function StockPriceChart() {
             'close', //* key
             fetchChartPrice, //* func
             [series, range], //* args
-            `price${series}${range}` //* saveas
-          ),
-        });
-        setUpdate(false);
+            `price${series}${range}`, //* saveas
+            'SPY'
+          )
+        })
+        setUpdate(false)
       }
     }
 
-    getData();
-  }, [series, range]);
+    getData()
+  }, [series, range])
 
-  const { keys, values } = !data[range] ? data : data[range];
+  const { keys, values } = !data[range] ? data : data[range]
 
-  const dataset = [];
+  const dataset = []
 
   if (values) {
     dataset.push({
@@ -44,21 +45,21 @@ export default function StockPriceChart() {
       fillcolor: 'rgba(244, 247, 255, .6)',
       fill: 'tonexty',
 
-      values: values,
-    });
+      values: values
+    })
   }
 
   function updateSeries(series, newSeries) {
     if (series !== newSeries) {
-      setSeries(newSeries);
-      setUpdate(true);
+      setSeries(newSeries)
+      setUpdate(true)
     }
   }
 
   function updateRange(range, newRange) {
     if (range !== newRange) {
-      setRange(newRange);
-      if (!data[newRange]) setUpdate(true);
+      setRange(newRange)
+      if (!data[newRange]) setUpdate(true)
     }
   }
 
@@ -79,29 +80,19 @@ export default function StockPriceChart() {
         />
       </div>
     </div>
-  );
+  )
 }
 
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
     <div>
-      <DropdownButton
-        className="dropdown-selector"
-        title={range}
-        size="sm"
-        variant="secondary">
-        <Dropdown.Item onClick={() => updateRange(range, ALL)}>
-          All
-        </Dropdown.Item>
+      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
+        <Dropdown.Item onClick={() => updateRange(range, ALL)}>All</Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>
-          1 month
-        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 month</Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>
-          1 Week
-        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
       </DropdownButton>
     </div>
-  );
+  )
 }
