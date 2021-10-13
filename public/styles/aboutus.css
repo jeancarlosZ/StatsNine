@@ -1,24 +1,48 @@
 .aboutus-container {
   padding: 1rem;
-  color: white;
   font-weight: 300;
-  margin-top: 0.25rem;
-  height: 91.5vh;
+  height: calc(100vh - var(--mainHeaderHeight));
   width: 100vw;
-  background-image: url('https://images.unsplash.com/photo-1563610565075-002447a1e162?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2371&q=80');
+
+  /** */
+
+  background-image: url('../images/aboutUs.jpg');
+  background-position: center;
   background-size: cover;
+
+  /** */
+
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: auto;
 }
 
+.aboutus-container::before {
+  content: '';
+  position: absolute;
+  top: var(--mainHeaderHeight);
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .aboutus-hfont {
+  position: relative;
+  color: white;
+  margin: auto;
   font-size: larger;
   font-weight: 700;
 }
+.aboutus p {
+  position: relative;
+  margin-top: 15px;
+  color: var(--fontColor);
+}
 
 .aboutus {
-  background-color: #1e222d;
+  position: relative;
+  background-color: rgba(30, 34, 45, 0.8);
   padding: 2rem;
   border-radius: 2rem;
   margin: 1rem;
@@ -33,6 +57,7 @@
 }
 
 .aboutus-contact {
+  padding: 1.4rem;
   grid-column: 18 / span 3;
   grid-row: 1;
   text-align: center;
@@ -45,6 +70,6 @@
 
 .aboutus-you {
   grid-column: 16 / span 5;
-  grid-row: 10;
+  grid-row: 8;
   text-align: center;
 }
