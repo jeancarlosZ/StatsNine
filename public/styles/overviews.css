@@ -117,12 +117,6 @@
   /* background-color: gray; */
 }
 
-.overview-page .overviewbox {
-  border-radius: 15px;
-  padding: 10px 25px;
-  overflow: hidden;
-}
-
 .overview-info .description {
   height: var(--overviewInfoHeight);
   width: calc(var(--overviewContainerWidth) / 1.75);
@@ -139,6 +133,16 @@
   justify-content: space-evenly;
 }
 
+.overview-page .overviewbox {
+  border-radius: 15px;
+  padding: 10px 25px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .headerTwo {
   color: var(--fontColor);
   font-weight: 500;
@@ -146,7 +150,7 @@
 
   height: var(--descHeaderHeight);
 
-  background-color: orange;
+  /* background-color: orange; */
 }
 
 .overview-page .description-text {
@@ -156,7 +160,7 @@
 }
 
 .overview-page .description-text-scroll {
-  --ovScrollTopMargin: 5px;
+  --ovScrollTopMargin: 10px;
   margin-top: var(--ovScrollTopMargin);
   height: calc(
     (var(--overviewInfoHeight) - var(--descHeaderHeight) - 20px) - var(--ovScrollTopMargin)
@@ -170,7 +174,7 @@
 .overview-page .stars-container {
   margin-top: 10px;
   /* background-color: red; */
-  max-height: 75px;
+  max-height: 135px;
 }
 
 .overview-metric-star {
@@ -179,8 +183,10 @@
 }
 
 .overview-page .determination {
-  margin: 18px 0px 10px 15px;
-  background-color: blue;
+  /* margin: 18px 0px 10px 15px; */
+  margin: 35px 0px 10px 20px;
+  font-size: 1.2rem;
+  /* background-color: blue; */
 }
 
 .overview-page .ending-text {
@@ -189,6 +195,7 @@
 }
 
 .overview-page .star-container {
-  margin-top: 10px;
+  height: calc(var(--overviewInfoHeight) - var(--descHeaderHeight));
+  margin-top: 12.5px;
   /* background-color: yellow; */
 }
