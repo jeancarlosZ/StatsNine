@@ -14,7 +14,7 @@ export default function PriceChart(props) {
   let price = 0
 
   useEffect(() => {
-    // This function sets the stock information from the API call to local storage.
+    // This function retrieves information from the redux store and sets it in local storage for rendering.  If the information requested does not exist in the redux store, it will make an API call.
     async function getData() {
       try {
         if (update) {
@@ -42,6 +42,7 @@ export default function PriceChart(props) {
     getData()
   }, [symbol, range, series])
 
+  // This function checks whether the current series is the same as the selection.  If they are different, update the series and render again.
   function updateSeries(series, newSeries) {
     if (series !== newSeries) {
       setSeries(newSeries)
@@ -49,6 +50,7 @@ export default function PriceChart(props) {
     }
   }
 
+  // This function checks whether the current range is the same as the selection.  If they are different, update the range and render again.
   function updateRange(range, newRange) {
     if (range !== newRange) {
       setRange(newRange)
@@ -69,6 +71,21 @@ export default function PriceChart(props) {
         {getSelectors(series, range, updateSeries, updateRange)}
       </span>
       <CandleStickChart update={update} symbol={symbol} data={data[range]} />
+    </div>
+  )
+}
+
+// This function creates a dropdown button with a selection of items to choose from.
+function getSelectors(series, range, updateSeries, updateRange) {
+  return (
+    <div className='selector-dropdown-right'>
+      <DropdownButton className='dropdown-selector' title={range} size='sm' variant='secondary'>
+        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 Month</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
+      </DropdownButton>
     </div>
   )
 }
@@ -116,19 +133,5 @@ export function CandleStickChart(props) {
       dataset={dataset}
       showlegend={false}
     />
-  )
-}
-
-function getSelectors(series, range, updateSeries, updateRange) {
-  return (
-    <div className='selector-dropdown-right'>
-      <DropdownButton className='dropdown-selector' title={range} size='sm' variant='secondary'>
-        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 Month</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
-      </DropdownButton>
-    </div>
   )
 }

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { fetchSearchQuery } from '../api/api'
 import SearchIcon from '../assets/icons/saved_search'
-import { setCurrentStock } from '../store/local/localActions'
+import { loadStockProfile, setCurrentStock } from '../store/local/localActions'
 import SearchTable from './searchoverlay/SearchTable'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -17,7 +17,7 @@ export default function Searchbar() {
   const searchRef = useRef(null)
 
   useEffect(() => {
-    // This function closes the search query box if a mouseclick occurs outside search bar or search query box.
+    // This function closes the search query box if a mouseclick occurs outside search bar and search query box.
     async function handleClickOutside(event) {
       try {
         if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -38,7 +38,7 @@ export default function Searchbar() {
   }, [searchRef, open])
 
   useEffect(() => {
-    // This function sets the query results up to 20 in the local state to be used for rendering.  It uses information from the API call.
+    // This function sets the query results from the API up to a maximum of 20 in the local state to be used for rendering.
     async function getStocksList() {
       try {
         setStocksList(await fetchSearchQuery(query, 20))
@@ -50,7 +50,7 @@ export default function Searchbar() {
     getStocksList()
   }, [query])
 
-  // This function closes the search query box, sets the selected stock in the redux store, and sends the user to the overview page loaded with information for the selected stock if 'Enter' key is pressed and the search value matches a symbol and has length of at least one character.
+  // This function clears the input, closes the search query box, sets the selected stock in the redux store, and sends the user to the overview page loaded with information for the selected stock if 'Enter' key is pressed and the search value matches a symbol, which has length of at least one character.
   async function attemptSearch(event) {
     try {
       const value = event.target.value.toUpperCase()
@@ -63,6 +63,7 @@ export default function Searchbar() {
             toast.success('Success!')
             await setOpen(false)
             await dispatch(setCurrentStock(value))
+            await loadStockProfile()
             await history.push('/overviewpage')
           } else {
             toast.error('Not Found!')
@@ -95,7 +96,16 @@ export default function Searchbar() {
         <SearchIcon className='search-icon' />
       </div>
       <ToastContainer theme='dark' newestOnTop autoClose={3000} />
-      {open ? <SearchTable query={query} close={setOpen} stocksList={stocksList} /> : ''}
+      {queryBox(query, setOpen, stocksList, open)}
     </div>
   )
+}
+
+// This function returns the query box for rendering after user clicks on the search bar.
+function queryBox(query, setOpen, stocksList, open) {
+  if (open) {
+    return <SearchTable query={query} open={setOpen} stocksList={stocksList} />
+  } else {
+    return <></>
+  }
 }
