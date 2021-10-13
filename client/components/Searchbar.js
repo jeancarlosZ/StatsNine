@@ -77,7 +77,7 @@ export default function Searchbar() {
     }
   }
 
-  // This function sets the value of the search bar to local state if it has at least one character.  The query value is used to render results for the search query box.
+  // This function sets the query value to the input.  The query value is used to render results for the search query box.
   function handleChange(event) {
     const value = event.target.value.toUpperCase()
 
@@ -89,8 +89,8 @@ export default function Searchbar() {
       <div className='top-search-bar'>
         <SearchIcon className='search-icon' />
         <input
-          className="top-search-input"
-          placeholder="Search by Symbol"
+          className='top-search-input'
+          placeholder='Search by Symbol'
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}
