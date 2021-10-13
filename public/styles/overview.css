@@ -10,10 +10,6 @@
 }
 
 /*For PriceChart.js*/
-.stock-price-chart {
-  width: 100%;
-}
-
 .price-chart {
   width: 90vw;
   background: rgba(30, 34, 45, 0.3);
@@ -22,12 +18,12 @@
 
 .price-container {
   font-weight: 500;
-  height: 1.5rem;
+  height: 2.5rem;
+  padding-top: 0.5rem;
 }
 
-.usd {
-  top: 25%;
-  font-size: x-small;
+.selector-dropdown-right {
+  padding-left: 2rem;
 }
 
 /*For Description.js*/
