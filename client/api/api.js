@@ -331,7 +331,7 @@ export function getDataRange(dataRange) {
   //* of the data range (so we can only return.. the range)
   const getEndDate = (current, dataRange) => {
     const endDate = new Date()
-    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 8)
+    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 7)
     if (dataRange === MONTH) return endDate.setMonth(endDate.getMonth() - 1)
     if (dataRange === THREE_MONTH) return endDate.setMonth(endDate.getMonth() - 3)
     if (dataRange === SIX_MONTH) return endDate.setMonth(endDate.getMonth() - 6)
