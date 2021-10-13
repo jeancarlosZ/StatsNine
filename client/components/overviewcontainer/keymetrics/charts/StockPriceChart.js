@@ -53,7 +53,7 @@ export default function StockPriceChart() {
   }, [series, range])
 
   //* Get the keys and values from the data
-  const { keys, values } = !data[range] ? data : data[range]
+  const { keys, values } = !data[range] ? {} : data[range]
 
   //* Create our dataset
   const dataset = []

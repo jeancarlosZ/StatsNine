@@ -16,6 +16,9 @@
   --roicMetricWidth: calc(
     ((var(--qualityHalfWidth) - var(--roicChartsWidth)) / 2) + (var(--roicChartPaddings) * 2)
   );
+
+  --metricSharesWidth: calc(var(--qualityHalfWidth) / 3);
+  --metricSharesChartWidth: calc(var(--qualityHalfWidth) - var(--metricSharesWidth));
 }
 
 .qload {
@@ -178,11 +181,11 @@
 /** The preview of each metric*/
 .metric-roic .preview {
   background-color: rgba(30, 34, 45, 0.2);
-  padding: 5px;
   border-radius: 45px;
   text-align: center;
   display: flex;
   justify-content: center;
+  padding: 5px 15px;
 }
 
 .metric-roic .preview .prev-wrapper {
@@ -219,7 +222,7 @@
 .quality-subcontainer .lower {
   display: flex;
   /* padding-top: 15px; */
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 /*
@@ -233,7 +236,10 @@
   color: var(--fontColor);
   /* overflow: hidden; */
 
-  margin: auto 15px;
+  /* margin: auto 15px; */
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 25px;
 
   /* display: flex;
   flex-direction: column;
@@ -241,20 +247,18 @@
   align-items: center; */
 
   text-align: left;
-  width: calc(var(--qualityHalfWidth) / 3);
+  width: var(--metricSharesWidth);
 
-  background-color: rgba(208, 211, 219, 0.2);
+  /* background-color: rgba(208, 211, 219, 0.2); */
 }
 
 /** Title of each metric */
 .metric-shares label {
-  margin: 30px 0px 5px 44px;
   font-weight: 600;
 }
 
 /** The desc of each metric*/
 .metric-shares span {
-  margin: auto 20px;
   font-weight: 400;
 }
 
@@ -299,11 +303,12 @@
 /** The preview of each metric*/
 .metric-shares .preview {
   background-color: rgba(30, 34, 45, 0.2);
-  padding: 5px;
+  padding: 5px 15px;
   border-radius: 45px;
   text-align: center;
   display: flex;
   justify-content: center;
+  width: 60%;
 }
 
 .metric-shares .preview .prev-wrapper {
@@ -331,4 +336,60 @@
   font-size: 0.8rem;
 }
 
-/* width: calc(var(--qualityHalfWidth) / 2); */
+.shares-outstanding-chart {
+  height: var(--qualityHalfHeight);
+  width: var(--metricSharesChartWidth);
+  border-radius: 30px;
+}
+
+.shares-outstanding-chart .selector {
+  height: 35px;
+  display: flex;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  background-color: rgba(30, 34, 45, 0.3);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.shares-outstanding-chart .wrapper {
+  height: calc(var(--qualityHalfHeight) - 35px);
+  width: var(--metricSharesChartWidth);
+  background-color: rgba(30, 34, 45, 0.3);
+}
+
+.shares-outstanding-chart .wrapper .stock-price-chart {
+  height: calc(var(--qualityHalfHeight) - 35px);
+  width: var(--metricSharesChartWidth);
+}
+
+.shares-outstanding-chart .selector label {
+  margin: auto 10px auto 30px;
+  font-weight: 600;
+  /* font-size: 1.1rem; */
+  color: var(--fontColor);
+}
+
+/** Quarterly / annual buttons */
+.shares-outstanding-chart .selector .selectors button {
+  margin: 5px 5px 0px 5px;
+  color: rgba(208, 211, 219, 0.6);
+  background-color: rgba(30, 34, 45, 0.6);
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/** Quarterly / annual buttons */
+.shares-outstanding-chart .selector .selectors button:hover {
+  color: var(--fontColor);
+  border: none;
+}
+
+/** Quarterly / annual buttons */
+.shares-outstanding-chart .selector .selectors .selected {
+  color: var(--fontColor);
+  background-color: rgba(30, 34, 45, 1);
+  border: none;
+}

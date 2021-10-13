@@ -17,7 +17,6 @@ import { getMetricItem, getTableDatas } from './UtilMetrics'
 export default function QualityMetric() {
   const [results, setResults] = useState({})
   const [data, setData] = useState({})
-  const [dataType, setDataType] = useState({})
 
   //* When component mounts
   useEffect(() => {
@@ -85,7 +84,7 @@ function getQualityHalfOne(results, data) {
 
 //* Function to get the top half of the quality
 //* Metrics page
-function getQualityHalfTwo(results, data, dataType, setDataType) {
+function getQualityHalfTwo(results) {
   //* If the data has not loaded...
   if (!results.shares) return <></>
 
@@ -104,7 +103,7 @@ function getQualityHalfTwo(results, data, dataType, setDataType) {
             also signify that the boardmembers think the stock is cheap!
           </p>
         </div>
-        <div className="previewcontainer">{getDataPreview(results.roicdata.vals)}</div>
+        <div className="previewcontainer">{getDataPreview(results.sharesdata, true)}</div>
       </div>
       <SharesOustandingChart />
     </div>
@@ -113,14 +112,14 @@ function getQualityHalfTwo(results, data, dataType, setDataType) {
 
 //* Get the message to place in shares outstanding results
 function getResultMessage(results) {
-  const phrase = results.shares === GOOD ? 'bought back' : 'sold off'
-  const shareClone = [...results.sharesdata]
+  const phrase = results.shares === GOOD ? 'repurchased' : 'issued'
+  const shareClone = [...results.sharesdata.v]
   const pdiff = getPercentDifference(...getFirstLastArr(shareClone))
   const tdiff = getDifferenceBetween(shareClone)
 
-  return `${results.symbol}'s has ${phrase} ${formatNumber(
+  return `Over the last 5 years ${results.symbol}'s has ${phrase} ${formatNumber(
     tdiff
-  )} (${pdiff}%) shares in the last 5 years!`
+  )} (${pdiff}%) shares!`
 }
 
 //* Get the two Pie charts for ROIC TTM & 5yr
@@ -176,7 +175,7 @@ function getTTMReturnsCharts(data) {
 //* Function to return the data preview
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
-function getDataPreview(data) {
+function getDataPreview(data, shares) {
   if (!data) return <div className="preview">Loading...</div>
   const { k, v } = data
   return (
@@ -185,7 +184,11 @@ function getDataPreview(data) {
         <table>
           <tbody>
             <tr>{getTableDatas(k, trimDate, 'head')}</tr>
-            <tr>{getTableDatas(v, formatPercentage, '', [true, true])}</tr>
+            <tr>
+              {shares
+                ? getTableDatas(v, formatNumber)
+                : getTableDatas(v, formatPercentage, '', [true, true])}
+            </tr>
           </tbody>
         </table>
       </div>

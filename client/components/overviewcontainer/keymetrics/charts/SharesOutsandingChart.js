@@ -7,21 +7,21 @@ import UniversalChart from '../../../UniversalChart'
 //* Selected range and range of the user's choice
 export default function SharesOustandingChart() {
   const [data, setData] = useState({})
-  const [dataType, setDataType] = useState('quarter')
+  const [dataType, setDataType] = useState('annual')
   const [update, setUpdate] = useState(true)
 
   useEffect(() => {
     async function getData() {
       if (update) {
         //* Load the shares data
-        const shares = await getLocalData(
+        const numberOfShares = await getLocalData(
           'numberOfShares',
           fetchEnterpriseValue,
           [dataType],
           `shares${dataType}`
         )
         //* Set the data, set update to false
-        setData({ ...data, [dataType]: shares })
+        setData({ ...data, [dataType]: numberOfShares })
         setUpdate(false)
       }
     }
@@ -29,7 +29,7 @@ export default function SharesOustandingChart() {
   }, [update])
 
   //* Get the keys and values from the data
-  const { keys, values } = data ? data : {}
+  const { keys, values } = !data[dataType] ? {} : data[dataType]
 
   //* Create our dataset
   const dataset = []
@@ -42,8 +42,10 @@ export default function SharesOustandingChart() {
     dataset.push({
       name: name,
       type: 'bar',
-      color: 'rgba(44, 221, 155, 0.3)',
-      outline: 'rgba(44, 221, 155, 0.6)',
+      // color: 'rgba(44, 221, 155, 0.3)',
+      // outline: 'rgba(44, 221, 155, 0.6)',
+      color: 'rgba(43, 186, 255, 0.3)',
+      outline: 'rgba(43, 186, 255, 0.6)',
       values: values
     })
   }
@@ -61,7 +63,7 @@ export default function SharesOustandingChart() {
 
   //* Return the chart
   return (
-    <>
+    <div className="shares-outstanding-chart shadow-deep-nohover">
       <div className="selector">
         <label>Shares Outstanding</label>
         <div className="selectors">
@@ -92,6 +94,6 @@ export default function SharesOustandingChart() {
           hovermode="x"
         />
       </div>
-    </>
+    </div>
   )
 }
