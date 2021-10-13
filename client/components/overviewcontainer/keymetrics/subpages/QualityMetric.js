@@ -7,16 +7,17 @@ import {
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
-  roundNumberDec,
   trimDate
 } from '../../../../utils'
 import QualityPieCharts from '../charts/QualityPieCharts'
+import SharesOustandingChart from '../charts/SharesOutsandingChart'
 import MetricSelector from '../MetricSelector'
 import { getMetricItem, getTableDatas } from './UtilMetrics'
 
 export default function QualityMetric() {
   const [results, setResults] = useState({})
   const [data, setData] = useState({})
+  const [dataType, setDataType] = useState({})
 
   //* When component mounts
   useEffect(() => {
@@ -84,7 +85,7 @@ function getQualityHalfOne(results, data) {
 
 //* Function to get the top half of the quality
 //* Metrics page
-function getQualityHalfTwo(results) {
+function getQualityHalfTwo(results, data, dataType, setDataType) {
   //* If the data has not loaded...
   if (!results.shares) return <></>
 
@@ -105,7 +106,7 @@ function getQualityHalfTwo(results) {
         </div>
         <div className="previewcontainer">{getDataPreview(results.roicdata.vals)}</div>
       </div>
-      {/* {getTTMReturnsCharts(data)} */}
+      <SharesOustandingChart />
     </div>
   )
 }

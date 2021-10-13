@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { fetchEnterpriseValue } from '../../../../api/api'
+import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
-export default function Growthchart({
-  data,
-  title,
-  color,
-  outline,
-  type,
-  name,
-  args = {},
-  dataType,
-  setDataType
-}) {
+export default function SharesOustandingChart() {
+  const [data, setData] = useState({})
+  const [dataType, setDataType] = useState('quarter')
+  const [update, setUpdate] = useState(true)
+
+  useEffect(() => {
+    async function getData() {
+      if (update) {
+        //* Load the shares data
+        const shares = await getLocalData(
+          'numberOfShares',
+          fetchEnterpriseValue,
+          [dataType],
+          `shares${dataType}`
+        )
+        //* Set the data, set update to false
+        setData({ ...data, [dataType]: shares })
+        setUpdate(false)
+      }
+    }
+    getData()
+  }, [update])
+
   //* Get the keys and values from the data
   const { keys, values } = data ? data : {}
 
@@ -27,33 +41,38 @@ export default function Growthchart({
     //* In this case I am going to make a chart to display the net income
     dataset.push({
       name: name,
-      type: type ? type : 'bar',
-      color: color ? color : 'rgba(44, 221, 155, 0.3)',
-      outline: outline ? outline : 'rgba(44, 221, 155, 0.6)',
-      values: values,
-      ...args
+      type: 'bar',
+      color: 'rgba(44, 221, 155, 0.3)',
+      outline: 'rgba(44, 221, 155, 0.6)',
+      values: values
     })
   }
 
   //* Change the series and update the data
   function updateDataType(newType) {
-    if (dataType[name] !== newType) setDataType({ ...dataType, [name]: newType })
+    //* If datatype clicked is not data type selected
+    if (dataType !== newType) {
+      //* Switch the data type
+      setDataType(newType)
+      //* If that datatype is not loaded, update required
+      if (!data[newType]) setUpdate(true)
+    }
   }
 
   //* Return the chart
   return (
     <>
       <div className="selector">
-        <label>{title}</label>
+        <label>Shares Outstanding</label>
         <div className="selectors">
           <button
-            className={dataType[name] === 'quarter' ? 'selected' : ''}
+            className={dataType === 'quarter' ? 'selected' : ''}
             onClick={() => updateDataType('quarter')}
           >
             Quarterly
           </button>
           <button
-            className={dataType[name] === 'annual' ? 'selected' : ''}
+            className={dataType === 'annual' ? 'selected' : ''}
             onClick={() => updateDataType('annual')}
           >
             Annual
