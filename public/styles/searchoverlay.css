@@ -24,6 +24,12 @@
   width: 50vw;
 }
 
+.search-noresults {
+  border: 0.1rem solid white;
+  padding: 0.25rem;
+  width: 70vw;
+}
+
 .search-row:hover {
   background-color: #710505;
 }

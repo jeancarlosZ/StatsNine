@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import UniversalChart from '../../UniversalChart';
 import FinTable from './FinTable';
 import CompanyInfo from './CompanyInfo';
-import { fetchIncomeStatement, fetchStockProfile } from '../../../api/api';
+import {
+  fetchIncomeStatement,
+  fetchStockProfile,
+  fetchFullStatement,
+} from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
 import { incomeTableLabels, incomeIndentifiers } from './finTableLabels';
 import { FinButtons } from './FinButtons';
@@ -17,22 +21,23 @@ import {
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
-
+//Redis??
 export default function Income() {
+  const [selectedAttribute, setSelectedAttribute] = useState('grossProfit');
   const [incomeInfo, setIncomeInfo] = useState({});
+  // const [incomeInfoQtr, setIncomeInfoQtr] = useState({});
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getIncomeInfo() {
-      setIncomeInfo(
-        //here we are fetching only what we need from the income statement
-        await getLocalData(
-          [...incomeIndentifiers],
-          fetchIncomeStatement,
-          [false, 'annual'],
-          [...incomeIndentifiers]
-        )
+      //here we are fetching only what we need from the income statement
+      const incomeInfo = await getLocalData(
+        [...incomeIndentifiers],
+        fetchIncomeStatement,
+        [false, 'annual'],
+        [...incomeIndentifiers]
       );
+      setIncomeInfo(incomeInfo);
     }
     getIncomeInfo();
   }, []);
@@ -52,6 +57,10 @@ export default function Income() {
     getData();
   }, []);
 
+  //A handler function being passed down to the table that will affect the local state of this component
+  function handleTableClick(attribute) {
+    setSelectedAttribute(attribute);
+  }
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
@@ -63,7 +72,7 @@ export default function Income() {
   if (Object.keys(incomeInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = incomeInfo.grossProfit.values;
+    chartData = incomeInfo[selectedAttribute].values;
     keys = incomeInfo.grossProfit.keys;
 
     // console.log(chartData, 'chartData...');
@@ -76,7 +85,7 @@ export default function Income() {
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
     unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);
-    console.log(unformatedData, 'unformated income data...');
+    // console.log(unformatedData, 'unformated income data...');
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
   const dates = Object.keys(incomeInfo).length ? formatDates(rawDates) : [];
@@ -90,11 +99,13 @@ export default function Income() {
     rows,
     yearlyChanges,
     labels: incomeTableLabels,
+    attributes: incomeIndentifiers,
   };
   //**------------------------------------------------------------------------------------------------ */
   //This is for our Chart information
   //Generate the data set and pass it into UniversalChart which is already in the return statement
   //Right now it's all place holder data
+
   const dataset = [];
 
   dataset.push({
@@ -108,7 +119,7 @@ export default function Income() {
   //**-------------------------------------------------------------------------------------------------- */
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -121,11 +132,16 @@ export default function Income() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
+            // paper_bgcolor={'rgba(0,0,0,0)'}
+            // plot_bgcolor="rgba(0,0,0,0)"
           />
         </div>
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} />
+      <div className="temp-class">
+        <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
+      </div>
     </>
   );
 }

@@ -20,6 +20,7 @@ import {
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 export default function EnterpriseValue() {
+  const [selectedAttribute, setSelectedAttribute] = useState('enterpriseValue');
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -52,6 +53,11 @@ export default function EnterpriseValue() {
     }
     getData();
   }, []);
+
+  //A handler function being passed down to the table that will affect the local state of this component
+  function handleTableClick(attribute) {
+    setSelectedAttribute(attribute);
+  }
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
@@ -63,7 +69,7 @@ export default function EnterpriseValue() {
   if (Object.keys(enterpriseInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = enterpriseInfo.enterpriseValue.values;
+    chartData = enterpriseInfo[selectedAttribute].values;
     keys = enterpriseInfo.enterpriseValue.keys;
 
     // console.log(chartData, 'chartData...');
@@ -93,6 +99,7 @@ export default function EnterpriseValue() {
     rows,
     yearlyChanges,
     labels: enterpriseTableLabels,
+    attributes: enterpriseIndentifiers,
   };
   //**--------------------------------------------------------------
 
@@ -121,7 +128,7 @@ export default function EnterpriseValue() {
 
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -134,11 +141,12 @@ export default function EnterpriseValue() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
           />
         </div>
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} />
+      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }

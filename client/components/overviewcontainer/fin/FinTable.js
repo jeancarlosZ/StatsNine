@@ -1,9 +1,11 @@
 import React from 'react';
+//Maybe a better way to do tables????
 
 export default function FinTable(props) {
+  const handleTableClick = props.handleTableClick;
   //tableInfo is being passed as prop from each Financials sub page
   if (props.tableInfo) {
-    const { dates, rows, yearlyChanges, labels } = props.tableInfo;
+    const { dates, rows, yearlyChanges, labels, attributes } = props.tableInfo;
     //dates is a 1 dimensional array
     //labels is a 1 dimensional array
     //rows is a 2 dimensional array
@@ -28,6 +30,8 @@ export default function FinTable(props) {
             key={`${rowInfo}${index}`}
             labels={labels}
             index={index}
+            attributes={attributes}
+            handleTableClick={handleTableClick}
           />
         ))}
       </table>
@@ -38,6 +42,7 @@ export default function FinTable(props) {
 }
 
 function FinRow(props) {
+  const handleTableClick = props.handleTableClick;
   //This is the process of creating a row...
   //Put the lable <td> first
   //Map over the rowInfo making a <td> for every info
@@ -45,6 +50,8 @@ function FinRow(props) {
 
   //Using the index will help us know where we are in the array
   const index = props.index;
+  //Attributes to use for identifiying which row is being clicked and setting that in state
+  const attribute = props.attributes[index + 1];
   //This is the current row we will be mapping over
   const rowInfo = props.rowInfo;
   //The array of yearly changes corresponds  to the rowInfo array, so they match index for index
@@ -59,7 +66,7 @@ function FinRow(props) {
 
   return (
     <tbody>
-      <tr className={rowClassName}>
+      <tr className={rowClassName} onClick={() => handleTableClick(attribute)}>
         <td className="fin-col fin-label">{label}</td>
         {rowInfo.map((info, index) => (
           <td key={index} className="fin-col">
