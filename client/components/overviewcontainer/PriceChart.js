@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import { DAILY, fetchChartPrice, WEEK, MONTH, THREE_MONTH, SIX_MONTH, YEAR } from '../../api/api'
+import { DAILY, fetchChartPrice, MONTH, SIX_MONTH, THREE_MONTH, WEEK, YEAR } from '../../api/api'
 import { getLocalData } from '../../store/local/localActions'
 import UniversalChart from '../UniversalChart'
 

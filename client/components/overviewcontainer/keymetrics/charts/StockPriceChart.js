@@ -41,8 +41,8 @@ export default function StockPriceChart() {
           [range]: await getLocalData(
             'close', //* key
             fetchChartPrice, //* func
-            [series, range], //* args
-            `price${series}${range}` //* saveas
+            [series, range, false], //* args
+            `price${series}${range}close` //* saveas
           )
         })
         setUpdate(false)

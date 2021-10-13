@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Subheader from '../Subheader'
-import Overview from '../overviewcontainer/overview/Overview'
-import PriceChart from './PriceChart'
-import OverallDetermination from './OverallDetermination'
-import Description from './Description'
-import { getLocalData } from '../../store/local/localActions'
 import { fetchStockProfile } from '../../api/api'
+import { getLocalData } from '../../store/local/localActions'
+import Subheader from '../Subheader'
+import Description from './Description'
+import OverallDetermination from './OverallDetermination'
+import PriceChart from './PriceChart'
 
 export default function Overviewpage() {
   const { symbol } = useSelector(state => state.local)
