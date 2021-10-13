@@ -93,9 +93,7 @@
 }
 
 .fin-table {
-  padding: 1rem;
   font-size: 1.15rem;
-  margin: 1rem;
   color: #d0d3db;
   background-color: #131722;
   height: 300px;
@@ -104,8 +102,9 @@
 }
 
 .fin-table-scroll {
-  height: 365px;
-  width: 98vw;
+  height: 330px;
+  width: 96vw;
+  align-self: center;
 }
 
 .fin-date {
@@ -118,11 +117,12 @@
   width: 96vw;
   table-layout: fixed;
   align-self: center;
+  bottom: 10px;
 }
 
-.date-col {
+/* .date-col {
   width: 40px;
-}
+} */
 /**Fin Chart**/
 .fin-chart-container {
   right: 20px;

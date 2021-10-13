@@ -110,13 +110,11 @@ function YearlyChanges(props) {
 function DatesRow(props) {
   //Here we are taking in an array of dates and producing ONE row with a <td> for every date
   return (
-    <table className="fin-date">
+    <table className="fin-date pos-rel">
       <tbody>
         <tr>
           {props.dates.map((date) => (
-            <td className="date-col" key={date}>
-              {date}
-            </td>
+            <td key={date}>{date}</td>
           ))}
         </tr>
       </tbody>
