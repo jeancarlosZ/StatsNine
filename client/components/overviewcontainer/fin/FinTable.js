@@ -1,4 +1,6 @@
 import React from 'react';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 //Maybe a better way to do tables????
 
 export default function FinTable(props) {
@@ -21,20 +23,24 @@ export default function FinTable(props) {
     // console.log(labels, 'labels');
 
     return (
-      <table className="fin-table">
+      <>
         <DatesRow dates={dates} />
-        {rows.map((rowInfo, index) => (
-          <FinRow
-            rowInfo={rowInfo}
-            yearlyChanges={yearlyChanges}
-            key={`${rowInfo}${index}`}
-            labels={labels}
-            index={index}
-            attributes={attributes}
-            handleTableClick={handleTableClick}
-          />
-        ))}
-      </table>
+        <SimpleBar className="fin-table-scroll">
+          <table className="fin-table">
+            {rows.map((rowInfo, index) => (
+              <FinRow
+                rowInfo={rowInfo}
+                yearlyChanges={yearlyChanges}
+                key={`${rowInfo}${index}`}
+                labels={labels}
+                index={index}
+                attributes={attributes}
+                handleTableClick={handleTableClick}
+              />
+            ))}
+          </table>
+        </SimpleBar>
+      </>
     );
   } else {
     return <div className="table-space">Loading...</div>;
@@ -50,7 +56,7 @@ function FinRow(props) {
 
   //Using the index will help us know where we are in the array
   const index = props.index;
-  //Attributes to use for identifiying which row is being clicked and setting that in state
+  //Attribute to use for identifiying which row is being clicked and setting that in state
   const attribute = props.attributes[index + 1];
   //This is the current row we will be mapping over
   const rowInfo = props.rowInfo;
@@ -66,7 +72,10 @@ function FinRow(props) {
 
   return (
     <tbody>
-      <tr className={rowClassName} onClick={() => handleTableClick(attribute)}>
+      <tr
+        className={rowClassName}
+        onClick={() => handleTableClick([attribute, label])}
+      >
         <td className="fin-col fin-label">{label}</td>
         {rowInfo.map((info, index) => (
           <td key={index} className="fin-col">
@@ -101,14 +110,16 @@ function YearlyChanges(props) {
 function DatesRow(props) {
   //Here we are taking in an array of dates and producing ONE row with a <td> for every date
   return (
-    <tbody>
-      <tr>
-        {props.dates.map((date) => (
-          <td className="fin-date" key={date}>
-            {date}
-          </td>
-        ))}
-      </tr>
-    </tbody>
+    <table className="fin-date">
+      <tbody>
+        <tr>
+          {props.dates.map((date) => (
+            <td className="date-col" key={date}>
+              {date}
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </table>
   );
 }

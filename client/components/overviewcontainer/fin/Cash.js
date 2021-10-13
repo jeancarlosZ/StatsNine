@@ -18,8 +18,10 @@ import {
 //that into the local component sate and redux state
 
 export default function Cash() {
-  const [selectedAttribute, setSelectedAttribute] =
-    useState('capitalExpenditure');
+  const [selectedAttribute, setSelectedAttribute] = useState([
+    'capitalExpenditure',
+    'Capital Expenditure',
+  ]);
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -57,7 +59,6 @@ export default function Cash() {
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
   }
-  console.log(selectedAttribute);
 
   //**------------------------------------------------------------------------------------------------ */
 
@@ -70,7 +71,7 @@ export default function Cash() {
   if (Object.keys(cashflowInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = cashflowInfo[selectedAttribute].values;
+    chartData = cashflowInfo[selectedAttribute[0]].values;
     keys = cashflowInfo.freeCashFlow.keys;
 
     // console.log(chartData, 'chartData...');
@@ -116,25 +117,27 @@ export default function Cash() {
 
   return (
     <>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo profile={profile} />
-        <div className="fin-chart-container">
-          <UniversalChart
-            className="income-chart fin-chart"
-            title="Cash Flow"
-            keys={keys}
-            margin={{ l: 50, r: 50, b: 25, t: 35 }}
-            plotBackgroundColor="rgba(30, 34, 45, 0)"
-            dataset={dataset}
-            showlegend={false}
-            hoverdistance={50}
-            hovermode="x"
-            backgroundColor="fff"
-          />
+      <div className="flex-col">
+        <div className="income-container flex-row justify-between">
+          <CompanyInfo profile={profile} />
+          <div className="fin-chart-container pos-rel">
+            <UniversalChart
+              className="income-chart fin-chart"
+              title={selectedAttribute[1]}
+              keys={keys}
+              margin={{ l: 50, r: 50, b: 25, t: 35 }}
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              dataset={dataset}
+              showlegend={false}
+              hoverdistance={50}
+              hovermode="x"
+              backgroundColor="fff"
+            />
+          </div>
         </div>
+        <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }

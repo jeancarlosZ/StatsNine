@@ -17,7 +17,10 @@ import {
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 export default function Balance() {
-  const [selectedAttribute, setSelectedAttribute] = useState('totalAssets');
+  const [selectedAttribute, setSelectedAttribute] = useState([
+    'totalAssets',
+    'Total Assets',
+  ]);
   const [balanceInfo, setBalanceInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -66,7 +69,7 @@ export default function Balance() {
   if (Object.keys(balanceInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = balanceInfo[selectedAttribute].values;
+    chartData = balanceInfo[selectedAttribute[0]].values;
     keys = balanceInfo.totalAssets.keys;
 
     // console.log(keys, 'chartData...');
@@ -126,25 +129,27 @@ export default function Balance() {
 
   return (
     <>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo profile={profile} />
-        <div className="fin-chart-container">
-          <UniversalChart
-            className="income-chart fin-chart"
-            title="Balance"
-            keys={keys}
-            margin={{ l: 50, r: 50, b: 25, t: 35 }}
-            plotBackgroundColor="rgba(30, 34, 45, 0)"
-            dataset={dataset}
-            showlegend={false}
-            hoverdistance={50}
-            hovermode="x"
-            backgroundColor="fff"
-          />
+      <div className="flex-col">
+        <div className="income-container flex-row justify-between">
+          <CompanyInfo profile={profile} />
+          <div className="fin-chart-container pos-rel">
+            <UniversalChart
+              className="income-chart fin-chart"
+              title={selectedAttribute[1]}
+              keys={keys}
+              margin={{ l: 50, r: 50, b: 25, t: 35 }}
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              dataset={dataset}
+              showlegend={false}
+              hoverdistance={50}
+              hovermode="x"
+              backgroundColor="fff"
+            />
+          </div>
         </div>
+        <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }

@@ -22,7 +22,7 @@
 }
 
 .company-container {
-  top: 25px;
+  top: 28px;
   left: 15px;
   width: 600px;
   height: 230px;
@@ -51,11 +51,11 @@
   color: #1890ff;
 }
 
-.fin-button-container {
+/* .fin-button-container {
   bottom: 15px;
   right: 10px;
   width: 200px;
-}
+} */
 
 /**Fin Table**/
 .fin-row:hover {
@@ -98,60 +98,46 @@
   margin: 1rem;
   color: #d0d3db;
   background-color: #131722;
-  /* height: 300px; */
-  table-layout: fixed;
-  width: 1847px;
-}
-
-.temp-class {
-  overflow-y: auto;
-  height: 375px;
-}
-.temp-class::-webkit-scrollbar-corner {
-  box-shadow: inset 0 0 5px rgb(30, 45, 81);
-}
-/* width */
-.temp-class::-webkit-scrollbar {
-  /* display: none; */
-  width: 5px;
-}
-
-/* Track */
-.temp-class::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgb(30, 45, 81);
-  border-radius: 1px;
-}
-
-/* Handle */
-.temp-class::-webkit-scrollbar-thumb {
-  background: rgb(7, 9, 33);
-  border-radius: 1px;
-}
-.table-space {
-  width: 1266px;
   height: 300px;
-  color: white;
-  margin: 1rem;
+  table-layout: fixed;
+  width: 96vw;
+}
+
+.fin-table-scroll {
+  height: 365px;
+  width: 98vw;
 }
 
 .fin-date {
   font-weight: lighter;
-  background-color: rgb(30, 34, 45, 0.3);
+  background-color: transparent;
   border: transparent;
   text-align: center;
   font-size: small;
+  color: white;
+  width: 96vw;
+  table-layout: fixed;
+  align-self: center;
 }
 
+.date-col {
+  width: 40px;
+}
+/**Fin Chart**/
 .fin-chart-container {
+  right: 20px;
+  border: solid thin rgb(0, 0, 0, 0.1);
   width: 62vw;
   align-self: center;
   border-radius: 15px;
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
+  /* height: 230px; */
 }
 
 .fin-chart {
-  width: 63vw;
-  height: 275px;
+  /* border: solid green; */
+  width: 62vw;
+  height: 230px;
 }
 
 .yearly-change {

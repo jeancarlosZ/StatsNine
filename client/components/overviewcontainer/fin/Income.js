@@ -23,7 +23,10 @@ import {
 //that into the local component sate and redux state
 //Redis??
 export default function Income() {
-  const [selectedAttribute, setSelectedAttribute] = useState('grossProfit');
+  const [selectedAttribute, setSelectedAttribute] = useState([
+    'grossProfit',
+    'Gross Profit',
+  ]);
   const [incomeInfo, setIncomeInfo] = useState({});
   // const [incomeInfoQtr, setIncomeInfoQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -72,7 +75,7 @@ export default function Income() {
   if (Object.keys(incomeInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = incomeInfo[selectedAttribute].values;
+    chartData = incomeInfo[selectedAttribute[0]].values;
     keys = incomeInfo.grossProfit.keys;
 
     // console.log(chartData, 'chartData...');
@@ -119,29 +122,27 @@ export default function Income() {
   //**-------------------------------------------------------------------------------------------------- */
   return (
     <>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo profile={profile} />
-        <div className="fin-chart-container">
-          <UniversalChart
-            className="income-chart fin-chart"
-            title="Gross Profit"
-            keys={keys}
-            margin={{ l: 50, r: 50, b: 25, t: 35 }}
-            plotBackgroundColor="rgba(30, 34, 45, 0)"
-            dataset={dataset}
-            showlegend={false}
-            hoverdistance={50}
-            hovermode="x"
-            backgroundColor="fff"
-            // paper_bgcolor={'rgba(0,0,0,0)'}
-            // plot_bgcolor="rgba(0,0,0,0)"
-          />
+      <div className="flex-col">
+        <div className="income-container flex-row justify-between">
+          <CompanyInfo profile={profile} />
+          <div className="fin-chart-container pos-rel">
+            <UniversalChart
+              className="income-chart fin-chart"
+              title={selectedAttribute[1]}
+              keys={keys}
+              margin={{ l: 50, r: 50, b: 25, t: 35 }}
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              dataset={dataset}
+              showlegend={false}
+              hoverdistance={50}
+              hovermode="x"
+              backgroundColor="fff"
+            />
+          </div>
         </div>
-      </div>
-      {/* <FinButtons /> */}
-      <div className="temp-class">
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
+      {/* <FinButtons /> */}
     </>
   );
 }

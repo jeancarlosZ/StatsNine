@@ -17,6 +17,9 @@ export const balanceTableLabels = [
   'Long Term Investments',
   'Total Debt',
   'Common Stock',
+  'Cash Equivalents',
+  'Net Receivables',
+  'Inventory',
 ];
 
 export const cashflowTableLabels = [
@@ -56,6 +59,9 @@ export const balanceIndentifiers = [
   'longTermInvestments',
   'totalDebt',
   'commonStock',
+  'cashAndCashEquivalents',
+  'netReceivables',
+  'inventory',
 ];
 
 export const cashflowIndentifiers = [
