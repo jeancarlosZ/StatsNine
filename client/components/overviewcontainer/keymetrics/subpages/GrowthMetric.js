@@ -18,38 +18,47 @@ export default function GrowthMetric() {
   const [results, setResults] = useState({})
   //* Selected Range, series, and the chart data
   const [dataType, setDataType] = useState({ fcf: 'quarter', net: 'quarter', rev: 'quarter' })
-  const [data, setData] = useState({})
+  const [data, setData] = useState({ net: {}, fcf: {}, rev: {} })
+  const [update, setUpdate] = useState(true)
 
   useEffect(() => {
     async function getData() {
       setResults(await getTickerResults())
-      //* Load the data from the API
-      const netIncome = await getLocalData(
-        'netIncome',
-        fetchCashflowStatement,
-        [false, dataType.net],
-        `netincome${dataType.net}`
-      )
-      //* Load the data from the API
-      const freeCashFlow = await getLocalData(
-        'freeCashFlow',
-        fetchCashflowStatement,
-        [false, dataType.fcf],
-        `fcf${dataType.fcf}`
-      )
-      //* Load the data from the API
-      const revenue = await getLocalData(
-        'revenue',
-        fetchIncomeStatement,
-        [false, dataType.rev],
-        `revenue${dataType.rev}`
-      )
+      if (update) {
+        //* Load the data from the API
+        const netIncome = await getLocalData(
+          'netIncome',
+          fetchCashflowStatement,
+          [false, dataType.net],
+          `netincome${dataType.net}`
+        )
+        //* Load the data from the API
+        const freeCashFlow = await getLocalData(
+          'freeCashFlow',
+          fetchCashflowStatement,
+          [false, dataType.fcf],
+          `fcf${dataType.fcf}`
+        )
+        //* Load the data from the API
+        const revenue = await getLocalData(
+          'revenue',
+          fetchIncomeStatement,
+          [false, dataType.rev],
+          `revenue${dataType.rev}`
+        )
 
-      //* Save the data to the state here for the charts
-      setData({ freeCashFlow, netIncome, revenue })
+        const newData = data
+        newData.net[dataType.net] = netIncome
+        newData.fcf[dataType.fcf] = freeCashFlow
+        newData.rev[dataType.rev] = revenue
+
+        //* Save the data to the state here for the charts
+        setData(newData)
+        setUpdate(false)
+      }
     }
     getData()
-  }, [dataType])
+  }, [update, dataType])
 
   return (
     <div className="growth-metrics-container">
@@ -66,9 +75,10 @@ export default function GrowthMetric() {
                   outline="rgba(250, 173, 20, 0.6)"
                   type=""
                   name="net"
-                  data={data.netIncome}
+                  data={data.net}
                   dataType={dataType}
                   setDataType={setDataType}
+                  setUpdate={setUpdate}
                 />
               </div>
             </div>
@@ -80,9 +90,10 @@ export default function GrowthMetric() {
                   outline="rgba(41, 98, 254, 0.6)"
                   type=""
                   name="fcf"
-                  data={data.freeCashFlow}
+                  data={data.fcf}
                   dataType={dataType}
                   setDataType={setDataType}
+                  setUpdate={setUpdate}
                 />
               </div>
               {getGrowthOverview(results, data, 'cashflow')}
@@ -96,9 +107,11 @@ export default function GrowthMetric() {
                   outline="rgba(243, 142, 176, 0.6)"
                   type=""
                   name="rev"
-                  data={data.revenue}
+                  data={data.rev}
                   dataType={dataType}
                   setDataType={setDataType}
+                  update={update}
+                  setUpdate={setUpdate}
                 />
               </div>
             </div>

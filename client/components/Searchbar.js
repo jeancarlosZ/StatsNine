@@ -41,7 +41,7 @@ export default function Searchbar() {
     // This function sets the query results from the API up to a maximum of 20 in the local state to be used for rendering.
     async function getStocksList() {
       try {
-        setStocksList(await fetchSearchQuery(query, 20))
+        setStocksList(await fetchSearchQuery(query, 10))
       } catch (err) {
         console.log(err)
       }
@@ -80,28 +80,32 @@ export default function Searchbar() {
   // This function sets the value of the search bar to local state if it has at least one character.  The query value is used to render results for the search query box.
   function handleChange(event) {
     const value = event.target.value.toUpperCase()
+    if (value.length >= 0 && !open) setOpen(true)
+    if (!value && open) setOpen(false)
 
     setQuery(value)
   }
 
   return (
     <div ref={searchRef}>
-      <div className='top-search-bar'>
-        <SearchIcon className='search-icon' />
+      <div className="top-search-bar">
+        <SearchIcon className="search-icon" />
+        <label className="search-clear" type="button" onClick={() => setQuery('')}>
+          Clear
+        </label>
         <input
           className="top-search-input"
           placeholder="Search by Symbol"
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
-          onClick={() => setOpen(true)}
+          onClick={event => {
+            if (event.target.value) setOpen(true)
+          }}
           value={query}
           maxLength={5}
         />
-        <button className='search-clear' type='button' onClick={() => setQuery('')}>
-          Clear
-        </button>
       </div>
-      <ToastContainer theme='dark' newestOnTop autoClose={3000} />
+      <ToastContainer theme="dark" newestOnTop autoClose={3000} />
       {queryBox(query, setOpen, stocksList, open)}
     </div>
   )

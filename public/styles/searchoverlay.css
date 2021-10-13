@@ -1,35 +1,60 @@
+/* 
+ * rgba(19, 23, 34, 1)
+ * rgba(30, 34, 45, 1)
+ *
+ */
+
 .search-table {
   z-index: 99 !important;
   position: absolute;
   top: 7vh;
-  right: 12.5vw;
-  background-color: #020522;
-  padding: 1rem;
-  margin: 1rem;
+  /* right: 50vw; */
+  margin: 0px auto 0px 1rem;
+  width: var(--searchBarWidth);
+  padding: 0.3rem;
+
+  /** */
+
+  background-color: rgba(19, 23, 34, 0.8);
+
+  /** */
+
   display: grid;
   grid-template-columns: repeat(3);
   grid-template-rows: auto;
   font-weight: 300;
 }
 
+.search-row th {
+  color: var(--fontColor);
+}
+
+.search-row td {
+  color: rgba(208, 211, 219, 0.8);
+}
+
 .search-cell {
-  border: 0.1rem solid white;
+  border: 0.1rem solid rgba(30, 34, 45, 1);
   padding: 0.25rem;
-  width: 10vw;
+  /* width: 10vw; */
+  width: 10%;
 }
 
 .search-cell2 {
-  border: 0.1rem solid white;
+  border: 0.1rem solid rgba(30, 34, 45, 1);
   padding: 0.25rem;
-  width: 50vw;
+  /* width: 50vw; */
+  width: 50%;
 }
 
 .search-noresults {
-  border: 0.1rem solid white;
+  border: 0.1rem solid rgba(30, 34, 45, 1);
   padding: 0.25rem;
-  width: 70vw;
+  /* width: 70vw; */
+  width: 100%;
 }
 
 .search-row:hover {
-  background-color: #710505;
+  /* background-color: #710505; */
+  background-color: rgba(207, 57, 53, 0.3);
 }

@@ -12,10 +12,11 @@ export default function Growthchart({
   name,
   args = {},
   dataType,
-  setDataType
+  setDataType,
+  setUpdate
 }) {
   //* Get the keys and values from the data
-  const { keys, values } = data ? data : {}
+  const { keys, values } = data[dataType[name]] ? data[dataType[name]] : {}
 
   //* Create our dataset
   const dataset = []
@@ -37,7 +38,10 @@ export default function Growthchart({
 
   //* Change the series and update the data
   function updateDataType(newType) {
-    if (dataType[name] !== newType) setDataType({ ...dataType, [name]: newType })
+    if (dataType[name] !== newType) {
+      setDataType({ ...dataType, [name]: newType })
+      if (!data[newType]) setUpdate(true)
+    }
   }
 
   //* Return the chart

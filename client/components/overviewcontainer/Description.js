@@ -7,7 +7,7 @@ export default function Description({ symbol, data }) {
   useEffect(() => {}, [symbol])
   return (
     <div className="overviewbox description shadow-nohover flex-col justify-around">
-      <div className="headerTwo company-details pos-rel">{`${data.companyName}:`}</div>
+      <div className="headerTwo company-details pos-rel">{`${data.companyName}`}</div>
       {getDescriptionText(data.description)}
     </div>
   )
