@@ -1,10 +1,15 @@
 //**--Table Labels--**//
 export const incomeTableLabels = [
+  'Revenue',
   'Gross Profit',
   'Operating Expenses',
   'Operating Income',
   'Income Before Tax',
   'Income Tax Expense',
+  'Interest Expense',
+  'Cost Of Revenue',
+  'Cost And Expenses',
+  'Net Income',
 ];
 export const balanceTableLabels = [
   'Total Assets',
@@ -32,11 +37,16 @@ export const enterpriseTableLabels = [
 //**--Object Indentifiers--**//
 export const incomeIndentifiers = [
   'dates',
+  'revenue',
   'grossProfit',
   'operatingExpenses',
   'operatingIncome',
   'incomeBeforeTax',
   'incomeTaxExpense',
+  'interestExpense',
+  'costOfRevenue',
+  'costAndExpenses',
+  'netIncome',
 ];
 
 export const balanceIndentifiers = [

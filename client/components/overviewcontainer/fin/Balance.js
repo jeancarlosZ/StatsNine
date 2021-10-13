@@ -17,6 +17,7 @@ import {
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 export default function Balance() {
+  const [selectedAttribute, setSelectedAttribute] = useState('totalAssets');
   const [balanceInfo, setBalanceInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -50,6 +51,10 @@ export default function Balance() {
     getData();
   }, []);
 
+  //A handler function being passed down to the table that will affect the local state of this component
+  function handleTableClick(attribute) {
+    setSelectedAttribute(attribute);
+  }
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
@@ -61,10 +66,10 @@ export default function Balance() {
   if (Object.keys(balanceInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = balanceInfo.totalAssets.values;
+    chartData = balanceInfo[selectedAttribute].values;
     keys = balanceInfo.totalAssets.keys;
 
-    console.log(keys, 'chartData...');
+    // console.log(keys, 'chartData...');
     //----------------------------------------//
     //When balanceInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
@@ -87,6 +92,7 @@ export default function Balance() {
     rows,
     yearlyChanges,
     labels: balanceTableLabels,
+    attributes: balanceIndentifiers,
   };
 
   //**------------------------------------------------------------------------------------------------ */
@@ -120,7 +126,7 @@ export default function Balance() {
 
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -133,11 +139,12 @@ export default function Balance() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
           />
         </div>
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} />
+      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }

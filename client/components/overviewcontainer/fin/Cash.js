@@ -18,6 +18,8 @@ import {
 //that into the local component sate and redux state
 
 export default function Cash() {
+  const [selectedAttribute, setSelectedAttribute] =
+    useState('capitalExpenditure');
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -51,6 +53,12 @@ export default function Cash() {
     getData();
   }, []);
 
+  //A handler function being passed down to the table that will affect the local state of this component
+  function handleTableClick(attribute) {
+    setSelectedAttribute(attribute);
+  }
+  console.log(selectedAttribute);
+
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
@@ -62,7 +70,7 @@ export default function Cash() {
   if (Object.keys(cashflowInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = cashflowInfo.freeCashFlow.values;
+    chartData = cashflowInfo[selectedAttribute].values;
     keys = cashflowInfo.freeCashFlow.keys;
 
     // console.log(chartData, 'chartData...');
@@ -88,6 +96,7 @@ export default function Cash() {
     rows,
     yearlyChanges,
     labels: cashflowTableLabels,
+    attributes: cashflowIndentifiers,
   };
 
   //**------------------------------------------------------------------------------------------------ */
@@ -107,7 +116,7 @@ export default function Cash() {
 
   return (
     <>
-      <div className="income-container flex-row justify-between">
+      <div className="income-container flex-row justify-around">
         <CompanyInfo profile={profile} />
         <div className="fin-chart-container">
           <UniversalChart
@@ -120,11 +129,12 @@ export default function Cash() {
             showlegend={false}
             hoverdistance={50}
             hovermode="x"
+            backgroundColor="fff"
           />
         </div>
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} />
+      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }
