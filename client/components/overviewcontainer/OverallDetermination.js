@@ -29,9 +29,6 @@ export default function OverallDetermination(props) {
         <StarsContainer results={results} loading={loading} />
         <ODMessage results={results} loading={loading} />
       </div>
-      <div className='description-text ending-text'>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      </div>
     </div>
   )
 }
@@ -66,7 +63,7 @@ function StarsContainer({ results, loading }) {
 function MetricStar({ rating }) {
   return (
     <div className='star'>
-      <Star className='metric-star' fill={getStarColor(rating)} />
+      <Star className='overview-metric-star' fill={getStarColor(rating)} />
     </div>
   )
 }

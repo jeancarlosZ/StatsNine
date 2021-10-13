@@ -146,7 +146,7 @@
 
   height: var(--descHeaderHeight);
 
-  /* background-color: orange; */
+  background-color: orange;
 }
 
 .overview-page .description-text {
@@ -173,9 +173,14 @@
   max-height: 75px;
 }
 
+.overview-metric-star {
+  height: 40px;
+  width: 40px;
+}
+
 .overview-page .determination {
-  margin: 17px 0px 10px 15px;
-  /* background-color: blue; */
+  margin: 18px 0px 10px 15px;
+  background-color: blue;
 }
 
 .overview-page .ending-text {
