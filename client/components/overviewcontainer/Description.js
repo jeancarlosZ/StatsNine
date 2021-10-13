@@ -6,7 +6,7 @@ export default function Description(props) {
   useEffect(() => {}, [symbol])
 
   return (
-    <div className='description flex-col justify-around'>
+    <div className="overviewbox description shadow-nohover flex-col justify-around">
       <Header symbol={symbol} />
       <Text />
     </div>
@@ -16,12 +16,12 @@ export default function Description(props) {
 function Header(props) {
   const symbol = props.symbol
 
-  return <div className='headerTwo company-details pos-rel'>{`${symbol} Company Details:`}</div>
+  return <div className="headerTwo company-details pos-rel">{`${symbol} Company Details:`}</div>
 }
 
 function Text() {
   return (
-    <div className='description-text align-self'>
+    <div className="description-text align-self">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
       been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
       galley of type and scrambled it to make a type specimen book. It has survived not only five

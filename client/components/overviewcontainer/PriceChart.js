@@ -28,9 +28,9 @@ export default function PriceChart(props) {
                 `price${series}${range}open`,
                 `price${series}${range}close`,
                 `price${series}${range}low`,
-                `price${series}${range}high`,
-              ],
-            ),
+                `price${series}${range}high`
+              ]
+            )
           })
           setUpdate(false)
         }
@@ -65,27 +65,18 @@ export default function PriceChart(props) {
   }
 
   return (
-    <div className='price-chart flex-col align-self'>
-      <span className='price-container flex-row'>
-        ${price.toFixed(2)} USD
+    <div className="chart-container shadow-deep-nohover">
+      {/* <div className="price-chart flex-col align-self"> */}
+      <div className="price-container flex-row">
+        <label>
+          {symbol} Price: ${price.toFixed(2)} USD
+        </label>
         {getSelectors(series, range, updateSeries, updateRange)}
-      </span>
-      <CandleStickChart update={update} symbol={symbol} data={data[range]} />
-    </div>
-  )
-}
-
-// This function creates a dropdown button with a selection of items to choose from.
-function getSelectors(series, range, updateSeries, updateRange) {
-  return (
-    <div className='selector-dropdown-right'>
-      <DropdownButton className='dropdown-selector' title={range} size='sm' variant='secondary'>
-        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 Month</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
-      </DropdownButton>
+      </div>
+      <div className="overview-wrapper">
+        <CandleStickChart update={update} symbol={symbol} data={data[range]} />
+      </div>
+      {/* </div> */}
     </div>
   )
 }
@@ -111,7 +102,7 @@ export function CandleStickChart(props) {
 
   dataset.push({
     customSet: {
-      name: `${symbol} Stock Chart`,
+      // name: `${symbol} Stock Chart`,
       type: 'candlestick',
       x: keys,
       close,
@@ -122,16 +113,34 @@ export function CandleStickChart(props) {
       low,
       open,
       xaxis: 'x',
-      yaxis: 'y',
-    },
+      yaxis: 'y'
+    }
   })
 
   return (
     <UniversalChart
-      className='candlestick-chart'
-      title={`${symbol} Stock Chart`}
+      className="candlestick-chart"
+      // title={`${symbol} Stock Chart`}
       dataset={dataset}
+      backgroundColor="fff"
+      plotBackgroundColor="rgba(30, 34, 45, 0)"
       showlegend={false}
+      margin={{ l: 50, r: 50, t: 15, b: 25 }}
     />
+  )
+}
+
+// This function creates a dropdown button with a selection of items to choose from.
+function getSelectors(series, range, updateSeries, updateRange) {
+  return (
+    <div className="selector-dropdown-right">
+      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
+        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 Month</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
+      </DropdownButton>
+    </div>
   )
 }

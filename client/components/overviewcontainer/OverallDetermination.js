@@ -16,9 +16,9 @@ export default function OverallDetermination(props) {
   }, [symbol])
 
   return (
-    <div className='overall-determination flex-col justify-around'>
-      <Header />
-      <div className='flex-row justify-around justify-center'>
+    <div className="overviewbox overall-determination shadow-nohover">
+      <div className="headerTwo">Overall Determination</div>
+      <div className="star-container flex-row justify-around justify-center">
         <StarsContainer results={results} />
         <Determination />
       </div>
@@ -27,13 +27,9 @@ export default function OverallDetermination(props) {
   )
 }
 
-function Header() {
-  return <div className='headerTwo'>Overall Determination</div>
-}
-
 function Determination() {
   return (
-    <div className='determination pos-rel'>
+    <div className="description-text determination">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
       been the industry's standard dummy text.
     </div>
@@ -42,7 +38,7 @@ function Determination() {
 
 function EndingText() {
   return (
-    <div className='ending-text align-self'>
+    <div className="description-text ending-text">
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
     </div>
   )
@@ -51,18 +47,18 @@ function EndingText() {
 function StarsContainer({ results }) {
   if (!results) return
   return (
-    <div className='stars-container flex-row justify-evenly'>
-      <div className=' star-col flex-col justify-evenly'>
+    <div className="stars-container flex-row justify-evenly">
+      <div className=" star-col flex-col justify-evenly">
         <MetricStar rating={results.revgrowth} />
         <MetricStar rating={results.cashgrowth} />
         <MetricStar rating={results.netincome} />
       </div>
-      <div className=' star-col flex-col justify-evenly'>
+      <div className=" star-col flex-col justify-evenly">
         <MetricStar rating={results.roic} />
         <MetricStar rating={results.shares} />
         <MetricStar rating={results.assets} />
       </div>
-      <div className=' star-col flex-col justify-evenly'>
+      <div className=" star-col flex-col justify-evenly">
         <MetricStar rating={results.pe} />
         <MetricStar rating={results.pfcf} />
         <MetricStar rating={results.ltl} />
@@ -78,8 +74,8 @@ function StarsContainer({ results }) {
 // TODO: Pass in the metric info to color the stars correctly
 function MetricStar({ rating }) {
   return (
-    <div className='star'>
-      <Star className='metric-star' fill={getStarColor(rating)} />
+    <div className="star">
+      <Star className="metric-star" fill={getStarColor(rating)} />
     </div>
   )
 }
