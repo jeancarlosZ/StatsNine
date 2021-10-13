@@ -65,6 +65,10 @@
   width: calc(var(--metricsChartWrapperWidth) / 2);
 }
 
+.metric-charts .clean .wrapper {
+  background-color: transparent;
+}
+
 .fcftoltl {
   color: rgba(208, 211, 219, 0.8);
   font-weight: 400;

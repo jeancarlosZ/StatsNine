@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { fetchSearchQuery } from '../api/api'
@@ -58,10 +58,12 @@ export default function Searchbar() {
         return
       } else {
         if (value.length >= 1) {
+          // map the search results, find the one that includes your query ".."
           if (stocksList.map(stock => stock.symbol).includes(value)) {
             toast.success('Success!')
             await setQuery('')
             await setOpen(false)
+            // update the current stock
             await dispatch(setCurrentStock(value))
             await loadStockProfile()
             await history.push('/overviewpage')
@@ -87,8 +89,8 @@ export default function Searchbar() {
       <div className='top-search-bar'>
         <SearchIcon className='search-icon' />
         <input
-          className='top-search-input'
-          placeholder='Search by Symbol'
+          className="top-search-input"
+          placeholder="Search by Symbol"
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}

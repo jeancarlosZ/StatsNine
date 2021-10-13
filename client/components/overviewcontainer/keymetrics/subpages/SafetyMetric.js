@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Star from '../../../../assets/icons/star'
 import { getTickerResults, GOOD } from '../../../../store/local/localActions'
 import {
   formatNumber,
   getDifferenceBetween,
-  getFirstLastArr,
   getPercentDifference,
-  getStarColor,
   isSameObject,
   roundNumberDec,
   trimDate
@@ -14,6 +11,7 @@ import {
 import AssetsVsLiabilities from '../charts/AssetsVsLiabilities'
 import SimplePie from '../charts/SimplePie'
 import MetricSelector from '../MetricSelector'
+import { getMetricItem, getTableDatas } from './UtilMetrics'
 
 export default function SafetyMetric() {
   const [results, setResults] = useState({})
@@ -25,6 +23,8 @@ export default function SafetyMetric() {
     }
     getData()
   }, [])
+
+  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0
 
   return (
     <div className="key-metrics-container">
@@ -52,7 +52,9 @@ export default function SafetyMetric() {
                   </div>
                   <div>
                     <label>Years to pay off debt:</label>
-                    <span>{results.ltldata ? roundNumberDec(results.ltldata.years) : '0'}</span>
+                    <span>
+                      {debtYears === -1 ? 'Who knows? Their FCF is negitive!' : debtYears}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -68,7 +70,8 @@ export default function SafetyMetric() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results) {
-  if (!results || isSameObject({}, results)) return <></>
+  if (!results || isSameObject({}, results))
+    return <div className="qload">Hold tight while we load your data!</div>
 
   const { k, a, b } = results.assetsdata
   const difference = getDifferenceBetween(a)
@@ -81,6 +84,8 @@ function getPriceOverview(results) {
   } than ${result === GOOD ? 'Liabilities' : 'Assets'}! That's a five year ${
     difference > 0 ? 'increase' : 'decrease'
   } of $${formatNumber(difference)} in assets!`
+
+  const debtYears = roundNumberDec(results.ltldata.years)
 
   return (
     <div className="pricemetrics">
@@ -101,9 +106,9 @@ function getPriceOverview(results) {
       </div>
       <div className="metric">
         {getMetricItem('LT Liabilties / 5yr FCF; < 5', results.ltl)}
-        <span className="result">{`It would take ${results.symbol} aprox ${roundNumberDec(
-          results.ltldata.years
-        )} years to pay of their debt!`}</span>
+        <span className="result">{`It would take ${results.symbol} ${
+          debtYears === -1 ? 'undeterminable' : 'aprox ' + debtYears
+        } years to pay of their debt!`}</span>
         <div className="desc">
           <p>
             The Free Cash Flow to Long Term Debt ratio measures the sustainability of the debt
@@ -133,25 +138,6 @@ function getDataPreview(k, a, b) {
           </tbody>
         </table>
       </div>
-    </div>
-  )
-}
-
-//* Function to get the table data
-function getTableDatas(arr, formatFunc, className) {
-  return arr.map((x, i) => (
-    <td className={className} key={i}>
-      {formatFunc(x)}
-    </td>
-  ))
-}
-
-//* Func to get a metric item, and the star related to it
-function getMetricItem(metric, rating) {
-  return (
-    <div className="metric-item">
-      <Star className="metric-star" fill={getStarColor(rating)} />
-      <span className="king">{metric}</span>
     </div>
   )
 }

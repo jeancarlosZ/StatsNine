@@ -115,6 +115,8 @@ body {
   font-size: 1.1rem;
   font-weight: 700;
 
+  /* background-color: rgba(30, 34, 45, 0.3); */
+
   /* TODO color*/
   /* background-color: burlywood; */
 }
@@ -373,7 +375,7 @@ body {
 .gmetric-chart .selector .selectors button {
   margin: 5px 5px 0px 5px;
   color: rgba(208, 211, 219, 0.6);
-  background-color: rgba(30, 34, 45, 0.6);
+  background-color: rgba(30, 34, 45, 0.3);
   border: none;
   border-radius: 30px;
   font-size: 0.8rem;
@@ -389,7 +391,7 @@ body {
 /** Quarterly / annual buttons */
 .gmetric-chart .selector .selectors .selected {
   color: var(--fontColor);
-  background-color: rgba(30, 34, 45, 1);
+  background-color: rgba(30, 34, 45, 0.6);
   border: none;
 }
 

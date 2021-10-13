@@ -53,7 +53,7 @@ export default function StockPriceChart() {
   }, [series, range])
 
   //* Get the keys and values from the data
-  const { keys, values } = !data[range] ? data : data[range]
+  const { keys, values } = !data[range] ? {} : data[range]
 
   //* Create our dataset
   const dataset = []
@@ -109,6 +109,8 @@ export default function StockPriceChart() {
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
+          hoverdistance={50}
+          hovermode="x"
         />
       </div>
     </>

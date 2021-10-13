@@ -196,6 +196,8 @@ body {
   /* margin: auto; */
   display: flex;
 
+  padding-left: 10px;
+
   /* TODO color*/
   /* background-color: rgba(146, 23, 23, 0.2); */
 }
@@ -207,6 +209,7 @@ body {
 
   flex: 1;
   margin-left: 10%;
+  margin-right: 15px;
 
   /* TODO color*/
   /* background-color: gray; */
@@ -216,6 +219,7 @@ body {
 .metric-metrics .metrics .metric {
   color: var(--fontColor);
   overflow: hidden;
+  margin-right: 15px;
 }
 
 /** Used to adjust the location of the metrics */
@@ -313,7 +317,7 @@ body {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
 
-  /* background-color: rgba(30, 34, 45, 0.3); */
+  background-color: rgba(30, 34, 45, 0.3);
 
   /* background-color: rgba(160, 160, 37, 0.03); */
   /* background-color: rgba(223, 223, 35, 0.4); */
@@ -343,7 +347,7 @@ body {
   display: flex;
   justify-content: flex-start;
   /* justify-content: space-between; */
-  /* background-color: rgba(30, 34, 45, 0.3); */
+  background-color: rgba(30, 34, 45, 0.3);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }

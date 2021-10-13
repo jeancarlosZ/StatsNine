@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import { fetchIncomeStatement } from '../../../../api/api'
+import { fetchEnterpriseValue } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
-export default function StockEPSChart() {
-  //* Selected Range, series, and the chart data
-  const [dataType, setDataType] = useState('quarter')
+export default function SharesOustandingChart() {
   const [data, setData] = useState({})
-  //* Do we need to update the data
+  const [dataType, setDataType] = useState('annual')
   const [update, setUpdate] = useState(true)
 
-  //* When the component is mounted we just need
-  //* to load the data, and update the state.
   useEffect(() => {
-    //* Here we will create a 'async' getData function. Here
-    //* you will call all of the functions required apon load.
     async function getData() {
       if (update) {
-        // setData({ ...data, [dataType]: await fetchIncomeStatement('MSFT', false, dataType) })
-        //* Set the data
-        setData({
-          ...data, //* Upate data  { ...data, [dataType]: newData }
-          [dataType]: await getLocalData(
-            'eps', //* Key
-            fetchIncomeStatement, //* func
-            [false, dataType], //* args
-            `eps${dataType}` //* save as
-          )
-        })
+        //* Load the shares data
+        const numberOfShares = await getLocalData(
+          'numberOfShares',
+          fetchEnterpriseValue,
+          [dataType],
+          `shares${dataType}`
+        )
+        //* Set the data, set update to false
+        setData({ ...data, [dataType]: numberOfShares })
         setUpdate(false)
       }
     }
-    //* Now you call the getData function
     getData()
-  }, [dataType])
+  }, [update])
 
   //* Get the keys and values from the data
-  const { keys, values } = !data[dataType] ? data : data[dataType]
+  const { keys, values } = !data[dataType] ? {} : data[dataType]
 
   //* Create our dataset
   const dataset = []
@@ -49,30 +40,32 @@ export default function StockEPSChart() {
     //* Now we must fill our dataset with some 'traces' or 'sets' of data
     //* In this case I am going to make a chart to display the net income
     dataset.push({
-      name: 'Stock Price',
+      name: name,
       type: 'bar',
-      color: 'rgba(0, 136, 123, 0.5)',
-      outline: 'rgba(0, 136, 123, 1)',
-      //* Since our VALUES array contains many different values, we must select
-      //* one VALUE per 'trace' or 'set' to display.
-      // values: values.map(x => x.eps)
+      // color: 'rgba(44, 221, 155, 0.3)',
+      // outline: 'rgba(44, 221, 155, 0.6)',
+      color: 'rgba(43, 186, 255, 0.3)',
+      outline: 'rgba(43, 186, 255, 0.6)',
       values: values
     })
   }
 
   //* Change the series and update the data
   function updateDataType(newType) {
+    //* If datatype clicked is not data type selected
     if (dataType !== newType) {
+      //* Switch the data type
       setDataType(newType)
+      //* If that datatype is not loaded, update required
       if (!data[newType]) setUpdate(true)
     }
   }
 
   //* Return the chart
   return (
-    <>
+    <div className="shares-outstanding-chart shadow-deep-nohover">
       <div className="selector">
-        <label>EPS</label>
+        <label>Shares Outstanding</label>
         <div className="selectors">
           <button
             className={dataType === 'quarter' ? 'selected' : ''}
@@ -95,13 +88,12 @@ export default function StockEPSChart() {
           dataset={dataset}
           showlegend={false}
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
-          //rgba(30, 34, 45, 0.3)
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
           hoverdistance={50}
           hovermode="x"
         />
       </div>
-    </>
+    </div>
   )
 }

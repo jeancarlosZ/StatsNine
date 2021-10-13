@@ -84,8 +84,9 @@ export function formatNumber(n, long = false) {
 }
 
 //* Format percentages into pretty numbers
-export function formatPercentage(n, secondPlace = true) {
-  return roundNumberDec(n * 100, secondPlace)
+export function formatPercentage(n, secondPlace = true, asString = false) {
+  const fmt = roundNumberDec(n * 100, secondPlace)
+  return asString ? fmt + '%' : fmt
 }
 
 //* Format dates for charting
@@ -126,7 +127,7 @@ export function trimDate(date) {
 export function getPercentDifference(num1, num2, includeSign = true, format = true) {
   const result = (Math.abs(num1) - Math.abs(num2)) / ((num1 + num2) / 2)
   return (
-    (includeSign ? (num1 >= num2 ? '+' : '-') : '') +
+    (includeSign ? (num1 >= num2 ? '+' : '') : '') +
     (format ? formatPercentage(result, true) : result)
   )
 }
