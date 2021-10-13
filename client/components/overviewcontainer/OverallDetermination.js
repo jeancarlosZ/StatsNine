@@ -20,26 +20,14 @@ export default function OverallDetermination(props) {
       <div className="headerTwo">Overall Determination</div>
       <div className="star-container flex-row justify-around justify-center">
         <StarsContainer results={results} />
-        <Determination />
+        <div className="description-text determination">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text.
+        </div>
       </div>
-      <EndingText />
-    </div>
-  )
-}
-
-function Determination() {
-  return (
-    <div className="description-text determination">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text.
-    </div>
-  )
-}
-
-function EndingText() {
-  return (
-    <div className="description-text ending-text">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      <div className="description-text ending-text">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      </div>
     </div>
   )
 }

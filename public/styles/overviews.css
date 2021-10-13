@@ -14,7 +14,7 @@
   --overviewChartContainerHeight: calc(var(--overviewContainerHeight) / 1.5);
   --overviewChartContainerWidth: var(--overviewContainerWidth);
 
-  --gapBetween: 15px;
+  --gapBetween: 10px;
 
   --overviewInfoHeight: calc(
     (var(--overviewContainerHeight) - var(--overviewChartContainerHeight)) - var(--gapBetween)
@@ -25,6 +25,8 @@
   --overviewChartHeight: calc(
     var(--overviewChartContainerHeight) - var(--overviewchartSelectorsHeight)
   );
+
+  --descHeaderHeight: calc(var(--overviewInfoHeight) / 8);
 }
 
 .overview-page {
@@ -142,10 +144,24 @@
   font-weight: 500;
   font-size: 1.4rem;
 
+  height: var(--descHeaderHeight);
+
   /* background-color: orange; */
 }
 
 .overview-page .description-text {
+  color: rgba(208, 211, 219, 0.5);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.overview-page .description-text-scroll {
+  --ovScrollTopMargin: 5px;
+  margin-top: var(--ovScrollTopMargin);
+  height: calc(
+    (var(--overviewInfoHeight) - var(--descHeaderHeight) - 20px) - var(--ovScrollTopMargin)
+  );
+
   color: rgba(208, 211, 219, 0.5);
   font-weight: 400;
   font-size: 0.9rem;
