@@ -9,17 +9,14 @@ import Newsfeed from './Newsfeed';
 import SnP500 from './SnP500';
 import Calendar from './Calendar';
 import Alert from '../home/common/Alert';
+import Pic from '../home/common/pic.png';
 
 export default function Homepage() {
   return (
     <div>
       <div>
         <Card className="bg-dark text-white">
-          <Card.Img
-            src="https://images.unsplash.com/photo-1563610565075-002447a1e162?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2371&q=80"
-            alt="Card image"
-            style={{ filter: 'brightness(40%)' }}
-          />
+          <Card.Img src={Pic} alt="NYC" style={{ filter: 'brightness(30%)' }} />
           <Card.ImgOverlay>
             <Container fluid>
               <Row>
