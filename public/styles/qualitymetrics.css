@@ -180,7 +180,6 @@
   background-color: rgba(30, 34, 45, 0.2);
   padding: 5px;
   border-radius: 45px;
-  width: 80%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -210,3 +209,126 @@
   font-weight: 400;
   font-size: 0.8rem;
 }
+
+/*
+*==================================
+*      QUALITY LOWER HALF
+*==================================
+*/
+
+.quality-subcontainer .lower {
+  display: flex;
+  /* padding-top: 15px; */
+  background-color: gray;
+}
+
+/*
+*==================================
+*      METRIC ITSELF
+*==================================
+*/
+
+/** Individual metric container */
+.metric-shares {
+  color: var(--fontColor);
+  /* overflow: hidden; */
+
+  margin: auto 15px;
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+
+  text-align: left;
+  width: calc(var(--qualityHalfWidth) / 3);
+
+  background-color: rgba(208, 211, 219, 0.2);
+}
+
+/** Title of each metric */
+.metric-shares label {
+  margin: 30px 0px 5px 44px;
+  font-weight: 600;
+}
+
+/** The desc of each metric*/
+.metric-shares span {
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-shares .king {
+  color: var(--orangeShade2);
+  margin: auto 20px;
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-shares .result {
+  /* margin: 15px 20px auto 0px; */
+  font-weight: 400;
+}
+
+/** The desc of each metric*/
+.metric-shares .desc {
+  text-align: left;
+  margin: auto;
+}
+
+.metric-shares .desc p {
+  margin-top: 10px;
+  color: rgba(208, 211, 219, 0.5);
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/** The desc of each metric*/
+.metric-shares .metric-item {
+  margin-bottom: 10px;
+}
+
+/** The preview of each metric*/
+.metric-shares .previewcontainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+/** The preview of each metric*/
+.metric-shares .preview {
+  background-color: rgba(30, 34, 45, 0.2);
+  padding: 5px;
+  border-radius: 45px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.metric-shares .preview .prev-wrapper {
+  overflow: hidden;
+}
+
+/** The preview of each metric*/
+.metric-shares .preview table {
+  border-spacing: 5px;
+  border-collapse: separate;
+}
+
+/** The preview of each metric*/
+.metric-shares .preview td {
+  border-radius: 10px;
+  /* background-color: rgba(67, 70, 81, 0.1); */
+  color: rgba(208, 211, 219, 0.7);
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+/** The preview of each metric*/
+.metric-shares .preview .head {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+/* width: calc(var(--qualityHalfWidth) / 2); */

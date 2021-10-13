@@ -10,7 +10,7 @@ export default function QualityPieCharts({
   margins = { l: 30, r: 30, b: 30, t: 10 }
 }) {
   //* Percentage point
-  const percent = data ? data : {}
+  const percent = data ? data * 100 : {}
   const dataset = []
 
   //* If we have the data
@@ -23,7 +23,7 @@ export default function QualityPieCharts({
         marker: {
           colors: colors
         },
-        values: [percent * 100, 100],
+        values: [percent, 100 - percent],
         hoverinfo: 'label+percent'
       }
     })

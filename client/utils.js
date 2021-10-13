@@ -127,7 +127,7 @@ export function trimDate(date) {
 export function getPercentDifference(num1, num2, includeSign = true, format = true) {
   const result = (Math.abs(num1) - Math.abs(num2)) / ((num1 + num2) / 2)
   return (
-    (includeSign ? (num1 >= num2 ? '+' : '-') : '') +
+    (includeSign ? (num1 >= num2 ? '+' : '') : '') +
     (format ? formatPercentage(result, true) : result)
   )
 }
