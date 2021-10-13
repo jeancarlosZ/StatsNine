@@ -98,6 +98,8 @@ export default function StockEPSChart() {
           //rgba(30, 34, 45, 0.3)
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
+          hoverdistance={50}
+          hovermode="x"
         />
       </div>
     </>

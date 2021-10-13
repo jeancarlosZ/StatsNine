@@ -196,6 +196,8 @@ body {
   /* margin: auto; */
   display: flex;
 
+  padding-left: 10px;
+
   /* TODO color*/
   /* background-color: rgba(146, 23, 23, 0.2); */
 }
@@ -207,6 +209,7 @@ body {
 
   flex: 1;
   margin-left: 10%;
+  margin-right: 15px;
 
   /* TODO color*/
   /* background-color: gray; */
@@ -216,6 +219,7 @@ body {
 .metric-metrics .metrics .metric {
   color: var(--fontColor);
   overflow: hidden;
+  margin-right: 15px;
 }
 
 /** Used to adjust the location of the metrics */

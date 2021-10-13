@@ -55,14 +55,16 @@ export default function PriceMetric() {
 //* Of the metrics we use to the user.
 function getPriceOverview(results, data) {
   if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  const pe = roundNumberDec(results.pedata)
+  const pfcf = roundNumberDec(results.pfcfdata)
   return (
     <div className="pricemetrics">
       <div className="metric-spacer"></div>
       <div className="metric">
         {getMetricItem('5yr P/E Ratio < 20', results.pe)}
-        <span className="result">{`${
-          results.symbol
-        } has a 5yr average P/E Ratio of ${roundNumberDec(results.pedata)}!`}</span>
+        <span className="result">{`${results.symbol} has a 5yr average P/E Ratio of ${
+          pe + getPriceTip(pe, true)
+        }!`}</span>
         <div className="desc">
           <p>
             The price-to-earnings ratio (P/E ratio) is the ratio for valuing a company that measures
@@ -77,9 +79,9 @@ function getPriceOverview(results, data) {
       </div>
       <div className="metric">
         {getMetricItem('5yr P/FCF Ratio < 20', results.pfcf)}
-        <span className="result">{`${
-          results.symbol
-        } has a 5yr average P/FCF Ratio of ${roundNumberDec(results.pfcfdata)}!`}</span>
+        <span className="result">{`${results.symbol} has a 5yr average P/FCF Ratio of ${
+          pfcf + getPriceTip(pfcf, false)
+        }!`}</span>
         <div className="desc">
           <p>
             Price to free cash flow is an equity valuation metric used to compare a company's
@@ -96,6 +98,17 @@ function getPriceOverview(results, data) {
       <div className="metric-spacer"></div>
     </div>
   )
+}
+
+//* Return the helpful tip at the end of a BAD rating
+function getPriceTip(n, pe) {
+  if (n >= 35)
+    return ` A high ${pe ? 'P/E' : 'P/FCF'} ratio could mean that a company's stock is overvalued`
+  if (n <= 0)
+    return pe
+      ? `, a negative P/E implies low profitablity or money loss`
+      : `, a negative P/FCF indicates an inability to generate enough cash to support the business`
+  return ''
 }
 
 //* Function to return the data preview

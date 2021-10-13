@@ -356,6 +356,8 @@
   height: calc(var(--qualityHalfHeight) - 35px);
   width: var(--metricSharesChartWidth);
   background-color: rgba(30, 34, 45, 0.3);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 }
 
 .shares-outstanding-chart .wrapper .stock-price-chart {

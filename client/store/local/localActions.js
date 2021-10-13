@@ -223,24 +223,41 @@ export async function getTickerResults() {
   //* Current liabs
   const currentLiabilities = [...totalLiabilities.values].pop()
   //* LTL / 5 yr avg cashflow ^
-  const ltlyears = currentLiabilities / avgcash
+  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
 
+  //* Invested capital
   const investedCap = totalInvestments.values.slice(-5)
   //* calculate yearly roic
   const roics = [...netg].map((netI, i) => {
+    //* If they have no investments
+    if (investedCap[i] === 0) return 0.00001
     return netI / investedCap[i]
   })
   //* 5 Year average roic
-  const roicAvg =
-    roics.reduce((prev, curr) => {
-      return prev + curr
-    }, 0) / 5
+  const roicAvg = roics.reduce((prev, curr) => prev + curr, 0) / 5
+
+  //! Remove
+  console.log('--------------------')
+  console.log('avgPe:', avgPe)
+  console.log('avgfcf:', avgfcf)
+  console.log('revg:', revg)
+  console.log('cashg:', cashg)
+  console.log('netg:', netg)
+  console.log('shareg:', shareg)
+  console.log('avgcash:', avgcash)
+  console.log('currentLiabilities:', currentLiabilities)
+  console.log('ltlyears:', ltlyears)
+  console.log('investedCap:', investedCap)
+  console.log('roics:', roics)
+  console.log('roicAvg:', roicAvg)
+  console.log('--------------------')
+  //! Remove
 
   const results = {
     symbol: state.local.symbol,
-    pe: avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
+    pe: avgPe <= 0 ? BAD : avgPe >= 22.5 ? BAD : avgPe <= 20 ? GOOD : OKAY,
     pedata: avgPe,
-    pfcf: avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
+    pfcf: avgfcf <= 0 ? BAD : avgfcf >= 22.5 ? BAD : avgfcf <= 20 ? GOOD : OKAY,
     pfcfdata: avgfcf,
     revgrowth: revg[0] < revg[revg.length - 1] ? GOOD : BAD,
     revgrowthdata: { k: revenue.keys.slice(-5), v: revg },
@@ -260,9 +277,14 @@ export async function getTickerResults() {
       a: totalAssets.values.slice(-5),
       b: totalLiabilities.values.slice(-5)
     },
-    ltl: ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
+    ltl: ltlyears === -1 ? BAD : ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
     ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities }
   }
+
+  //! Remove
+  console.log('results:', results)
+  console.log('--------------------')
+  //! Remove
 
   //* Calcuate the stock's score!
   const score = Math.ceil(

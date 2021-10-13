@@ -57,15 +57,17 @@ function getQualityHalfOne(results, data) {
   //* If the data has not loaded...
   if (!results.roic || !data.returnOnAssetsTTM)
     return <div className="qload">Hold tight while we load your data!</div>
+
+  const roicPerc = formatPercentage(results.roicdata.avg)
   //* Otherwise return the JSX
   return (
     <div className="qualityhalf upper">
       {getROICCharts(results)}
       <div className="metric-roic">
         {getMetricItem('5yr ROIC >= 10 %', results.roic)}
-        <span className="result">{`${results.symbol} has a 5yr average ROIC of ${formatPercentage(
-          results.roicdata.avg
-        )}%!`}</span>
+        <span className="result">{`${results.symbol} has a 5yr average ROIC of ${
+          roicPerc === 0 ? 'nothing... they have not invested any cash!' : roicPerc + '%!'
+        }`}</span>
         <div className="desc">
           <p>
             Return on invested capital (ROIC) is a calculation used to assess a company's efficiency

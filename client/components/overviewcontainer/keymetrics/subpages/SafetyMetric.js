@@ -24,6 +24,8 @@ export default function SafetyMetric() {
     getData()
   }, [])
 
+  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0
+
   return (
     <div className="key-metrics-container">
       <div className="sub-container shadow-deep-nohover">
@@ -50,7 +52,9 @@ export default function SafetyMetric() {
                   </div>
                   <div>
                     <label>Years to pay off debt:</label>
-                    <span>{results.ltldata ? roundNumberDec(results.ltldata.years) : '0'}</span>
+                    <span>
+                      {debtYears === -1 ? 'Who knows? Their FCF is negitive!' : debtYears}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -81,6 +85,8 @@ function getPriceOverview(results) {
     difference > 0 ? 'increase' : 'decrease'
   } of $${formatNumber(difference)} in assets!`
 
+  const debtYears = roundNumberDec(results.ltldata.years)
+
   return (
     <div className="pricemetrics">
       <div className="metric-spacer"></div>
@@ -100,9 +106,9 @@ function getPriceOverview(results) {
       </div>
       <div className="metric">
         {getMetricItem('LT Liabilties / 5yr FCF; < 5', results.ltl)}
-        <span className="result">{`It would take ${results.symbol} aprox ${roundNumberDec(
-          results.ltldata.years
-        )} years to pay of their debt!`}</span>
+        <span className="result">{`It would take ${results.symbol} ${
+          debtYears === -1 ? 'undeterminable' : 'aprox ' + debtYears
+        } years to pay of their debt!`}</span>
         <div className="desc">
           <p>
             The Free Cash Flow to Long Term Debt ratio measures the sustainability of the debt
