@@ -23,6 +23,8 @@ export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
     'EnterpriseValue',
+    'rgba(0, 100, 200, 0.3)',
+    'rgba(0, 100, 200, 0.6)',
   ]);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [profile, setProfile] = useState({});
@@ -123,8 +125,8 @@ export default function EnterpriseValue() {
     name: 'Gross Profit',
     type: 'scatter',
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    color: 'rgba(44, 221, 155, 0.3)',
-    outline: 'rgba(44, 221, 155, 0.6)',
+    color: selectedAttribute[2],
+    outline: selectedAttribute[3],
     values: chartData,
     hoverinfo: 'label+percent+name',
   });

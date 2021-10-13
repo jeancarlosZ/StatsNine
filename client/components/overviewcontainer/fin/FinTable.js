@@ -48,6 +48,19 @@ export default function FinTable(props) {
 }
 
 function FinRow(props) {
+  function genRandomIndex(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  const randomIndex = genRandomIndex(0, 3);
+  const chartColors = [
+    ['rgba(44, 221, 155, 0.3)', 'rgba(44, 221, 155, 0.6)'],
+    ['rgba(221, 44, 155, 0.3)', 'rgba(221, 44, 155, 0.6)'],
+    ['rgba(200, 0, 0, 0.3)', 'rgba(200, 0, 0, 0.6)'],
+    ['rgba(0, 100, 200, 0.3)', 'rgba(0, 100, 200, 0.6)'],
+  ];
+
   const handleTableClick = props.handleTableClick;
   //This is the process of creating a row...
   //Put the lable <td> first
@@ -74,7 +87,14 @@ function FinRow(props) {
     <tbody>
       <tr
         className={rowClassName}
-        onClick={() => handleTableClick([attribute, label])}
+        onClick={() =>
+          handleTableClick([
+            attribute,
+            label,
+            chartColors[randomIndex][0],
+            chartColors[randomIndex][1],
+          ])
+        }
       >
         <td className="fin-col fin-label">{label}</td>
         {rowInfo.map((info, index) => (

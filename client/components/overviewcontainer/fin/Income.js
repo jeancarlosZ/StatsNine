@@ -26,6 +26,8 @@ export default function Income() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'grossProfit',
     'Gross Profit',
+    'rgba(0, 100, 200, 0.3)',
+    'rgba(0, 100, 200, 0.6)',
   ]);
   const [incomeInfo, setIncomeInfo] = useState({});
   // const [incomeInfoQtr, setIncomeInfoQtr] = useState({});
@@ -114,10 +116,28 @@ export default function Income() {
   dataset.push({
     name: 'Gross Profit',
     type: 'bar',
-    color: 'rgba(44, 221, 155, 0.3)',
-    outline: 'rgba(44, 221, 155, 0.6)',
+    color: selectedAttribute[2],
+    outline: selectedAttribute[3],
     values: chartData,
     hoverinfo: 'label+percent+name',
+
+    //Chart Colors
+
+    //Green
+    // color: 'rgba(44, 221, 155, 0.3)'
+    // Outline: 'rgba(44, 221, 155, 0.6)',
+
+    //Purple
+    //color: 'rgba(221, 44, 155, 0.3)',
+    //outline: 'rgba(221, 44, 155, 0.6)',
+
+    //Red
+    //color: 'rgba(200, 0, 0, 0.3)',
+    //outline: 'rgba(200, 0, 0, 0.6)',
+
+    //Blue
+    //color: 'rgba(0, 100, 200, 0.3)',
+    //outline: 'rgba(0, 100, 200, 0.6)',
   });
   //**-------------------------------------------------------------------------------------------------- */
   return (
@@ -131,7 +151,7 @@ export default function Income() {
               title={selectedAttribute[1]}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              plotBackgroundColor="rgba(33, 34, 45, 0)"
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}

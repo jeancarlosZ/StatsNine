@@ -21,6 +21,8 @@ export default function Cash() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'capitalExpenditure',
     'Capital Expenditure',
+    'rgba(0, 100, 200, 0.3)',
+    'rgba(0, 100, 200, 0.6)',
   ]);
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
@@ -110,7 +112,8 @@ export default function Cash() {
   dataset.push({
     name: 'Cash Flow',
     type: 'bar',
-    color: 'rgba(0, 0, 100, 0.1)',
+    color: selectedAttribute[2],
+    outline: selectedAttribute[3],
     values: chartData,
     hoverinfo: 'name',
   });
