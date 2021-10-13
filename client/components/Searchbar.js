@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState('a')
+  const [query, setQuery] = useState('')
   const dispatch = useDispatch()
   const history = useHistory()
   const [stocksList, setStocksList] = useState([])
@@ -59,8 +59,8 @@ export default function Searchbar() {
       } else {
         if (value.length >= 1) {
           if (stocksList.map(stock => stock.symbol).includes(value)) {
-            event.target.value = ''
             toast.success('Success!')
+            await setQuery('')
             await setOpen(false)
             await dispatch(setCurrentStock(value))
             await loadStockProfile()
@@ -78,9 +78,8 @@ export default function Searchbar() {
   // This function sets the value of the search bar to local state if it has at least one character.  The query value is used to render results for the search query box.
   function handleChange(event) {
     const value = event.target.value.toUpperCase()
-    if (value.length >= 1) {
-      setQuery(value)
-    }
+
+    setQuery(value)
   }
 
   return (
@@ -93,7 +92,12 @@ export default function Searchbar() {
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}
+          value={query}
+          maxLength={5}
         />
+        <button className='search-clear' type='button' onClick={() => setQuery('')}>
+          Clear
+        </button>
       </div>
       <ToastContainer theme='dark' newestOnTop autoClose={3000} />
       {queryBox(query, setOpen, stocksList, open)}
