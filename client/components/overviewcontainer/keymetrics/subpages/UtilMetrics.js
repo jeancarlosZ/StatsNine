@@ -13,10 +13,10 @@ export function getMetricItem(metric, rating, colored = true) {
 }
 
 //* Function to get the table data
-export function getTableDatas(arr, formatFunc, className) {
+export function getTableDatas(arr, formatFunc, className, args) {
   return arr.map((x, i) => (
     <td className={className} key={i}>
-      {formatFunc(x)}
+      {args ? formatFunc(x, ...args) : formatFunc(x)}
     </td>
   ))
 }

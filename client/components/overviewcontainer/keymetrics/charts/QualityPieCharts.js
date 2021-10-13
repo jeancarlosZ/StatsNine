@@ -1,9 +1,16 @@
 import React from 'react'
 import UniversalChart from '../../../UniversalChart'
 
-export default function ROICPieChart({ data, label }) {
+export default function QualityPieCharts({
+  data,
+  labels,
+  upper,
+  lower,
+  colors = ['rgba(38, 197, 217, .6)', 'rgba(250, 173, 20, .7)'],
+  margins = { l: 30, r: 30, b: 30, t: 10 }
+}) {
+  //* Percentage point
   const percent = data ? data : {}
-
   const dataset = []
 
   //* If we have the data
@@ -12,9 +19,9 @@ export default function ROICPieChart({ data, label }) {
       fullSet: {
         name: 'FCF % LTL',
         type: 'pie',
-        labels: ['ROIC', 'POTENTIAL'],
+        labels: labels,
         marker: {
-          colors: ['rgba(38, 197, 217, .6)', 'rgba(250, 173, 20, .7)']
+          colors: colors
         },
         values: [percent * 100, 100],
         hoverinfo: 'label+percent'
@@ -26,8 +33,8 @@ export default function ROICPieChart({ data, label }) {
   return (
     <div className="roic-chart">
       <div className="roic-selector">
-        <span>{label}</span>
-        <label>ROIC</label>
+        {upper ? <span>{upper}</span> : <></>}
+        <label>{lower}</label>
       </div>
       <div className="wrapper">
         <UniversalChart
@@ -35,7 +42,7 @@ export default function ROICPieChart({ data, label }) {
           // keys={keys}
           dataset={dataset}
           showlegend={false}
-          margin={{ l: 0, r: 0, b: 0, t: 0 }}
+          margin={margins}
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
           hoverdistance={50}

@@ -3,17 +3,27 @@
   --qualityHalfWidth: var(--metricInnerSubcontainerWidth);
 
   --roicChartSelectorHeight: 50px;
-  --roicChartPadding: 15px;
+  --roicChartPadding: 20px;
   --roicChartPaddings: calc(var(--roicChartPadding) * 2);
   --roicChartWidthMulti: 3;
   --roicChartsWidth: calc(
     (var(--qualityHalfWidth) / var(--roicChartWidthMulti)) - var(--roicChartPaddings)
   );
   --roicChartHeight: calc(
-    (var(--qualityHalfHeight) - var(--roicChartSelectorHeight)) - var(--roicChartPaddings)
+    ((var(--qualityHalfHeight) - var(--roicChartSelectorHeight)) - var(--roicChartPaddings))
   );
 
-  --roicRemainderWidth: calc(var(--qualityHalfWidth) - var(--roicChartsWidth));
+  --roicMetricWidth: calc(
+    ((var(--qualityHalfWidth) - var(--roicChartsWidth)) / 2) + (var(--roicChartPaddings) * 2)
+  );
+}
+
+.qload {
+  margin: auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--fontColor);
 }
 
 .key-metrics-container .quality-subcontainer {
@@ -31,7 +41,7 @@
   /* grid-template-columns: 25%; */
 
   /* TODO color*/
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 .quality-subcontainer .qualityhalf {
@@ -39,7 +49,7 @@
   width: var(--qualityHalfWidth);
 
   /* TODO color*/
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 /*
@@ -50,6 +60,7 @@
 
 .quality-subcontainer .upper {
   display: flex;
+  /* padding-top: 15px; */
 }
 
 /** Container of the two pie charts*/
@@ -62,8 +73,9 @@
 .roic-charts .roic-chart {
   display: flex;
   flex-direction: column;
-  padding: var(--roicChartPadding);
-  background-color: brown;
+  /* padding-top: 10px; */
+  /* padding: var(--roicChartPadding); */
+  /* background-color: brown; */
 }
 
 .roic-charts .roic-selector {
@@ -71,7 +83,7 @@
   color: var(--fontColor);
   font-weight: 500;
 
-  background-color: green;
+  /* background-color: green; */
   height: var(--roicChartSelectorHeight);
 }
 
@@ -98,13 +110,19 @@
 /** Individual metric container */
 .metric-roic {
   color: var(--fontColor);
-  overflow: hidden;
-  padding-bottom: 10px;
-  /* margin: 100px auto; */
+  /* overflow: hidden; */
 
-  width: var(--roicRemainderWidth);
+  margin: auto 15px;
 
-  background-color: burlywood;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  width: var(--roicMetricWidth);
+
+  /* background-color: burlywood; */
 }
 
 /** Title of each metric */
@@ -128,19 +146,18 @@
 
 /** The desc of each metric*/
 .metric-roic .result {
-  margin: 15px 20px auto 0px;
+  /* margin: 15px 20px auto 0px; */
   font-weight: 400;
 }
 
 /** The desc of each metric*/
 .metric-roic .desc {
-  margin: 10px 0px auto 0px;
-  padding-right: 10px;
+  text-align: center;
+  margin: auto;
 }
 
 .metric-roic .desc p {
-  margin: none;
-  text-align: left;
+  margin-top: 10px;
   color: rgba(208, 211, 219, 0.5);
   font-size: 0.8rem;
   font-weight: 200;

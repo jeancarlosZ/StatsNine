@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { getTickerResults } from '../../../../store/local/localActions'
-import { formatNumber, roundNumberDec, trimDate } from '../../../../utils'
-import ROICPieChart from '../charts/RoicPieChart'
+import { fetchRatios } from '../../../../api/api'
+import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
+import { formatNumber, formatPercentage, roundNumberDec, trimDate } from '../../../../utils'
+import QualityPieCharts from '../charts/QualityPieCharts'
 import MetricSelector from '../MetricSelector'
 import { getMetricItem, getTableDatas } from './UtilMetrics'
 
 export default function QualityMetric() {
   const [results, setResults] = useState({})
+  const [data, setData] = useState({})
 
+  //* When component mounts
   useEffect(() => {
     async function getData() {
+      //* Get the ticker results
       setResults(await getTickerResults())
+      //* Fetch the ratio data
+      setData(
+        await getLocalData(
+          ['returnOnAssetsTTM', 'returnOnEquityTTM'],
+          fetchRatios,
+          [true],
+          ['returnOnAssetsTTM', 'returnOnEquityTTM']
+        )
+      )
     }
     getData()
   }, [])
@@ -21,7 +34,7 @@ export default function QualityMetric() {
         <MetricSelector />
         <div className="metric-container">
           <div className="metric-sub-container quality-subcontainer">
-            {getQualityHalfOne(results)}
+            {getQualityHalfOne(results, data)}
             {/* <div className="qualityhalf lower"></div> */}
           </div>
         </div>
@@ -32,15 +45,14 @@ export default function QualityMetric() {
 
 //* Function to get the top half of the quality
 //* Metrics page
-function getQualityHalfOne(results) {
-  if (!results.roic) return <></>
-  const { avg, vals } = results.roicdata
+function getQualityHalfOne(results, data) {
+  //* If the data has not loaded...
+  if (!results.roic || !data.returnOnAssetsTTM)
+    return <div className="qload">Hold tight while we load your data!</div>
+  //* Otherwise return the JSX
   return (
     <div className="qualityhalf upper">
-      <div className="roic-charts">
-        <ROICPieChart data={vals[vals.length - 1]} label="TTM" />
-        <ROICPieChart data={avg} label="5yr" />
-      </div>
+      {getROICCharts(results)}
       <div className="metric-roic">
         {getMetricItem('5yr ROIC >= 10 %', results.roic)}
         <span className="result">{`${
@@ -55,9 +67,51 @@ function getQualityHalfOne(results) {
             (WACC).
           </p>
         </div>
-        <div className="previewcontainer">{getDataPreview(vals ? vals : null)}</div>
+        <div className="previewcontainer">{getDataPreview(results.roicdata.vals)}</div>
       </div>
-      <div></div>
+      {getTTMReturnsCharts(data)}
+    </div>
+  )
+}
+
+//* Get the two Pie charts for ROIC TTM & 5yr
+function getROICCharts(results) {
+  //* Otherwise the data has loaded
+  const { avg, vals } = results.roicdata
+  return (
+    <div className="roic-charts">
+      <QualityPieCharts
+        data={vals.v[vals.v.length - 1]}
+        labels={['ROIC', 'POTENTIAL']}
+        upper="TTM"
+        lower="ROIC"
+      />
+      <QualityPieCharts data={avg} labels={['ROIC', 'POTENTIAL']} upper="5yr" lower="ROIC" />
+    </div>
+  )
+}
+
+//* Get the two Pie charts for return on Assets and Equity TTM
+function getTTMReturnsCharts(data) {
+  const { returnOnAssetsTTM, returnOnEquityTTM } = data
+  return (
+    <div className="roic-charts">
+      <QualityPieCharts
+        data={returnOnAssetsTTM}
+        labels={['Return On Assets', 'POTENTIAL']}
+        upper="TTM"
+        lower="Return on Assets"
+        margins={{ l: 65, r: 65, b: 65, t: 10 }}
+        colors={['rgba(44, 221, 155, .6)', 'rgba(0, 190, 164, .6)']}
+      />
+      <QualityPieCharts
+        data={returnOnEquityTTM}
+        labels={['Return On Equity', 'POTENTIAL']}
+        upper="TTM"
+        lower="Return On Equity"
+        margins={{ l: 65, r: 65, b: 65, t: 10 }}
+        colors={['rgba(52, 184, 125, .8)', 'rgba(0, 136, 123, .8)']}
+      />
     </div>
   )
 }
@@ -74,7 +128,7 @@ function getDataPreview(data) {
         <table>
           <tbody>
             <tr>{getTableDatas(k, trimDate, 'head')}</tr>
-            <tr>{getTableDatas(v, formatNumber)}</tr>
+            <tr>{getTableDatas(v, formatPercentage, '', [true, true])}</tr>
           </tbody>
         </table>
       </div>
