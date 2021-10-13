@@ -1,5 +1,5 @@
 /*For Overview.js*/
-.overview {
+/* .overview {
   width: 100vw;
   height: 87vh;
   background-color: #131722;
@@ -7,10 +7,10 @@
 
 .overview-details {
   width: 100vw;
-}
+} */
 
 /*For PriceChart.js*/
-.price-chart {
+/* .price-chart {
   width: 90vw;
   background: rgba(30, 34, 45, 0.3);
   border-radius: 1rem;
@@ -24,10 +24,10 @@
 
 .selector-dropdown-right {
   padding-left: 2rem;
-}
+} */
 
 /*For Description.js*/
-.description {
+/* .description {
   width: 697px;
   height: 275px;
   background: rgba(30, 34, 45, 0.3);
@@ -40,10 +40,10 @@
 .description-text {
   width: 600px;
   height: 200px;
-}
+} */
 
 /*For OverallDetermination.js*/
-.overall-determination {
+/* .overall-determination {
   width: 509px;
   height: 275px;
   background: rgba(30, 34, 45, 0.3);
@@ -77,7 +77,7 @@
   font-weight: bolder;
   color: #ffffff;
   font-size: 24px;
-}
+} */
 
 /* Sub Header*/
 

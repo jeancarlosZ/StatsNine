@@ -273,11 +273,6 @@ export async function getTickerResults() {
     ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities }
   }
 
-  //! Remove
-  console.log('results:', results)
-  console.log('--------------------')
-  //! Remove
-
   //* Calcuate the stock's score!
   const score = Math.ceil(
     getPoints('pe') +

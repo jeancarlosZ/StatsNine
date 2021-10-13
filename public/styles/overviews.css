@@ -1,0 +1,189 @@
+* {
+  /** Overview page height / width */
+  --overviewPageHeight: calc(100vh - (var(--mainHeaderHeight) + var(--subHeaderHeight)));
+  --overviewPageWidth: 100vw;
+
+  /** overview page margins left right, top bottom */
+  --overviewPageMargin: 1rem;
+  --overviewPageMargins: calc(var(--overviewPageMargin) * 2);
+
+  /** overview container */
+  --overviewContainerHeight: calc(var(--overviewPageHeight) - var(--overviewPageMargins));
+  --overviewContainerWidth: calc(var(--overviewPageWidth) - var(--overviewPageMargins));
+
+  --overviewChartContainerHeight: calc(var(--overviewContainerHeight) / 1.5);
+  --overviewChartContainerWidth: var(--overviewContainerWidth);
+
+  --gapBetween: 10px;
+
+  --overviewInfoHeight: calc(
+    (var(--overviewContainerHeight) - var(--overviewChartContainerHeight)) - var(--gapBetween)
+  );
+
+  /** chart variables */
+  --overviewchartSelectorsHeight: 40px;
+  --overviewChartHeight: calc(
+    var(--overviewChartContainerHeight) - var(--overviewchartSelectorsHeight)
+  );
+
+  --descHeaderHeight: calc(var(--overviewInfoHeight) / 8);
+}
+
+.overview-page {
+  height: var(--overviewPageHeight);
+  width: var(--overviewPageWidth);
+
+  display: flex;
+
+  /* background-color: burlywood; */
+}
+
+.overview-container {
+  margin: auto;
+
+  height: var(--overviewContainerHeight);
+  width: var(--overviewContainerWidth);
+
+  /* background-color: green; */
+}
+
+.chart-container {
+  height: var(--overviewChartContainerHeight);
+  width: var(--overviewChartContainerWidth);
+
+  border-radius: 30px;
+
+  background-color: rgba(30, 34, 45, 0.6);
+}
+
+.chart-container .overview-wrapper {
+  height: var(--overviewChartHeight);
+  width: var(--overviewChartContainerWidth);
+}
+
+.chart-container .candlestick-chart {
+  height: var(--overviewChartHeight);
+  width: var(--overviewChartContainerWidth);
+}
+
+.chart-container .price-container {
+  height: var(--overviewchartSelectorsHeight);
+
+  display: flex;
+}
+
+.chart-container .selector-dropdown-right {
+  /* overflow: hidden; */
+  margin: auto 0px;
+}
+
+.chart-container .price-container label {
+  margin: auto 40px;
+  margin-top: 10px;
+  color: var(--fontColor);
+  font-weight: 500;
+}
+
+.chart-container .dropdown-selector {
+  margin: auto;
+}
+
+.chart-container .dropdown-selector {
+  margin: auto 5px;
+  color: rgba(208, 211, 219, 0.6);
+}
+
+.chart-container .dropdown-selector button {
+  margin: auto 5px;
+  background-color: rgba(30, 34, 45, 0.4);
+  border: none;
+}
+
+.chart-container .show .dropdown-toggle {
+  background-color: #1e222d;
+  border: none;
+}
+
+.overview-info {
+  height: var(--overviewInfoHeight);
+
+  margin-top: 10px;
+
+  padding: 10px auto;
+
+  display: flex;
+  justify-content: space-between;
+
+  /* background-color: gray; */
+}
+
+.overview-page .overviewbox {
+  border-radius: 15px;
+  padding: 10px 25px;
+  overflow: hidden;
+}
+
+.overview-info .description {
+  height: var(--overviewInfoHeight);
+  width: calc(var(--overviewContainerWidth) / 1.75);
+  background-color: rgba(30, 34, 45, 0.3);
+}
+
+.overall-determination {
+  height: var(--overviewInfoHeight);
+  width: calc(var(--overviewContainerWidth) / 2.5);
+  background-color: rgba(30, 34, 45, 0.3);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.headerTwo {
+  color: var(--fontColor);
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  height: var(--descHeaderHeight);
+
+  /* background-color: orange; */
+}
+
+.overview-page .description-text {
+  color: rgba(208, 211, 219, 0.5);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.overview-page .description-text-scroll {
+  --ovScrollTopMargin: 5px;
+  margin-top: var(--ovScrollTopMargin);
+  height: calc(
+    (var(--overviewInfoHeight) - var(--descHeaderHeight) - 20px) - var(--ovScrollTopMargin)
+  );
+
+  color: rgba(208, 211, 219, 0.5);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.overview-page .stars-container {
+  margin-top: 10px;
+  /* background-color: red; */
+  max-height: 75px;
+}
+
+.overview-page .determination {
+  margin: 10px 0px 10px 15px;
+  /* background-color: blue; */
+}
+
+.overview-page .ending-text {
+  margin: auto;
+  /* background-color: green; */
+}
+
+.overview-page .star-container {
+  margin-top: 10px;
+  /* background-color: yellow; */
+}
