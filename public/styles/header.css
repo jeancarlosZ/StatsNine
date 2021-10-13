@@ -40,18 +40,6 @@
   flex-grow: 2;
 }
 
-/** the search icon */
-.search-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #434651;
-
-  /** moving it to pos */
-  position: relative;
-  top: 0.05rem;
-  left: 2rem;
-}
-
 .top-search-bar {
   margin-left: 1rem;
 }
@@ -105,12 +93,40 @@
 
 .search-clear {
   font-size: 0.9rem;
-  color: #d0d3db;
-  position: relative;
+  font-weight: 400;
+  color: rgba(208, 211, 219, 0.6);
+
+  /* position: relative;
   right: 3.8rem;
-  top: 0.1rem;
+  top: 0.1rem; */
+
+  margin: 5px 0px 0px calc(var(--searchBarWidth) - 55px);
+  position: absolute;
+
   background: none;
   border: none;
+  transition: color 0.3s ease;
+}
+
+.search-clear:hover {
+  color: rgba(208, 211, 219, 1);
+}
+
+/** the search icon */
+/** I made this not overflow anymore*/
+/** for tings like this u need to use absolute */
+.search-icon {
+  width: 24px;
+  height: 24px;
+  margin: 5px 10px;
+  color: #434651;
+  position: absolute;
+
+  /* width: 1.5rem; */
+  /* height: 1.5rem; */
+  /* top: 0.05rem; */
+  /* left: 2rem; */
+  /* position: relative; */
 }
 
 /*

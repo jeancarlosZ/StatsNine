@@ -55,5 +55,6 @@
 }
 
 .search-row:hover {
-  background-color: #710505;
+  /* background-color: #710505; */
+  background-color: rgba(207, 57, 53, 0.3);
 }
