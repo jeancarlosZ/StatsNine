@@ -66,7 +66,8 @@ export default function SafetyMetric() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results) {
-  if (!results || isSameObject({}, results)) return <></>
+  if (!results || isSameObject({}, results))
+    return <div className="qload">Hold tight while we load your data!</div>
 
   const { k, a, b } = results.assetsdata
   const difference = getDifferenceBetween(a)

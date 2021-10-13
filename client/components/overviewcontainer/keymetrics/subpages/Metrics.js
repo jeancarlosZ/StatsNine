@@ -21,17 +21,25 @@ export default function Metrics() {
     <div className="key-metrics-container">
       <div className="sub-container shadow-deep-nohover">
         <MetricSelector />
-        <div className="metric-container">
-          <div className="metric-sub-container">
-            <div className="metric-metrics">{getMetricOverview(results)}</div>
-            <div className="metric-charts">
-              <div className="metric-chart shadow-nohover">
-                <StockPriceChart />
-              </div>
-              <div className="metric-chart shadow-nohover">
-                <StockEPSChart />
-              </div>
-            </div>
+        {getMetricsPage(results)}
+      </div>
+    </div>
+  )
+}
+
+//* Function to return most of the page
+function getMetricsPage(results) {
+  if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  return (
+    <div className="metric-container">
+      <div className="metric-sub-container">
+        <div className="metric-metrics">{getMetricOverview(results)}</div>
+        <div className="metric-charts">
+          <div className="metric-chart shadow-nohover">
+            <StockPriceChart />
+          </div>
+          <div className="metric-chart shadow-nohover">
+            <StockEPSChart />
           </div>
         </div>
       </div>
@@ -43,7 +51,7 @@ export default function Metrics() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getMetricOverview(results) {
-  if (!results) return
+  if (!results) return <div className="qload">Hold tight while we load your data!</div>
   return (
     <div className="metrics">
       <div className="metric">

@@ -113,7 +113,7 @@ export default function GrowthMetric() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getGrowthOverview(results, data, growthType) {
-  if (!results) return
+  if (!results) return <div className="qload">Hold tight while we load your data!</div>
   switch (growthType) {
     case 'netincome': {
       const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null
