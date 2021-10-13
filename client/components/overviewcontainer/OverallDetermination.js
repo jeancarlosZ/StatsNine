@@ -23,9 +23,9 @@ export default function OverallDetermination(props) {
   }, [symbol])
 
   return (
-    <div className='overviewbox overall-determination shadow-nohover'>
-      <div className='headerTwo'>Overall Determination</div>
-      <div className='star-container flex-row justify-around justify-center'>
+    <div className="overviewbox overall-determination shadow-nohover">
+      <div className="headerTwo">Overall Determination</div>
+      <div className="star-container flex-row justify-around justify-center">
         <StarsContainer results={results} loading={loading} />
         <ODMessage results={results} loading={loading} />
       </div>
@@ -38,18 +38,18 @@ function StarsContainer({ results, loading }) {
     return <></>
   } else {
     return (
-      <div className='stars-container flex-row justify-evenly'>
-        <div className=' star-col flex-col justify-evenly'>
+      <div className="stars-container flex-row justify-evenly">
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.revgrowth} />
           <MetricStar rating={results.cashgrowth} />
           <MetricStar rating={results.netincome} />
         </div>
-        <div className=' star-col flex-col justify-evenly'>
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.roic} />
           <MetricStar rating={results.shares} />
           <MetricStar rating={results.assets} />
         </div>
-        <div className=' star-col flex-col justify-evenly'>
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.pe} />
           <MetricStar rating={results.pfcf} />
           <MetricStar rating={results.ltl} />
@@ -62,8 +62,8 @@ function StarsContainer({ results, loading }) {
 // Pass in the metric info to color the stars correctly
 function MetricStar({ rating }) {
   return (
-    <div className='star'>
-      <Star className='overview-metric-star' fill={getStarColor(rating)} />
+    <div className="star">
+      <Star className="overview-metric-star" fill={getStarColor(rating)} />
     </div>
   )
 }
@@ -87,9 +87,9 @@ function ODMessage({ results, loading }) {
     return <></>
   } else {
     return (
-      <div className='description-text determination'>
+      <div className="description-text determination">
         {`We have concluded that ${results.symbol} is an overall ${recommendation(
-          results.score,
+          results.score
         )} investment and has achieved a total of
         ${results.score}/100 points!`}
       </div>
