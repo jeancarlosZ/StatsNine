@@ -1,6 +1,8 @@
 * {
   --mainHeaderHeight: 55px;
   --subHeaderHeight: 65px;
+
+  --searchBarWidth: 38vw;
 }
 
 /*
@@ -57,7 +59,7 @@
 .top-search-input {
   border-radius: 1.5rem;
   font-size: 0.8rem;
-  width: 38vw;
+  width: var(--searchBarWidth);
   background-color: rgba(67, 70, 81, 0.3);
   border-color: rgba(67, 70, 81, 0.6);
   color: #d0d3db;

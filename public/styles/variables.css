@@ -12,8 +12,8 @@
 
 :root {
   /* BACKGROUND COLORS */
-  --bgPrimary: #131722;
-  --bgSecondary: #1e222d;
+  --bgPrimary: rgb(19, 23, 34);
+  --bgSecondary: rgb(30, 34, 45);
   --bgAccent: #434651; /** rgba(67, 70, 81, 1) */
 
   /* FONT COLORS */
