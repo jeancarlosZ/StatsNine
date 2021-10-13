@@ -19,8 +19,8 @@ import {
 
 export default function Cash() {
   const [selectedAttribute, setSelectedAttribute] = useState([
-    'capitalExpenditure',
-    'Capital Expenditure',
+    'freeCashFlow',
+    'Free Cash Flow',
     'rgba(0, 100, 200, 0.3)',
     'rgba(0, 100, 200, 0.6)',
   ]);
