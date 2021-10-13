@@ -86,6 +86,7 @@ export default function Searchbar() {
   return (
     <div ref={searchRef}>
       <div className='top-search-bar'>
+        <SearchIcon className='search-icon' />
         <input
           className='top-search-input'
           placeholder='Search by Symbol'
@@ -93,7 +94,6 @@ export default function Searchbar() {
           onChange={event => handleChange(event)}
           onClick={() => setOpen(true)}
         />
-        <SearchIcon className='search-icon' />
       </div>
       <ToastContainer theme='dark' newestOnTop autoClose={3000} />
       {queryBox(query, setOpen, stocksList, open)}
