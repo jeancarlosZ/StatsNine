@@ -12,9 +12,6 @@ export default function Overviewpage() {
 
   const [data, setData] = useState({ companyName: 'Loading...', description: 'Loading...' })
 
-  //* I added the description just to make sure it works, hopefully you don't mind
-  //* TODO: For you Jean, you need to implement the determination message.
-  //* TODO: You can go about this a few ways, i'll let you figure it out!
   useEffect(() => {
     async function getData() {
       //* Fetch data from API
@@ -22,7 +19,7 @@ export default function Overviewpage() {
         ['description', 'companyName'],
         fetchStockProfile,
         [],
-        ['description', 'companyName']
+        ['description', 'companyName'],
       )
       setData({ description, companyName })
     }
@@ -32,11 +29,11 @@ export default function Overviewpage() {
   return (
     <>
       <Subheader symbol={symbol} />
-      <div className="overview-page">
+      <div className='overview-page'>
         {/* <Overview symbol={symbol} /> */}
-        <div className="overview-container">
+        <div className='overview-container'>
           <PriceChart symbol={symbol} />
-          <div className="overview-info">
+          <div className='overview-info'>
             <OverallDetermination symbol={symbol} />
             <Description symbol={symbol} data={data} />
           </div>
