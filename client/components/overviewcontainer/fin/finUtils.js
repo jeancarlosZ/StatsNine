@@ -18,7 +18,7 @@ export function calcYearlyChanges(array) {
   const result = [];
   array.forEach(function (innerArray) {
     const array = [];
-    //Here i'm slice to +1 more than how many I need beacuse...
+    //Here i'm slicing to +1 more than how many I need beacuse...
     //I'm calculating by checking the index and index+1 positions, So I need room for that last check
     const info = innerArray.slice(innerArray.length - 15).reverse();
     info.forEach(function (ele, index) {
@@ -37,11 +37,11 @@ export function formatRows(nestedArray) {
   //This function takes in the raw data and formats the numbers to look like 231.2B or 21.1T depending on the value
   return nestedArray.map(function (innerArray) {
     const array = [];
-    let info;
-    info = innerArray.slice(innerArray.length - 14).reverse();
+    const info = innerArray.slice(innerArray.length - 14).reverse();
     info.forEach(function (num, index) {
       if (index !== innerArray.length - 1) {
-        array.push(formatNumber(num));
+        if (num === 0) array.push('-');
+        else array.push(formatNumber(num));
       }
     });
     return array;

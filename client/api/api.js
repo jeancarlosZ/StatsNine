@@ -63,7 +63,7 @@ export async function fetchCashflowStatement(ticker, growth = false, period = 'a
  * @deprecated please use getLocalData instead!
  */
 //* This function will return the enterprise value for the provided ticker
-//* By Default it returns an annual statement, optionally 'quarter'
+//* By Default it returns afn annual statement, optionally 'quarter'
 export async function fetchEnterpriseValue(ticker, period = 'annual') {
   const link = getFMPLink(ticker, `enterprise-values`, `period=${period}`)
   const data = formatTimeSeriesData(await fetchData(link))
@@ -194,8 +194,12 @@ export async function fetchKeyExecutives(ticker) {
 export async function fetchSearchQuery(query, limit = 10) {
   //* If there is no query or it's not alphanumeric
   if (query.length <= 0 || /[^a-zA-Z0-9]/.test(query)) return {}
-  const link = getFMPLink('search', '', `query=${query}&limit=${limit}`)
-  return await fetchData(link)
+  const link = getFMPLink(
+    'search',
+    '',
+    `exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE&query=${query}&limit=${limit}`
+  )
+  return removeBlackList(await fetchData(link))
 }
 
 //* This function returns a list of news articles/events that
@@ -345,4 +349,14 @@ export function getDataRange(dataRange) {
   const end = getEndDate(start, dataRange)
   //* Return the range query
   return `from=${formatDate(end)}&to=${formatDate(start)}`
+}
+
+const blackList = {
+  BTC: true,
+  'QBTC.TO': true
+}
+
+//* Remove blacklisted stocks from the queue/return
+function removeBlackList(data) {
+  return data.filter(x => !blackList[x.symbol])
 }

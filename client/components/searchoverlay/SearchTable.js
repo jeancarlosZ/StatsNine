@@ -6,7 +6,7 @@ export default function SearchTable(props) {
   const stocksList = props.stocksList
 
   return (
-    <div className='search-table'>
+    <div className="search-table shadow-nohover">
       <table>
         <thead>{tableHead(stocksList)}</thead>
         <tbody>{tableBody(stocksList, open)}</tbody>
@@ -20,9 +20,9 @@ function tableHead(stocksList) {
   if (stocksList.length) {
     return (
       <tr>
-        <th className='search-cell'>Symbol </th>
-        <th className='search-cell2'>Name</th>
-        <th className='search-cell'>Exchange</th>
+        <th className="search-cell">Symbol </th>
+        <th className="search-cell2">Name</th>
+        <th className="search-cell">Exchange</th>
       </tr>
     )
   } else {
@@ -36,8 +36,8 @@ function tableBody(stocksList, open) {
     return stocksList.map(stock => <SearchRow key={stock.symbol} stock={stock} open={open} />)
   } else {
     return (
-      <tr className='search-row'>
-        <td className='search-noresults'>No results found...</td>
+      <tr className="search-row">
+        <td className="search-noresults">No results found...</td>
       </tr>
     )
   }

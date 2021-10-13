@@ -20,7 +20,12 @@ import {
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 export default function EnterpriseValue() {
-  const [selectedAttribute, setSelectedAttribute] = useState('enterpriseValue');
+  const [selectedAttribute, setSelectedAttribute] = useState([
+    'enterpriseValue',
+    'EnterpriseValue',
+    'rgba(0, 100, 200, 0.3)',
+    'rgba(0, 100, 200, 0.6)',
+  ]);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [profile, setProfile] = useState({});
 
@@ -69,7 +74,7 @@ export default function EnterpriseValue() {
   if (Object.keys(enterpriseInfo).length) {
     //----------------------------------------//
     //chartData testing
-    chartData = enterpriseInfo[selectedAttribute].values;
+    chartData = enterpriseInfo[selectedAttribute[0]].values;
     keys = enterpriseInfo.enterpriseValue.keys;
 
     // console.log(chartData, 'chartData...');
@@ -120,33 +125,35 @@ export default function EnterpriseValue() {
     name: 'Gross Profit',
     type: 'scatter',
     labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    color: 'rgba(44, 221, 155, 0.3)',
-    outline: 'rgba(44, 221, 155, 0.6)',
+    color: selectedAttribute[2],
+    outline: selectedAttribute[3],
     values: chartData,
     hoverinfo: 'label+percent+name',
   });
 
   return (
     <>
-      <div className="income-container flex-row justify-around">
-        <CompanyInfo profile={profile} />
-        <div className="fin-chart-container">
-          <UniversalChart
-            className="income-chart fin-chart"
-            title="Enterprise Value"
-            keys={keys}
-            margin={{ l: 50, r: 50, b: 25, t: 35 }}
-            plotBackgroundColor="rgba(30, 34, 45, 0)"
-            dataset={dataset}
-            showlegend={false}
-            hoverdistance={50}
-            hovermode="x"
-            backgroundColor="fff"
-          />
+      <div className="flex-col">
+        <div className="income-container flex-row justify-between">
+          <CompanyInfo profile={profile} />
+          <div className="fin-chart-container">
+            <UniversalChart
+              className="income-chart fin-chart"
+              title={selectedAttribute[1]}
+              keys={keys}
+              margin={{ l: 50, r: 50, b: 25, t: 35 }}
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              dataset={dataset}
+              showlegend={false}
+              hoverdistance={50}
+              hovermode="x"
+              backgroundColor="fff"
+            />
+          </div>
         </div>
+        <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
       {/* <FinButtons /> */}
-      <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
     </>
   );
 }

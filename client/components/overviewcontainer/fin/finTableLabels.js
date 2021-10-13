@@ -15,16 +15,26 @@ export const balanceTableLabels = [
   'Total Assets',
   'Total Liabilities',
   'Long Term Investments',
+  'Total Investments',
   'Total Debt',
+  'Net Debt',
   'Common Stock',
+  'Cash Equivalents',
+  'Net Receivables',
+  'Inventory',
+  'Retained Earnings',
 ];
 
 export const cashflowTableLabels = [
-  'Capital Expenditure',
   'Free Cash Flow',
+  'Capital Expenditure',
   'Operating Cash Flow',
   'Other Investing Activites',
   'Other Financing Activites',
+  'Dividends Paid',
+  'Debt Repayment',
+  'Accounts Payables',
+  'Deferred Income Tax',
 ];
 
 export const enterpriseTableLabels = [
@@ -33,6 +43,10 @@ export const enterpriseTableLabels = [
   'Number Of Shares',
   'Add Total Debt',
 ];
+
+//------------------------------------------//
+//------------------------------------------//
+//------------------------------------------//
 
 //**--Object Indentifiers--**//
 export const incomeIndentifiers = [
@@ -54,17 +68,27 @@ export const balanceIndentifiers = [
   'totalAssets',
   'totalLiabilities',
   'longTermInvestments',
+  'totalInvestments',
   'totalDebt',
+  'netDebt',
   'commonStock',
+  'cashAndCashEquivalents',
+  'netReceivables',
+  'inventory',
+  'retainedEarnings',
 ];
 
 export const cashflowIndentifiers = [
   'dates',
-  'capitalExpenditure',
   'freeCashFlow',
+  'capitalExpenditure',
   'operatingCashFlow',
   'otherInvestingActivites',
   'otherFinancingActivites',
+  'dividendsPaid',
+  'debtRepayment',
+  'accountsPayables',
+  'deferredIncomeTax',
 ];
 
 export const enterpriseIndentifiers = [
