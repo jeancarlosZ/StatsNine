@@ -27,10 +27,14 @@ export default function Cash() {
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [profile, setProfile] = useState({});
 
+  // const [dataType, setDataType] = useState({
+  //   fcf: 'quarter',
+  // });
+
   useEffect(() => {
     async function getCashflowInfo() {
       setCashflowInfo(
-        //here we are fetching only what we need from the income statement
+        //here we are fetching only what we need from the statement
         await getLocalData(
           [...cashflowIndentifiers],
           fetchCashflowStatement,
@@ -41,6 +45,23 @@ export default function Cash() {
     }
     getCashflowInfo();
   }, []);
+
+  // useEffect(() => {
+  //   async function getCashflowInfoQtr() {
+  //     setDataType(
+  //       //here we are fetching only what we need from the statement
+  //       await getLocalData(
+  //         [...cashflowIndentifiers],
+  //         fetchCashflowStatement,
+  //         [false, 'quarter'],
+  //         [...cashflowIndentifiers]
+  //       )
+  //     );
+  //   }
+  //   getCashflowInfoQtr();
+  // }, []);
+
+  // console.log(dataType, 'this is the qtr');
 
   //Fetching the company profile
   useEffect(() => {

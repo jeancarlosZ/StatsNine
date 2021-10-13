@@ -111,9 +111,6 @@ function FinRow(props) {
 function YearlyChanges(props) {
   //This function produces the yearly change with it's appropriate classname
   const yearlyChange = props.yearlyChanges[props.index];
-  if (yearlyChange === 0) {
-    console.log('it is 0', yearlyChange);
-  }
   return (
     <div
       className={
