@@ -8,10 +8,10 @@ export default function Table() {
   const [stocksList, setStocksList] = useState([])
 
   useEffect(() => {
-    // This function fetches information from the API for 1000 stocks and stores it in the local state for rendering.
+    // This function fetches information from the API for 500 stocks and stores it in the local state for rendering.
     async function getStocksList() {
       try {
-        const stocks = await fetchScreenerStocks('isEtf=false', 1000)
+        const stocks = await fetchScreenerStocks('isEtf=false', 500)
         setStocksList(stocks)
       } catch (err) {
         console.log(err)
