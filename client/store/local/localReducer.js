@@ -3,7 +3,7 @@ import { SET_TICKER, UPDATE_LOCAL } from '.'
 //* Initial state
 const initialState = {
   isDefault: false,
-  symbol: 'BTI'
+  symbol: 'MSFT'
 }
 
 //* Reducer

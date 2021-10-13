@@ -198,11 +198,11 @@ export async function getTickerResults() {
     ['annual'],
     'sharesannual'
   )
-  const { priceEarningsRatio, priceToFreeCashFlowsRatio } = await getLocalData(
-    ['priceEarningsRatio', 'priceToFreeCashFlowsRatio'],
+  const { priceEarningsRatio, priceToFreeCashFlowsRatio, effectiveTaxRate } = await getLocalData(
+    ['priceEarningsRatio', 'priceToFreeCashFlowsRatio', 'effectiveTaxRate'],
     fetchRatios,
     [false, 'annual'],
-    ['peannual', 'pfcfannual']
+    ['peannual', 'pfcfannual', 'taxannual']
   )
 
   //* Five year avg PE
@@ -227,31 +227,23 @@ export async function getTickerResults() {
 
   //* Invested capital
   const investedCap = totalInvestments.values.slice(-5)
-  //* calculate yearly roic
-  const roics = [...netg].map((netI, i) => {
-    //* If they have no investments
-    if (investedCap[i] === 0) return 0.00001
-    return netI / investedCap[i]
-  })
-  //* 5 Year average roic
-  const roicAvg = roics.reduce((prev, curr) => prev + curr, 0) / 5
+  // //* calculate yearly roic
+  // const roics = [...netg].map((netI, i) => {
+  //   //* If they have no investments
+  //   if (investedCap[i] === 0) return 0.00001
+  //   return netI / investedCap[i]
+  // })
+  // //* 5 Year average roic
+  // const roicAvg = roics.reduce((prev, curr) => prev + curr, 0) / 5
+  const taxes = effectiveTaxRate.values.slice(-5)
 
-  //! Remove
-  console.log('--------------------')
-  console.log('avgPe:', avgPe)
-  console.log('avgfcf:', avgfcf)
-  console.log('revg:', revg)
-  console.log('cashg:', cashg)
-  console.log('netg:', netg)
-  console.log('shareg:', shareg)
-  console.log('avgcash:', avgcash)
-  console.log('currentLiabilities:', currentLiabilities)
-  console.log('ltlyears:', ltlyears)
-  console.log('investedCap:', investedCap)
-  console.log('roics:', roics)
-  console.log('roicAvg:', roicAvg)
-  console.log('--------------------')
-  //! Remove
+  //* Correct formula for ROIC!! account for taxes and negitive's
+  const roics = [...netg].map((n, i) => {
+    const result = (n * (1 - taxes[i])) / investedCap[i]
+    return Math.abs(result) == Infinity || isNaN(result) ? 0 : result
+  })
+  //* Get the average ROIC
+  const roicAvg = roics.reduce((prev, curr) => prev + curr) / 5
 
   const results = {
     symbol: state.local.symbol,

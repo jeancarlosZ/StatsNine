@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchRatios } from '../../../../api/api'
+import { fetchKeyMetrics, fetchRatios } from '../../../../api/api'
 import { getLocalData, getTickerResults, GOOD } from '../../../../store/local/localActions'
 import {
   formatNumber,
@@ -24,14 +24,16 @@ export default function QualityMetric() {
       //* Get the ticker results
       setResults(await getTickerResults())
       //* Fetch the ratio data
-      setData(
-        await getLocalData(
-          ['returnOnAssetsTTM', 'returnOnEquityTTM'],
-          fetchRatios,
-          [true],
-          ['returnOnAssetsTTM', 'returnOnEquityTTM']
-        )
+
+      const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
+
+      const { returnOnAssetsTTM, returnOnEquityTTM } = await getLocalData(
+        ['returnOnAssetsTTM', 'returnOnEquityTTM'],
+        fetchRatios,
+        [true],
+        ['returnOnAssetsTTM', 'returnOnEquityTTM']
       )
+      setData({ roicTTM, returnOnAssetsTTM, returnOnEquityTTM })
     }
     getData()
   }, [])
@@ -58,16 +60,13 @@ function getQualityHalfOne(results, data) {
   if (!results.roic || !data.returnOnAssetsTTM)
     return <div className="qload">Hold tight while we load your data!</div>
 
-  const roicPerc = formatPercentage(results.roicdata.avg)
   //* Otherwise return the JSX
   return (
     <div className="qualityhalf upper">
-      {getROICCharts(results)}
+      {getROICCharts(results, data)}
       <div className="metric-roic">
         {getMetricItem('5yr ROIC >= 10 %', results.roic)}
-        <span className="result">{`${results.symbol} has a 5yr average ROIC of ${
-          roicPerc === 0 ? 'nothing... they have not invested any cash!' : roicPerc + '%!'
-        }`}</span>
+        <span className="result">{getResultMessageROIC(results, data)}</span>
         <div className="desc">
           <p>
             Return on invested capital (ROIC) is a calculation used to assess a company's efficiency
@@ -82,6 +81,15 @@ function getQualityHalfOne(results, data) {
       {getTTMReturnsCharts(data)}
     </div>
   )
+}
+
+//* Get the message to be shown for the reults
+function getResultMessageROIC(results, data) {
+  const roicPerc = formatPercentage(results.roicdata.avg)
+  let phrase = roicPerc <= 0 ? 'nothing... they have not invested any cash' : `${roicPerc}%`
+  if (roicPerc > 0 && data.roicTTM * 100 > roicPerc * 1.5)
+    phrase += `! Keep in mind their TTM ROIC is much higher than usual`
+  return `${results.symbol} has a 5yr average ROIC of ${phrase}!`
 }
 
 //* Function to get the top half of the quality
@@ -125,13 +133,14 @@ function getResultMessage(results) {
 }
 
 //* Get the two Pie charts for ROIC TTM & 5yr
-function getROICCharts(results) {
+function getROICCharts(results, data) {
   //* Otherwise the data has loaded
-  const { avg, vals } = results.roicdata
+  const { avg } = results.roicdata
   return (
     <div className="roic-charts">
       <QualityPieCharts
-        data={vals.v[vals.v.length - 1]}
+        // data={vals.v[vals.v.length - 1]}
+        data={data.roicTTM}
         labels={['ROIC', 'POTENTIAL']}
         upper="TTM"
         lower="ROIC"

@@ -10,14 +10,14 @@ export default function QualityPieCharts({
   margins = { l: 30, r: 30, b: 30, t: 10 }
 }) {
   //* Percentage point
-  const percent = data ? data * 100 : {}
+  const percent = data ? (data <= 0 ? 0 : data * 100) : 0
   const dataset = []
 
   //* If we have the data
-  if (percent) {
+  if (data !== undefined) {
     dataset.push({
       fullSet: {
-        name: 'FCF % LTL',
+        name: 'PIE CHART',
         type: 'pie',
         labels: labels,
         marker: {
