@@ -197,7 +197,7 @@ export async function fetchSearchQuery(query, limit = 10) {
   const link = getFMPLink(
     'search',
     '',
-    `exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE&query=${query}&limit=${limit}`
+    `exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX&query=${query}&limit=${limit}`
   )
   return removeBlackList(await fetchData(link))
 }
