@@ -192,41 +192,38 @@ export async function getTickerResults() {
     'revenueannual'
   )
   // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
-  const numberOfShares = await getLocalData(
-    'numberOfShares',
+  const { numberOfShares, marketCapitalization } = await getLocalData(
+    ['numberOfShares', 'marketCapitalization'],
     fetchEnterpriseValue,
     ['annual'],
-    'sharesannual'
+    ['sharesannual', 'marketcapannual']
   )
-  const { priceEarningsRatio, priceToFreeCashFlowsRatio, effectiveTaxRate } = await getLocalData(
-    ['priceEarningsRatio', 'priceToFreeCashFlowsRatio', 'effectiveTaxRate'],
+  const effectiveTaxRate = await getLocalData(
+    'effectiveTaxRate',
     fetchRatios,
     [false, 'annual'],
-    ['peannual', 'pfcfannual', 'taxannual']
+    'taxannual'
   )
-
   // TODO:
   //* Five year avg PE
-  const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
+  // const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
   //* Five year P/FCF
-  const avgfcf =
-    priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
-  //* 5y Revenue growth
-  const revg = revenue.values.slice(-5)
-  //* 5y Cashflow growth
-  const cashg = freeCashFlow.values.slice(-5)
-  //* 5y Net income growth
-  const netg = netIncome.values.slice(-5)
-  //* 5y shares decreasing
-  const shareg = numberOfShares.values.slice(-5)
-  //* 5y avg cashflow
-  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
-  //* Current liabs
-  const currentLiabilities = [...totalLiabilities.values].pop()
-  //* LTL / 5 yr avg cashflow ^
-  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
+  // const avgfcf = priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
 
-  //* Invested capital
+  const currentCap = marketCapitalization.values.slice(-1).pop()
+  const cashg = freeCashFlow.values.slice(-5)
+
+  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
+  const netg = netIncome.values.slice(-5)
+  const avgE = netg.reduce((prev, curr) => prev + curr, 0) / 5
+
+  const avgPe = currentCap / avgE
+  const avgfcf = currentCap / avgcash
+
+  const revg = revenue.values.slice(-5)
+  const shareg = numberOfShares.values.slice(-5)
+  const currentLiabilities = [...totalLiabilities.values].pop()
+  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
   const investedCap = totalInvestments.values.slice(-5)
   const taxes = effectiveTaxRate.values.slice(-5)
 
