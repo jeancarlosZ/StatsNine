@@ -206,11 +206,10 @@ export async function fetchSearchQuery(query, limit = 10) {
 //* have occured for the ticker symbols given.
 //* you can add a limit to the number of stocks returned (recommended)
 //* Note input format: '[ticker,ticker,ticker]' or 'ticker'
-export async function fetchStockNews(query, limit = 50) {
-  //* If there is no query
-  if (query.length <= 0) return {}
+export async function fetchStockNews(query = '', limit = 5, manualQuery = false) {
   const searchQuery = Array.isArray(query) ? query.join() : query
-  const link = getFMPLink('stock_news', '', `tickers=${searchQuery}&limit=${limit}`)
+  const queryStr = manualQuery ? query : `tickers=${searchQuery}`
+  const link = getFMPLink('stock_news', '', `${queryStr}&limit=${limit}`)
   return await fetchData(link)
 }
 

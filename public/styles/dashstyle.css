@@ -1,0 +1,218 @@
+* {
+  --dashboardHeight: calc(100vh - var(--mainHeaderHeight));
+  --dashboardWidth: 100vw;
+
+  --dashMargin: 20px;
+  --dashMargins: calc(var(--dashMargin) * 2);
+
+  --dashboardSubHeight: calc(var(--dashboardHeight) - var(--dashMargins));
+  --dashboardSubWidth: calc(var(--dashboardWidth) - var(--dashMargins));
+
+  --dashboardGridHalfHeight: calc(var(--dashboardSubHeight) / 2);
+  --dashboardGridHalfWidth: calc(var(--dashboardSubWidth) / 2);
+}
+
+.dashboard {
+  height: var(--dashboardHeight);
+  width: var(--dashboardWidth);
+
+  display: flex;
+
+  background-image: url('../images/dashboard.jpg');
+  background-position: center;
+  background-size: cover;
+
+  /* background-color: green; */
+}
+
+.dashboard::before {
+  content: '';
+  position: absolute;
+  top: var(--mainHeaderHeight);
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+
+.dash-container {
+  position: relative;
+  height: var(--dashboardSubHeight);
+  width: var(--dashboardSubWidth);
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 50%;
+  grid-template-rows: 50%;
+
+  /* background-color: gray; */
+}
+
+.dash-grid {
+}
+
+/*
+*==================================
+*      NEWS FEED
+*==================================
+*/
+
+* {
+  --newsFeedHeaderHeight: 40px;
+  --newsFeedScrollHeight: calc(var(--dashboardSubHeight) - var(--newsFeedHeaderHeight));
+}
+
+/** This is the newsfeed's container */
+.dashboard .one {
+  grid-row: 1/2;
+  grid-column: 1;
+
+  height: var(--dashboardSubHeight);
+  width: var(--dashboardGridHalfWidth);
+
+  background-color: rgba(30, 34, 45, 0.6);
+  /* background-color: gray; */
+}
+
+.dashboard .news-container {
+  background-color: rgba(30, 34, 45, 0.6);
+  /** */
+}
+
+.dashboard .news-head {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: var(--newsFeedHeaderHeight);
+  /* background-color: darkslateblue; */
+  background-color: rgba(67, 70, 81, 0.2);
+  /** */
+}
+
+.dashboard .news-head label {
+  margin: auto;
+
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--fontColor);
+  /** */
+}
+.dashboard .news-scroll {
+  height: var(--newsFeedScrollHeight);
+  padding: 10px;
+  /** */
+}
+
+/** ------------ News Item -------- */
+.dashboard .news-item {
+  margin-bottom: 5px;
+
+  display: flex;
+  background-color: rgba(19, 23, 34, 0.6);
+  /** */
+}
+
+.dashboard .news-item img {
+  height: 100px;
+  width: 100px;
+  /* border-radius: 5px; */
+  border: 3px solid var(--bgPrimary);
+  /** */
+}
+
+.dashboard .news-item .news-content {
+  /* background-color: burlywood; */
+
+  color: var(--fontColor);
+
+  width: calc(var(--dashboardGridHalfWidth) - 120px);
+  /** */
+}
+
+.dashboard .news-item .news-content label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--fontColor);
+
+  margin: 10px;
+  /** */
+}
+
+.dashboard .news-item .news-content .view {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--fontColor);
+
+  margin: 10px;
+  /** */
+}
+
+.dashboard .news-item .news-content-full {
+  /* background-color: forestgreen; */
+  /** */
+}
+
+.dashboard .news-item .news-content-full span {
+  margin-left: 10px;
+}
+
+.dashboard .news-item .fulltext {
+  margin: 10px 0px 0px 10px;
+  padding-right: 10px;
+}
+
+.dashboard .news-item .labeltext {
+  display: flex;
+}
+
+.dashboard .news-item .labeltext span {
+  margin: auto 0px;
+}
+
+.dashboard .news-item .redirect {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+.dashboard .news-item button {
+  margin: 0px 5px 5px 0px;
+  background-color: rgba(67, 70, 81, 0.5);
+  color: rgba(208, 211, 219, 0.6);
+  border: none;
+  border-radius: 4px;
+
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dashboard .news-item button:hover {
+  background-color: rgba(67, 70, 81, 0.8);
+  color: rgba(208, 211, 219, 1);
+}
+
+/** ------------ News Item -------- */
+
+/*
+*==================================
+*      STOCK CHART CONTAINER
+*==================================
+*/
+
+/** This is the stock chart container*/
+.dashboard .two {
+  grid-row: 1;
+  grid-column: 2;
+  /* background-color: brown; */
+}
+
+/*
+*==================================
+*     TODO: CONTAINER TBD TODO:
+*==================================
+*/
+
+.dashboard .four {
+  grid-row: 2;
+  grid-column: 2;
+  /* background-color: darkslategray; */
+}
