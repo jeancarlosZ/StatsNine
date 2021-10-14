@@ -13,8 +13,8 @@ export default function Financialspage() {
   return (
     <>
       <Subheader />
-      <div className="key-metrics-container">
-        <div className="sub-container shadow-deep-nohover">
+      <div className="financials-container">
+        <div className="financials-sub-container">
           <FinancialsNavBar />
           <div>{getCorrectPage(selected)}</div>
         </div>
@@ -44,8 +44,8 @@ export function FinancialsNavBar() {
 
   const selected = location.pathname.split('/').pop().toLowerCase();
   return (
-    <div className="key-metrics-selector">
-      <div className="selectors">
+    <div className="financials-selector-nav">
+      <div className="fin-selectors">
         {getSelectorLabel('Income Statement', history, selected)}
         {getSelectorLabel('Balance Sheet', history, selected)}
         {getSelectorLabel('Cash Flow', history, selected)}

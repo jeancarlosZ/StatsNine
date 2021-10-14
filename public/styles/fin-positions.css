@@ -1,0 +1,178 @@
+/**----------------------------**/
+/** MAIN PARTS TO THE FINANCIALS PAGE
+/**----------------------------**/
+
+/*The Large Container*/
+
+/*Main*/
+/*All it contains is the sub-container*/
+.financials-container {
+  border: dashed green;
+
+  display: flex;
+  justify-content: center;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+/*The Sub Container*/
+/*Sub container contains 2 items, the NAV BAR and the PAGE*/
+.financials-sub-container {
+  border: dashed yellow;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+}
+
+/**----------------------------**/
+/** NAV BAR
+/**----------------------------**/
+
+/*The Navigation Bar*/
+/*This is where we select a sub page(Income, Balance, Cash, Enterprise)*/
+.financials-selector-nav {
+  border: solid red;
+  display: flex;
+}
+
+/*This houses each selector*/
+.fin-selectors {
+  /* border: solid rgb(0, 89, 255); */
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+  width: 900px;
+}
+
+/**----------------------------**/
+/** PAGE
+/**----------------------------**/
+
+/*The PAGE conatins the COMPANY NAME, CHART, DATES and TABLE*/
+.page {
+  border: dashed red;
+  display: flex;
+  flex-direction: column;
+}
+
+/**----------------------------**/
+/** COMPANY AND CHART CONTAINER
+/**----------------------------**/
+
+/*This is the container right below the navigation bar. It contains the company info and the chart*/
+.fin-top-container {
+  display: flex;
+  justify-content: space-between;
+  /* background-color: rgb(250, 128, 114, 0.4); */
+  /* height: 300px; */
+  /* width: 98vw; */
+}
+
+/*Conatins company name*/
+.company-container {
+  border: solid rgb(226, 136, 108);
+  width: 600px;
+  background-color: rgba(30, 34, 45, 0.6);
+  color: #d0d3db;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
+}
+
+/*The div that contains the chart*/
+.fin-chart-container {
+  border: solid thin rgb(0, 0, 0, 0.1);
+  width: 62vw;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
+  border: solid rgb(236, 145, 118);
+}
+
+/*The actual chart*/
+.fin-chart {
+  /* border: solid green; */
+  width: 62vw;
+  height: 230px;
+}
+
+/**----------------------------**/
+/** DATE AND TABLE CONTAINER
+/**----------------------------**/
+
+/*This is a small 1 row table containing the dates that sits on top of the main table*/
+/*It is not inside the scroll container and therefor does not scroll*/
+.fin-date {
+  font-weight: lighter;
+  background-color: transparent;
+  border: transparent;
+  text-align: center;
+  font-size: 12px;
+  color: rgb(171, 171, 171);
+  width: 96vw;
+  table-layout: fixed;
+  align-self: center;
+  border: solid rgb(72, 114, 168);
+}
+
+/*The scroll container that houses the table*/
+.fin-table-scroll {
+  height: 300px;
+  width: 96vw;
+  align-self: center;
+  border: solid blue;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px 10px rgb(0, 0, 0, 0.1);
+}
+
+/*The table it self*/
+.fin-table {
+  /* border: solid yellow; */
+  color: #d0d3db;
+  background-color: transparent;
+  height: 300px;
+  table-layout: fixed;
+  width: 96vw;
+}
+
+/*------------------------------*/
+/*THIS IS FOR STYLING THE NAV BUTTONS
+/*IT'S MOSTLY THE SAME AS BRYNNERS CODE FOR HIS NAV BAR
+/*THE VARIABLES ARE AVAILABLE IN ALL CSS FILES SO I THINK
+/*WE CAN USE THOSE FOR CALCULATIONS
+/*------------------------------*/
+.financials-selector-nav {
+  height: var(--metricsSelectorHeight);
+
+  display: flex;
+  border-top-left-radius: var(--metricsSubcontainerBorderRadius);
+  border-top-right-radius: var(--metricsSubcontainerBorderRadius);
+
+  border-bottom: 2px solid var(--bgAccent);
+
+  overflow: hidden;
+}
+
+.financials-selector-nav .fin-selectors {
+  margin: auto 35px;
+  display: flex;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.financials-selector-nav .fin-selectors label {
+  margin-top: 5px;
+  margin-right: 25px;
+  color: rgba(208, 211, 219, 0.2);
+  transition: font-size 0.3s ease, color 0.3s ease;
+}
+
+.financials-selector-nav .fin-selectors label:hover {
+  color: rgba(208, 211, 219, 0.6);
+}
+
+.financials-selector-nav .selectors .selected {
+  color: rgba(208, 211, 219, 0.6);
+}
+
+.financials-selector-nav .selectors .selected:hover {
+  color: rgba(208, 211, 219, 0.8);
+}

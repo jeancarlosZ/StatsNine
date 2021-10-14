@@ -76,7 +76,7 @@ form div {
   font-weight: bold;
 }
 
-.buttons {
+/* .buttons {
   background-color: #1e222d;
   border: none;
   color: white;
@@ -86,7 +86,7 @@ form div {
   display: inline-block;
   font-size: 12px;
   border-radius: 15px;
-}
+} */
 
 .inactive {
   color: rgb(208, 211, 219, 0.3);
