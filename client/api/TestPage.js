@@ -13,13 +13,13 @@ export default function APITestPage() {
   async function testThings() {
     const body = {
       symbol: 'AAPL',
-      search: [''],
+      key: [''],
       save: [''],
       arguments: [''],
-      func: fetchStockProfile
-    }
+      func: 'fetchStockProfile'
+    } // key, func, args, save, overrideTicker
 
-    const { data } = await axios.get('/api/data', body)
+    const { data } = await axios.post('/api/data', body)
 
     console.log(data)
   }
