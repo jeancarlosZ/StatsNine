@@ -197,7 +197,7 @@ export async function fetchSearchQuery(query, limit = 10) {
   const link = getFMPLink(
     'search',
     '',
-    `exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX&query=${query}&limit=${limit}`
+    `query=${query}&exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX&limit=${limit}`
   )
   return removeBlackList(await fetchData(link))
 }
@@ -206,7 +206,7 @@ export async function fetchSearchQuery(query, limit = 10) {
 //* have occured for the ticker symbols given.
 //* you can add a limit to the number of stocks returned (recommended)
 //* Note input format: '[ticker,ticker,ticker]' or 'ticker'
-export async function fetchStockNews(query = '', limit = 5, manualQuery = false) {
+export async function fetchStockNews(query = '', limit = 50, manualQuery = false) {
   const searchQuery = Array.isArray(query) ? query.join() : query
   const queryStr = manualQuery ? query : `tickers=${searchQuery}`
   const link = getFMPLink('stock_news', '', `${queryStr}&limit=${limit}`)

@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-import Alert from '../home/common/Alert';
+// import Alert from '../home/common/Alert';
 import Newsfeed from './Newsfeed'
 import SnP500 from './SnP500'
 import Calendar from './Calendar'
