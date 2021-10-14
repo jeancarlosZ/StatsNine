@@ -30,7 +30,6 @@ export default function Overviewpage() {
     <>
       <Subheader symbol={symbol} />
       <div className='overview-page'>
-        {/* <Overview symbol={symbol} /> */}
         <div className='overview-container'>
           <PriceChart symbol={symbol} />
           <div className='overview-info'>
