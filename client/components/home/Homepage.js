@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-
+import Alert from '../home/common/Alert';
 import Newsfeed from './Newsfeed'
 import SnP500 from './SnP500'
 import Calendar from './Calendar'
@@ -16,7 +16,7 @@ export default function Homepage() {
     <div>
       <div>
         <Card className="bg-dark text-white">
-          <Card.Img src="./images/dashboard.jpg" alt="NYC" style={{ filter: 'brightness(30%)' }} />
+          <Card.Img src="./images/dashboard.jpg" alt="NYC" style={{ filter: 'brightness(25%)' }} />
           <Card.ImgOverlay>
             <Container fluid>
               <Row>
@@ -38,3 +38,6 @@ export default function Homepage() {
     </div>
   )
 }
+
+// <Card.Img src={Pic} alt="NYC" style={{ filter: 'brightness(25%)' }} />
+// <Card.Img src="./images/dashboard.jpg" alt="NYC" style={{ filter: 'brightness(30%)' }} />

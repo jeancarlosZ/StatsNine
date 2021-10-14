@@ -4,22 +4,6 @@
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
 } */
-.home {
-  width: 100%;
-  height: 100vh;
-  padding: 1rem;
-  color: white;
-  font-weight: 300;
-  margin-top: 0.25rem;
-  background-image: url('https://images.unsplash.com/photo-1563610565075-002447a1e162?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2371&q=80');
-  background-size: cover;
-  opacity: 0.3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: auto; */
-}
 
 /* html {
   font-size: 62.5%;
