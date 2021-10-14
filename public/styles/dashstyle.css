@@ -18,21 +18,7 @@
 
   display: flex;
 
-  background-image: url('../images/dashboard.jpg');
-  background-position: center;
-  background-size: cover;
-
   /* background-color: green; */
-}
-
-.dashboard::before {
-  content: '';
-  position: absolute;
-  top: var(--mainHeaderHeight);
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 .dash-container {

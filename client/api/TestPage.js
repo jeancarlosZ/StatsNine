@@ -31,12 +31,6 @@ function StockNews() {
     getData()
   }, [])
 
-  //! Remove
-  console.log('--------------------')
-  console.log('data:', data)
-  console.log('--------------------')
-  //! Remove
-
   return (
     <div className="dash-grid one">
       <div className="news-container">
