@@ -276,21 +276,8 @@ async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL, line
 //* Function used to make the axios calls and return the data
 async function fetchData(link) {
   try {
-    const { data } = await axios.get(link)
-    //! Remove (This is here so we can debug!)
-    //! Remove (This is here so we can debug!)
-    console.log('--------------------')
-    console.log('Fetching data: ', {
-      data: data,
-      link: link
-        .replace('https://financialmodelingprep.com/api/', '')
-        .replace('&apikey=0235b47c3f99a539c04921b8cec8ad18', '')
-    })
-    console.log('--------------------')
-    //! Remove (This is here so we can debug!)
-    //! Remove (This is here so we can debug!)
     //* Make axios call, return the data
-    return data
+    return (await axios.get(link)).data
   } catch (error) {
     //* Something went wrong
     return null

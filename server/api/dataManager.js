@@ -3,7 +3,6 @@ const router = require('express').Router()
 module.exports = router
 //* Grab the API methods
 const API = require('./apiUtils')
-
 //* Here we are importing redis!
 const Redis = require('redis')
 //* Now we are creating our redis client,
@@ -37,22 +36,26 @@ router.post('/', async (request, response, next) => {
       const toLoad = []
       //* Now we will go thru each of these keys we are looking for
       //* and we will see if we can find them inside our redis cache.
-      await key.map(async (k, i) => {
-        //* This is the key (where/location) we are looking in memory (redis)
-        //* to find the the value at this point int he saveAs array!
-        const query = `${symbol}:${saveAs[i]}`
-        //* Now. Let's see if we can find it!
-        await redisCli.get(query, (error, results) => {
-          //* If there was an error, print it!
-          if (error) console.error(error)
-          //* Return the results
-          //* If that key was found, we're going to add it to the data (to return)!
-          if (!results) data[k] = JSON.parse(results)
-          //* Otherwise it looks like we didn't have anything in cache!
-          //* So now we will add this particular key to the toLoad!
-          else toLoad.push({ a: k, b: saveAs[i] })
+      await Promise.all(
+        key.map(async (k, i) => {
+          //* This is the key (where/location) we are looking in memory (redis)
+          //* to find the the value at this point int he saveAs array!
+          const query = `${symbol}:${saveAs[i]}`
+          //* Now. Let's see if we can find it!
+          return new Promise((resolve, reject) => {
+            redisCli.get(query, async (error, result) => {
+              //* If there was an error, print it!
+              if (error) reject(error)
+              //* If that key was found, we're going to add it to the data (to return)!
+              if (result != null) data[k] = JSON.parse(result)
+              //* Otherwise it looks like we didn't have anything in cache!
+              //* So now we will add this particular key to the toLoad!
+              else toLoad.push({ a: k, b: saveAs[i] })
+              resolve(true)
+            })
+          })
         })
-      })
+      )
       //* Now that we have gone through and checked to see if the key
       //* exists in cache and added it to the response data, we must
       //* check to see if anything needed to be loaded!
@@ -93,14 +96,6 @@ router.post('/', async (request, response, next) => {
           else redisCli.set(query, JSON.stringify(singletonData))
         })
       }
-
-      //! Remove
-      console.log('--------------------')
-      console.log('data:', data)
-      console.log('toLoad:', toLoad)
-      console.log('--------------------')
-      //! Remove
-
       //* Finnally! We can now return our data back to the client via a response!
       response.send(data)
     } else {
@@ -114,7 +109,7 @@ router.post('/', async (request, response, next) => {
         //* If there was an error, print it!
         if (error) console.error(error)
         //* If the key was found, we will simply return the value (data)
-        if (results != null) return response.send(JSON.parse(results))
+        if (results != null) return response.json(JSON.parse(results))
         //* If the key was not found, we are going to call that api function
         //* As we now know we need to get the data from the API.
         const loadedData = args ? await API[callback](symbol, ...args) : await API[callback](symbol)
@@ -133,7 +128,7 @@ router.post('/', async (request, response, next) => {
         else data = loadedData[key]
         //* Because we don't want to wait to save, then send that data
         //* we are going to send the response data back right away!
-        response.send(data)
+        response.send(JSON.stringify(data))
         //* Now that the response has been sent, we will cache this
         //* data using redis. It will be stored using the query (key).
         //* Note: we are checking if there is an experation set, this is
