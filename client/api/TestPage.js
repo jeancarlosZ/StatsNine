@@ -1,77 +1,120 @@
 import React, { useEffect, useState } from 'react'
+import { Collapse } from 'react-bootstrap'
+import 'react-modern-calendar-datepicker/lib/DatePicker.css'
+import { Link } from 'react-router-dom'
+import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
-import { DAILY, fetchChartPrice, WEEK } from './api'
-import { getLocalData } from '../store/local/localActions'
-import { fetchFullStatement, fetchIncomeStatement, getTickerResults } from './api'
-import MetricSelector from '../components/overviewcontainer/keymetrics/MetricSelector'
+import { fetchStockNews } from './api'
+// import DatePicker from 'react-modern-calendar-datepicker'
+// import { utils } from 'react-modern-calendar-datepicker'
 
 export default function APITestPage() {
-  const [data, setData] = useState({})
-  //* const [balanceData, setBalanceData] = useState({})
-
-  useEffect(() => {
-    async function getData() {
-      // setData(await fetchFullStatement('AAPL'))
-      // setData(await fetchIncomeStatement('AAPL'))
-      // setData(await fetchBalanceStatement('AAPL'))
-      // setData(await fetchCashflowStatement('AAPL'))
-      // setData(await fetchEnterpriseValue('AAPL'))
-      // setData(await fetchDiscountedCashflow('AAPL', false))
-      // setData(await fetchRating('AAPL', true))
-      // setData(await fetchMarketCap('AAPL', true))
-      // setData(await fetchKeyMetrics('AAPL'))
-      // setData(await fetchRatios('AAPL'))
-      // setData(await fetchInsiderTrading('AAPL'))
-      // setData(await fetchStockQuote('AAPL', true))
-      // setData(await fetchStockProfile('AAPL'))
-      // setData(await fetchKeyExecutives('AAPL'))
-      // setData(await fetchSearchQuery('aap'))
-      // setData(await fetchStockNews(['AAPL', 'MSFT', 'GOOG']))
-      // setData(await fetchStockNews('AAPL'))
-      // setData(await fetchScreenerStocks())
-      // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
-      // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
-      // setData(await fetchChartPrice('AAPL', DAILY, WEEK))
-      // setData(await getLocalData('eps', fetchIncomeStatement, [false, 'annual']))
-      // setData(
-      //   await getLocalData(
-      //     ['assets', 'liabilities', 'commonstocksharesoutstanding'],
-      //     fetchFullStatement,
-      //     [false, 'annual'],
-      //     ['assetsannual', 'liabilitiesannual', 'stockannual']
-      //   )
-      // )
-      // console.log(await getTickerResults())
-      // console.log(await getTickerResults());
-    }
-    getData()
-  }, [])
-
-  // console.log('Data:', data)
-
-  // const { keys, values } = data
-
-  // console.log('Keys:', keys)
-  // console.log('Values:', values)
-  // setData(await getLocalData('eps', fetchFullStatement, [false, dataType]))
-  // can call a function to say
-  // setData(await getLocalData('eps', fetchFullStatement, [false, 'annual']))
-
-  // console.log('Data:', data)
-
-  // const { keys, values } = data
-
-  // console.log('Keys:', keys)
-  // console.log('Values:', values)
-
   return (
-    <div className="key-metrics-container">
-      <div className="sub-container shadow-deep-nohover">
-        <MetricSelector />
-        <div className="metric-container">
-          <div className="metric-sub-container"></div>
-        </div>
+    <div className="dashboard">
+      <div className="dash-container">
+        <StockNews />
+        <div className="dash-grid two"></div>
+        <div className="dash-grid three"></div>
+        <div className="dash-grid four"></div>
       </div>
     </div>
   )
 }
+
+//* Stock news component for the home page
+function StockNews() {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    async function getData() {
+      setData(await fetchStockNews())
+    }
+    getData()
+  }, [])
+
+  //! Remove
+  console.log('--------------------')
+  console.log('data:', data)
+  console.log('--------------------')
+  //! Remove
+
+  return (
+    <div className="dash-grid one">
+      <div className="news-container">
+        <div className="news-head shadow-nohover">
+          <label>News Feed</label>
+        </div>
+        <SimpleBar className="news-scroll">{getNewsFeed(data)}</SimpleBar>
+      </div>
+    </div>
+  )
+}
+
+//* Helper function to map the news feed
+function getNewsFeed(data) {
+  if (!data) return <></>
+  return data.map((x, i) => <IndividualNews key={i} data={x} />)
+}
+
+function IndividualNews({ data }) {
+  if (!data) return <></>
+  const [open, setOpen] = useState(false)
+  const { image, publishedDate, site, symbol, text, title, url } = data
+
+  return (
+    <div className="news-item">
+      <img src={image} alt={symbol} />
+      <div className="news-content" onClick={() => setOpen(!open)}>
+        <label>{title}</label>
+        {open ? <></> : <label className="view">Click to expand!</label>}
+        <Collapse in={open}>
+          <div className="news-content-full">
+            {getLabelText('Publisher:', site)}
+            {getLabelText('Published:', publishedDate)}
+            <div className="fulltext">{text}</div>
+            <Link to={{ pathname: url }} target="_blank">
+              <div className="redirect">
+                <button>View Article</button>
+              </div>
+            </Link>
+          </div>
+        </Collapse>
+      </div>
+    </div>
+  )
+}
+
+//* Get the label text pairs
+function getLabelText(label, text) {
+  return (
+    <div className="labeltext">
+      <label>{label}</label>
+      <span>{text}</span>
+    </div>
+  )
+}
+
+// const today = new Date()
+// const [selectedDayRange, setSelectedDayRange] = useState({
+//   from: null,
+//   to: null
+// })
+//
+// const formatInputValue = () => {
+//   if (!selectedDayRange) return ''
+//   return `Day: ${selectedDayRange}`
+// }
+// https://kiarash-z.github.io/react-modern-calendar-datepicker/docs/customization
+//    <DatePicker
+//    value={selectedDayRange}
+//    onChange={setSelectedDayRange}
+//    inputPlaceholder="Select a day range"
+//    maximumDate={utils().getToday()}
+//    shouldHighlightWeekends
+//    // colorPrimary=""
+//    // colorPrimaryLight=""
+//    renderInput={({ ref }) => {
+//      console.log(ref)
+//    }}
+//    inputPlaceholder="Select a date"
+//    // formatInputText={formatInputValue}
+//    />

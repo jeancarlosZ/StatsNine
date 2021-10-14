@@ -16,6 +16,7 @@ import '../public/styles/pricemetrics.css'
 import '../public/styles/safetymetrics.css'
 import '../public/styles/qualitymetrics.css'
 import '../public/styles/overviews.css'
+import '../public/styles/dashstyle.css'
 
 ReactDOM.render(
   <Provider store={store}>
