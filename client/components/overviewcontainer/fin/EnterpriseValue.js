@@ -7,6 +7,7 @@ import { getLocalData } from '../../../store/local/localActions';
 import {
   enterpriseTableLabels,
   enterpriseIndentifiers,
+  getQtrIndentifers,
 } from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
@@ -28,7 +29,7 @@ export default function EnterpriseValue() {
     'rgba(39, 91, 232, .3)',
   ]);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
-  const [enterphriseQtr, setEnterphriseQtr] = useState({});
+  const [enterpriseQtr, setEnterpriseQtr] = useState({});
   const [profile, setProfile] = useState({});
 
   //Fetching the data needed
@@ -55,26 +56,25 @@ export default function EnterpriseValue() {
     }
     getEnterpriseInfo();
   }, []);
-
   //Here we are fetching the quaterly info
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getEnterpriseInfoQtr() {
-      const qtrIdentifiers = [...enterpriseIndentifiers];
-      qtrIdentifiers.shift();
-      setEnterphriseQtr(
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(
+        enterpriseIndentifiers
+      );
+      setEnterpriseQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchEnterpriseValue,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
     getEnterpriseInfoQtr();
   }, []);
-
   //A handler function being passed down to the table that will affect the local state of this component
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
@@ -93,11 +93,11 @@ export default function EnterpriseValue() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(enterphriseQtr).length) {
+  if (Object.keys(enterpriseQtr).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = enterphriseQtr[attribute].values;
+    chartData = enterpriseQtr[attribute].values;
     //The keys taken from he fetch ar the dates
-    keys = enterphriseQtr[attribute].keys;
+    keys = enterpriseQtr[attribute].keys;
   }
 
   const dataset = [];
@@ -108,7 +108,6 @@ export default function EnterpriseValue() {
     color: color,
     // outline: outline,
     values: chartData,
-    hoverinfo: 'name',
     fillcolor: outline,
     fill: 'tonexty',
   });

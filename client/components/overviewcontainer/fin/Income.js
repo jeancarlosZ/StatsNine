@@ -8,7 +8,11 @@ import {
   fetchFullStatement,
 } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { incomeTableLabels, incomeIndentifiers } from './finTableLabels';
+import {
+  incomeTableLabels,
+  incomeIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
   calcYearlyChanges,
@@ -61,15 +65,14 @@ export default function Income() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getIncomeInfoQtr() {
-      const qtrIdentifiers = [...incomeIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(incomeIndentifiers);
       setIncomeQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchIncomeStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }

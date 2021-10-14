@@ -3,7 +3,11 @@ import UniversalChart from '../../UniversalChart';
 import FinTable from './FinTable';
 import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { balanceTableLabels, balanceIndentifiers } from './finTableLabels';
+import {
+  balanceTableLabels,
+  balanceIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import CompanyInfo from './CompanyInfo';
 import { FinButtons } from './FinButtons';
 import {
@@ -51,20 +55,19 @@ export default function Balance() {
     }
     getBalanceInfo();
   }, []);
-
+  console.log(balanceInfo, 'balance info...');
   //Here we are fetching the quaterly info
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getBalanceInfoQtr() {
-      const qtrIdentifiers = [...balanceIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(balanceIndentifiers);
       setBalanceQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchBalanceStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -105,7 +108,6 @@ export default function Balance() {
     fillcolor: outline,
     fill: 'tonexty',
     values: chartData,
-    hoverinfo: 'name',
   });
 
   //**------------------------------------------------------------------------------------------------ */

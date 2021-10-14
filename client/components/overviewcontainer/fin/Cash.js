@@ -4,7 +4,11 @@ import FinTable from './FinTable';
 import CompanyInfo from './CompanyInfo';
 import { fetchCashflowStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { cashflowTableLabels, cashflowIndentifiers } from './finTableLabels';
+import {
+  cashflowTableLabels,
+  cashflowIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
   calcYearlyChanges,
@@ -59,15 +63,15 @@ export default function Cash() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getCashflowInfoQtr() {
-      const qtrIdentifiers = [...cashflowIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } =
+        getQtrIndentifers(cashflowIndentifiers);
       setCashflowQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchCashflowStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -97,6 +101,7 @@ export default function Cash() {
     chartData = cashflowQtr[attribute].values;
     //The keys taken from he fetch ar the dates
     keys = cashflowQtr[attribute].keys;
+    console.log(cashflowQtr, 'cashflowInfo Qtr...');
   }
 
   const dataset = [];
@@ -109,7 +114,6 @@ export default function Cash() {
     fillcolor: outline,
     fill: 'tonexty',
     values: chartData,
-    hoverinfo: 'name',
   });
 
   //**------------------------------------------------------------------------------------------------ */
@@ -120,6 +124,7 @@ export default function Cash() {
   let rawDates;
 
   if (Object.keys(cashflowInfo).length) {
+    console.log(cashflowInfo, 'cashflowInfo...');
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = cashflowInfo;

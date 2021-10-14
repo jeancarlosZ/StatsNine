@@ -98,3 +98,13 @@ export const enterpriseIndentifiers = [
   'numberOfShares',
   'addTotalDebt',
 ];
+
+export function getQtrIndentifers(indentifiers) {
+  const qtrIdentifiers = indentifiers.slice(1);
+  const saveAs = indentifiers.map((ident) => ident + 'Qtr');
+  saveAs.shift();
+  return {
+    saveAs,
+    qtrIdentifiers,
+  };
+}
