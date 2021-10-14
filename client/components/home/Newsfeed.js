@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { fetchStockNews } from '../../api/api'
+import React, { useEffect, useState } from 'react';
+import { fetchStockNews } from '../../api/api';
 
 export default function Newsfeed() {
-  const [stockNewsList, setStockNewsList] = useState([])
+  const [stockNewsList, setStockNewsList] = useState([]);
 
   useEffect(() => {
     async function getStockNewsList() {
-      setStockNewsList(await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10))
+      setStockNewsList(
+        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10)
+      );
     }
-    getStockNewsList()
-  }, [])
+    getStockNewsList();
+  }, []);
 
-  // console.log('Data:', stockNewsList);
-
-  const { keys, values } = stockNewsList
-
-  // console.log('Keys:', keys);
-  // console.log('Values:', values);
+  const { keys, values } = stockNewsList;
 
   return (
     <div className="text-white">
       <h2>Latest News</h2>
       <div className="table-responsive ">
-        <table className="table table-sm  table-borderless border-0 table-hover">
+        <table className="table table-sm  table-borderless border-0 table-hover  ">
           <thead>
             <tr></tr>
           </thead>
@@ -31,20 +28,23 @@ export default function Newsfeed() {
               return (
                 <tr
                   key={company.publishedDate}
-                  className="btn-group me-2 btn btn-sm btn-outline-secondary list-group list-group-flush border-0 rounded-pill shadow-none "
+                  className="btn-group me-3 btn btn-md btn-outline  list-group-flush  rounded-pill shadow-lg "
                   type="button">
                   <td>
-                    <img src={company.image} width="50" alt={company.symbol}></img>
+                    <img
+                      src={company.image}
+                      width="50"
+                      alt={company.symbol}></img>
                   </td>
                   <td className="text-white list-group-item">
                     {company.title}
                   </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }

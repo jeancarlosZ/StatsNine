@@ -16,7 +16,7 @@ export default function Homepage() {
     <div>
       <div>
         <Card className="bg-dark text-white">
-          <Card.Img src={Pic} alt="NYC" style={{ filter: 'brightness(30%)' }} />
+          <Card.Img src={Pic} alt="NYC" style={{ filter: 'brightness(25%)' }} />
           <Card.ImgOverlay>
             <Container fluid>
               <Row>
