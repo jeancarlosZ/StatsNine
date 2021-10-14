@@ -56,13 +56,15 @@ export default function Balance() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getBalanceInfoQtr() {
+      const qtrIdentifiers = [...balanceIndentifiers];
+      qtrIdentifiers.shift();
       setBalanceQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
-          [...balanceIndentifiers],
+          [...qtrIdentifiers],
           fetchBalanceStatement,
           [false, 'quarter'],
-          [...balanceIndentifiers]
+          [...qtrIdentifiers]
         )
       );
     }
@@ -124,14 +126,16 @@ export default function Balance() {
     unformatedData = returnUnformatedData(balanceInfo, balanceIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const dates = Object.keys(balanceInfo).length ? formatDates(rawDates) : [];
+  const tabledates = Object.keys(balanceInfo).length
+    ? formatDates(rawDates)
+    : [];
   //Here i'm passing in the raw income numbers to be processed and look like this...'123.3T' instead of '123300000000000'
   const rows = formatRows(unformatedData);
   //Here i'm calculating the change between a year and the previous year
   const yearlyChanges = calcYearlyChanges(unformatedData);
   //Here i'm creating an object with all of my relevent table info that I can pass on to the table
   const tableInfo = {
-    dates,
+    tabledates,
     rows,
     yearlyChanges,
     labels: balanceTableLabels,

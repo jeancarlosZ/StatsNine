@@ -59,13 +59,15 @@ export default function Cash() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getCashflowInfoQtr() {
+      const qtrIdentifiers = [...cashflowIndentifiers];
+      qtrIdentifiers.shift();
       setCashflowQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
-          [...cashflowIndentifiers],
+          [...qtrIdentifiers],
           fetchCashflowStatement,
           [false, 'quarter'],
-          [...cashflowIndentifiers]
+          [...qtrIdentifiers]
         )
       );
     }
@@ -128,7 +130,9 @@ export default function Cash() {
     unformatedData = returnUnformatedData(cashflowInfo, cashflowIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const dates = Object.keys(cashflowInfo).length ? formatDates(rawDates) : [];
+  const tabledates = Object.keys(cashflowInfo).length
+    ? formatDates(rawDates)
+    : [];
   //Here i'm passing in the raw numbers to be processed and look like this...'123.3T' instead of '123300000000000'
   const rows = formatRows(unformatedData);
   //Here i'm calculating the change between a year and the previous year
@@ -136,7 +140,7 @@ export default function Cash() {
 
   //Here i'm creating an object with all of my relevent table info that I can pass on to the table
   const tableInfo = {
-    dates,
+    tabledates,
     rows,
     yearlyChanges,
     labels: cashflowTableLabels,
