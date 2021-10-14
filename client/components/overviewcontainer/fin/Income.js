@@ -23,8 +23,8 @@ import {
 
 export default function Income() {
   const [selectedAttribute, setSelectedAttribute] = useState([
-    'grossProfit',
-    'Gross Profit',
+    'revenue',
+    'Revenue',
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
