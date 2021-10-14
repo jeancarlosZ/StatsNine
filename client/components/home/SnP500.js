@@ -71,7 +71,7 @@ export default function StockPriceChart() {
       </div>
       <div className="wrapper">
         <UniversalChart
-          className="stock-price-chart"
+          className="ohlc"
           keys={keys}
           dataset={dataset}
           showlegend={false}
