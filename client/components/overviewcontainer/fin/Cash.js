@@ -22,8 +22,8 @@ export default function Cash() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'freeCashFlow',
     'Free Cash Flow',
-    'rgba(0, 100, 200, 0.3)',
-    'rgba(0, 100, 200, 0.6)',
+    'rgba(232, 91, 232, 1)',
+    'rgba(232, 91, 232, .3)',
   ]);
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [cashflowQtr, setCashflowQtr] = useState({});
@@ -86,7 +86,7 @@ export default function Cash() {
   const attribute = selectedAttribute[0];
   const label = selectedAttribute[1];
   const color = selectedAttribute[2];
-  const outline = selectedAttribute[2];
+  const outline = selectedAttribute[3];
   let chartData = [];
   let keys = [];
 
@@ -101,9 +101,11 @@ export default function Cash() {
 
   dataset.push({
     name: 'Cash Flow',
-    type: 'bar',
+    type: 'scatter',
     color: color,
-    outline: outline,
+    // outline: outline,
+    fillcolor: outline,
+    fill: 'tonexty',
     values: chartData,
     hoverinfo: 'name',
   });

@@ -25,8 +25,8 @@ export default function Income() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'grossProfit',
     'Gross Profit',
-    'rgba(0, 100, 200, 0.3)',
-    'rgba(0, 100, 200, 0.6)',
+    'rgba(39, 91, 232, 1)',
+    'rgba(39, 91, 232, .3)',
   ]);
   const [incomeInfo, setIncomeInfo] = useState({});
   const [incomeInfoQtr, setIncomeQtr] = useState({});
@@ -88,7 +88,7 @@ export default function Income() {
   const attribute = selectedAttribute[0];
   const label = selectedAttribute[1];
   const color = selectedAttribute[2];
-  const outline = selectedAttribute[2];
+  const outline = selectedAttribute[3];
   let chartData = [];
   let keys = [];
 
@@ -102,13 +102,13 @@ export default function Income() {
   const dataset = [];
 
   dataset.push({
-    name: 'Cash Flow',
-    type: 'scatter',
+    name: 'Stock Price',
+    type: 'line',
     color: color,
-    values: chartData,
-    hoverinfo: 'name',
+    // outline: 'rgba(39, 91, 232, 1)',
     fillcolor: outline,
-    fill: 'tozeroy',
+    fill: 'tonexty',
+    values: chartData,
   });
 
   //**------------------------------------------------------------------------------------------------ */

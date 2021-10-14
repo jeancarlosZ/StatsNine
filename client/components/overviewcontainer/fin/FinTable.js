@@ -55,10 +55,12 @@ function FinRow(props) {
 
   const randomIndex = genRandomIndex(0, 3);
   const chartColors = [
-    ['rgba(44, 221, 155, 0.3)', 'rgba(44, 221, 155, 0.6)'],
-    ['rgba(221, 44, 155, 0.3)', 'rgba(221, 44, 155, 0.6)'],
-    ['rgba(200, 0, 0, 0.3)', 'rgba(200, 0, 0, 0.6)'],
-    ['rgba(0, 100, 200, 0.3)', 'rgba(0, 100, 200, 0.6)'],
+    // ['rgba(39, 91, 232, 1)', 'rgba(39, 91, 232, .3)'],
+    ['rgba(232, 91, 39, 1)', 'rgba(232, 91, 39, .3)'],
+    ['rgba(39, 232, 91, 1)', 'rgba(39, 232, 91, .3)'],
+    ['rgba(232, 91, 232, 1)', 'rgba(232, 91, 232, .3)'],
+    ['rgba(232, 0, 0, 1)', 'rgba(232, 0, 0, .3)'],
+    // ['rgba(39, 91, 232, 1)', 'rgba(39, 91, 232, .3)'],
   ];
 
   const handleTableClick = props.handleTableClick;

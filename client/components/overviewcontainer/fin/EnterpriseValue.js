@@ -24,8 +24,8 @@ export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
     'EnterpriseValue',
-    'rgba(0, 100, 200, 0.3)',
-    'rgba(0, 100, 200, 0.6)',
+    'rgba(39, 91, 232, 1)',
+    'rgba(39, 91, 232, .3)',
   ]);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [enterphriseQtr, setEnterphriseQtr] = useState({});
@@ -87,7 +87,7 @@ export default function EnterpriseValue() {
   const attribute = selectedAttribute[0];
   const label = selectedAttribute[1];
   const color = selectedAttribute[2];
-  const outline = selectedAttribute[2];
+  const outline = selectedAttribute[3];
   let chartData = [];
   let keys = [];
 
@@ -101,14 +101,14 @@ export default function EnterpriseValue() {
   const dataset = [];
 
   dataset.push({
-    name: 'Cash Flow',
-    type: 'scatter',
+    name: 'Enterprise Value',
+    type: 'line',
     color: color,
-    outline: outline,
+    // outline: outline,
     values: chartData,
     hoverinfo: 'name',
     fillcolor: outline,
-    fill: 'tozeroy',
+    fill: 'tonexty',
   });
 
   //**------------------------------------------------------------------------------------------------ */
