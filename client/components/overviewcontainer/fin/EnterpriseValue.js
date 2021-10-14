@@ -19,6 +19,7 @@ import {
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
+
 export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
@@ -27,8 +28,11 @@ export default function EnterpriseValue() {
     'rgba(0, 100, 200, 0.6)',
   ]);
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
+  const [enterphriseQtr, setEnterphriseQtr] = useState({});
   const [profile, setProfile] = useState({});
 
+  //Fetching the data needed
+  //Fetching annual, quarterly and company profile
   useEffect(() => {
     async function getEnterpriseInfo() {
       setEnterpriseInfo(
@@ -40,14 +44,7 @@ export default function EnterpriseValue() {
           [...enterpriseIndentifiers]
         )
       );
-    }
-    getEnterpriseInfo();
-  }, []);
-
-  //Fetching the company profile
-  useEffect(() => {
-    async function getData() {
-      //* Fetch data from API
+      //here we are fetching the stock profile
       const { symbol, companyName, image } = await getLocalData(
         ['symbol', 'companyName', 'image'],
         fetchStockProfile,
@@ -56,30 +53,72 @@ export default function EnterpriseValue() {
       );
       setProfile({ symbol, companyName, image });
     }
-    getData();
+    getEnterpriseInfo();
+  }, []);
+
+  //Here we are fetching the quaterly info
+  //I tried putting it in the above use effect but it did not fetch???
+  useEffect(() => {
+    async function getEnterpriseInfoQtr() {
+      setEnterphriseQtr(
+        //here we are fetching only what we need from the statement
+        await getLocalData(
+          [...enterpriseIndentifiers],
+          fetchEnterpriseValue,
+          [false, 'quarter'],
+          [...enterpriseIndentifiers]
+        )
+      );
+    }
+    getEnterpriseInfoQtr();
   }, []);
 
   //A handler function being passed down to the table that will affect the local state of this component
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
   }
+
+  /**------------------------------------------------------------------------------------------------ */
+  //CHART DATA
+  //**------------------------------------------------------------------------------------------------ */
+
+  //This is the data I'll put in the chart
+  //Selected attribute is defined by what is clicked on in the table
+  const attribute = selectedAttribute[0];
+  const label = selectedAttribute[1];
+  const color = selectedAttribute[2];
+  const outline = selectedAttribute[2];
+  let chartData = [];
+  let keys = [];
+
+  if (Object.keys(enterphriseQtr).length) {
+    //Here i'm grabbing a particular array from the fetched object
+    chartData = enterphriseQtr[attribute].values;
+    //The keys taken from he fetch ar the dates
+    keys = enterphriseQtr[attribute].keys;
+  }
+
+  const dataset = [];
+
+  dataset.push({
+    name: 'Cash Flow',
+    type: 'scatter',
+    color: color,
+    outline: outline,
+    values: chartData,
+    hoverinfo: 'name',
+    fillcolor: outline,
+    fill: 'tozeroy',
+  });
+
+  //**------------------------------------------------------------------------------------------------ */
+  //TABLE DATA
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
   let rawDates;
 
-  let chartData = [];
-  let keys = [];
-
   if (Object.keys(enterpriseInfo).length) {
-    //----------------------------------------//
-    //chartData testing
-    chartData = enterpriseInfo[selectedAttribute[0]].values;
-    keys = enterpriseInfo.enterpriseValue.keys;
-
-    // console.log(chartData, 'chartData...');
-    //----------------------------------------//
-
     //When enterpriseInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = enterpriseInfo;
@@ -106,30 +145,9 @@ export default function EnterpriseValue() {
     labels: enterpriseTableLabels,
     attributes: enterpriseIndentifiers,
   };
-  //**--------------------------------------------------------------
-
-  //This is for our Chart information
-  //Generate the data set and pass it into UniversalChart which is already in the return statement
-  //Right now it's all place holder data
-  const dataset = [];
-
-  // dataset.push({
-  //   name: 'Income',
-  //   type: 'scatter',
-  //   labels: ['1st', '2nd', '3rd', '4th', '5th'],
-  //   values: [38, 27, 18, 10, 7],
-  //   hoverinfo: 'label+percent+name',
-  //   domain: { row: 1, column: 0 },
-  // });
-  dataset.push({
-    name: 'Gross Profit',
-    type: 'scatter',
-    labels: ['1st', '2nd', '3rd', '4th', '5th'],
-    color: selectedAttribute[2],
-    outline: selectedAttribute[3],
-    values: chartData,
-    hoverinfo: 'label+percent+name',
-  });
+  /**------------------------------------------------------------------------------------------------ */
+  //RENDER
+  //**------------------------------------------------------------------------------------------------ */
 
   return (
     <>
@@ -139,7 +157,7 @@ export default function EnterpriseValue() {
           <div className="fin-chart-container">
             <UniversalChart
               className="income-chart fin-chart"
-              title={selectedAttribute[1]}
+              title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
               plotBackgroundColor="rgba(30, 34, 45, 0)"

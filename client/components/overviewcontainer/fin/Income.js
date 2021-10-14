@@ -17,11 +17,10 @@ import {
   returnUnformatedData,
 } from './finUtils';
 
-//**------------------------------------------------------------------------------------------------ */
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
-//Redis??
+
 export default function Income() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'grossProfit',
@@ -30,27 +29,22 @@ export default function Income() {
     'rgba(0, 100, 200, 0.6)',
   ]);
   const [incomeInfo, setIncomeInfo] = useState({});
-  // const [incomeInfoQtr, setIncomeInfoQtr] = useState({});
+  const [incomeInfoQtr, setIncomeQtr] = useState({});
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function getIncomeInfo() {
       //here we are fetching only what we need from the income statement
-      const incomeInfo = await getLocalData(
-        [...incomeIndentifiers],
-        fetchIncomeStatement,
-        [false, 'annual'],
-        [...incomeIndentifiers]
+      setIncomeInfo(
+        await getLocalData(
+          [...incomeIndentifiers],
+          fetchIncomeStatement,
+          [false, 'annual'],
+          [...incomeIndentifiers]
+        )
       );
-      setIncomeInfo(incomeInfo);
-    }
-    getIncomeInfo();
-  }, []);
 
-  //Fetching the company profile
-  useEffect(() => {
-    async function getData() {
-      //* Fetch data from API
+      //here we are fetching the stock profile
       const { symbol, companyName, image } = await getLocalData(
         ['symbol', 'companyName', 'image'],
         fetchStockProfile,
@@ -59,30 +53,73 @@ export default function Income() {
       );
       setProfile({ symbol, companyName, image });
     }
-    getData();
+
+    getIncomeInfo();
+  }, []);
+
+  //Here we are fetching the quaterly info
+  //I tried putting it in the above use effect but it did not fetch???
+  useEffect(() => {
+    async function getIncomeInfoQtr() {
+      setIncomeQtr(
+        //here we are fetching only what we need from the statement
+        await getLocalData(
+          [...incomeIndentifiers],
+          fetchIncomeStatement,
+          [false, 'quarter'],
+          [...incomeIndentifiers]
+        )
+      );
+    }
+    getIncomeInfoQtr();
   }, []);
 
   //A handler function being passed down to the table that will affect the local state of this component
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
   }
+
+  //**------------------------------------------------------------------------------------------------ */
+  //CHART DATA
+  //**------------------------------------------------------------------------------------------------ */
+
+  //This is the data I'll put in the chart
+  //Selected attribute is defined by what is clicked on in the table
+  const attribute = selectedAttribute[0];
+  const label = selectedAttribute[1];
+  const color = selectedAttribute[2];
+  const outline = selectedAttribute[2];
+  let chartData = [];
+  let keys = [];
+
+  if (Object.keys(incomeInfoQtr).length) {
+    //Here i'm grabbing a particular array from the fetched object
+    chartData = incomeInfoQtr[attribute].values;
+    //The keys taken from he fetch ar the dates
+    keys = incomeInfoQtr[attribute].keys;
+  }
+
+  const dataset = [];
+
+  dataset.push({
+    name: 'Cash Flow',
+    type: 'scatter',
+    color: color,
+    values: chartData,
+    hoverinfo: 'name',
+    fillcolor: outline,
+    fill: 'tozeroy',
+  });
+
+  //**------------------------------------------------------------------------------------------------ */
+  //TABLE DATA
   //**------------------------------------------------------------------------------------------------ */
 
   let unformatedData = [];
   let rawDates;
 
-  let chartData = [];
-  let keys = [];
-
   if (Object.keys(incomeInfo).length) {
-    //----------------------------------------//
-    //chartData testing
-    chartData = incomeInfo[selectedAttribute[0]].values;
-    keys = incomeInfo.grossProfit.keys;
-
-    // console.log(chartData, 'chartData...');
-    //----------------------------------------//
-    //When incomeInfo has been populated we'll destructure what we need
+    //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = incomeInfo;
     rawDates = dates.keys;
@@ -107,38 +144,7 @@ export default function Income() {
     attributes: incomeIndentifiers,
   };
   //**------------------------------------------------------------------------------------------------ */
-  //This is for our Chart information
-  //Generate the data set and pass it into UniversalChart which is already in the return statement
-  //Right now it's all place holder data
-
-  const dataset = [];
-
-  dataset.push({
-    name: 'Gross Profit',
-    type: 'bar',
-    color: selectedAttribute[2],
-    outline: selectedAttribute[3],
-    values: chartData,
-    hoverinfo: 'label+percent+name',
-
-    //Chart Colors
-
-    //Green
-    // color: 'rgba(44, 221, 155, 0.3)'
-    // Outline: 'rgba(44, 221, 155, 0.6)',
-
-    //Purple
-    //color: 'rgba(221, 44, 155, 0.3)',
-    //outline: 'rgba(221, 44, 155, 0.6)',
-
-    //Red
-    //color: 'rgba(200, 0, 0, 0.3)',
-    //outline: 'rgba(200, 0, 0, 0.6)',
-
-    //Blue
-    //color: 'rgba(0, 100, 200, 0.3)',
-    //outline: 'rgba(0, 100, 200, 0.6)',
-  });
+  //RENDER
   //**-------------------------------------------------------------------------------------------------- */
   return (
     <>
@@ -148,7 +154,7 @@ export default function Income() {
           <div className="fin-chart-container pos-rel">
             <UniversalChart
               className="income-chart fin-chart"
-              title={selectedAttribute[1]}
+              title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
               plotBackgroundColor="rgba(33, 34, 45, 0)"
