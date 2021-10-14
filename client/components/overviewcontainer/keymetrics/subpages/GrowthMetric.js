@@ -6,6 +6,7 @@ import {
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
+  isSameObject,
   trimDate
 } from '../../../../utils'
 import Growthchart from '../charts/GrowthChart'
@@ -66,55 +67,7 @@ export default function GrowthMetric() {
         <MetricSelector />
         <div className="metric-container">
           <div className="gmetric-sub-container">
-            <div className="slot gnetincome">
-              {getGrowthOverview(results, data, 'netincome')}
-              <div className="gmetric-chart shadow-nohover">
-                <Growthchart
-                  title="Net Income"
-                  color="rgba(250, 173, 20, 0.3)"
-                  outline="rgba(250, 173, 20, 0.6)"
-                  type=""
-                  name="net"
-                  data={data.net}
-                  dataType={dataType}
-                  setDataType={setDataType}
-                  setUpdate={setUpdate}
-                />
-              </div>
-            </div>
-            <div className="slot gcashflow">
-              <div className="gmetric-chart shadow-nohover">
-                <Growthchart
-                  title="Cash Flow"
-                  color="rgba(41, 98, 254, 0.3)"
-                  outline="rgba(41, 98, 254, 0.6)"
-                  type=""
-                  name="fcf"
-                  data={data.fcf}
-                  dataType={dataType}
-                  setDataType={setDataType}
-                  setUpdate={setUpdate}
-                />
-              </div>
-              {getGrowthOverview(results, data, 'cashflow')}
-            </div>
-            <div className="slot grevenue">
-              {getGrowthOverview(results, data, 'revenue')}
-              <div className="gmetric-chart shadow-nohover">
-                <Growthchart
-                  title="Revenue"
-                  color="rgba(243, 142, 176, 0.4)"
-                  outline="rgba(243, 142, 176, 0.6)"
-                  type=""
-                  name="rev"
-                  data={data.rev}
-                  dataType={dataType}
-                  setDataType={setDataType}
-                  update={update}
-                  setUpdate={setUpdate}
-                />
-              </div>
-            </div>
+            {getGrowthMetricPage(data, results, dataType, setDataType, setUpdate)}
           </div>
         </div>
       </div>
@@ -122,11 +75,69 @@ export default function GrowthMetric() {
   )
 }
 
+//* Function to get the growth metrics page
+function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
+  if (!data.net || !results.pe)
+    return <div className="qloads">Hold tight while we load your data!</div>
+  return (
+    <>
+      <div className="slot gnetincome">
+        {getGrowthOverview(results, data, 'netincome')}
+        <div className="gmetric-chart shadow-nohover">
+          <Growthchart
+            title="Net Income"
+            color="rgba(250, 173, 20, 0.3)"
+            outline="rgba(250, 173, 20, 0.6)"
+            type=""
+            name="net"
+            data={data.net}
+            dataType={dataType}
+            setDataType={setDataType}
+            setUpdate={setUpdate}
+          />
+        </div>
+      </div>
+      <div className="slot gcashflow">
+        <div className="gmetric-chart shadow-nohover">
+          <Growthchart
+            title="Cash Flow"
+            color="rgba(41, 98, 254, 0.3)"
+            outline="rgba(41, 98, 254, 0.6)"
+            type=""
+            name="fcf"
+            data={data.fcf}
+            dataType={dataType}
+            setDataType={setDataType}
+            setUpdate={setUpdate}
+          />
+        </div>
+        {getGrowthOverview(results, data, 'cashflow')}
+      </div>
+      <div className="slot grevenue">
+        {getGrowthOverview(results, data, 'revenue')}
+        <div className="gmetric-chart shadow-nohover">
+          <Growthchart
+            title="Revenue"
+            color="rgba(243, 142, 176, 0.4)"
+            outline="rgba(243, 142, 176, 0.6)"
+            type=""
+            name="rev"
+            data={data.rev}
+            dataType={dataType}
+            setDataType={setDataType}
+            setUpdate={setUpdate}
+          />
+        </div>
+      </div>
+    </>
+  )
+}
+
 //* Function to return all of the metrics
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getGrowthOverview(results, data, growthType) {
-  if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.netincome) return <div className="qload">Hold tight while we load your data!</div>
   switch (growthType) {
     case 'netincome': {
       const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null

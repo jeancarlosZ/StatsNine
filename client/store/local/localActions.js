@@ -192,49 +192,39 @@ export async function getTickerResults() {
     'revenueannual'
   )
   // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
-  const numberOfShares = await getLocalData(
-    'numberOfShares',
+  const { numberOfShares, marketCapitalization } = await getLocalData(
+    ['numberOfShares', 'marketCapitalization'],
     fetchEnterpriseValue,
     ['annual'],
-    'sharesannual'
+    ['sharesannual', 'marketcapannual']
   )
-  const { priceEarningsRatio, priceToFreeCashFlowsRatio, effectiveTaxRate } = await getLocalData(
-    ['priceEarningsRatio', 'priceToFreeCashFlowsRatio', 'effectiveTaxRate'],
+  const effectiveTaxRate = await getLocalData(
+    'effectiveTaxRate',
     fetchRatios,
     [false, 'annual'],
-    ['peannual', 'pfcfannual', 'taxannual']
+    'taxannual'
   )
-
+  // TODO:
   //* Five year avg PE
-  const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
+  // const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
   //* Five year P/FCF
-  const avgfcf =
-    priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
-  //* 5y Revenue growth
-  const revg = revenue.values.slice(-5)
-  //* 5y Cashflow growth
-  const cashg = freeCashFlow.values.slice(-5)
-  //* 5y Net income growth
-  const netg = netIncome.values.slice(-5)
-  //* 5y shares decreasing
-  const shareg = numberOfShares.values.slice(-5)
-  //* 5y avg cashflow
-  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
-  //* Current liabs
-  const currentLiabilities = [...totalLiabilities.values].pop()
-  //* LTL / 5 yr avg cashflow ^
-  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
+  // const avgfcf = priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
 
-  //* Invested capital
+  const currentCap = marketCapitalization.values.slice(-1).pop()
+  const cashg = freeCashFlow.values.slice(-5)
+
+  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
+  const netg = netIncome.values.slice(-5)
+  const avgE = netg.reduce((prev, curr) => prev + curr, 0) / 5
+
+  const avgPe = currentCap / avgE
+  const avgfcf = currentCap / avgcash
+
+  const revg = revenue.values.slice(-5)
+  const shareg = numberOfShares.values.slice(-5)
+  const currentLiabilities = [...totalLiabilities.values].pop()
+  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
   const investedCap = totalInvestments.values.slice(-5)
-  // //* calculate yearly roic
-  // const roics = [...netg].map((netI, i) => {
-  //   //* If they have no investments
-  //   if (investedCap[i] === 0) return 0.00001
-  //   return netI / investedCap[i]
-  // })
-  // //* 5 Year average roic
-  // const roicAvg = roics.reduce((prev, curr) => prev + curr, 0) / 5
   const taxes = effectiveTaxRate.values.slice(-5)
 
   //* Correct formula for ROIC!! account for taxes and negitive's
@@ -257,8 +247,6 @@ export async function getTickerResults() {
     cashgrowthdata: { k: freeCashFlow.keys.slice(-5), v: cashg },
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
     netincomedata: { k: netIncome.keys.slice(-5), v: netg },
-    // roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
-    // roicdata: roicTTM,
     roic: roicAvg >= 0.1 ? GOOD : roicAvg <= 0.08 ? BAD : OKAY,
     roicdata: { avg: roicAvg, vals: { k: netIncome.keys.slice(-5), v: roics } },
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,

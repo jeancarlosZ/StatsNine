@@ -24,45 +24,50 @@ export default function SafetyMetric() {
     getData()
   }, [])
 
-  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0
-
   return (
     <div className="key-metrics-container">
       <div className="sub-container shadow-deep-nohover">
         <MetricSelector />
         <div className="metric-container">
-          <div className="metric-sub-container">
-            <div className="metric-metrics">{getPriceOverview(results)}</div>
-            <div className="metric-charts">
-              <div className="metric-chart shadow-nohover">
-                <AssetsVsLiabilities />
-              </div>
-              <div className="safety-lowerhalf">
-                <div className="metric-chart clean">
-                  <SimplePie data={results.ltldata} />
-                </div>
-                <div className="fcftoltl">
-                  <div>
-                    <label>Total Current Liabilities:</label>
-                    <span>{`$${results.ltldata ? formatNumber(results.ltldata.libs) : '0'}`}</span>
-                  </div>
-                  <div>
-                    <label>5yr Avg. Free Cash Flow:</label>
-                    <span>{`$${results.ltldata ? formatNumber(results.ltldata.avg) : '0'}`}</span>
-                  </div>
-                  <div>
-                    <label>Years to pay off debt:</label>
-                    <span>
-                      {debtYears === -1 ? 'Who knows? Their FCF is negitive!' : debtYears}
-                    </span>
-                  </div>
-                </div>
-              </div>
+          <div className="metric-sub-container">{getSafetyMetricsPage(results)}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+//* Function to load the safety metrics page
+function getSafetyMetricsPage(results) {
+  if (!results.pe) return <div className="qload">Hold tight while we load your data!</div>
+  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0
+  return (
+    <>
+      <div className="metric-metrics">{getPriceOverview(results)}</div>
+      <div className="metric-charts">
+        <div className="metric-chart shadow-nohover">
+          <AssetsVsLiabilities />
+        </div>
+        <div className="safety-lowerhalf">
+          <div className="metric-chart clean">
+            <SimplePie data={results.ltldata} />
+          </div>
+          <div className="fcftoltl">
+            <div>
+              <label>Total Current Liabilities:</label>
+              <span>{`$${results.ltldata ? formatNumber(results.ltldata.libs) : '0'}`}</span>
+            </div>
+            <div>
+              <label>5yr Avg. Free Cash Flow:</label>
+              <span>{`$${results.ltldata ? formatNumber(results.ltldata.avg) : '0'}`}</span>
+            </div>
+            <div>
+              <label>Years to pay off debt:</label>
+              <span>{debtYears === -1 ? 'Who knows? Their FCF is negitive!' : debtYears}</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -70,9 +75,6 @@ export default function SafetyMetric() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results) {
-  if (!results || isSameObject({}, results))
-    return <div className="qload">Hold tight while we load your data!</div>
-
   const { k, a, b } = results.assetsdata
   const difference = getDifferenceBetween(a)
   const percdiffc = getPercentDifference(a[a.length - 1], b[b.length - 1])

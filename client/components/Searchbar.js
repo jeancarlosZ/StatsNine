@@ -38,10 +38,10 @@ export default function Searchbar() {
   }, [searchRef, open])
 
   useEffect(() => {
-    // This function sets the query results from the API up to a maximum of 10 in the local state to be used for rendering.
+    // This function sets the query results from the API up to a specified limit in the local state to be used for rendering.
     async function getStocksList() {
       try {
-        setStocksList(await fetchSearchQuery(query, 10))
+        setStocksList(await fetchSearchQuery(query, 15))
       } catch (err) {
         console.log(err)
       }
@@ -88,14 +88,14 @@ export default function Searchbar() {
 
   return (
     <div ref={searchRef}>
-      <div className='top-search-bar'>
-        <SearchIcon className='search-icon' />
-        <label className='search-clear' type='button' onClick={() => setQuery('')}>
+      <div className="top-search-bar">
+        <SearchIcon className="search-icon" />
+        <label className="search-clear" type="button" onClick={() => setQuery('')}>
           Clear
         </label>
         <input
-          className='top-search-input'
-          placeholder='Search by Symbol'
+          className="top-search-input"
+          placeholder="Search by Symbol"
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}
           onClick={event => {
@@ -105,7 +105,7 @@ export default function Searchbar() {
           maxLength={5}
         />
       </div>
-      <ToastContainer theme='dark' newestOnTop autoClose={3000} />
+      <ToastContainer theme="dark" newestOnTop autoClose={3000} />
       {queryBox(query, setOpen, stocksList, open)}
     </div>
   )

@@ -29,7 +29,7 @@ export default function Metrics() {
 
 //* Function to return most of the page
 function getMetricsPage(results) {
-  if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.pe) return <div className="qload">Hold tight while we load your data!</div>
   return (
     <div className="metric-container">
       <div className="metric-sub-container">
@@ -51,7 +51,7 @@ function getMetricsPage(results) {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getMetricOverview(results) {
-  if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.pe) return <div className="qload">Hold tight while we load your data!</div>
   return (
     <div className="metrics">
       <div className="metric">
@@ -68,7 +68,7 @@ function getMetricOverview(results) {
       <div className="metric">
         <label>{'Quality Metrics'}</label>
         {getMetricItem('5yr ROIC >= 10%', results.roic, false)}
-        {getMetricItem('5yr Shares Outstanding  (Decreasing)', results.shares, false)}
+        {getMetricItem('5yr Shares Outstanding', results.shares, false)}
       </div>
       <div className="metric">
         <label>{'Saftey Metrics'}</label>
