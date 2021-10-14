@@ -148,10 +148,10 @@ export default function Balance() {
 
   return (
     <>
-      <div className="flex-col">
-        <div className="income-container flex-row justify-between">
+      <div className="page">
+        <div className="fin-top-container">
           <CompanyInfo profile={profile} />
-          <div className="fin-chart-container pos-rel">
+          <div className="fin-chart-container">
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
