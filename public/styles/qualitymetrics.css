@@ -29,6 +29,14 @@
   color: var(--fontColor);
 }
 
+.qloads {
+  margin: 250px auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--fontColor);
+}
+
 .key-metrics-container .quality-subcontainer {
   margin: auto;
 

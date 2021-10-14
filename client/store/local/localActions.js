@@ -205,6 +205,7 @@ export async function getTickerResults() {
     ['peannual', 'pfcfannual', 'taxannual']
   )
 
+  // TODO:
   //* Five year avg PE
   const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
   //* Five year P/FCF
@@ -227,14 +228,6 @@ export async function getTickerResults() {
 
   //* Invested capital
   const investedCap = totalInvestments.values.slice(-5)
-  // //* calculate yearly roic
-  // const roics = [...netg].map((netI, i) => {
-  //   //* If they have no investments
-  //   if (investedCap[i] === 0) return 0.00001
-  //   return netI / investedCap[i]
-  // })
-  // //* 5 Year average roic
-  // const roicAvg = roics.reduce((prev, curr) => prev + curr, 0) / 5
   const taxes = effectiveTaxRate.values.slice(-5)
 
   //* Correct formula for ROIC!! account for taxes and negitive's
@@ -257,8 +250,6 @@ export async function getTickerResults() {
     cashgrowthdata: { k: freeCashFlow.keys.slice(-5), v: cashg },
     netincome: netg[0] < netg[netg.length - 1] ? GOOD : BAD,
     netincomedata: { k: netIncome.keys.slice(-5), v: netg },
-    // roic: roicTTM >= 0.1 ? GOOD : roicTTM <= 0.08 ? BAD : OKAY,
-    // roicdata: roicTTM,
     roic: roicAvg >= 0.1 ? GOOD : roicAvg <= 0.08 ? BAD : OKAY,
     roicdata: { avg: roicAvg, vals: { k: netIncome.keys.slice(-5), v: roics } },
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,

@@ -33,20 +33,29 @@ export default function PriceMetric() {
       <div className="sub-container shadow-deep-nohover">
         <MetricSelector />
         <div className="metric-container">
-          <div className="metric-sub-container">
-            <div className="metric-metrics">{getPriceOverview(results, data)}</div>
-            <div className="metric-charts">
-              <div className="metric-chart shadow-nohover">
-                <PeHistChart data={data.priceEarningsRatio} />
-              </div>
-              <div className="metric-chart shadow-nohover">
-                <PFCFHistChart data={data.priceToFreeCashFlowsRatio} />
-              </div>
-            </div>
-          </div>
+          <div className="metric-sub-container">{getPriceMetricPage(data, results)}</div>
         </div>
       </div>
     </div>
+  )
+}
+
+//* func to reutrn the price metrics page
+function getPriceMetricPage(data, results) {
+  if (!data.priceEarningsRatio || !results.pe)
+    return <div className="qload">Hold tight while we load your data!</div>
+  return (
+    <>
+      <div className="metric-metrics">{getPriceOverview(results, data)}</div>
+      <div className="metric-charts">
+        <div className="metric-chart shadow-nohover">
+          <PeHistChart data={data.priceEarningsRatio} />
+        </div>
+        <div className="metric-chart shadow-nohover">
+          <PFCFHistChart data={data.priceToFreeCashFlowsRatio} />
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -54,7 +63,7 @@ export default function PriceMetric() {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results, data) {
-  if (!results) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.pedata) return <div className="qload">Hold tight while we load your data!</div>
   const pe = roundNumberDec(results.pedata)
   const pfcf = roundNumberDec(results.pfcfdata)
   return (
