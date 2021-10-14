@@ -7,7 +7,7 @@ export default function Newsfeed() {
   useEffect(() => {
     async function getStockNewsList() {
       setStockNewsList(
-        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10)
+        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 13)
       );
     }
     getStockNewsList();
