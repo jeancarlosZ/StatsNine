@@ -38,7 +38,7 @@ export default function Searchbar() {
   }, [searchRef, open])
 
   useEffect(() => {
-    // This function sets the query results from the API up to a maximum of 20 in the local state to be used for rendering.
+    // This function sets the query results from the API up to a maximum of 10 in the local state to be used for rendering.
     async function getStocksList() {
       try {
         setStocksList(await fetchSearchQuery(query, 10))
@@ -88,9 +88,9 @@ export default function Searchbar() {
 
   return (
     <div ref={searchRef}>
-      <div className="top-search-bar">
-        <SearchIcon className="search-icon" />
-        <label className="search-clear" type="button" onClick={() => setQuery('')}>
+      <div className='top-search-bar'>
+        <SearchIcon className='search-icon' />
+        <label className='search-clear' type='button' onClick={() => setQuery('')}>
           Clear
         </label>
         <input
@@ -105,13 +105,13 @@ export default function Searchbar() {
           maxLength={5}
         />
       </div>
-      <ToastContainer theme="dark" newestOnTop autoClose={3000} />
+      <ToastContainer theme='dark' newestOnTop autoClose={3000} />
       {queryBox(query, setOpen, stocksList, open)}
     </div>
   )
 }
 
-// This function returns the query box for rendering after user clicks on the search bar.
+// This function returns the query box for rendering after user clicks on the search bar and types the first character.
 function queryBox(query, setOpen, stocksList, open) {
   if (open) {
     return <SearchTable query={query} open={setOpen} stocksList={stocksList} />
