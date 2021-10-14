@@ -1,13 +1,30 @@
 // Welcome!
 // this is just my scrumble page.
 
-import React, { useState, useEffect, Fragment } from 'react';
+import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import Homepage from './Homepage';
+import Table from '../screener/Table';
+import AboutUs from './AboutUs';
 
 export default function Welcome() {
   // useEffect(() => {
   //   axios();
   // });
-  // THIS IS THE STARTING CODE FOR WORD CLOUD
 
-  return <div></div>;
+  return (
+    <div>
+      <Carousel>
+        <Carousel.Item>
+          <Homepage />
+        </Carousel.Item>
+        <Carousel.Item>
+          <Table />
+        </Carousel.Item>
+        <Carousel.Item>
+          <AboutUs />
+        </Carousel.Item>
+      </Carousel>
+    </div>
+  );
 }

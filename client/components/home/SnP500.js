@@ -77,8 +77,8 @@ export default function StockPriceChart() {
           showlegend={false}
           backgroundColor="fff"
           plotBackgroundColor="rgba(30, 34, 45, 0)"
-          xaxis={{ gridcolor: 'fff' }}
-          yaxis={{ gridcolor: 'fff' }}
+          xaxis={false}
+          yaxis={false}
         />
       </div>
     </div>

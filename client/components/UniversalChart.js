@@ -1,6 +1,6 @@
-import React from 'react'
-import Plot from 'react-plotly.js'
-import { isSameObject } from '../utils'
+import React from 'react';
+import Plot from 'react-plotly.js';
+import { isSameObject } from '../utils';
 
 //* This is a universal bar chart that can be customized through it's props
 //* any of the destructured props can be changed. ~ Brynn
@@ -78,10 +78,10 @@ export default function UniversalChart(props) {
     //* Show legend
     showlegend = isSameObject({}, legend) ? false : true,
     //* gridColor
-    gridcolor = 'rgba(67, 70, 81, 0.3)'
-  } = props
+    gridcolor = 'rgba(67, 70, 81, 0.3)',
+  } = props;
   //* Pass in your whole own custom layout object
-  let { layout } = props
+  let { layout } = props;
   //* Default layout object
   if (!layout) {
     layout = {
@@ -101,19 +101,19 @@ export default function UniversalChart(props) {
       hoverlabel: hoverlabel,
       hoverdistance: hoverdistance,
       xaxis: {
-        gridcolor: gridcolor
+        gridcolor: gridcolor,
       },
       yaxis: {
-        gridcolor: gridcolor
-      }
-    }
+        gridcolor: gridcolor,
+      },
+    };
     //* Include the custom axes if required. Best
-    //* not to attach apon creation to avoid errors
-    if (xaxis) layout.xaxis = { ...layout.xaxis, ...xaxis }
-    if (yaxis) layout.yaxis = { ...layout.yaxis, ...yaxis }
+    //* not to attach upon creation to avoid errors
+    if (xaxis) layout.xaxis = { ...layout.xaxis, ...xaxis };
+    if (yaxis) layout.yaxis = { ...layout.yaxis, ...yaxis };
   }
   //* The data to load into the chart
-  let data = []
+  let data = [];
 
   //* If the dataset was actually provided
   if (dataset) {
@@ -173,10 +173,10 @@ export default function UniversalChart(props) {
         //* you can use custom set, it will use the set below but also
         //* attach and override with the elements you put in this obj
         //* list of properties you can attach https://plotly.com/javascript/reference/
-        customSet
-      } = set
+        customSet,
+      } = set;
       //* If the set is already built out
-      if (fullSet) return fullSet
+      if (fullSet) return fullSet;
       //* Return the formatted data object for that set
       let setData = {
         name: name ? name : 'Default Set Name',
@@ -202,14 +202,14 @@ export default function UniversalChart(props) {
             color: outline ? outline : 'rgba(55,128,191,1.0)',
             width: stroke ? stroke : 2,
             dash: dash ? dash : 'solid',
-            smoothing: smoothing ? smoothing : 0
-          }
-        }
-      }
-      if (fillcolor) setData = { ...setData, fillcolor: fillcolor }
+            smoothing: smoothing ? smoothing : 0,
+          },
+        },
+      };
+      if (fillcolor) setData = { ...setData, fillcolor: fillcolor };
       //* Combine custom set otherwise just return the created set
-      return customSet ? { ...setData, ...customSet } : setData
-    })
+      return customSet ? { ...setData, ...customSet } : setData;
+    });
   }
 
   //* Return JSX
@@ -231,5 +231,5 @@ export default function UniversalChart(props) {
         onDeselect={data => onDeselect(data)}
       />
     </>
-  )
+  );
 }
