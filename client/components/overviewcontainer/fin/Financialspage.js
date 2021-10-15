@@ -60,7 +60,7 @@ export function FinancialsNavBar() {
 function getSelectorLabel(name, history, selected) {
   //* Format the name so we can work with it
   const fmtName = name.replace(' ', '').toLowerCase()
-  if (fmtName === 'financials') selected = 'financials'
+  if (!selected || selected == 'financials') selected = 'incomestatement'
   return (
     <label
       className={fmtName === selected ? 'selected' : ''}
