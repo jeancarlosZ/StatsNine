@@ -289,13 +289,20 @@ async function fetchData(link) {
 function formatTimeSeriesData(data, custom) {
   //* If the data is undefined or null
   if (!data) return {}
+
+  const years = {}
+
   //* Create our new balance sheet
   const formattedData = {}
   //* Use for loops so we can create a object
   for (let i = 0; i < data.length; i++) {
     const section = data[i]
-    formattedData[custom ? section[custom] : section.date] = section
+    const ogDate = custom ? section[custom] : section.date
+    const year = formatDate(ogDate, true)
+    if (!years[year]) formattedData[ogDate] = section
+    years[year] = true
   }
+
   //* Return the formatted data
   return formattedData
 }
@@ -335,7 +342,7 @@ function getDataRange(dataRange) {
 }
 
 //* Format dates for charting
-function formatDate(date) {
+function formatDate(date, years = false) {
   var d = new Date(date),
     month = '' + (d.getMonth() + 1),
     day = '' + d.getDate(),
@@ -344,7 +351,7 @@ function formatDate(date) {
   if (month.length < 2) month = '0' + month
   if (day.length < 2) day = '0' + day
 
-  return [year, month, day].join('-')
+  return years ? year : [year, month, day].join('-')
 }
 
 const blackList = {

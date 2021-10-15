@@ -90,7 +90,7 @@ export function formatPercentage(n, secondPlace = true, asString = false) {
 }
 
 //* Format dates for charting
-export function formatDate(date) {
+export function formatDate(date, years = false) {
   var d = new Date(date),
     month = '' + (d.getMonth() + 1),
     day = '' + d.getDate(),
@@ -99,7 +99,7 @@ export function formatDate(date) {
   if (month.length < 2) month = '0' + month
   if (day.length < 2) day = '0' + day
 
-  return [year, month, day].join('-')
+  return years ? year : [year, month, day].join('-')
 }
 
 //* Function used to log errors in a easy to read way.
