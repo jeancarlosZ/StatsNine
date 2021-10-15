@@ -270,7 +270,9 @@ async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL, line
   const query = `${range !== ALL ? getDataRange(range) : ''}${line ? '&serietype=line' : ''}`
   const link = getFMPLink(ticker, type, query)
   const data = await fetchData(link)
-  return splitProperties(await formatTimeSeriesData(series === DAILY ? data.historical : data))
+  return splitProperties(
+    await formatTimeSeriesData(series === DAILY ? data.historical : data, null, false)
+  )
 }
 
 //* Function used to make the axios calls and return the data
@@ -286,7 +288,7 @@ async function fetchData(link) {
 
 //* Helper function to format the
 //* response data for the reducer
-function formatTimeSeriesData(data, custom) {
+function formatTimeSeriesData(data, custom, doFix = true) {
   //* If the data is undefined or null
   if (!data) return {}
 
@@ -298,9 +300,11 @@ function formatTimeSeriesData(data, custom) {
   for (let i = 0; i < data.length; i++) {
     const section = data[i]
     const ogDate = custom ? section[custom] : section.date
-    const year = formatDate(ogDate, true)
-    if (!years[year]) formattedData[ogDate] = section
-    years[year] = true
+    if (doFix) {
+      const year = formatDate(ogDate, true)
+      if (!years[year]) formattedData[ogDate] = section
+      years[year] = true
+    } else formattedData[ogDate] = section
   }
 
   //* Return the formatted data

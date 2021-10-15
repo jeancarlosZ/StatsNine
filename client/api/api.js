@@ -317,12 +317,6 @@ export function formatTimeSeriesData(data, custom) {
     dates.push(formatDate(custom ? section[custom] : section.date, true))
   }
 
-  //! Remove
-  console.log('--------------------')
-  console.log('dates:', dates)
-  console.log('--------------------')
-  //! Remove
-
   //* Return the formatted data
   return formattedData
 }
