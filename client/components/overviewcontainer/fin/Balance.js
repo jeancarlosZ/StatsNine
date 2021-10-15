@@ -27,6 +27,7 @@ export default function Balance() {
     'rgba(39, 232, 91, 1)',
     'rgba(39, 232, 91, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('quarter');
   const [balanceInfo, setBalanceInfo] = useState({});
   const [balanceQtr, setBalanceQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -77,6 +78,10 @@ export default function Balance() {
     setSelectedAttribute(attribute);
   }
 
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
+  }
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -90,11 +95,17 @@ export default function Balance() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(balanceQtr).length) {
+  if (Object.keys(balanceQtr).length && Object.keys(balanceInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = balanceQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = balanceQtr[attribute].keys;
+    chartData =
+      chartDatatype === 'quarter'
+        ? balanceQtr[attribute].values
+        : balanceInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? balanceQtr[attribute].keys
+        : balanceInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -153,6 +164,7 @@ export default function Balance() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -169,7 +181,6 @@ export default function Balance() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }

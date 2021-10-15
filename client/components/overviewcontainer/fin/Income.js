@@ -32,6 +32,7 @@ export default function Income() {
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('quarter');
   const [incomeInfo, setIncomeInfo] = useState({});
   const [incomeInfoQtr, setIncomeQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -84,6 +85,11 @@ export default function Income() {
     setSelectedAttribute(attribute);
   }
 
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
+  }
+
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -97,11 +103,18 @@ export default function Income() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(incomeInfoQtr).length) {
-    //Here i'm grabbing a particular array from the fetched object
-    chartData = incomeInfoQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = incomeInfoQtr[attribute].keys;
+  if (Object.keys(incomeInfoQtr).length && Object.keys(incomeInfo).length) {
+    //Here i'm grabbing a particular array from the fetched object to be displyed in the chart
+
+    chartData =
+      chartDatatype === 'quarter'
+        ? incomeInfoQtr[attribute].values
+        : incomeInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? incomeInfoQtr[attribute].keys
+        : incomeInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -159,6 +172,7 @@ export default function Income() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -175,7 +189,6 @@ export default function Income() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }

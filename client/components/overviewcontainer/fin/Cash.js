@@ -29,6 +29,7 @@ export default function Cash() {
     'rgba(232, 91, 232, 1)',
     'rgba(232, 91, 232, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('quarter');
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [cashflowQtr, setCashflowQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -83,6 +84,10 @@ export default function Cash() {
     setSelectedAttribute(attribute);
   }
 
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
+  }
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -98,9 +103,16 @@ export default function Cash() {
 
   if (Object.keys(cashflowQtr).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = cashflowQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = cashflowQtr[attribute].keys;
+
+    chartData =
+      chartDatatype === 'quarter'
+        ? cashflowQtr[attribute].values
+        : cashflowInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? cashflowQtr[attribute].keys
+        : cashflowInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -160,6 +172,7 @@ export default function Cash() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -176,7 +189,6 @@ export default function Cash() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }
