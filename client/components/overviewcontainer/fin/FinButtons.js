@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 export function FinButtons(props) {
-  const [selected, setSelected] = useState('quarter');
-
+  const [selected, setSelected] = useState('annual');
   const handleButtonClick = props.handleButtonClick;
+
   return (
     <div className="fin-button-container pos-rel">
       <button

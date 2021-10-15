@@ -17,11 +17,9 @@ export default function CompanyInfo(props) {
   return (
     <div className="company-container pos-rel flex-col">
       <div className="company-info pos-rel">
-        {/* <img className="fin-company-logo" src={image} alt="temp" /> */}
         <span className="company-name">{name}</span>
         <div className="ticker-container flex-col justify-between">
-          <span className="bold">{ticker}</span>
-          {/* <span className="ticker bold">{props.symbol}</span> */}
+          <span className="bold ticker">{ticker}</span>
         </div>
       </div>
     </div>

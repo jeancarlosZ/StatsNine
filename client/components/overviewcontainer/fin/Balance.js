@@ -27,7 +27,7 @@ export default function Balance() {
     'rgba(39, 232, 91, 1)',
     'rgba(39, 232, 91, .3)',
   ]);
-  const [chartDatatype, setChartDatatype] = useState('quarter');
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [balanceInfo, setBalanceInfo] = useState({});
   const [balanceQtr, setBalanceQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -130,8 +130,8 @@ export default function Balance() {
   if (Object.keys(balanceInfo).length) {
     //When balanceInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = balanceInfo;
-    rawDates = dates.keys;
+    const { totalAssets } = balanceInfo;
+    rawDates = totalAssets.keys;
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'

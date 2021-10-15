@@ -32,7 +32,7 @@ export default function Income() {
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
-  const [chartDatatype, setChartDatatype] = useState('quarter');
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [incomeInfo, setIncomeInfo] = useState({});
   const [incomeInfoQtr, setIncomeQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -117,6 +117,7 @@ export default function Income() {
         : incomeInfo[attribute].keys;
   }
 
+  // const tempVar = [...chartData].reverse();
   const dataset = [];
 
   dataset.push({
@@ -139,8 +140,8 @@ export default function Income() {
   if (Object.keys(incomeInfo).length) {
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = incomeInfo;
-    rawDates = dates.keys;
+    const { grossProfit } = incomeInfo;
+    rawDates = grossProfit.keys;
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
     unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);

@@ -28,7 +28,7 @@ export default function EnterpriseValue() {
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
-  const [chartDatatype, setChartDatatype] = useState('quarter');
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [enterpriseQtr, setEnterpriseQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -100,7 +100,7 @@ export default function EnterpriseValue() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(enterpriseQtr).length) {
+  if (Object.keys(enterpriseQtr).length && Object.keys(enterpriseInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
     chartData =
       chartDatatype === 'quarter'
@@ -135,8 +135,8 @@ export default function EnterpriseValue() {
   if (Object.keys(enterpriseInfo).length) {
     //When enterpriseInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = enterpriseInfo;
-    rawDates = dates.keys;
+    const { enterpriseValue } = enterpriseInfo;
+    rawDates = enterpriseValue.keys;
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
