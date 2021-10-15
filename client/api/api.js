@@ -305,13 +305,24 @@ async function fetchData(link) {
 export function formatTimeSeriesData(data, custom) {
   //* If the data is undefined or null
   if (!data) return {}
+
+  const dates = []
+
   //* Create our new balance sheet
   const formattedData = {}
   //* Use for loops so we can create a object
   for (let i = 0; i < data.length; i++) {
     const section = data[i]
     formattedData[custom ? section[custom] : section.date] = section
+    dates.push(formatDate(custom ? section[custom] : section.date, true))
   }
+
+  //! Remove
+  console.log('--------------------')
+  console.log('dates:', dates)
+  console.log('--------------------')
+  //! Remove
+
   //* Return the formatted data
   return formattedData
 }
