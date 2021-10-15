@@ -255,9 +255,9 @@ function DashboardPriceChart() {
     dataset.push({
       name: 'Stock Price',
       type: 'line',
-      color: 'rgba(39, 91, 232, 1)',
-      outline: 'rgba(39, 91, 232, 1)',
-      fillcolor: 'rgba(39, 91, 232, .3)',
+      color: 'rgba(48, 145, 236, 1)',
+      outline: 'rgba(48, 145, 236, 1)',
+      fillcolor: 'rgba(48, 145, 236, .2)',
       fill: 'tonexty',
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.

@@ -25,8 +25,8 @@
   --blueShade2: #2962fe; /** rgba(41, 98, 254, 1) */
   --blueShade3: #2bbaff;
   --blueShade4: #26c5d9;
-  --blueShade5: #1890ff;
-  --blueShade6: #3091ec;
+  --blueShade5: rgb(24, 144, 255);
+  --blueShade6: rgb(48, 145, 236);
 
   /* SHADES OF GREEN_ */
   --greenShade1: #00887b; /** rgba(0, 136, 123, 1)*/
