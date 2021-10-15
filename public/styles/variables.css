@@ -80,6 +80,10 @@
   box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.2);
 }
 
+.shadow-wild-nohover {
+  box-shadow: 0 16px 26px 0 rgba(0, 0, 0, 0.2);
+}
+
 /*
 *==================================
 *      Zooming Effects
@@ -102,4 +106,40 @@
 .zoomable-med,
 .zoomable {
   transition: transform 0.3s ease;
+}
+
+/*
+  *==================================
+  *         Slide Loading
+  *================================== 
+  */
+
+.slide-loading {
+  animation: slide-loading 0.5s ease-in;
+}
+
+@keyframes slide-loading {
+  0% {
+    transform: skewX(53deg) translateX(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(0px);
+  }
+  62% {
+    transform: skewX(0deg) translateX(30px);
+  }
+  70% {
+    transform: skew(-20deg);
+  }
+  80% {
+    transform: skew(0deg) translate(0);
+  }
+  90% {
+    transform: skew(-5deg);
+  }
+
+  100% {
+    transform: skew(0deg);
+  }
 }
