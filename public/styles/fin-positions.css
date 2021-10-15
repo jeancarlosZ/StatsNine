@@ -4,9 +4,7 @@
 
 * {
   /** Financials view height and width */
-  --financialsViewHeight: calc(
-    100vh - (var(--mainHeaderHeight) + var(--subHeaderHeight))
-  );
+  --financialsViewHeight: calc(100vh - (var(--mainHeaderHeight) + var(--subHeaderHeight)));
   --financialsViewWidth: 100vw;
 
   /** Financials view margins */
@@ -14,12 +12,8 @@
   --financialsViewMargins: calc(var(--financialsViewMargin) * 2);
 
   /** Financials main container */
-  --financialsContainerHeight: calc(
-    var(--financialsViewHeight) - var(--financialsViewMargins)
-  );
-  --financialsContainerWidth: calc(
-    var(--financialsViewWidth) - var(--financialsViewMargins)
-  );
+  --financialsContainerHeight: calc(var(--financialsViewHeight) - var(--financialsViewMargins));
+  --financialsContainerWidth: calc(var(--financialsViewWidth) - var(--financialsViewMargins));
 
   /** Financials border radius */
   --financialsBorderRadius: 30px;
@@ -28,9 +22,7 @@
   --financialsNavBarHeight: calc(var(--financialsContainerHeight) / 22);
 
   /** Financials page under nav bar height and width */
-  --financialsPageHeight: calc(
-    var(--financialsContainerHeight) - var(--financialsNavBarHeight)
-  );
+  --financialsPageHeight: calc(var(--financialsContainerHeight) - var(--financialsNavBarHeight));
   --financialsPageWidth: var(--financialsContainerWidth);
 
   /** Financials padding for the page */
@@ -38,25 +30,23 @@
   --financialsPagePaddings: calc(var(--financialsPagePadding) * 2);
 
   /** Financials padded page height and width */
-  --financialsPaddedPageHeight: calc(
-    var(--financialsPageHeight) - var(--financialsPagePaddings)
-  );
-  --financialsPaddedPageWidth: calc(
-    var(--financialsPageWidth) - var(--financialsPagePaddings)
-  );
+  --financialsPaddedPageHeight: calc(var(--financialsPageHeight) - var(--financialsPagePaddings));
+  --financialsPaddedPageWidth: calc(var(--financialsPageWidth) - var(--financialsPagePaddings));
 
   /** Financials top portion of page */
-  --financialsCompanyChartHeight: calc(var(--financialsPaddedPageHeight) / 2);
-  --financialsCompanyChartWidth: calc(
+  --financialsCompanyChartHeight: calc(var(--financialsPaddedPageHeight) / 2.5);
+  /* --financialsCompanyChartWidth: calc(
     var(--financialsPaddedPageWidth) - var(--financialsPageMargins)
-  );
+  ); */
+
+  --financialsCompanyChartWidth: calc(var(--financialsPaddedPageWidth) / 1.5);
 
   /** Gap between top and bottom portions of page */
   --financialsGapBetween: 5px;
 
   /** Financials bottom portion of page */
   --financialsTableHeight: calc(
-    var(--financialsContainerHeight) - var(--financialsPaddedPageHeight) -
+    var(--financialsPaddedPageHeight) - var(--financialsCompanyChartHeight) -
       var(--financialsGapBetween)
   );
   --financialsTableWidth: var(--financialsPaddedPageWidth);
@@ -67,25 +57,27 @@
 /*All it contains is the sub-container*/
 .financials-container {
   /** visual aid */
-  border: dashed green;
+  /* border: dashed green; */
   /** visual aid */
-
+  height: var(--financialsViewHeight);
+  width: var(--financialsViewWidth);
+  overflow: hidden;
   display: flex;
   justify-content: center;
-
-  height: 100vh;
-  width: 100vw;
 }
 
 /*The Sub Container*/
 /*Sub container contains 2 items, the NAV BAR and the PAGE*/
 .financials-sub-container {
   /** visual aid */
-  border: dashed yellow;
+  /* background-color: gray; */
   /** visual aid */
-
+  height: var(--financialsContainerHeight);
+  width: var(--financialsContainerWidth);
+  margin: auto;
   display: flex;
   flex-direction: column;
+  border-radius: var(--financialsBorderRadius);
   /* justify-content: space-evenly; */
 }
 
@@ -97,8 +89,9 @@
 /*This is where we select a sub page(Income, Balance, Cash, Enterprise)*/
 .financials-selector-nav {
   /** visual aid */
-  border: solid red;
+  /* border: solid red; */
   /** visual aid */
+  height: var(--financialsNavBarHeight);
   display: flex;
 }
 
@@ -110,7 +103,7 @@
   display: flex;
   justify-content: space-evenly;
   color: white;
-  width: 900px;
+  /* width: 900px; */
 }
 
 /**----------------------------**/
@@ -120,10 +113,14 @@
 /*The PAGE conatins the COMPANY NAME, CHART, DATES and TABLE*/
 .page {
   /** visual aid */
-  border: dashed red;
+  /* background-color: rgba(255, 255, 255, 0.2); */
   /** visual aid */
+  padding: 10px 0px;
+  height: var(--financialsPageHeight);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(30, 34, 45, 0.3);
 }
 
 /**----------------------------**/
@@ -137,14 +134,19 @@
   /* background-color: rgb(250, 128, 114, 0.4); */
   /* height: 300px; */
   /* width: 98vw; */
+  /** visual aid */
+  /* background-color: burlywood; */
+  /** visual aid */
+  height: var(--financialsCompanyChartHeight);
+  padding: 0px 15px;
 }
 
 /*Conatins company name*/
 .company-container {
   /** visual aid */
-  border: solid rgb(226, 136, 108);
+  /* border: solid rgb(226, 136, 108); */
   /** visual aid */
-  width: 600px;
+  /* width: 600px; */
   background-color: rgba(30, 34, 45, 0.6);
   color: #d0d3db;
   border-radius: 15px;
@@ -154,24 +156,43 @@
 /*The div that contains the chart*/
 .fin-chart-container {
   border: solid thin rgb(0, 0, 0, 0.1);
-  width: 62vw;
+  /* width: 62vw; */
   border-radius: 15px;
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
+  height: var(--financialsCompanyChartHeight);
+  width: var(--financialsCompanyChartWidth);
   /** visual aid */
-  border: solid rgb(236, 145, 118);
+  /* border: solid rgb(236, 145, 118); */
   /** visual aid */
+}
+
+.fin-button-container {
+  height: 30px;
+}
+
+.fin-button-container button {
+  margin-left: 15px;
 }
 
 /*The actual chart*/
 .fin-chart {
+  height: calc(var(--financialsCompanyChartHeight) - 30px);
+  width: var(--financialsCompanyChartWidth);
   /* border: solid green; */
-  width: 62vw;
-  height: 230px;
+  /* width: 62vw;
+  height: 230px; */
 }
 
 /**----------------------------**/
 /** DATE AND TABLE CONTAINER
 /**----------------------------**/
+
+.fin-table-container {
+  /** visual aid */
+  /* background-color: darkslateblue; */
+  /** visual aid */
+  height: var(--financialsTableHeight);
+}
 
 /*This is a small 1 row table containing the dates that sits on top of the main table*/
 /*It is not inside the scroll container and therefor does not scroll*/
@@ -182,21 +203,27 @@
   text-align: center;
   font-size: 12px;
   color: rgb(171, 171, 171);
-  width: 96vw;
+  height: 45px;
+  width: var(--financialsTableWidth);
+  margin: auto;
+  /* width: 96vw; */
   table-layout: fixed;
   align-self: center;
   /** visual aid */
-  border: solid rgb(72, 114, 168);
+  /* border: solid rgb(72, 114, 168); */
   /** visual aid */
 }
 
 /*The scroll container that houses the table*/
 .fin-table-scroll {
-  height: 300px;
-  width: 96vw;
+  /* height: 300px; */
+  /* width: 96vw; */
   align-self: center;
+  height: calc(var(--financialsTableHeight) - 45px);
+  width: var(--financialsTableWidth);
+  margin: auto;
   /** visual aid */
-  border: solid blue;
+  /* border: solid blue; */
   /** visual aid */
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px 10px rgb(0, 0, 0, 0.1);
 }
@@ -204,13 +231,14 @@
 /*The table it self*/
 .fin-table {
   /** visual aid */
-  /* border: solid yellow; */
+  /* background-color: darkslateblue; */
   /** visual aid */
+  width: var(--financialsTableWidth);
   color: #d0d3db;
   background-color: transparent;
-  height: 300px;
+  /* height: 300px; */
   table-layout: fixed;
-  width: 96vw;
+  /* width: 96vw; */
 }
 
 /*------------------------------*/
@@ -220,8 +248,8 @@
 /*WE CAN USE THOSE FOR CALCULATIONS
 /*------------------------------*/
 .financials-selector-nav {
-  height: var(--metricsSelectorHeight);
-
+  /* height: var(--metricsSelectorHeight); */
+  background-color: rgba(30, 34, 45, 0.3);
   display: flex;
   border-top-left-radius: var(--metricsSubcontainerBorderRadius);
   border-top-right-radius: var(--metricsSubcontainerBorderRadius);
