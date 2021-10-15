@@ -138,7 +138,7 @@
   /* background-color: burlywood; */
   /** visual aid */
   height: var(--financialsCompanyChartHeight);
-  padding: 0px 15px;
+  padding: 0px 10px;
 }
 
 /*Conatins company name*/
@@ -173,6 +173,7 @@
   /** visual aid */
   /* border: solid rgb(236, 145, 118); */
   /** visual aid */
+  background-color: rgba(30, 34, 45, 0.3);
 }
 
 /** The container that hold the buttons Quater and Annual */
