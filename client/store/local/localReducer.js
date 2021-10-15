@@ -1,9 +1,15 @@
 import { SET_TICKER, UPDATE_LOCAL } from '.'
 
+//* Check to see if we have a ticker in local storage
+//* This was added so that if they refresh the page it
+//* doesn't just show them the default stock, but the
+//* actual stock they were looking at instead.
+const local = window.localStorage.getItem('symbol')
+
 //* Initial state
 const initialState = {
-  isDefault: false,
-  symbol: 'MSFT'
+  isDefault: local ? false : true,
+  symbol: local ? local : 'MSFT'
 }
 
 //* Reducer

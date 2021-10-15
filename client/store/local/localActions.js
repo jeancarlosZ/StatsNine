@@ -10,11 +10,13 @@ import {
 } from '../../api/api.js'
 import { logError } from '../../utils.js'
 import store from '../index.js'
+import axios from 'axios'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
 //* UPDATE: Made change to allow for stock.name
 export function setCurrentStock(symbol, companyName) {
+  window.localStorage.setItem('symbol', symbol)
   return {
     type: SET_TICKER,
     payload: getPayload(symbol, companyName)
@@ -50,81 +52,108 @@ function updateLocalData(key, data) {
 //*
 //*  ---> (LOOK BELOW AND FIND THE getTickerResults() FOR USE CASES) <---
 //*
-export async function getLocalData(key, func, args, save, overrideTicker) {
+export async function getLocalData(key, func, args, saveAs, overrideTicker, experation) {
   try {
+    //* Get our state
     const state = store.getState()
+    //* We load our selected ticker from state (unless it's overridden)
     const symbol = overrideTicker ? overrideTicker : state.local.symbol
-
-    //* If we are selecting data in batch or an [] of data
-    if (Array.isArray(save)) {
-      //* Both must be arrays, and same length
-      if (!Array.isArray(key) || save.length !== key.length) return
-      const data = {}
-      const toLoad = []
-
-      //* Map over the keys we're looking for
-      key.map((k, index) => {
-        //* Try to get data from local store, if it do be
-        const local = state.local[save[index]]
-
-        //* If it is we add it to the obj
-        if (local) data[k] = local
-        //* Otherwise we add the data to be loaded
-        else toLoad.push({ a: k, b: save[index] })
-      })
-
-      //* If there is actually any data we need to load!
-      if (toLoad.length > 0) {
-        //* Load the data from the API
-        const loadedData = args ? await func(symbol, ...args) : await func(symbol)
-        //* Now we must load all of the data that wasn't already
-        //* saved within the state
-        toLoad.map(pair => {
-          const { a, b } = pair
-          let individualData
-
-          if (!Array.isArray(loadedData))
-            individualData = {
-              keys: loadedData.keys,
-              values: loadedData.values.map(x => x[a])
-            }
-          else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
-          else individualData = loadedData[a]
-
-          data[a] = individualData
-          //* Update the local store
-          store.dispatch(updateLocalData(b, individualData))
-        })
-      }
-
-      return data
-      //* Otherwise we can return the single peice of data
-    } else return await handleLocalData(state, save, func, args, key, symbol)
+    //* Since redis is backend, we need to send the
+    //* data thru the request.body so we will create
+    //* That request body now.
+    const body = {
+      symbol: symbol,
+      //* This is the key or keys list
+      key: key,
+      //* This is the saveAs or saveAs list
+      saveAs: saveAs,
+      //* Functions can't be sent thru, so we use the func name
+      callback: typeof func == 'function' ? func.name : func,
+      //* Arguments to place inside the function on the backend
+      args: args,
+      //* If you desire you can set a time limit for the
+      //* data to stay in the system!
+      experation: experation
+    }
+    //* Now we will request the data from redis!
+    const { data } = await axios.post('/api/data', body)
+    return data
   } catch (error) {
-    logError(error, `Failed to load data! ${key}--${args}--${save}`)
+    logError(error, `Failed to load data! ${key}--${args}--${saveAs}`)
   }
 }
+// export async function getLocalData(key, func, args, save, overrideTicker) {
+//   try {
+//     const state = store.getState()
+//     const symbol = overrideTicker ? overrideTicker : state.local.symbol
 
-//* companyName: 'aaple'
-//* state.local.companyName = exists
+//     //* If we are selecting data in batch or an [] of data
+//     if (Array.isArray(save)) {
+//       //* Both must be arrays, and same length
+//       if (!Array.isArray(key) || save.length !== key.length) return
+//       const data = {}
+//       const toLoad = []
 
-//* Function to handle loading a single peice of data from local/API
-async function handleLocalData(state, save, func, args, key, overrideTicker) {
-  const local = state.local[save]
-  //* Try to get data from local store, if it do be
-  if (local) return local
-  //* If not in local store, load data from API  // (ticker, false, 'quarter')
-  const loadedData = args ? await func(overrideTicker, ...args) : await func(overrideTicker)
-  let data
-  //* Because data may not be time series data we must add a check
-  if (!Array.isArray(loadedData))
-    data = { keys: loadedData.keys, values: loadedData.values.map(x => x[key]) }
-  else if (Array.isArray(loadedData)) data = loadedData[0][key]
-  else data = loadedData[key]
-  //* Update the local store
-  store.dispatch(updateLocalData(save, data))
-  return data
-}
+//       //* Map over the keys we're looking for
+//       key.map((k, index) => {
+//         //* Try to get data from local store, if it do be
+//         const local = state.local[save[index]]
+
+//         //* If it is we add it to the obj
+//         if (local) data[k] = local
+//         //* Otherwise we add the data to be loaded
+//         else toLoad.push({ a: k, b: save[index] })
+//       })
+
+//       //* If there is actually any data we need to load!
+//       if (toLoad.length > 0) {
+//         //* Load the data from the API
+//         const loadedData = args ? await func(symbol, ...args) : await func(symbol)
+//         //* Now we must load all of the data that wasn't already
+//         //* saved within the state
+//         toLoad.map(pair => {
+//           const { a, b } = pair
+//           let individualData
+
+//           if (!Array.isArray(loadedData))
+//             individualData = {
+//               keys: loadedData.keys,
+//               values: loadedData.values.map(x => x[a])
+//             }
+//           else if (Array.isArray(loadedData)) individualData = loadedData[0][a]
+//           else individualData = loadedData[a]
+
+//           data[a] = individualData
+//           //* Update the local store
+//           store.dispatch(updateLocalData(b, individualData))
+//         })
+//       }
+
+//       return data
+//       //* Otherwise we can return the single peice of data
+//     } else return await handleLocalData(state, save, func, args, key, symbol)
+//   } catch (error) {
+//     logError(error, `Failed to load data! ${key}--${args}--${save}`)
+//   }
+// }
+
+// //* Function to handle loading a single peice of data from local/API
+// async function handleLocalData(state, save, func, args, key, overrideTicker) {
+//   const local = state.local[save]
+//   //* Try to get data from local store, if it do be
+//   if (local) return local
+//   //* If not in local store, load data from API  // (ticker, false, 'quarter')
+//   const loadedData = args ? await func(overrideTicker, ...args) : await func(overrideTicker)
+//   let data
+//   //* Because data may not be time series data we must add a check
+//   if (!Array.isArray(loadedData))
+//     data = { keys: loadedData.keys, values: loadedData.values.map(x => x[key]) }
+//   else if (Array.isArray(loadedData)) data = loadedData[0][key]
+//   else data = loadedData[key]
+//   //* Update the local store
+//   store.dispatch(updateLocalData(save, data))
+//   return data
+// }
 
 //* If you are wondering what the benefits of the above functions are.
 //* They are as follows
