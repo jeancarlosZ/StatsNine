@@ -101,7 +101,6 @@ export default function Cash() {
     chartData = cashflowQtr[attribute].values;
     //The keys taken from he fetch ar the dates
     keys = cashflowQtr[attribute].keys;
-    console.log(cashflowQtr, 'cashflowInfo Qtr...');
   }
 
   const dataset = [];
@@ -124,7 +123,6 @@ export default function Cash() {
   let rawDates;
 
   if (Object.keys(cashflowInfo).length) {
-    console.log(cashflowInfo, 'cashflowInfo...');
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = cashflowInfo;

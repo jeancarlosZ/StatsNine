@@ -55,7 +55,6 @@ export default function Balance() {
     }
     getBalanceInfo();
   }, []);
-  console.log(balanceInfo, 'balance info...');
   //Here we are fetching the quaterly info
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {

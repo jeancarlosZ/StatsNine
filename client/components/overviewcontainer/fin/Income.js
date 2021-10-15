@@ -124,7 +124,6 @@ export default function Income() {
   let rawDates;
 
   if (Object.keys(incomeInfo).length) {
-    console.log(incomeInfo, 'income info...');
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { dates } = incomeInfo;
