@@ -1,14 +1,14 @@
-import React from 'react';
-import Subheader from '../../Subheader';
-import Income from './Income';
-import Balance from './Balance';
-import Cash from './Cash';
-import EnterpriseValue from './EnterpriseValue';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react'
+import Subheader from '../../Subheader'
+import Income from './Income'
+import Balance from './Balance'
+import Cash from './Cash'
+import EnterpriseValue from './EnterpriseValue'
+import { useHistory, useLocation } from 'react-router-dom'
 
 export default function Financialspage() {
-  const location = useLocation();
-  const selected = location.pathname.split('/').pop().toLowerCase();
+  const location = useLocation()
+  const selected = location.pathname.split('/').pop().toLowerCase()
 
   return (
     <>
@@ -20,29 +20,30 @@ export default function Financialspage() {
         </div>
       </div>
     </>
-  );
+  )
 }
 //* Function used to return/render the correct page
 function getCorrectPage(selected) {
   switch (selected) {
     case 'incomestatement':
-      return <Income />;
+      return <Income />
     case 'balancesheet':
-      return <Balance />;
+      return <Balance />
     case 'cashflow':
-      return <Cash />;
+      return <Cash />
     case 'enterprisevalue':
-      return <EnterpriseValue />;
+      return <EnterpriseValue />
     default:
-      return <Income />;
+      return <Income />
   }
 }
 
 export function FinancialsNavBar() {
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory()
+  const location = useLocation()
 
-  const selected = location.pathname.split('/').pop().toLowerCase();
+  const selected = location.pathname.split('/').pop().toLowerCase()
+
   return (
     <div className="financials-selector-nav">
       <div className="fin-selectors">
@@ -52,28 +53,25 @@ export function FinancialsNavBar() {
         {getSelectorLabel('Enterprise Value', history, selected)}
       </div>
     </div>
-  );
+  )
 }
 
 //* Function to get a clickable label
 function getSelectorLabel(name, history, selected) {
   //* Format the name so we can work with it
-  const fmtName = name.replace(' ', '').toLowerCase();
+  const fmtName = name.replace(' ', '').toLowerCase()
+  if (fmtName === 'financials') selected = 'financials'
   return (
     <label
       className={fmtName === selected ? 'selected' : ''}
       onClick={() => {
         //* If the selected page is already the one clicked
-        if (fmtName === selected) return;
+        if (fmtName === selected) return
         //* Otherwise update the urlHistory
-        history.push(
-          `/overviewpage/${
-            fmtName != 'financials' ? 'financials/' : ''
-          }${fmtName}`
-        );
+        history.push(`/overviewpage/${fmtName != 'financials' ? 'financials/' : ''}${fmtName}`)
       }}
     >
       {name}
     </label>
-  );
+  )
 }

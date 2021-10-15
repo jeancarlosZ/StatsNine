@@ -16,6 +16,7 @@ import axios from 'axios'
 //* This should be changed when the search/select a stock to view.
 //* UPDATE: Made change to allow for stock.name
 export function setCurrentStock(symbol, companyName) {
+  window.localStorage.setItem('symbol', symbol)
   return {
     type: SET_TICKER,
     payload: getPayload(symbol, companyName)
