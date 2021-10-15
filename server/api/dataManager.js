@@ -16,7 +16,22 @@ const redisCli = Redis.createClient()
 router.post('/', async (request, response, next) => {
   try {
     //* Get the data from the request
-    const { symbol = 'system', key, saveAs, callback, args, experation } = request.body
+    const { symbol = 'system', key, saveAs, callback, args, experation, debug } = request.body
+    const callbackSymbol = symbol === 'system' ? '' : symbol
+
+    if (debug) {
+      //! Remove
+      console.log('--------------------')
+      console.log('symbol:', symbol)
+      console.log('key:', key)
+      console.log('saveAs:', saveAs)
+      console.log('callback:', callback)
+      console.log('args:', args)
+      console.log('experation:', experation)
+      console.log('--------------------')
+      //! Remove
+    }
+
     //* Before we go too far we're going to start of by checking whether
     //* we are trying to get a single piece of data, or multiple pieces!
     //* Note: This is really important as it will determine how many API
@@ -61,7 +76,9 @@ router.post('/', async (request, response, next) => {
       //* check to see if anything needed to be loaded!
       if (toLoad.length > 0) {
         //* Since we must load the data from the API it's time to make our API call!
-        const loadedData = args ? await API[callback](symbol, ...args) : await API[callback](symbol)
+        const loadedData = args
+          ? await API[callback](callbackSymbol, ...args)
+          : await API[callback](callbackSymbol)
         //* Now that we have our data back from the API, we can add the
         //* remaining (missing) keys to the response data! But not only that,
         //* we can add it to our redis cache as well!
@@ -112,20 +129,26 @@ router.post('/', async (request, response, next) => {
         if (results != null) return response.json(JSON.parse(results))
         //* If the key was not found, we are going to call that api function
         //* As we now know we need to get the data from the API.
-        const loadedData = args ? await API[callback](symbol, ...args) : await API[callback](symbol)
+        const loadedData = args
+          ? await API[callback](callbackSymbol, ...args)
+          : await API[callback](callbackSymbol)
         //* Now because we don't always want to store the WHOLE response,
         //* we will find the data we're looking for and only save it!
         let data = {}
-        //* If the response is not an array. It is an object. This means it contains
-        //* a key value pair (time series) for us to use!
-        if (!Array.isArray(loadedData))
-          data = { keys: loadedData.keys, values: loadedData.values.map(obj => obj[key]) }
-        //* Otherwise it is an array, in this case we only want the first element.
-        //* This is because the loadedData will only return an array if it's a single
-        //* object inside. Ex. [{ hello: 'world' }]
-        else if (Array.isArray(loadedData)) data = loadedData[0][key]
-        //* Otherwise, it's just an object and we need the key! Ex. { hello: 'world' }
-        else data = loadedData[key]
+        //* If we are looking for a select key
+        if (key && key !== 'all') {
+          //* If the response is not an array. It is an object. This means it contains
+          //* a key value pair (time series) for us to use!
+          if (!Array.isArray(loadedData))
+            data = { keys: loadedData.keys, values: loadedData.values.map(obj => obj[key]) }
+          //* Otherwise it is an array, in this case we only want the first element.
+          //* This is because the loadedData will only return an array if it's a single
+          //* object inside. Ex. [{ hello: 'world' }]
+          else if (Array.isArray(loadedData)) data = loadedData[0][key]
+          //* Otherwise, it's just an object and we need the key! Ex. { hello: 'world' }
+          else data = loadedData[key]
+          //* otherwise return full data
+        } else data = loadedData
         //* Because we don't want to wait to save, then send that data
         //* we are going to send the response data back right away!
         response.send(JSON.stringify(data))

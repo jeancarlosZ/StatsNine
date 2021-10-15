@@ -233,7 +233,7 @@ async function fetchScreenerStocks(query = '', limit = 5000) {
   const link = getFMPLink(
     'stock-screener',
     '',
-    `exchange=NASDAQ&limit=${limit}${query ? '&' + query : ''}`
+    `${limit !== -1 ? `exchange=NASDAQ&limit=${limit}` : ''}${query ? '&' + query : ''}`
   )
   return await fetchData(link)
 }
