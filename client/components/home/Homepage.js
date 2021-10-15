@@ -8,6 +8,7 @@ import Newsfeed from './Newsfeed';
 import SnP500 from './SnP500';
 import Calendar from './Calendar';
 import Alert from '../home/common/Alert';
+import TableR from './common/TableR';
 
 export default function Homepage() {
   return (

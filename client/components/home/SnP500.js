@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { ALL, DAILY, fetchChartPrice, MONTH, WEEK } from '../../api/api';
+import { ALL, DAILY, fetchChartPrice, MONTH, WEEK, HOUR } from '../../api/api';
 import { getLocalData } from '../../store/local/localActions';
 import UniversalChart from '../UniversalChart';
 
 export default function StockPriceChart() {
-  const [range, setRange] = useState(ALL);
-  const [series, setSeries] = useState(DAILY);
+  const [range, setRange] = useState(DAILY);
+  const [series, setSeries] = useState(HOUR);
   const [data, setData] = useState({});
 
   const [update, setUpdate] = useState(true);
@@ -21,7 +21,7 @@ export default function StockPriceChart() {
             'close', //* key
             fetchChartPrice, //* func
             [series, range], //* args
-            `price${series}${range}`, //* saveas
+            `SPY${series}${range}`, //* saveas
             'SPY'
           ),
         });
@@ -66,7 +66,7 @@ export default function StockPriceChart() {
   return (
     <div className="rounded-3 ">
       <div className="selector rounded-3">
-        <label className="text-white">Stock Price</label>
+        <label className="lead  fs-4 text-white">S&P 500</label>
         {getSelectors(series, range, updateSeries, updateRange)}
       </div>
       <div className="wrapper">

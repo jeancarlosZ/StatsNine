@@ -3,6 +3,7 @@ import CalendarDays from './common/CalendarDays';
 
 import '../../../public/styles/calendar.css';
 import '../../../public/styles/calendar2.css';
+import Table from 'react-bootstrap/Table';
 
 export default function Calendar() {
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -30,9 +31,9 @@ export default function Calendar() {
           Calendar
         </h5>
       </div>
-      <div className=" card-body d-inline p-2  text-white">
-        <div className="align-self-center w-100 d-inline p-2  text-white">
-          <div className="rdtDays align-self-center  d-inline p-2 text-white">
+      <div className=" card-body d-inline p-2  text-white position-relative">
+        <div className="align-self-center w-100 d-inline p-2  text-white position-relative">
+          <div className="rdtDays rounded-circle align-self-center  d-inline p-2 text-white position-relative">
             <div className="rdtSwitch rdtPrev  align-self-center d-inline p-2  text-white">
               {months[currentDay.getMonth() - 1]} {currentDay.getFullYear()}
             </div>
@@ -42,7 +43,7 @@ export default function Calendar() {
             <div className="rdtSwitch rdtPrev align-self-center d-inline p-2 text-white">
               {months[currentDay.getMonth() + 1]} {currentDay.getFullYear()}
             </div>
-            <table>
+            <table responsive="true">
               <thead>
                 <tr className=" fs-5 align-self-center  d-inline p-5 text-white position-relative">
                   {weekdays.map((weekday, idx) => {
@@ -54,10 +55,10 @@ export default function Calendar() {
                   })}
                 </tr>
               </thead>
-              <tbody className="text-xl-start fs-3 align-self-center d-inline p-2 mx-auto w-auto p-3 text-white position-relative table-borderless border-0">
+              <tbody className="text-xl-start fs-3 align-self-center d-inline p-2 mx-auto w-auto p-2 text-white position-relative table-borderless ">
                 <CalendarDays
                   day={currentDay}
-                  className="current selected border-circle table-borderless border-0"
+                  className="current selected rounded-circle table-borderless "
                 />
               </tbody>
             </table>
