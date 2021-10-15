@@ -3,7 +3,11 @@ import UniversalChart from '../../UniversalChart';
 import FinTable from './FinTable';
 import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { balanceTableLabels, balanceIndentifiers } from './finTableLabels';
+import {
+  balanceTableLabels,
+  balanceIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import CompanyInfo from './CompanyInfo';
 import { FinButtons } from './FinButtons';
 import {
@@ -23,6 +27,7 @@ export default function Balance() {
     'rgba(39, 232, 91, 1)',
     'rgba(39, 232, 91, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [balanceInfo, setBalanceInfo] = useState({});
   const [balanceQtr, setBalanceQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -51,20 +56,18 @@ export default function Balance() {
     }
     getBalanceInfo();
   }, []);
-
   //Here we are fetching the quaterly info
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getBalanceInfoQtr() {
-      const qtrIdentifiers = [...balanceIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(balanceIndentifiers);
       setBalanceQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchBalanceStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -75,6 +78,10 @@ export default function Balance() {
     setSelectedAttribute(attribute);
   }
 
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
+  }
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -88,11 +95,17 @@ export default function Balance() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(balanceQtr).length) {
+  if (Object.keys(balanceQtr).length && Object.keys(balanceInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = balanceQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = balanceQtr[attribute].keys;
+    chartData =
+      chartDatatype === 'quarter'
+        ? balanceQtr[attribute].values
+        : balanceInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? balanceQtr[attribute].keys
+        : balanceInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -105,7 +118,6 @@ export default function Balance() {
     fillcolor: outline,
     fill: 'tonexty',
     values: chartData,
-    hoverinfo: 'name',
   });
 
   //**------------------------------------------------------------------------------------------------ */
@@ -118,8 +130,8 @@ export default function Balance() {
   if (Object.keys(balanceInfo).length) {
     //When balanceInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = balanceInfo;
-    rawDates = dates.keys;
+    const { totalAssets } = balanceInfo;
+    rawDates = totalAssets.keys;
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
@@ -152,6 +164,7 @@ export default function Balance() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -168,7 +181,6 @@ export default function Balance() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }

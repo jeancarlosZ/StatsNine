@@ -169,10 +169,10 @@
   color: rgba(208, 211, 219, 0.6);
 }
 
-.financials-selector-nav .selectors .selected {
+.financials-selector-nav .fin-selectors .selected {
   color: rgba(208, 211, 219, 0.6);
 }
 
-.financials-selector-nav .selectors .selected:hover {
+.financials-selector-nav .fin-selectors .selected:hover {
   color: rgba(208, 211, 219, 0.8);
 }
