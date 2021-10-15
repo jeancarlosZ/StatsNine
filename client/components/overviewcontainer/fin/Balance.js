@@ -163,7 +163,7 @@ export default function Balance() {
 
   return (
     <>
-      <div className="page">
+      <div className="page shadow-deep-nohover">
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">

@@ -16,8 +16,8 @@ export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
     'EnterpriseValue',
-    'rgba(39, 91, 232, 1)',
-    'rgba(39, 91, 232, .3)'
+    'rgba(24, 144, 255, 1)',
+    'rgba(24, 144, 255, .3)'
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [enterpriseInfo, setEnterpriseInfo] = useState({})
@@ -168,7 +168,7 @@ export default function EnterpriseValue() {
 
   return (
     <>
-      <div className="page">
+      <div className="page shadow-deep-nohover">
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
