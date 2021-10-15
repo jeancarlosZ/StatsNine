@@ -54,22 +54,23 @@
 /*Main*/
 /*All it contains is the sub-container*/
 .financials-container {
+  /** visual aid */
+  border: dashed green;
+  /** visual aid */
+
   display: flex;
   justify-content: center;
-  height: var(--financialsPageHeight);
-  width: var(--financialsPageWidth);
-  background-color: var(--bgPrimary);
+
+  height: 100vh;
+  width: 100vw;
 }
 
 /*The Sub Container*/
 /*Sub container contains 2 items, the NAV BAR and the PAGE*/
 .financials-sub-container {
+  border: dashed yellow;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  height: var(--financialsContainerHeight);
-  width: var(--financialsContainerWidth);
-  background-color: rgba(30, 34, 45, 0.3);
   /* justify-content: space-evenly; */
 }
 
@@ -80,7 +81,7 @@
 /*The Navigation Bar*/
 /*This is where we select a sub page(Income, Balance, Cash, Enterprise)*/
 .financials-selector-nav {
-  /* border: solid red; */
+  border: solid red;
   display: flex;
 }
 
@@ -89,7 +90,7 @@
   /* border: solid rgb(0, 89, 255); */
   display: flex;
   justify-content: space-evenly;
-  /* color: white; */
+  color: white;
   width: 900px;
 }
 
@@ -119,7 +120,7 @@
 
 /*Conatins company name*/
 .company-container {
-  /* border: solid rgb(226, 136, 108); */
+  border: solid rgb(226, 136, 108);
   width: 600px;
   background-color: rgba(30, 34, 45, 0.6);
   color: #d0d3db;
@@ -129,11 +130,11 @@
 
 /*The div that contains the chart*/
 .fin-chart-container {
-  /* border: solid thin rgb(0, 0, 0, 0.1); */
+  border: solid thin rgb(0, 0, 0, 0.1);
   width: 62vw;
   border-radius: 15px;
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
-  /* border: solid rgb(236, 145, 118); */
+  border: solid rgb(236, 145, 118);
 }
 
 /*The actual chart*/
@@ -167,7 +168,7 @@
   height: 300px;
   width: 96vw;
   align-self: center;
-  /* border: solid blue; */
+  border: solid blue;
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px 10px rgb(0, 0, 0, 0.1);
 }
 

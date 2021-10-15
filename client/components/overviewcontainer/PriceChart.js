@@ -17,23 +17,21 @@ export default function PriceChart(props) {
     // This function retrieves information from the redux store and sets it in local storage for rendering.  If the information requested does not exist in the redux store, it will make an API call.
     async function getData() {
       try {
-        if (update) {
-          setData({
-            ...data,
-            [range]: await getLocalData(
-              ['open', 'close', 'low', 'high'],
-              fetchChartPrice,
-              [series, range, false],
-              [
-                `price${series}${range}open`,
-                `price${series}${range}close`,
-                `price${series}${range}low`,
-                `price${series}${range}high`,
-              ],
-            ),
-          })
-          setUpdate(false)
-        }
+        setData({
+          ...data,
+          [range]: await getLocalData(
+            ['open', 'close', 'low', 'high'],
+            fetchChartPrice,
+            [series, range, false],
+            [
+              `price${series}${range}open`,
+              `price${series}${range}close`,
+              `price${series}${range}low`,
+              `price${series}${range}high`,
+            ],
+          ),
+        })
+        setUpdate(false)
       } catch (err) {
         console.log(err)
       }
