@@ -16,22 +16,8 @@ const redisCli = Redis.createClient()
 router.post('/', async (request, response, next) => {
   try {
     //* Get the data from the request
-    const { symbol = 'system', key, saveAs, callback, args, experation, debug } = request.body
+    const { symbol = 'system', key, saveAs, callback, args, experation } = request.body
     const callbackSymbol = symbol === 'system' ? '' : symbol
-
-    if (debug) {
-      //! Remove
-      console.log('--------------------')
-      console.log('symbol:', symbol)
-      console.log('key:', key)
-      console.log('saveAs:', saveAs)
-      console.log('callback:', callback)
-      console.log('args:', args)
-      console.log('experation:', experation)
-      console.log('--------------------')
-      //! Remove
-    }
-
     //* Before we go too far we're going to start of by checking whether
     //* we are trying to get a single piece of data, or multiple pieces!
     //* Note: This is really important as it will determine how many API
