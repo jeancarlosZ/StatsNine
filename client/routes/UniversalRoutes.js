@@ -11,7 +11,7 @@ import KeyMetrics from '../components/overviewcontainer/keymetrics/KeyMetrics';
 import Overviewpage from '../components/overviewcontainer/Overviewpage';
 import Table from '../components/screener/Table';
 
-import WordCloud from '../components/home/Welcome';
+import Welcome from '../components/home/Welcome';
 
 class UniversalRoutes extends Component {
   render() {
@@ -26,8 +26,8 @@ class UniversalRoutes extends Component {
         <Route path="/screener" component={Table} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/not-found" component={NotFound} />
-        <Route path="/calendar" component={WordCloud} />
-        <Route path="/home" component={Homepage} />
+        <Route path="/calendar" component={Welcome} />
+        <Route path="/home" component={Welcome} />
         <Route path="/" exact component={Homepage} />
         <Redirect to="/not-found" />
       </Switch>

@@ -57,7 +57,7 @@ export default function Calendar() {
               <tbody className="text-xl-start fs-3 align-self-center d-inline p-2 mx-auto w-auto p-3 text-white position-relative table-borderless border-0">
                 <CalendarDays
                   day={currentDay}
-                  className="current selected rounded-circle table-borderless border-0"
+                  className="current selected border-circle table-borderless border-0"
                 />
               </tbody>
             </table>

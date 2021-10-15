@@ -33,7 +33,7 @@ export default function CalendarDays(props) {
   }
 
   return (
-    <tr className="table-content">
+    <tr className="table-content ">
       {currentDays.map((day, idx) => {
         return (
           <td
