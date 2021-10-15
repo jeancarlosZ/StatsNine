@@ -7,7 +7,15 @@ export function formatDates(values) {
       ? [...values].reverse()
       : values.slice(values.length - 14).reverse();
   //Trimming the date down so I can use it in the table
-  const dates = info.map((info) => info.slice(0, 4));
+
+  // const dates = info.map((info) => info.slice(0, 4));
+  const dates = info.map(function (date, index) {
+    if (index && date.slice(0, 4) === info[index - 1].slice(0, 4)) {
+      return date.slice(0, 4) + '**';
+    } else {
+      return date.slice(0, 4);
+    }
+  });
   //Adding an empty 'date' so the dates row is offset when rendered
   dates.unshift('');
   return dates;

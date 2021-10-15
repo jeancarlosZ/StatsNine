@@ -4,7 +4,7 @@
   --overviewPageWidth: 100vw;
 
   /** overview page margins left right, top bottom */
-  --overviewPageMargin: 1rem;
+  --overviewPageMargin: 20px;
   --overviewPageMargins: calc(var(--overviewPageMargin) * 2);
 
   /** overview container */
@@ -53,7 +53,7 @@
 
   border-radius: 30px;
 
-  background-color: rgba(30, 34, 45, 0.6);
+  background-color: rgba(30, 34, 45, 0.3);
 }
 
 .chart-container .overview-wrapper {
@@ -95,7 +95,7 @@
 
 .chart-container .dropdown-selector button {
   margin: auto 5px;
-  background-color: rgba(30, 34, 45, 0.4);
+  background-color: rgba(30, 34, 45, 0.3);
   border: none;
 }
 
