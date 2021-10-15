@@ -7,6 +7,7 @@ import { getLocalData } from '../../../store/local/localActions';
 import {
   enterpriseTableLabels,
   enterpriseIndentifiers,
+  getQtrIndentifers,
 } from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
@@ -27,8 +28,9 @@ export default function EnterpriseValue() {
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
-  const [enterphriseQtr, setEnterphriseQtr] = useState({});
+  const [enterpriseQtr, setEnterpriseQtr] = useState({});
   const [profile, setProfile] = useState({});
 
   //Fetching the data needed
@@ -55,20 +57,20 @@ export default function EnterpriseValue() {
     }
     getEnterpriseInfo();
   }, []);
-
   //Here we are fetching the quaterly info
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getEnterpriseInfoQtr() {
-      const qtrIdentifiers = [...enterpriseIndentifiers];
-      qtrIdentifiers.shift();
-      setEnterphriseQtr(
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(
+        enterpriseIndentifiers
+      );
+      setEnterpriseQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchEnterpriseValue,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -78,6 +80,11 @@ export default function EnterpriseValue() {
   //A handler function being passed down to the table that will affect the local state of this component
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
+  }
+
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
   }
 
   /**------------------------------------------------------------------------------------------------ */
@@ -93,11 +100,17 @@ export default function EnterpriseValue() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(enterphriseQtr).length) {
+  if (Object.keys(enterpriseQtr).length && Object.keys(enterpriseInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = enterphriseQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = enterphriseQtr[attribute].keys;
+    chartData =
+      chartDatatype === 'quarter'
+        ? enterpriseQtr[attribute].values
+        : enterpriseInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? enterpriseQtr[attribute].keys
+        : enterpriseInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -108,7 +121,6 @@ export default function EnterpriseValue() {
     color: color,
     // outline: outline,
     values: chartData,
-    hoverinfo: 'name',
     fillcolor: outline,
     fill: 'tonexty',
   });
@@ -123,8 +135,8 @@ export default function EnterpriseValue() {
   if (Object.keys(enterpriseInfo).length) {
     //When enterpriseInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = enterpriseInfo;
-    rawDates = dates.keys;
+    const { enterpriseValue } = enterpriseInfo;
+    rawDates = enterpriseValue.keys;
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
@@ -159,6 +171,7 @@ export default function EnterpriseValue() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            {/* <FinButtons handleButtonClick={handleChartButtonClick} /> */}
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -175,7 +188,6 @@ export default function EnterpriseValue() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }

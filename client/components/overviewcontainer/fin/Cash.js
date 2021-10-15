@@ -4,7 +4,11 @@ import FinTable from './FinTable';
 import CompanyInfo from './CompanyInfo';
 import { fetchCashflowStatement, fetchStockProfile } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { cashflowTableLabels, cashflowIndentifiers } from './finTableLabels';
+import {
+  cashflowTableLabels,
+  cashflowIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
   calcYearlyChanges,
@@ -25,6 +29,7 @@ export default function Cash() {
     'rgba(232, 91, 232, 1)',
     'rgba(232, 91, 232, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [cashflowQtr, setCashflowQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -59,15 +64,15 @@ export default function Cash() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getCashflowInfoQtr() {
-      const qtrIdentifiers = [...cashflowIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } =
+        getQtrIndentifers(cashflowIndentifiers);
       setCashflowQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchCashflowStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -79,6 +84,10 @@ export default function Cash() {
     setSelectedAttribute(attribute);
   }
 
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
+  }
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -92,11 +101,18 @@ export default function Cash() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(cashflowQtr).length) {
+  if (Object.keys(cashflowQtr).length && Object.keys(cashflowInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
-    chartData = cashflowQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = cashflowQtr[attribute].keys;
+
+    chartData =
+      chartDatatype === 'quarter'
+        ? cashflowQtr[attribute].values
+        : cashflowInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? cashflowQtr[attribute].keys
+        : cashflowInfo[attribute].keys;
   }
 
   const dataset = [];
@@ -109,7 +125,6 @@ export default function Cash() {
     fillcolor: outline,
     fill: 'tonexty',
     values: chartData,
-    hoverinfo: 'name',
   });
 
   //**------------------------------------------------------------------------------------------------ */
@@ -122,8 +137,8 @@ export default function Cash() {
   if (Object.keys(cashflowInfo).length) {
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = cashflowInfo;
-    rawDates = dates.keys;
+    const { freeCashFlow } = cashflowInfo;
+    rawDates = freeCashFlow.keys;
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
@@ -157,6 +172,7 @@ export default function Cash() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -173,7 +189,6 @@ export default function Cash() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }

@@ -10,13 +10,13 @@ export default function Header() {
   const { isDefault } = useSelector(state => state.local)
 
   return (
-    <div className='our-company-header shadow-deep-nohover'>
-      <div className='our-company-name' onClick={() => history.push('/home')}>
+    <div className="our-company-header shadow-deep-nohover">
+      <div className="our-company-name" onClick={() => history.push('/home')}>
         StatsNine
       </div>
-      <div className='header-space-one'></div>
+      <div className="header-space-one"></div>
       <Searchbar />
-      <div className='header-space-two'></div>
+      <div className="header-space-two"></div>
       {getOverview(isDefault, selected, history)}
       <div
         className={`go-to-dashboard${getSelected(selected, 'home')}`}
@@ -42,7 +42,7 @@ export default function Header() {
 
 // Renders Overview button after having selected a stock
 function getOverview(isDefault, selected, history) {
-  if (!isDefault) {
+  if (isDefault) {
     return <></>
   } else {
     return (

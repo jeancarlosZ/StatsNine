@@ -8,7 +8,11 @@ import {
   fetchFullStatement,
 } from '../../../api/api';
 import { getLocalData } from '../../../store/local/localActions';
-import { incomeTableLabels, incomeIndentifiers } from './finTableLabels';
+import {
+  incomeTableLabels,
+  incomeIndentifiers,
+  getQtrIndentifers,
+} from './finTableLabels';
 import { FinButtons } from './FinButtons';
 import {
   calcYearlyChanges,
@@ -28,6 +32,7 @@ export default function Income() {
     'rgba(39, 91, 232, 1)',
     'rgba(39, 91, 232, .3)',
   ]);
+  const [chartDatatype, setChartDatatype] = useState('annual');
   const [incomeInfo, setIncomeInfo] = useState({});
   const [incomeInfoQtr, setIncomeQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -61,15 +66,14 @@ export default function Income() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getIncomeInfoQtr() {
-      const qtrIdentifiers = [...incomeIndentifiers];
-      qtrIdentifiers.shift();
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(incomeIndentifiers);
       setIncomeQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
           fetchIncomeStatement,
           [false, 'quarter'],
-          [...qtrIdentifiers]
+          [...saveAs]
         )
       );
     }
@@ -79,6 +83,11 @@ export default function Income() {
   //A handler function being passed down to the table that will affect the local state of this component
   function handleTableClick(attribute) {
     setSelectedAttribute(attribute);
+  }
+
+  //A handler function being passed down to the buttons that will affect the local state of this component
+  function handleChartButtonClick(dataType) {
+    setChartDatatype(dataType);
   }
 
   //**------------------------------------------------------------------------------------------------ */
@@ -94,13 +103,21 @@ export default function Income() {
   let chartData = [];
   let keys = [];
 
-  if (Object.keys(incomeInfoQtr).length) {
-    //Here i'm grabbing a particular array from the fetched object
-    chartData = incomeInfoQtr[attribute].values;
-    //The keys taken from he fetch ar the dates
-    keys = incomeInfoQtr[attribute].keys;
+  if (Object.keys(incomeInfoQtr).length && Object.keys(incomeInfo).length) {
+    //Here i'm grabbing a particular array from the fetched object to be displyed in the chart
+
+    chartData =
+      chartDatatype === 'quarter'
+        ? incomeInfoQtr[attribute].values
+        : incomeInfo[attribute].values;
+    //The keys taken from he fetch are the dates
+    keys =
+      chartDatatype === 'quarter'
+        ? incomeInfoQtr[attribute].keys
+        : incomeInfo[attribute].keys;
   }
 
+  // const tempVar = [...chartData].reverse();
   const dataset = [];
 
   dataset.push({
@@ -123,8 +140,8 @@ export default function Income() {
   if (Object.keys(incomeInfo).length) {
     //When cashflowInfo has been populated we'll destructure what we need
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
-    const { dates } = incomeInfo;
-    rawDates = dates.keys;
+    const { grossProfit } = incomeInfo;
+    rawDates = grossProfit.keys;
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
     unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);
@@ -156,6 +173,7 @@ export default function Income() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
+            <FinButtons handleButtonClick={handleChartButtonClick} />
             <UniversalChart
               className="income-chart fin-chart"
               title={label}
@@ -172,7 +190,6 @@ export default function Income() {
         </div>
         <FinTable tableInfo={tableInfo} handleTableClick={handleTableClick} />
       </div>
-      {/* <FinButtons /> */}
     </>
   );
 }
