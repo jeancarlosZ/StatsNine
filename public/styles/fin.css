@@ -3,22 +3,48 @@
 /*-------------------------------------------*/
 
 .company-info {
-  width: 530px;
-  left: 40px;
-  top: 25px;
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  margin-left: 30px;
 }
 .company-name {
   color: #ffffff;
   font-size: 30px;
-  width: 300px;
 }
 
 .ticker-container {
-  height: 25px;
-  width: 120px;
+  /* background-color: green; */
 }
+
 .ticker {
   color: #1890ff;
+}
+
+.exchange {
+  color: rgba(208, 211, 219, 0.8);
+  margin-left: 20px;
+}
+
+.fin-price-container {
+  color: white;
+  margin-top: 15px;
+  font-size: 1.2rem;
+}
+
+.fin-otherinfo-container {
+  margin-top: 30px;
+  font-size: 1rem;
+}
+
+.fin-labeltext {
+  color: rgba(208, 211, 219, 0.8);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.fin-head {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 /*---------------------------------------------*/

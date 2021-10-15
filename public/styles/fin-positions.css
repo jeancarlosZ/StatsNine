@@ -34,7 +34,7 @@
   --financialsPaddedPageWidth: calc(var(--financialsPageWidth) - var(--financialsPagePaddings));
 
   /** Financials top portion of page */
-  --financialsCompanyChartHeight: calc(var(--financialsPaddedPageHeight) / 2.5);
+  --financialsCompanyChartHeight: calc(var(--financialsPaddedPageHeight) / 2.25);
   /* --financialsCompanyChartWidth: calc(
     var(--financialsPaddedPageWidth) - var(--financialsPageMargins)
   ); */
@@ -138,7 +138,7 @@
   /* background-color: burlywood; */
   /** visual aid */
   height: var(--financialsCompanyChartHeight);
-  padding: 0px 15px;
+  padding: 0px 10px;
 }
 
 /*Conatins company name*/
@@ -147,10 +147,19 @@
   /* border: solid rgb(226, 136, 108); */
   /** visual aid */
   /* width: 600px; */
+  width: calc(var(--financialsPaddedPageWidth) / 3.75);
   background-color: rgba(30, 34, 45, 0.6);
   color: #d0d3db;
+  overflow: hidden;
   border-radius: 15px;
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.1), -5px 5px rgb(0, 0, 0, 0.1);
+
+  padding: 20px;
+}
+
+.company-container .company-name {
+  font-size: 1.7rem;
+  font-weight: 700;
 }
 
 /*The div that contains the chart*/
@@ -164,19 +173,61 @@
   /** visual aid */
   /* border: solid rgb(236, 145, 118); */
   /** visual aid */
+  background-color: rgba(30, 34, 45, 0.3);
 }
 
+/** The container that hold the buttons Quater and Annual */
 .fin-button-container {
   height: 30px;
+  color: #d0d3db;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.1rem;
+  font-weight: 700;
+  /** visual aid */
+  /* background-color: green; */
+  /** visual aid */
 }
 
+/** The chart label within that container (the title) */
+.fin-button-container label {
+  margin: auto 10px auto 30px;
+  font-weight: 600;
+  /* font-size: 1.1rem; */
+  color: var(--fontColor);
+}
+
+/** The invividual buttons */
 .fin-button-container button {
-  margin-left: 15px;
+  height: 24px;
+  margin: auto;
+  margin: 3px 5px;
+  text-align: center;
+  align-content: center;
+  color: rgba(208, 211, 219, 0.6);
+  background-color: rgba(30, 34, 45, 0.6);
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/** when you hover over the buttons */
+.fin-button-container button:hover {
+  color: var(--fontColor);
+  border: none;
+}
+
+/** when you select the button*/
+.fin-button-container .fin-selected {
+  color: var(--fontColor);
+  background-color: rgba(30, 34, 45, 1);
+  border: none;
 }
 
 /*The actual chart*/
 .fin-chart {
-  height: calc(var(--financialsCompanyChartHeight) - 30px);
+  height: calc(var(--financialsCompanyChartHeight) - 35px);
   width: var(--financialsCompanyChartWidth);
   /* border: solid green; */
   /* width: 62vw;
@@ -201,9 +252,10 @@
   background-color: transparent;
   border: transparent;
   text-align: center;
-  font-size: 12px;
+  font-size: 1rem;
+  font-weight: 800;
   color: rgb(171, 171, 171);
-  height: 45px;
+  height: 35px;
   width: var(--financialsTableWidth);
   margin: auto;
   /* width: 96vw; */
@@ -219,7 +271,7 @@
   /* height: 300px; */
   /* width: 96vw; */
   align-self: center;
-  height: calc(var(--financialsTableHeight) - 45px);
+  height: calc(var(--financialsTableHeight) - 35px);
   width: var(--financialsTableWidth);
   margin: auto;
   /** visual aid */

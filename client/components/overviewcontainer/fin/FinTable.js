@@ -23,10 +23,10 @@ export default function FinTable(props) {
     // console.log(labels, 'labels');
 
     return (
-      <div className='fin-table-container'>
+      <div className="fin-table-container">
         <DatesRow dates={tabledates} />
-        <SimpleBar className='fin-table-scroll'>
-          <table className='fin-table'>
+        <SimpleBar className="fin-table-scroll">
+          <table className="fin-table">
             {rows.map((rowInfo, index) => (
               <FinRow
                 rowInfo={rowInfo}
@@ -43,7 +43,7 @@ export default function FinTable(props) {
       </div>
     )
   } else {
-    return <div className='table-space'>Loading...</div>
+    return <div className="table-space">Loading...</div>
   }
 }
 
@@ -53,13 +53,15 @@ function FinRow(props) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  const randomIndex = genRandomIndex(0, 3)
+  const randomIndex = genRandomIndex(0, 5)
   const chartColors = [
     // ['rgba(39, 91, 232, 1)', 'rgba(39, 91, 232, .3)'],
     ['rgba(232, 91, 39, 1)', 'rgba(232, 91, 39, .3)'],
     ['rgba(39, 232, 91, 1)', 'rgba(39, 232, 91, .3)'],
     ['rgba(232, 91, 232, 1)', 'rgba(232, 91, 232, .3)'],
     ['rgba(232, 0, 0, 1)', 'rgba(232, 0, 0, .3)'],
+    ['rgba(24, 144, 255, 1)', 'rgba(24, 144, 255, .3)'],
+    ['rgba(255, 246, 143, 1)', 'rgba(255, 246, 143, .3)']
     // ['rgba(39, 91, 232, 1)', 'rgba(39, 91, 232, .3)'],
   ]
 
@@ -94,13 +96,13 @@ function FinRow(props) {
             attribute,
             label,
             chartColors[randomIndex][0],
-            chartColors[randomIndex][1],
+            chartColors[randomIndex][1]
           ])
         }
       >
-        <td className='fin-col fin-label'>{label}</td>
+        <td className="fin-col fin-label">{label}</td>
         {rowInfo.map((info, index) => (
-          <td key={index} className='fin-col'>
+          <td key={index} className="fin-col">
             <div>{info}</div>
             <YearlyChanges yearlyChanges={yearlyChanges} index={index} />
           </td>
@@ -123,7 +125,7 @@ function YearlyChanges(props) {
 function DatesRow(props) {
   //Here we are taking in an array of dates and producing ONE row with a <td> for every date
   return (
-    <table className='fin-date pos-rel'>
+    <table className="fin-date pos-rel">
       <tbody>
         <tr>
           {props.dates.map(date => (
