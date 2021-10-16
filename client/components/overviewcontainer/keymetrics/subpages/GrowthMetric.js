@@ -12,6 +12,8 @@ import {
 import Growthchart from '../charts/GrowthChart'
 import MetricSelector from '../MetricSelector'
 import { getMetricItem, getTableDatas } from './UtilMetrics'
+import SimpleBar from 'simplebar-react'
+import 'simplebar/dist/simplebar.min.css'
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
@@ -67,7 +69,9 @@ export default function GrowthMetric() {
         <MetricSelector />
         <div className="metric-container">
           <div className="gmetric-sub-container">
-            {getGrowthMetricPage(data, results, dataType, setDataType, setUpdate)}
+            <SimpleBar className="gmetric-scrolls">
+              {getGrowthMetricPage(data, results, dataType, setDataType, setUpdate)}
+            </SimpleBar>
           </div>
         </div>
       </div>
