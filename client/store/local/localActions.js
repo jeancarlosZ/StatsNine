@@ -1,16 +1,15 @@
+import axios from 'axios'
 import { SET_TICKER, UPDATE_LOCAL } from '.'
 import {
   fetchBalanceStatement,
   fetchCashflowStatement,
   fetchEnterpriseValue,
   fetchIncomeStatement,
-  fetchKeyMetrics,
   fetchRatios,
   fetchStockProfile
 } from '../../api/api.js'
 import { logError } from '../../utils.js'
 import store from '../index.js'
-import axios from 'axios'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
