@@ -89,7 +89,7 @@ function FinRow(props) {
   //This is the label that will be placed before we map over rowInfo
   const label = props.labels[index];
   //Attribute to use for identifying which row is being clicked and setting that in state
-  const attribute = props.attributes[index + 1];
+  const attribute = props.attributes[index];
 
   //creating the light or dark className for the row depending on if it's odd or even
   let rowClassName;

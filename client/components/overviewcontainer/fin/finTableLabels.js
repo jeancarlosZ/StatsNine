@@ -50,7 +50,6 @@ export const enterpriseTableLabels = [
 
 //**--Object Indentifiers--**//
 export const incomeIndentifiers = [
-  'dates',
   'revenue',
   'grossProfit',
   'operatingExpenses',
@@ -64,7 +63,6 @@ export const incomeIndentifiers = [
 ];
 
 export const balanceIndentifiers = [
-  'dates',
   'totalAssets',
   'totalLiabilities',
   'longTermInvestments',
@@ -79,7 +77,6 @@ export const balanceIndentifiers = [
 ];
 
 export const cashflowIndentifiers = [
-  'dates',
   'freeCashFlow',
   'capitalExpenditure',
   'operatingCashFlow',
@@ -92,7 +89,6 @@ export const cashflowIndentifiers = [
 ];
 
 export const enterpriseIndentifiers = [
-  'dates',
   'enterpriseValue',
   'marketCapitalization',
   'numberOfShares',

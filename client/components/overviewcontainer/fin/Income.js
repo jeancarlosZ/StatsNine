@@ -168,7 +168,6 @@ export default function Income() {
 
   //Here i'm sending the unformatedData off to be processed
   const { yearlyChanges, rows } = processUnformattedData(unformatedData);
-
   const tableInfo = {
     tabledates,
     rows,
