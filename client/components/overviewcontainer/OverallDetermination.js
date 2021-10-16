@@ -75,13 +75,14 @@ function MetricStar({ rating }) {
 // This function renders the recommendation based on the score for each stock.
 function ODMessage({ results, loading }) {
   function recommendation(score) {
-    if (score <= 20) {
+    const starRep = 11.11
+    if (score <= 4 * starRep) {
       return 'BAD'
-    } else if (score <= 40) {
+    } else if (score <= 5 * starRep) {
       return 'POOR'
-    } else if (score <= 60) {
+    } else if (score <= 6 * starRep) {
       return 'FAIR'
-    } else if (score <= 80) {
+    } else if (score <= 8 * starRep) {
       return 'GOOD'
     } else {
       return 'EXCELLENT'
