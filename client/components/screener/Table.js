@@ -51,7 +51,7 @@ function getPage(stocksMap, loaded) {
   return (
     <>
       <div className="screener-title">
-        <label className="shadow-nohover">Stock Screener</label>
+        <label>Stock Screener</label>
       </div>
       <SimpleBar className="screener-scroll shadow-nohover">
         <table className="screen-table">
