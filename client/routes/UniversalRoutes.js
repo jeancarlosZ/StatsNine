@@ -12,6 +12,8 @@ import Overviewpage from '../components/overviewcontainer/Overviewpage';
 import Table from '../components/screener/Table';
 
 import Welcome from '../components/home/Welcome';
+//import TableR from '../components/home/common/TableR';
+import Dashboard from '../components/home/common/Dashboard';
 
 class UniversalRoutes extends Component {
   render() {
@@ -26,9 +28,9 @@ class UniversalRoutes extends Component {
         <Route path="/screener" component={Table} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/not-found" component={NotFound} />
-        <Route path="/calendar" component={Welcome} />
-        <Route path="/home" component={Welcome} />
-        <Route path="/" exact component={Homepage} />
+        <Route path="/calendar" component={Dashboard} />
+        <Route path="/home" component={Homepage} />
+        <Route path="/" exact component={Welcome} />
         <Redirect to="/not-found" />
       </Switch>
     );
