@@ -130,7 +130,7 @@ export default function Income() {
         ? incomeInfoQtr[attribute].keys
         : incomeInfo[attribute].keys;
   }
-
+  console.log(incomeInfo, 'incomeinfo...');
   const dataset = [];
 
   dataset.push({
