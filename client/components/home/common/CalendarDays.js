@@ -1,5 +1,4 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
 
 export default function CalendarDays(props) {
   const firstDayOfMonth = new Date(
