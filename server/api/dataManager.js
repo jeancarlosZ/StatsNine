@@ -7,7 +7,10 @@ const API = require('./apiUtils')
 const Redis = require('redis')
 //* Now we are creating our redis client,
 //* this is how we will interact with redis.
-const redisCli = Redis.createClient(process.env.REDIS_URL)
+const redisCli = Redis
+  .createClient
+  // process.env.REDIS_URL
+  ()
 
 //* This route will update the redis cache with data (if required)
 //* as well as respond with data from that cache (if included)
