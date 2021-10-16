@@ -1,23 +1,18 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { roundNumberDec, formatNumber } from '../../utils'
+import { roundNumberDec, formatNumber, formatPercentage } from '../../utils'
 import { loadStockProfile, setCurrentStock } from '../../store/local/localActions'
 
-export default function Row(props) {
-  let { companyName, lastAnnualDividend, marketCap, price, sector, symbol, volume } = props.stock
-  price = roundNumberDec(price).toFixed(2)
-  lastAnnualDividend = roundNumberDec(lastAnnualDividend).toFixed(2)
-  volume = formatNumber(volume)
-  marketCap = formatNumber(marketCap)
-  const rowColor = props.index % 2 ? 'screen-color' : 'screen-color screen-row'
+export default function Row({ stock, index }) {
+  const rowColor = index % 2 ? 'screen-color' : 'screen-color screen-row'
   const dispatch = useDispatch()
   const history = useHistory()
 
   // This function sets the selected stock in the redux store and sends the user to the overview page that will be loaded with information for the selected stock.
   async function handleClick() {
     try {
-      await dispatch(setCurrentStock(symbol, companyName))
+      await dispatch(setCurrentStock(stock.symbol, stock.companyName))
       await loadStockProfile()
       await history.push('/overviewpage')
     } catch (err) {
@@ -25,17 +20,48 @@ export default function Row(props) {
     }
   }
 
+  const isUp = stock.previousClose > stock.price ? 's-down' : 's-up'
+
   return (
     <tr className={rowColor} onClick={() => handleClick()}>
-      <td className='screen-border screen-name'>
-        <div className='screen-blue'>{symbol}</div>
-        <div>{companyName}</div>
+      <td className="screen-border screen-name dcontainer">
+        <div className="screen-blue">{stock.symbol}</div>
+        <div>{stock.companyName}</div>
       </td>
-      <td className='screen-border screen-num'>{price} USD</td>
-      <td className='screen-border screen-num screen-green'>{lastAnnualDividend} USD</td>
-      <td className='screen-border screen-num'>{volume}</td>
-      <td className='screen-border screen-num'>{marketCap} USD</td>
-      <td className='screen-border screen-small'>{sector}</td>
+      {/* <td className="screen-border screen-num">{price} USD</td> */}
+      <td className="screen-border screen-num pcontainer">
+        <div className={`screener-price ${isUp}`}>{`$${roundNumberDec(stock.price)}`}</div>
+        <div className="s-sm">
+          <div className={`s-open`}>{`Open: $${roundNumberDec(stock.open)}`}</div>
+          <div className={`s-high`}>{`Hi: $${roundNumberDec(stock.dayHigh)}`}</div>
+          <div className={`s-low`}>{`Lo: $${roundNumberDec(stock.dayLow)}`}</div>
+        </div>
+      </td>
+      <td className="screen-border screen-num pcontainer">
+        <div className={`screener-change ${isUp}`}>{`$${roundNumberDec(stock.change)} ${
+          isUp == 's-up' ? '🡅' : '🡇'
+        }`}</div>
+        <div className={`screener-changeperc ${isUp}`}>{`${roundNumberDec(
+          stock.changesPercentage
+        )}%`}</div>
+      </td>
+      <td className="screen-border screen-small pcontainer">
+        <div>PE: {roundNumberDec(stock.pe)}</div>
+        <div>EPS: {roundNumberDec(stock.eps)}</div>
+      </td>
+      <td className="screen-border screen-small pcontainer">
+        <div>Hi: ${roundNumberDec(stock.yearHigh)}</div>
+        <div>Lo: ${roundNumberDec(stock.yearLow)}</div>
+      </td>
+      <td className="screen-border screen-small pcontainer">
+        <div>Market Cap: ${formatNumber(stock.marketCap)}</div>
+        <div>Volume: {formatNumber(stock.volume)}</div>
+      </td>
+      {/* <td className="screen-border screen-num"></td> */}
+      <td className="screen-border screen-small pcontainer">
+        <div>{stock.sector}</div>
+        <div>({stock.industry})</div>
+      </td>
     </tr>
   )
 }

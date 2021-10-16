@@ -11,7 +11,7 @@ const axios = require('axios')
 async function fetchFullStatement(ticker, growth = false, period = 'annual') {
   const type = `financial-${growth ? 'growth' : 'statement-full-as-reported'}`
   const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
+  const data = formatTimeSeriesData(await fetchData(link), null, period === 'annual')
   return splitProperties(data, true)
 }
 
@@ -25,7 +25,7 @@ async function fetchFullStatement(ticker, growth = false, period = 'annual') {
 async function fetchIncomeStatement(ticker, growth = false, period = 'annual') {
   const type = `income-statement${growth ? '-growth' : ''}`
   const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
+  const data = formatTimeSeriesData(await fetchData(link), null, period === 'annual')
   return splitProperties(data, true)
 }
 
@@ -39,7 +39,7 @@ async function fetchIncomeStatement(ticker, growth = false, period = 'annual') {
 async function fetchBalanceStatement(ticker, growth = false, period = 'annual') {
   const type = `balance-sheet-statement${growth ? '-growth' : ''}`
   const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
+  const data = formatTimeSeriesData(await fetchData(link), null, period === 'annual')
   return splitProperties(data, true)
 }
 
@@ -53,7 +53,7 @@ async function fetchBalanceStatement(ticker, growth = false, period = 'annual') 
 async function fetchCashflowStatement(ticker, growth = false, period = 'annual') {
   const type = `cash-flow-statement${growth ? '-growth' : ''}`
   const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
+  const data = formatTimeSeriesData(await fetchData(link), null, period === 'annual')
   return splitProperties(data, true)
 }
 
@@ -65,7 +65,7 @@ async function fetchCashflowStatement(ticker, growth = false, period = 'annual')
 //* By Default it returns afn annual statement, optionally 'quarter'
 async function fetchEnterpriseValue(ticker, period = 'annual') {
   const link = getFMPLink(ticker, `enterprise-values`, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
+  const data = formatTimeSeriesData(await fetchData(link), null, period === 'annual')
   return splitProperties(data, true)
 }
 
@@ -81,7 +81,9 @@ async function fetchDiscountedCashflow(ticker, hist = false, period = 'annual') 
   const link = getFMPLink(ticker, type, `period=${period}`)
   const data = await fetchData(link)
   //* Historical DCF is time series { key, value } otherwise it's just { data }
-  return hist ? splitProperties(await formatTimeSeriesData(data), true) : data
+  return hist
+    ? splitProperties(await formatTimeSeriesData(data, null, period === 'annual'), true)
+    : data
 }
 
 /**
@@ -126,7 +128,9 @@ async function fetchKeyMetrics(ticker, ttm = false, period = 'annual') {
   const link = getFMPLink(ticker, type, `period=${period}`)
   const data = await fetchData(link)
   //* TTM is time series { key, value } otherwise it's just { data }
-  return ttm ? data : splitProperties(await formatTimeSeriesData(data), true)
+  return ttm
+    ? data
+    : splitProperties(await formatTimeSeriesData(data, null, period === 'annual'), true)
 }
 
 /**
@@ -141,7 +145,9 @@ async function fetchRatios(ticker, ttm = false, period = 'annual') {
   const link = getFMPLink(ticker, type, `period=${period}`)
   const data = await fetchData(link)
   //* TTM is time series { key, value } otherwise it's just { data }
-  return ttm ? data : splitProperties(await formatTimeSeriesData(data), true)
+  return ttm
+    ? data
+    : splitProperties(await formatTimeSeriesData(data, null, period === 'annual'), true)
 }
 
 /**
@@ -291,9 +297,7 @@ async function fetchData(link) {
 function formatTimeSeriesData(data, custom, doFix = true) {
   //* If the data is undefined or null
   if (!data) return {}
-
   const years = {}
-
   //* Create our new balance sheet
   const formattedData = {}
   //* Use for loops so we can create a object

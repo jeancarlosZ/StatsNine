@@ -152,3 +152,66 @@ router.post('/', async (request, response, next) => {
     next(error)
   }
 })
+
+//* This route will be used to set the screener data in
+//* the redis cache, this is in a seperate route now so that
+//* we can load screener data more specifically
+router.post('/screener', async (request, response, next) => {
+  try {
+    //* Get the data from the request
+    const { quantity = 500, experation, params = '' } = request.body
+    //* This is the key (where/location) we are looking in memory (redis)
+    //* to find the value we are looking for.
+    const query = `system:screener`
+    //* We are going to try to GET that key from redis.
+    //* If that key is not found; we will load the data
+    //* using the provided func, and proceed to save it.
+    redisCli.get(query, async (error, results) => {
+      //* If there was an error, print it!
+      if (error) console.error(error)
+      //* If the key was found, we will simply return the value (data)
+      if (results != null) return response.json(JSON.parse(results))
+      //* If we did not find the key, we need to load the screener data
+      //* So now we will fetch the desired quantity of stocks for screener
+      const stocks = await API.fetchScreenerStocks(`isEtf=false${params}`, quantity)
+      const data = {}
+      //* Now that we have our list of screener stocks
+      //* we want to get a little bit more data, just to help
+      //* us make the screener more interactive!
+      //*
+      //* With that, I am going to fetch a 'batch' quote of all
+      //* of the symbols we screened with just one API call!
+      const quotes = await API.fetchStockQuote(
+        stocks
+          //* Here I am traversing the array of stocks
+          //* that we got back from the screener
+          .map(x => {
+            //* I am going to add stock object to the data
+            //* object under the key (it's symbol)!
+            data[x.symbol] = x
+            //* Then I will return the symbol (so it creates an array of symbols)
+            return x.symbol
+          })
+          //* Now we can join the array of symbols,
+          //* giving us a 'AAPL,GOOG,FB' like format
+          //* that we can use inside the fetchStockQuote function!
+          .join()
+      )
+      //* With that, now we can add all of those stock quotes we recived
+      //* together / combine them with the screener stocks info!
+      //* This will give us a much more detailed screener page!
+      quotes.map(x => (data[x.symbol] = { ...data[x.symbol], ...x }))
+      //* Send back the data we have received and formatted. and....
+      response.send(JSON.stringify(data))
+      //* Now that the response has been sent, we will cache this
+      //* data using redis. It will be stored using the query (key).
+      //* Note: we are checking if there is an experation set, this is
+      //* because we can choose to have the data 'persist' or expire after
+      //* a set time. By default, in our case we'll let it persist.
+      if (experation) redisCli.setex(query, experation, JSON.stringify(data))
+      else redisCli.set(query, JSON.stringify(data))
+    })
+  } catch (error) {
+    next(error)
+  }
+})
