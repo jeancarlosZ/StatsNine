@@ -5,8 +5,7 @@ import { DAILY, fetchChartPrice, MONTH, SIX_MONTH, THREE_MONTH, WEEK, YEAR } fro
 import { getLocalData } from '../../store/local/localActions'
 import UniversalChart from '../UniversalChart'
 
-export default function PriceChart(props) {
-  const symbol = props.symbol
+export default function PriceChart({ symbol }) {
   const [range, setRange] = useState(YEAR)
   const [series, setSeries] = useState(DAILY)
   const [data, setData] = useState({})
@@ -27,9 +26,9 @@ export default function PriceChart(props) {
               `price${series}${range}open`,
               `price${series}${range}close`,
               `price${series}${range}low`,
-              `price${series}${range}high`,
-            ],
-          ),
+              `price${series}${range}high`
+            ]
+          )
         })
         setUpdate(false)
       } catch (err) {
@@ -63,14 +62,14 @@ export default function PriceChart(props) {
   }
 
   return (
-    <div className='chart-container shadow-deep-nohover'>
-      <div className='price-container flex-row'>
+    <div className="chart-container shadow-deep-nohover">
+      <div className="price-container flex-row">
         <label>
           {symbol} Price: ${price.toFixed(2)} USD
         </label>
         {getSelectors(series, range, updateSeries, updateRange)}
       </div>
-      <div className='overview-wrapper'>
+      <div className="overview-wrapper">
         <CandleStickChart update={update} symbol={symbol} data={data[range]} />
       </div>
     </div>
@@ -108,16 +107,16 @@ export function CandleStickChart(props) {
       low,
       open,
       xaxis: 'x',
-      yaxis: 'y',
-    },
+      yaxis: 'y'
+    }
   })
 
   return (
     <UniversalChart
-      className='candlestick-chart'
+      className="candlestick-chart"
       dataset={dataset}
-      backgroundColor='fff'
-      plotBackgroundColor='rgba(30, 34, 45, 0)'
+      backgroundColor="fff"
+      plotBackgroundColor="rgba(30, 34, 45, 0)"
       showlegend={false}
       margin={{ l: 50, r: 50, t: 15, b: 25 }}
     />
@@ -127,8 +126,8 @@ export function CandleStickChart(props) {
 // This function creates a dropdown button with a selection of items to choose from.
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
-    <div className='selector-dropdown-right'>
-      <DropdownButton className='dropdown-selector' title={range} size='sm' variant='secondary'>
+    <div className="selector-dropdown-right">
+      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
         <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
         <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
         <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>

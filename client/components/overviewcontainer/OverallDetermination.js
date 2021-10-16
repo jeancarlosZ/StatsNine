@@ -3,8 +3,7 @@ import Star from '../../assets/icons/star'
 import { getTickerResults } from '../../store/local/localActions'
 import { getStarColor } from '../../utils'
 
-export default function OverallDetermination(props) {
-  const symbol = props.symbol
+export default function OverallDetermination({ symbol }) {
   const [results, setResults] = useState({})
   const [loading, setLoading] = useState(true)
 
@@ -23,9 +22,9 @@ export default function OverallDetermination(props) {
   }, [symbol])
 
   return (
-    <div className='overviewbox overall-determination shadow-nohover'>
-      <div className='headerTwo'>Overall Determination</div>
-      <div className='star-container flex-row justify-around justify-center'>
+    <div className="overviewbox overall-determination shadow-nohover">
+      <div className="headerTwo">Overall Determination</div>
+      <div className="star-container flex-row justify-around justify-center">
         <StarsContainer results={results} loading={loading} />
         <ODMessage results={results} loading={loading} />
       </div>
@@ -36,21 +35,25 @@ export default function OverallDetermination(props) {
 // This function returns the layout container for the 9 stars.
 function StarsContainer({ results, loading }) {
   if (loading) {
-    return <></>
+    return (
+      <div className="stars-container flex-row justify-evenly">
+        <div>Loading...</div>
+      </div>
+    )
   } else {
     return (
-      <div className='stars-container flex-row justify-evenly'>
-        <div className=' star-col flex-col justify-evenly'>
+      <div className="stars-container flex-row justify-evenly">
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.revgrowth} />
           <MetricStar rating={results.cashgrowth} />
           <MetricStar rating={results.netincome} />
         </div>
-        <div className=' star-col flex-col justify-evenly'>
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.roic} />
           <MetricStar rating={results.shares} />
           <MetricStar rating={results.assets} />
         </div>
-        <div className=' star-col flex-col justify-evenly'>
+        <div className=" star-col flex-col justify-evenly">
           <MetricStar rating={results.pe} />
           <MetricStar rating={results.pfcf} />
           <MetricStar rating={results.ltl} />
@@ -63,8 +66,8 @@ function StarsContainer({ results, loading }) {
 // Pass in the metric info to color the stars correctly and render the stars
 function MetricStar({ rating }) {
   return (
-    <div className='star'>
-      <Star className='overview-metric-star' fill={getStarColor(rating)} />
+    <div className="star">
+      <Star className="overview-metric-star" fill={getStarColor(rating)} />
     </div>
   )
 }
@@ -89,11 +92,18 @@ function ODMessage({ results, loading }) {
     return <></>
   } else {
     return (
-      <div className='description-text determination'>
-        {`We have concluded that ${results.symbol} is an overall ${recommendation(
-          results.score,
+      <div className="description-text determination">
+        {/* {`We have concluded that ${results.symbol} is an overall ${recommendation(
+          results.score
         )} investment and has achieved a total of
-        ${results.score}/100 points!`}
+        ${results.score}/100 points!`} */}
+        {`According to our 9 key metrics, ${results.symbol} get an overall ${recommendation(
+          results.score
+        )} rating! The company has achieved a total ${
+          results.score
+        }/100 score! If you would like to find out why ${
+          results.symbol
+        } recieved this score, look under the key metrics page!`}
       </div>
     )
   }
