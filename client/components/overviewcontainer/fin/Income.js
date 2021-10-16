@@ -130,7 +130,6 @@ export default function Income() {
         ? incomeInfoQtr[attribute].keys
         : incomeInfo[attribute].keys;
   }
-  console.log(incomeInfo, 'incomeinfo...');
   const dataset = [];
 
   dataset.push({
@@ -155,6 +154,8 @@ export default function Income() {
     // rawDates are in this format--"2021-06-30"--and need to be processed with getDates() before putting into table
     const { grossProfit } = incomeInfo;
     rawDates = grossProfit.keys;
+    console.log(rawDates);
+    console.log(incomeInfo);
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
     unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);

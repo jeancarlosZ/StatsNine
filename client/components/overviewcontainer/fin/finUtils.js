@@ -40,7 +40,11 @@ export function processUnformattedData(data) {
     //If the innerArray.length is < 14, there won't be enough data to do the last yearlyChange calculation. In that case push '-' for that
     //position.
 
-    for (let i = innerArray.length - 1; i > innerArray.length - 15; i--) {
+    for (
+      let i = innerArray.length - 1;
+      i > innerArray.length - 15 && i >= 0;
+      i--
+    ) {
       //calculating the change
       const change = innerArray[i] - innerArray[i - 1];
       //pushing the formatted change
@@ -48,8 +52,10 @@ export function processUnformattedData(data) {
       changeArr.push(formatNumber(change) ? formatNumber(change) : '-');
 
       //pushing the formatted number for display
-      const formattedNum = formatNumber(innerArray[i]);
-      rowsArr.push(formattedNum);
+      // const formattedNum = formatNumber(innerArray[i]);
+      rowsArr.push(
+        formatNumber(innerArray[i]) ? formatNumber(innerArray[i]) : '-'
+      );
     }
     //here i'm pushing each innerArray(row) to the arrays that will be returned from this function
     yearlyChanges.push(changeArr);
