@@ -3,6 +3,7 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 import { getScreenerData } from '../../store/local/localActions'
 import { getLoadingMessage } from '../../utils'
+import Loading from '../Loading'
 import Row from './Row'
 
 //* This is the screener
@@ -31,35 +32,24 @@ export default function Table() {
     getStocksList()
   }, [])
 
+  if (!loaded) return <Loading />
+
   return (
     <div className="screener-page">
       <div className="screener-container">
-        <div className="screener-scroll-container">{getPage(stocksMap, loaded)}</div>
+        <div className="screener-scroll-container">
+          <div className="screener-title">
+            <label>Stock Screener</label>
+          </div>
+          <SimpleBar className="screener-scroll shadow-nohover">
+            <table className="screen-table">
+              <thead>{getTableHead(stocksMap)}</thead>
+              <tbody>{getTableBody(stocksMap)}</tbody>
+            </table>
+          </SimpleBar>
+        </div>
       </div>
     </div>
-  )
-}
-
-//* Return either the page or loading message
-function getPage(stocksMap, loaded) {
-  if (!loaded)
-    return (
-      <div className="screener-title">
-        <label className="shadow-nohover">{getLoadingMessage()}</label>
-      </div>
-    )
-  return (
-    <>
-      <div className="screener-title">
-        <label>Stock Screener</label>
-      </div>
-      <SimpleBar className="screener-scroll shadow-nohover">
-        <table className="screen-table">
-          <thead>{getTableHead(stocksMap)}</thead>
-          <tbody>{getTableBody(stocksMap)}</tbody>
-        </table>
-      </SimpleBar>
-    </>
   )
 }
 

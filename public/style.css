@@ -96,3 +96,40 @@ form div {
   position: relative;
 }
 /*-----Rohan-----*/
+
+.loading-page {
+  height: calc(100vh - var(--mainHeaderHeight));
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.loading-page .lcontainer {
+  /* margin: 10vh auto auto auto; */
+  mask-origin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  /* background-color: gray; */
+}
+
+.loading-page label {
+  margin: none;
+  font-size: 2.5rem;
+  color: var(--fontColor);
+  font-weight: 700;
+  /* background-color: gainsboro; */
+}
+
+.loading-page .loader {
+  margin: none;
+  display: flex;
+  justify-content: center;
+
+  /* background-color: green; */
+}
