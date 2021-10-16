@@ -3,9 +3,7 @@ import React from 'react';
 const Alert = () => {
   return (
     <div>
-      <div
-        className="alert alert-primary d-flex align-items-center"
-        role="alert">
+      <div className="alert alert-success position-relative" role="alert">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

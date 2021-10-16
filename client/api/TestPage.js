@@ -14,6 +14,7 @@ import {
   DAILY,
   fetchChartPrice,
   fetchStockNews,
+  fetchStockQuote,
   FIVE_YEAR,
   MONTH,
   SIX_MONTH,
@@ -26,32 +27,6 @@ import {
 // import { utils } from 'react-modern-calendar-datepicker'
 
 export default function APITestPage() {
-  // const today = new Date()
-  // const [selectedDayRange, setSelectedDayRange] = useState({
-  //   from: null,
-  //   to: null
-  // })
-  // const formatInputValue = () => {
-  //   if (!selectedDayRange) return ''
-  //   return `Day: ${selectedDayRange}`
-  // }
-  // // https://kiarash-z.github.io/react-modern-calendar-datepicker/docs/customization
-  // return (
-  //   <DatePicker
-  //     value={selectedDayRange}
-  //     onChange={setSelectedDayRange}
-  //     inputPlaceholder="Select a day range"
-  //     maximumDate={utils().getToday()}
-  //     shouldHighlightWeekends
-  //     // colorPrimary=""
-  //     // colorPrimaryLight=""
-  //     renderInput={({ ref }) => {
-  //       console.log(ref)
-  //     }}
-  //     inputPlaceholder="Select a date"
-  //     // formatInputText={formatInputValue}
-  //   />
-  // )
   return (
     <div className="dashboard">
       <div className="dash-container">
@@ -367,3 +342,30 @@ function getSelectors(series, range, updateSeries, updateRange) {
     </div>
   )
 }
+
+// const today = new Date()
+// const [selectedDayRange, setSelectedDayRange] = useState({
+//   from: null,
+//   to: null
+// })
+// const formatInputValue = () => {
+//   if (!selectedDayRange) return ''
+//   return `Day: ${selectedDayRange}`
+// }
+// // https://kiarash-z.github.io/react-modern-calendar-datepicker/docs/customization
+// return (
+//   <DatePicker
+//     value={selectedDayRange}
+//     onChange={setSelectedDayRange}
+//     inputPlaceholder="Select a day range"
+//     maximumDate={utils().getToday()}
+//     shouldHighlightWeekends
+//     // colorPrimary=""
+//     // colorPrimaryLight=""
+//     renderInput={({ ref }) => {
+//       console.log(ref)
+//     }}
+//     inputPlaceholder="Select a date"
+//     // formatInputText={formatInputValue}
+//   />
+// )

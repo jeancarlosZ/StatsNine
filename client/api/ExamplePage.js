@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import UniversalChart from '../components/UniversalChart'
-import { fetchIncomeStatement } from './api'
+import React, { useEffect, useState } from 'react';
+import UniversalChart from '../components/UniversalChart';
+import { fetchIncomeStatement } from './api';
 
 //* This is a example of how you would go about fetching data from
 //* the api and implementing a chart
 export default function ExamplePage() {
   //* First you must decide what data you need.
   //* Create for that variable and default it to {}
-  const [incomeData, setIncomeData] = useState({})
+  const [incomeData, setIncomeData] = useState({});
   //* const [balanceData, setBalanceData] = useState({})
 
   //* When the component is mounted we just need
@@ -17,27 +17,27 @@ export default function ExamplePage() {
     //* you will call all of the functions required apon load.
     async function getData() {
       //* Now update the state with the response
-      setIncomeData(await fetchIncomeStatement('AAPL'))
+      setIncomeData(await fetchIncomeStatement('AAPL'));
       //* setBalanceData(await fetchBalanceSheet('AAPL'))
     }
     //* Now you call the getData function
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   //* If you check console you will see the api returns a set
   //* of KEYS and VALUES. You can use these to populate the chart.
-  console.log('Income Data:', incomeData)
+  console.log('Income Data:', incomeData);
 
   //* The best way to do this is to destructure your keys and values
-  const { keys, values } = incomeData
+  const { keys, values } = incomeData;
 
   //* See the results here
-  console.log('Keys:', keys)
-  console.log('Values:', values)
+  console.log('Keys:', keys);
+  console.log('Values:', values);
 
   //* Now we will create our dataset for the chart. This is an array,
   //* containing each of the VALUES you would like to display.
-  const dataset = []
+  const dataset = [];
 
   //* We must wait until our values are populated before
   //* attempting to make the 'traces' or 'sets'
@@ -51,8 +51,8 @@ export default function ExamplePage() {
       outline: '#34b87d',
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
-      values: values.map(x => x.netIncome)
-    })
+      values: values.map(x => x.netIncome),
+    });
 
     //* Other examples include...
     // dataset.push({ name: 'Common Stock', color: 'green', values: values.map(x => x.commonStock) })
@@ -97,5 +97,5 @@ export default function ExamplePage() {
         showlegend={true}
       />
     </>
-  )
+  );
 }

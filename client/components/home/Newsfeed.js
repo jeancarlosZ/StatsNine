@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchStockNews } from '../../api/api';
+import '../../../public/styles/calendar2.css';
 
 export default function Newsfeed() {
   const [stockNewsList, setStockNewsList] = useState([]);
@@ -7,7 +8,7 @@ export default function Newsfeed() {
   useEffect(() => {
     async function getStockNewsList() {
       setStockNewsList(
-        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 13)
+        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10)
       );
     }
     getStockNewsList();
@@ -16,34 +17,31 @@ export default function Newsfeed() {
   const { keys, values } = stockNewsList;
 
   return (
-    <div className="text-white">
+    <div className="text-white display-5 text-center position-relative">
       <h2>Latest News</h2>
       <div className="table-responsive ">
-        <table className="table table-sm  table-borderless border-0 table-hover  ">
-          <thead>
-            <tr></tr>
-          </thead>
-          <tbody>
+        <div className="table table-sm  table-borderless  table-hover">
+          <ul>
             {stockNewsList.map(company => {
               return (
-                <tr
+                <li
                   key={company.publishedDate}
-                  className="btn-group me-3 btn btn-md btn-outline  list-group-flush  rounded-pill shadow-lg "
-                  type="button">
-                  <td>
+                  className="btn-group me-3 btn   btn-outline-success  rounded-pill shadow-lg text-white  "
+                  type="button"
+                  style={{ opacity: '.77' }}>
+                  <a href={company.url} className="text-white ">
                     <img
                       src={company.image}
                       width="50"
                       alt={company.symbol}></img>
-                  </td>
-                  <td className="text-white list-group-item">
+
                     {company.title}
-                  </td>
-                </tr>
+                  </a>
+                </li>
               );
             })}
-          </tbody>
-        </table>
+          </ul>
+        </div>
       </div>
     </div>
   );
