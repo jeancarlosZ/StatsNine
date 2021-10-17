@@ -19,9 +19,9 @@ export default function Overviewpage() {
       //* Fetch data from API
       const { description, companyName } = await getLocalData(
         ['description', 'companyName'],
-        fetchStockProfile,
+        'fetchStockProfile',
         [],
-        ['description', 'companyName']
+        ['description', 'companyName'],
       )
       setData({ description, companyName })
       setLoaded(true)
@@ -34,10 +34,10 @@ export default function Overviewpage() {
   return (
     <>
       <Subheader symbol={symbol} />
-      <div className="overview-page">
-        <div className="overview-container">
+      <div className='overview-page'>
+        <div className='overview-container'>
           <PriceChart symbol={symbol} loaded={loaded} setLoaded={setLoaded} />
-          <div className="overview-info">
+          <div className='overview-info'>
             <OverallDetermination symbol={symbol} loaded={loaded} setLoaded={setLoaded} />
             <Description symbol={symbol} data={data} />
           </div>

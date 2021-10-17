@@ -7,7 +7,7 @@ import {
   getFirstLastArr,
   getPercentDifference,
   isSameObject,
-  trimDate
+  trimDate,
 } from '../../../../utils'
 import Growthchart from '../charts/GrowthChart'
 import MetricSelector from '../MetricSelector'
@@ -31,23 +31,23 @@ export default function GrowthMetric() {
         //* Load the data from the API
         const netIncome = await getLocalData(
           'netIncome',
-          fetchCashflowStatement,
+          'fetchCashflowStatement',
           [false, dataType.net],
-          `netincome${dataType.net}`
+          `netincome${dataType.net}`,
         )
         //* Load the data from the API
         const freeCashFlow = await getLocalData(
           'freeCashFlow',
-          fetchCashflowStatement,
+          'fetchCashflowStatement',
           [false, dataType.fcf],
-          `fcf${dataType.fcf}`
+          `fcf${dataType.fcf}`,
         )
         //* Load the data from the API
         const revenue = await getLocalData(
           'revenue',
-          fetchIncomeStatement,
+          'fetchIncomeStatement',
           [false, dataType.rev],
-          `revenue${dataType.rev}`
+          `revenue${dataType.rev}`,
         )
 
         const newData = data
@@ -65,12 +65,12 @@ export default function GrowthMetric() {
   }, [update, dataType])
 
   return (
-    <div className="growth-metrics-container">
-      <div className="sub-container shadow-deep-nohover">
+    <div className='growth-metrics-container'>
+      <div className='sub-container shadow-deep-nohover'>
         <MetricSelector />
-        <div className="metric-container">
-          <div className="gmetric-sub-container">
-            <SimpleBar className="gmetric-scrolls">
+        <div className='metric-container'>
+          <div className='gmetric-sub-container'>
+            <SimpleBar className='gmetric-scrolls'>
               {getGrowthMetricPage(data, results, dataType, setDataType, setUpdate)}
             </SimpleBar>
           </div>
@@ -83,18 +83,18 @@ export default function GrowthMetric() {
 //* Function to get the growth metrics page
 function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
   if (!data.net || !results.pe)
-    return <div className="qloads">Hold tight while we load your data!</div>
+    return <div className='qloads'>Hold tight while we load your data!</div>
   return (
     <>
-      <div className="slot gnetincome">
+      <div className='slot gnetincome'>
         {getGrowthOverview(results, data, 'netincome')}
-        <div className="gmetric-chart shadow-nohover">
+        <div className='gmetric-chart shadow-nohover'>
           <Growthchart
-            title="Net Income"
-            color="rgba(250, 173, 20, 0.3)"
-            outline="rgba(250, 173, 20, 0.6)"
-            type=""
-            name="net"
+            title='Net Income'
+            color='rgba(250, 173, 20, 0.3)'
+            outline='rgba(250, 173, 20, 0.6)'
+            type=''
+            name='net'
             data={data.net}
             dataType={dataType}
             setDataType={setDataType}
@@ -102,14 +102,14 @@ function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
           />
         </div>
       </div>
-      <div className="slot gcashflow">
-        <div className="gmetric-chart shadow-nohover">
+      <div className='slot gcashflow'>
+        <div className='gmetric-chart shadow-nohover'>
           <Growthchart
-            title="Cash Flow"
-            color="rgba(41, 98, 254, 0.3)"
-            outline="rgba(41, 98, 254, 0.6)"
-            type=""
-            name="fcf"
+            title='Cash Flow'
+            color='rgba(41, 98, 254, 0.3)'
+            outline='rgba(41, 98, 254, 0.6)'
+            type=''
+            name='fcf'
             data={data.fcf}
             dataType={dataType}
             setDataType={setDataType}
@@ -118,15 +118,15 @@ function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
         </div>
         {getGrowthOverview(results, data, 'cashflow')}
       </div>
-      <div className="slot grevenue">
+      <div className='slot grevenue'>
         {getGrowthOverview(results, data, 'revenue')}
-        <div className="gmetric-chart shadow-nohover">
+        <div className='gmetric-chart shadow-nohover'>
           <Growthchart
-            title="Revenue"
-            color="rgba(243, 142, 176, 0.4)"
-            outline="rgba(243, 142, 176, 0.6)"
-            type=""
-            name="rev"
+            title='Revenue'
+            color='rgba(243, 142, 176, 0.4)'
+            outline='rgba(243, 142, 176, 0.6)'
+            type=''
+            name='rev'
             data={data.rev}
             dataType={dataType}
             setDataType={setDataType}
@@ -142,19 +142,19 @@ function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getGrowthOverview(results, data, growthType) {
-  if (!results.netincome) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.netincome) return <div className='qload'>Hold tight while we load your data!</div>
   switch (growthType) {
     case 'netincome': {
       const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null
       const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
       const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
       return (
-        <div className="growthmetrics">
-          <div className="metric-spacer"></div>
-          <div className="metric">
+        <div className='growthmetrics'>
+          <div className='metric-spacer'></div>
+          <div className='metric'>
             {getMetricItem('5yr Net Income Growth', results.netincome)}
-            <span className="result">{`${results.symbol} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
-            <div className="desc">
+            <span className='result'>{`${results.symbol} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <div className='desc'>
               <p>
                 Net income is the profit that remains after all expenses and costs have been
                 subtracted from revenue. Net income is an all-inclusive metric for profitability and
@@ -163,11 +163,11 @@ function getGrowthOverview(results, data, growthType) {
                 bottom of the income statement.
               </p>
             </div>
-            <div className="previewcontainer">
+            <div className='previewcontainer'>
               {getDataPreview(results ? results.netincomedata : null)}
             </div>
           </div>
-          <div className="metric-spacer"></div>
+          <div className='metric-spacer'></div>
         </div>
       )
     }
@@ -176,12 +176,12 @@ function getGrowthOverview(results, data, growthType) {
       const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
       const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
       return (
-        <div className="growthmetrics">
-          <div className="metric-spacer"></div>
-          <div className="metric">
+        <div className='growthmetrics'>
+          <div className='metric-spacer'></div>
+          <div className='metric'>
             {getMetricItem('5yr Cash Flow Growth', results.cashgrowth)}
-            <span className="result">{`${results.symbol} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
-            <div className="desc">
+            <span className='result'>{`${results.symbol} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <div className='desc'>
               <p>
                 Free cash flow (FCF) represents the cash a company generates after accounting for
                 cash outflows to support operations and maintain its capital assets. Because FCF
@@ -189,8 +189,8 @@ function getGrowthOverview(results, data, growthType) {
                 value of a company and the health of its fundamental trends.
               </p>
             </div>
-            <div className="metric-spacer"></div>
-            <div className="previewcontainer">
+            <div className='metric-spacer'></div>
+            <div className='previewcontainer'>
               {getDataPreview(results ? results.cashgrowthdata : null)}
             </div>
           </div>
@@ -202,12 +202,12 @@ function getGrowthOverview(results, data, growthType) {
       const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
       const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
       return (
-        <div className="growthmetrics">
-          <div className="metric-spacer"></div>
-          <div className="metric">
+        <div className='growthmetrics'>
+          <div className='metric-spacer'></div>
+          <div className='metric'>
             {getMetricItem('5yr Revenue Growth', results.revgrowth)}
-            <span className="result">{`${results.symbol} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
-            <div className="desc">
+            <span className='result'>{`${results.symbol} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
+            <div className='desc'>
               <p>
                 Revenue is the money generated from normal business operations, calculated as the
                 average sales price times the number of units sold. Revenue is known as the top line
@@ -215,11 +215,11 @@ function getGrowthOverview(results, data, growthType) {
                 revenues exceed expenses.
               </p>
             </div>
-            <div className="previewcontainer">
+            <div className='previewcontainer'>
               {getDataPreview(results ? results.revgrowthdata : null)}
             </div>
           </div>
-          <div className="metric-spacer"></div>
+          <div className='metric-spacer'></div>
         </div>
       )
     }
@@ -230,11 +230,11 @@ function getGrowthOverview(results, data, growthType) {
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
 function getDataPreview(data) {
-  if (!data) return <div className="preview">Loading...</div>
+  if (!data) return <div className='preview'>Loading...</div>
   const { k, v } = data
   return (
-    <div className="preview shadow-nohover zoomable-med">
-      <div className="prev-wrapper">
+    <div className='preview shadow-nohover zoomable-med'>
+      <div className='prev-wrapper'>
         <table>
           <tbody>
             <tr>{getTableDatas(k, trimDate, 'head')}</tr>
