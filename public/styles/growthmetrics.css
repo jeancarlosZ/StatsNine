@@ -1,10 +1,10 @@
 * {
   --headerHeight: var(--mainHeaderHeight);
 
-  --gmetricsPageHeight: calc(200vh - (var(--subHeaderHeight) + var(--headerHeight)));
+  --gmetricsPageHeight: calc(100vh - (var(--subHeaderHeight) + var(--headerHeight)));
   --gmetricsPageWidth: 100vw;
 
-  --gmetricsMargin: 15px;
+  --gmetricsMargin: 20px;
   --gmetricsMargins: calc(var(--gmetricsMargin) * 2);
 
   --gmetricsSubcontainerHeight: calc(var(--gmetricsPageHeight) - var(--gmetricsMargins));
@@ -40,7 +40,7 @@
   --chartPaddings: calc(var(--chartPadding) * 2);
 
   --gmetricsChartContainerHeight: calc(
-    (var(--gmetricInnerSubcontainerHeight) / 3) - var(--gchartGap)
+    ((var(--gmetricInnerSubcontainerHeight) / 3) - var(--gchartGap)) * 2
   );
 
   --gmetricsChartWrapperHeight: calc(var(--gmetricsChartContainerHeight) - var(--chartPaddings));
@@ -65,6 +65,8 @@ body {
 
   display: flex;
   justify-content: center;
+
+  overflow: hidden;
 
   /* TODO color*/
   /* background-color: gray; */
@@ -184,6 +186,11 @@ body {
 
   /* TODO color*/
   /* background-color: rgba(71, 42, 42, 0.2); */
+}
+
+.gmetric-scrolls {
+  height: var(--gmetricInnerSubcontainerHeight);
+  width: var(--gmetricInnerSubcontainerWidth);
 }
 
 /*

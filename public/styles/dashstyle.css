@@ -16,7 +16,7 @@
   height: var(--dashboardHeight);
   width: var(--dashboardWidth);
 
-  background-image: url('../images/dashboard-fast.jpg');
+  background-image: url('../images/backer2-fast.jpg');
   background-position: center;
   background-size: cover;
 
@@ -32,7 +32,7 @@
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background-color: rgba(4, 11, 24, 0.6);
+  background-color: rgba(4, 11, 24, 0.4);
 }
 
 .dash-container {
@@ -73,7 +73,7 @@
   height: var(--dashboardSubHeight);
   width: var(--dashboardGridHalfWidth);
 
-  background-color: rgba(30, 34, 45, 0.6);
+  background-color: rgba(30, 34, 45, 0.7);
   /* background-color: gray; */
 }
 
@@ -214,7 +214,7 @@
   position: relative;
   height: calc(var(--dashboardGridHalfHeight));
   width: calc(var(--dashboardSubWidth) / 1.75);
-  background-color: rgba(30, 34, 45, 0.9);
+  background-color: rgba(30, 34, 45, 0.4);
   border-radius: 30px;
 }
 
@@ -260,7 +260,7 @@
 
 /*
 *==================================
-*     TODO: CONTAINER TBD TODO:
+*     CONTAINER words
 *==================================
 */
 
@@ -271,7 +271,7 @@
 
   height: calc(var(--dashboardGridHalfHeight) - 30px);
   width: calc(var(--dashboardSubWidth) / 1.75);
-  background-color: rgba(30, 34, 45, 0.5);
+  /* background-color: rgba(30, 34, 45, 0.2); */
   border-radius: 30px;
 
   margin-top: 30px;
@@ -293,6 +293,8 @@
 }
 
 .four .scrolltext {
+  border-left: solid 3px gray;
+  padding-left: 10px;
   max-height: calc(var(--dashboardGridHalfHeight) - 190px);
 }
 

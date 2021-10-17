@@ -1,9 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Collapse, DropdownButton } from 'react-bootstrap'
 import Dropdown from 'react-bootstrap/Dropdown'
-import DatePicker, { utils } from 'react-modern-calendar-datepicker'
-import 'react-modern-calendar-datepicker/lib/DatePicker.css'
 import { Link } from 'react-router-dom'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
@@ -14,7 +11,6 @@ import {
   DAILY,
   fetchChartPrice,
   fetchStockNews,
-  fetchStockQuote,
   FIVE_YEAR,
   MONTH,
   SIX_MONTH,
@@ -25,6 +21,7 @@ import {
 } from './api'
 // import DatePicker from 'react-modern-calendar-datepicker'
 // import { utils } from 'react-modern-calendar-datepicker'
+// import 'react-modern-calendar-datepicker/lib/DatePicker.css'
 
 export default function APITestPage() {
   return (
@@ -257,9 +254,9 @@ function DashboardPriceChart() {
     dataset.push({
       name: 'Stock Price',
       type: 'line',
-      color: 'rgba(48, 145, 236, 1)',
-      outline: 'rgba(48, 145, 236, 1)',
-      fillcolor: 'rgba(48, 145, 236, .2)',
+      color: 'rgba(250, 173, 20, .8)',
+      outline: 'rgba(250, 173, 20, .8)',
+      fillcolor: 'rgba(250, 173, 20, .1)',
       fill: 'tonexty',
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
@@ -289,7 +286,7 @@ function DashboardPriceChart() {
     <>
       <div className="wrapper shadow-deep-nohover">
         <div className="selector">
-          <label>Stock Price</label>
+          <label>SPY Price History</label>
           {getSelectors(series, range, updateSeries, updateRange)}
         </div>
         <UniversalChart

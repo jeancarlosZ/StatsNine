@@ -51,7 +51,7 @@ function updateLocalData(key, data) {
 //*
 //*  ---> (LOOK BELOW AND FIND THE getTickerResults() FOR USE CASES) <---
 //*
-export async function getLocalData(key, func, args, saveAs, overrideTicker, experation) {
+export async function getLocalData(key, func, args, saveAs, overrideTicker, experation = 60) {
   try {
     //* Get our state
     const state = store.getState()
