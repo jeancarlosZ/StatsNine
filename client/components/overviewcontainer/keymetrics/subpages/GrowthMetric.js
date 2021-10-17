@@ -56,6 +56,7 @@ export default function GrowthMetric() {
         newData.rev[dataType.rev] = revenue
 
         //* Save the data to the state here for the charts
+
         setData(newData)
         setUpdate(false)
       }

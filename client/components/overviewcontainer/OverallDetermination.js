@@ -100,11 +100,7 @@ function ODMessage({ results, loading }) {
         ${results.score}/100 points!`} */}
         {`According to our 9 key metrics, ${results.symbol} get an overall ${recommendation(
           results.score
-        )} rating! The company has achieved a total ${
-          results.score
-        }/100 score! If you would like to find out why ${
-          results.symbol
-        } recieved this score, look under the key metrics page!`}
+        )} rating! The company has achieved a total ${results.score}/100 score!`}
       </div>
     )
   }

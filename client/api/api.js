@@ -361,7 +361,11 @@ const blackList = {
   BTC: true,
   'QBTC.TO': true,
   FOREX: true,
-  MUTUAL_FUND: true
+  MUTUAL_FUND: true,
+  CRYPTO: true,
+  BLTS: true,
+  BLTSU: true,
+  BLTSW: true
 }
 
 //* Remove blacklisted stocks from the queue/return
