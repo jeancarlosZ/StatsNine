@@ -9,8 +9,8 @@ export const incomeTableLabels = [
   'Interest Expense',
   'Cost Of Revenue',
   'Cost And Expenses',
-  'Net Income'
-]
+  'Net Income',
+];
 export const balanceTableLabels = [
   'Total Assets',
   'Total Liabilities',
@@ -22,8 +22,8 @@ export const balanceTableLabels = [
   'Cash Equivalents',
   'Net Receivables',
   'Inventory',
-  'Retained Earnings'
-]
+  'Retained Earnings',
+];
 
 export const cashflowTableLabels = [
   'Free Cash Flow',
@@ -34,15 +34,15 @@ export const cashflowTableLabels = [
   'Dividends Paid',
   'Debt Repayment',
   'Accounts Payables',
-  'Deferred Income Tax'
-]
+  'Deferred Income Tax',
+];
 
 export const enterpriseTableLabels = [
   'Enterprise Value',
   'Market Capitalization',
   'Number Of Shares',
-  'Add Total Debt'
-]
+  'Add Total Debt',
+];
 
 //------------------------------------------//
 //------------------------------------------//
@@ -60,8 +60,8 @@ export const incomeIndentifiers = [
   'interestExpense',
   'costOfRevenue',
   'costAndExpenses',
-  'netIncome'
-]
+  'netIncome',
+];
 
 export const balanceIndentifiers = [
   'dates',
@@ -75,8 +75,8 @@ export const balanceIndentifiers = [
   'cashAndCashEquivalents',
   'netReceivables',
   'inventory',
-  'retainedEarnings'
-]
+  'retainedEarnings',
+];
 
 export const cashflowIndentifiers = [
   'dates',
@@ -88,23 +88,23 @@ export const cashflowIndentifiers = [
   'dividendsPaid',
   'debtRepayment',
   'accountsPayables',
-  'deferredIncomeTax'
-]
+  'deferredIncomeTax',
+];
 
 export const enterpriseIndentifiers = [
   'dates',
   'enterpriseValue',
   'marketCapitalization',
   'numberOfShares',
-  'addTotalDebt'
-]
+  'addTotalDebt',
+];
 
 export function getQtrIndentifers(indentifiers) {
-  const qtrIdentifiers = indentifiers.slice(1)
-  const saveAs = indentifiers.map(ident => ident + 'Qtr')
-  saveAs.shift()
+  const qtrIdentifiers = indentifiers.slice(1);
+  const saveAs = indentifiers.map((ident) => ident + 'Qtr');
+  saveAs.shift();
   return {
     saveAs,
-    qtrIdentifiers
-  }
+    qtrIdentifiers,
+  };
 }
