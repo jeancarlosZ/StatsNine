@@ -34,20 +34,18 @@ export default function CalendarDays(props) {
 
   return (
     <tr className="table-content ">
-      {currentDays.map((day, idx) => {
-        return (
-          <td
-            key={idx}
-            className={
-              'calendar-day' +
-              (day.currentMonth ? ' current' : '') +
-              (day.selected ? ' selected' : '')
-            }
-            onClick={() => props.changeCurrentDay(day)}>
-            {day.number}
-          </td>
-        );
-      })}
+      {currentDays.map((day, idx) => (
+        <td
+          key={idx}
+          className={
+            'calendar-day' +
+            (day.currentMonth ? ' current' : '') +
+            (day.selected ? ' selected' : '')
+          }
+          onClick={() => props.changeCurrentDay(day)}>
+          {day.number}
+        </td>
+      ))}
     </tr>
   );
 }

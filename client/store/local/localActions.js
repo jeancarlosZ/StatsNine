@@ -1,16 +1,15 @@
+import axios from 'axios'
 import { SET_TICKER, UPDATE_LOCAL } from '.'
 import {
   fetchBalanceStatement,
   fetchCashflowStatement,
   fetchEnterpriseValue,
   fetchIncomeStatement,
-  fetchKeyMetrics,
   fetchRatios,
   fetchStockProfile
 } from '../../api/api.js'
 import { logError } from '../../utils.js'
 import store from '../index.js'
-import axios from 'axios'
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
@@ -82,6 +81,32 @@ export async function getLocalData(key, func, args, saveAs, overrideTicker, expe
     logError(error, `Failed to load data! ${key}--${args}--${saveAs}`)
   }
 }
+
+//* This function will return the data we need to create a detailed stock screener page!
+//* By default this function will return the top 500 NASDAQ stocks and store them for 60 seconds.
+export async function getScreenerData(params = '', quantity = 500, experation = 60) {
+  try {
+    //* That request body now.
+    const body = {
+      //* Quantity of screener stocks to load
+      quantity: quantity,
+      //* How long the screener data will persist!
+      experation: experation,
+      //* This is the saveAs or saveAs list
+      params: params
+    }
+    //* Now we will request the data from redis!
+    const { data } = await axios.post('/api/data/screener', body)
+    return data
+  } catch (error) {
+    logError(error, `Failed to load the screener data`)
+  }
+}
+
+//* --------------------------------------------------------------------------
+//* This is the old way of doing things this stored the data inside Redux
+//* before we started storing it in redis!
+//* --------------------------------------------------------------------------
 // export async function getLocalData(key, func, args, save, overrideTicker) {
 //   try {
 //     const state = store.getState()
