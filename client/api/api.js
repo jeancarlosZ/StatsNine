@@ -191,13 +191,15 @@ export async function fetchKeyExecutives(ticker) {
 //* This function returns a list of stocks based on a search query
 //* You can search by ticker or stock name (query) and Optionally
 //* you can add a limit to the number of stocks returned (recommended)
-export async function fetchSearchQuery(query, limit = 10) {
+export async function fetchSearchQuery(query, limit = 10, restrict = false) {
   //* If there is no query or it's not alphanumeric
   if (query.length <= 0 || /[^a-zA-Z0-9]/.test(query)) return {}
   const link = getFMPLink(
-    'search',
+    'search-ticker',
     '',
-    `query=${query}&exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX&limit=${limit}`
+    `query=${query}${
+      restrict ? '&exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX' : ''
+    }&limit=${limit}`
   )
   return removeBlackList(await fetchData(link))
 }
@@ -324,9 +326,9 @@ export function formatTimeSeriesData(data, custom) {
 //* Return the formatted link for making axios calls
 export function getFMPLink(ticker, type, args, v3 = true) {
   const key = '0235b47c3f99a539c04921b8cec8ad18'
-  const link = `https://financialmodelingprep.com/api/${v3 ? 'v3' : 'v4'}/`
+  const link = `https://financialmodelingprep.com/api/${v3 ? 'v3' : 'v4'}`
   //* Return the desired link
-  return `${link}${type}${v3 ? '/' : '?symbol='}${ticker}${v3 ? '?' : '&'}${
+  return `${link}${type ? '/' + type : ''}${v3 ? '/' : '?symbol='}${ticker}${v3 ? '?' : '&'}${
     args ? args + '&' : ''
   }apikey=${key}`
 }
@@ -357,10 +359,14 @@ export function getDataRange(dataRange) {
 
 const blackList = {
   BTC: true,
-  'QBTC.TO': true
+  'QBTC.TO': true,
+  FOREX: true,
+  MUTUAL_FUND: true
 }
 
 //* Remove blacklisted stocks from the queue/return
 function removeBlackList(data) {
-  return data.filter(x => !blackList[x.symbol])
+  return data.filter(x => {
+    if (!blackList[x.symbol] && !blackList[x.exchangeShortName]) return true
+  })
 }

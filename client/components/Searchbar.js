@@ -41,7 +41,7 @@ export default function Searchbar() {
     // This function sets the query results from the API up to a specified limit in the local state to be used for rendering.
     async function getStocksList() {
       try {
-        setStocksList(await fetchSearchQuery(query, 15))
+        setStocksList(await fetchSearchQuery(query, 7))
       } catch (err) {
         console.log(err)
       }
@@ -50,26 +50,25 @@ export default function Searchbar() {
     getStocksList()
   }, [query])
 
-  // This function clears the input, closes the search query box, sets the selected stock in the redux store, and sends the user to the overview page loaded with information for the selected stock if 'Enter' key is pressed and the search value matches a symbol, which has length of at least one character.
+  // This function clears the input, closes the search query box, sets the selected stock in the redux store,
+  // and sends the user to the overview page loaded with information for the selected stock if 'Enter' key
+  // is pressed and the search value matches a symbol, which has length of at least one character.
   async function attemptSearch(event) {
     try {
       const value = event.target.value.toUpperCase()
-      if (event.key !== 'Enter') {
-        return
-      } else {
-        if (value.length >= 1) {
-          // map the search results, find the one that includes your query ".."
-          if (stocksList.map(stock => stock.symbol).includes(value)) {
-            toast.success('Success!')
-            await setQuery('')
-            await setOpen(false)
-            // update the current stock
-            await dispatch(setCurrentStock(value))
-            await loadStockProfile()
-            await history.push('/overviewpage')
-          } else {
-            toast.error('Not Found!')
-          }
+      if (event.key !== 'Enter') return
+      if (value.length >= 1) {
+        // map the search results, find the one that includes your query ".."
+        if (stocksList.map(stock => stock.symbol).includes(value)) {
+          toast.success('Success!')
+          await setQuery('')
+          await setOpen(false)
+          // update the current stock
+          await dispatch(setCurrentStock(value))
+          await loadStockProfile()
+          await history.push('/overviewpage')
+        } else {
+          toast.error('Not Found!')
         }
       }
     } catch (err) {
