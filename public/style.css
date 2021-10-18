@@ -126,6 +126,11 @@ form div {
   /* background-color: gainsboro; */
 }
 
+.lcontainer img {
+  margin-bottom: 10px;
+  /* background-color: gainsboro; */
+}
+
 .loading-page .loader {
   margin: none;
   display: flex;
