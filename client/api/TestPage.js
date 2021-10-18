@@ -227,7 +227,7 @@ function DashboardPriceChart() {
           ...data, //* Upate data  { ...data, [range]: newData }
           [range]: await getLocalData(
             'close', //* key
-            fetchChartPrice, //* func
+            'fetchChartPrice', //* func
             [series, range], //* args
             `price${series}${range}`, //* saveas
             'SPY'
