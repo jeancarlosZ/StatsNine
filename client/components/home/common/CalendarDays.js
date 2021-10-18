@@ -41,8 +41,7 @@ export default function CalendarDays(props) {
             'calendar-day' +
             (day.currentMonth ? ' current' : '') +
             (day.selected ? ' selected' : '')
-          }
-          onClick={() => props.changeCurrentDay(day)}>
+          }>
           {day.number}
         </td>
       ))}

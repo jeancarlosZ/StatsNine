@@ -11,7 +11,7 @@ import Alert from '../home/common/Alert';
 
 export default function Homepage() {
   return (
-    <Container fluid className="position-relative">
+    <Container fluid className="position-relative mb-0">
       <Card className="bg-dark text-white">
         <Card.Img
           src="./images/dashboard.jpg"

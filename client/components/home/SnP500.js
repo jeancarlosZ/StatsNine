@@ -16,12 +16,12 @@ export default function StockPriceChart() {
     async function getData() {
       if (update) {
         setData({
-          ...data, //* Upate data  { ...data, [range]: newData }
+          ...data,
           [range]: await getLocalData(
-            'close', //* key
-            fetchChartPrice, //* func
-            [series, range], //* args
-            `SPY${series}${range}`, //* saveas
+            'close',
+            fetchChartPrice,
+            [series, range],
+            `SPY${series}${range}`,
             'SPY'
           ),
         });
@@ -78,8 +78,8 @@ export default function StockPriceChart() {
         backgroundColor="fff"
         plotBackgroundColor="rgba(30, 34, 45, 0)"
         margin={{ l: 50, r: 50, b: 25, t: 35 }}
-        x-axis={false}
-        y-axis={false}
+        xaxis={{ showgrid: false }}
+        yaxis={{ showgrid: false, showline: true }}
         hoverdistance={50}
         hovermode="x"
       />

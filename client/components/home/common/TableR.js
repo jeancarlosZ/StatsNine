@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import { Calendar } from 'react-modern-calendar-datepicker';
 
-const TableR = () => {
+export default function TableTest() {
   const defaultValue = {
     year: 2021,
     month: 10,
@@ -42,6 +42,4 @@ const TableR = () => {
       )}
     />
   );
-};
-
-export default TableR;
+}

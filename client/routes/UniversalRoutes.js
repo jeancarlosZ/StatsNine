@@ -12,7 +12,7 @@ import Overviewpage from '../components/overviewcontainer/Overviewpage';
 import Table from '../components/screener/Table';
 
 import Welcome from '../components/home/Welcome';
-//import TableR from '../components/home/common/TableR';
+//import TableT from '../components/home/common/TableT';
 import Dashboard from '../components/home/common/Dashboard';
 
 class UniversalRoutes extends Component {

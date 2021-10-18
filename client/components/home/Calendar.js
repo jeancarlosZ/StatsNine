@@ -24,9 +24,6 @@ export default function Calendar() {
 
   return (
     <div className="calendar position-relative">
-      <div className="calendar-header ">
-        <h5>Calendar</h5>
-      </div>
       <div className="lead align-self-center d-inline p-2 text-light">
         {months[currentDay.getMonth()]} {currentDay.getFullYear()}
       </div>
