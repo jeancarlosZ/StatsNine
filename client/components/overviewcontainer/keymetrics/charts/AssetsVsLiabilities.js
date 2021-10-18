@@ -24,10 +24,10 @@ export default function AssetsVsLiabilities() {
           ...data,
           [dataType]: await getLocalData(
             ['totalAssets', 'totalLiabilities'],
-            fetchBalanceStatement,
+            'fetchBalanceStatement',
             [false, dataType],
-            [`assets${dataType}`, `liabilities${dataType}`]
-          )
+            [`assets${dataType}`, `liabilities${dataType}`],
+          ),
         })
         setUpdate(false)
       }
@@ -56,7 +56,7 @@ export default function AssetsVsLiabilities() {
       color: 'rgba(44, 221, 155, 0.4)',
       outline: 'rgba(44, 221, 155, 1)',
       fill: 'tozeroy',
-      values: totalAssets.values
+      values: totalAssets.values,
     })
   }
 
@@ -71,7 +71,7 @@ export default function AssetsVsLiabilities() {
       color: 'rgba(169, 0, 254, 0.6)',
       outline: 'rgba(169, 0, 254, 1)',
       fill: 'tozeroy',
-      values: totalLiabilities.values
+      values: totalLiabilities.values,
     })
   }
 
@@ -80,7 +80,7 @@ export default function AssetsVsLiabilities() {
     x: 0,
     xanchor: 'left',
     y: 1,
-    bgcolor: 'rgba(30, 34, 45, 0)'
+    bgcolor: 'rgba(30, 34, 45, 0)',
   }
 
   //* Change the series and update the data
@@ -94,9 +94,9 @@ export default function AssetsVsLiabilities() {
   //* Return the chart
   return (
     <>
-      <div className="selector">
+      <div className='selector'>
         <label>Assets vs. Liabilities</label>
-        <div className="selectors">
+        <div className='selectors'>
           <button
             className={dataType === 'quarter' ? 'selected' : ''}
             onClick={() => updateDataType('quarter')}
@@ -111,15 +111,15 @@ export default function AssetsVsLiabilities() {
           </button>
         </div>
       </div>
-      <div className="wrapper">
+      <div className='wrapper'>
         <UniversalChart
-          className="stock-price-chart"
+          className='stock-price-chart'
           keys={keys}
           margin={{ l: 45, r: 25, b: 25, t: 15 }}
           dataset={dataset}
           showlegend={true}
-          backgroundColor="fff"
-          plotBackgroundColor="rgba(30, 34, 45, 0)"
+          backgroundColor='fff'
+          plotBackgroundColor='rgba(30, 34, 45, 0)'
           legend={legend}
         />
       </div>

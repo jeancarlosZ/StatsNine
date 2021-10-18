@@ -7,10 +7,7 @@ const API = require('./apiUtils')
 const Redis = require('redis')
 //* Now we are creating our redis client,
 //* this is how we will interact with redis.
-const redisCli = Redis
-  .createClient
-  // process.env.REDIS_URL
-  ()
+const redisCli = Redis.createClient(process.env.REDIS_URL)
 
 //* This route will update the redis cache with data (if required)
 //* as well as respond with data from that cache (if included)
@@ -58,7 +55,7 @@ router.post('/', async (request, response, next) => {
               resolve(true)
             })
           })
-        })
+        }),
       )
       //* Now that we have gone through and checked to see if the key
       //* exists in cache and added it to the response data, we must
@@ -80,7 +77,7 @@ router.post('/', async (request, response, next) => {
           if (!Array.isArray(loadedData))
             singletonData = {
               keys: loadedData.keys,
-              values: loadedData.values.map(x => x[a])
+              values: loadedData.values.map(x => x[a]),
             }
           //* Otherwise it is an array, in this case we only want the first element.
           //* This is because the loadedData will only return an array if it's a single
@@ -198,7 +195,7 @@ router.post('/screener', async (request, response, next) => {
           //* Now we can join the array of symbols,
           //* giving us a 'AAPL,GOOG,FB' like format
           //* that we can use inside the fetchStockQuote function!
-          .join()
+          .join(),
       )
       //* With that, now we can add all of those stock quotes we recived
       //* together / combine them with the screener stocks info!

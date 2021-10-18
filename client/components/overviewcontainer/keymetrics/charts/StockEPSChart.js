@@ -25,10 +25,10 @@ export default function StockEPSChart() {
           ...data, //* Upate data  { ...data, [dataType]: newData }
           [dataType]: await getLocalData(
             'eps', //* Key
-            fetchIncomeStatement, //* func
+            'fetchIncomeStatement', //* func
             [false, dataType], //* args
-            `eps${dataType}` //* save as
-          )
+            `eps${dataType}`, //* save as
+          ),
         })
         setUpdate(false)
       }
@@ -56,7 +56,7 @@ export default function StockEPSChart() {
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
       // values: values.map(x => x.eps)
-      values: values
+      values: values,
     })
   }
 
@@ -71,9 +71,9 @@ export default function StockEPSChart() {
   //* Return the chart
   return (
     <>
-      <div className="selector">
+      <div className='selector'>
         <label>EPS</label>
-        <div className="selectors">
+        <div className='selectors'>
           <button
             className={dataType === 'quarter' ? 'selected' : ''}
             onClick={() => updateDataType('quarter')}
@@ -88,18 +88,18 @@ export default function StockEPSChart() {
           </button>
         </div>
       </div>
-      <div className="wrapper">
+      <div className='wrapper'>
         <UniversalChart
-          className="stock-price-chart"
+          className='stock-price-chart'
           keys={keys}
           dataset={dataset}
           showlegend={false}
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           //rgba(30, 34, 45, 0.3)
-          backgroundColor="fff"
-          plotBackgroundColor="rgba(30, 34, 45, 0)"
+          backgroundColor='fff'
+          plotBackgroundColor='rgba(30, 34, 45, 0)'
           hoverdistance={50}
-          hovermode="x"
+          hovermode='x'
         />
       </div>
     </>

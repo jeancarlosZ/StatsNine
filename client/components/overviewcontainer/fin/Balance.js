@@ -16,7 +16,7 @@ export default function Balance() {
     'totalAssets',
     'Total Assets',
     'rgba(39, 232, 91, 1)',
-    'rgba(39, 232, 91, .3)'
+    'rgba(39, 232, 91, .3)',
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [balanceInfo, setBalanceInfo] = useState({})
@@ -31,10 +31,10 @@ export default function Balance() {
         //here we are fetching only what we need from the income statement
         await getLocalData(
           [...balanceIndentifiers],
-          fetchBalanceStatement,
+          'fetchBalanceStatement',
           [false, 'annual'],
-          [...balanceIndentifiers]
-        )
+          [...balanceIndentifiers],
+        ),
       )
       //here we are fetching the stock profile
       setProfile(
@@ -47,9 +47,9 @@ export default function Balance() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price'
+            'price',
           ],
-          fetchStockProfile,
+          'fetchStockProfile',
           [],
           [
             'symbol',
@@ -59,9 +59,9 @@ export default function Balance() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price'
-          ]
-        )
+            'price',
+          ],
+        ),
       )
     }
     getBalanceInfo()
@@ -75,10 +75,10 @@ export default function Balance() {
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
-          fetchBalanceStatement,
+          'fetchBalanceStatement',
           [false, 'quarter'],
-          [...saveAs]
-        )
+          [...saveAs],
+        ),
       )
     }
     getBalanceInfoQtr()
@@ -122,7 +122,7 @@ export default function Balance() {
     // outline: outline,
     fillcolor: outline,
     fill: 'tonexty',
-    values: chartData
+    values: chartData,
   })
 
   //**------------------------------------------------------------------------------------------------ */
@@ -152,7 +152,7 @@ export default function Balance() {
     rows,
     yearlyChanges,
     labels: balanceTableLabels,
-    attributes: balanceIndentifiers
+    attributes: balanceIndentifiers,
   }
 
   //**------------------------------------------------------------------------------------------------ */
@@ -161,22 +161,22 @@ export default function Balance() {
 
   return (
     <>
-      <div className="page shadow-deep-nohover">
-        <div className="fin-top-container">
+      <div className='page shadow-deep-nohover'>
+        <div className='fin-top-container'>
           <CompanyInfo profile={profile} />
-          <div className="fin-chart-container">
+          <div className='fin-chart-container'>
             <FinButtons handleButtonClick={handleChartButtonClick} label={label} />
             <UniversalChart
-              className="income-chart fin-chart"
+              className='income-chart fin-chart'
               // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor="rgba(30, 34, 45, 0)"
+              plotBackgroundColor='rgba(30, 34, 45, 0)'
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}
-              hovermode="x"
-              backgroundColor="fff"
+              hovermode='x'
+              backgroundColor='fff'
             />
           </div>
         </div>

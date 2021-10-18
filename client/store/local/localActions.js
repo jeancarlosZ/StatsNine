@@ -6,7 +6,7 @@ import {
   fetchEnterpriseValue,
   fetchIncomeStatement,
   fetchRatios,
-  fetchStockProfile
+  fetchStockProfile,
 } from '../../api/api.js'
 import { logError } from '../../utils.js'
 import store from '../index.js'
@@ -18,7 +18,7 @@ export function setCurrentStock(symbol, companyName) {
   window.localStorage.setItem('symbol', symbol)
   return {
     type: SET_TICKER,
-    payload: getPayload(symbol, companyName)
+    payload: getPayload(symbol, companyName),
   }
 }
 
@@ -33,7 +33,7 @@ function updateLocalData(key, data) {
   return {
     type: UPDATE_LOCAL,
     key: key,
-    payload: data
+    payload: data,
   }
 }
 
@@ -72,7 +72,7 @@ export async function getLocalData(key, func, args, saveAs, overrideTicker, expe
       args: args,
       //* If you desire you can set a time limit for the
       //* data to stay in the system!
-      experation: experation
+      experation: experation,
     }
     //* Now we will request the data from redis!
     const { data } = await axios.post('/api/data', body)
@@ -93,7 +93,7 @@ export async function getScreenerData(params = '', quantity = 500, experation = 
       //* How long the screener data will persist!
       experation: experation,
       //* This is the saveAs or saveAs list
-      params: params
+      params: params,
     }
     //* Now we will request the data from redis!
     const { data } = await axios.post('/api/data/screener', body)
@@ -229,34 +229,34 @@ export async function getTickerResults() {
 
   const { totalAssets, totalLiabilities, totalInvestments } = await getLocalData(
     ['totalAssets', 'totalLiabilities', 'totalInvestments'],
-    fetchBalanceStatement,
+    'fetchBalanceStatement',
     [false, 'annual'],
-    ['assetsannual', 'liabilitiesannual', 'investmentsannual']
+    ['assetsannual', 'liabilitiesannual', 'investmentsannual'],
   )
   const { freeCashFlow, netIncome } = await getLocalData(
     ['freeCashFlow', 'netIncome'],
-    fetchCashflowStatement,
+    'fetchCashflowStatement',
     [false, 'annual'],
-    ['fcfannual', 'netincomeannual']
+    ['fcfannual', 'netincomeannual'],
   )
   const revenue = await getLocalData(
     'revenue',
-    fetchIncomeStatement,
+    'fetchIncomeStatement',
     [false, 'annual'],
-    'revenueannual'
+    'revenueannual',
   )
   // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
   const { numberOfShares, marketCapitalization } = await getLocalData(
     ['numberOfShares', 'marketCapitalization'],
-    fetchEnterpriseValue,
+    'fetchEnterpriseValue',
     ['annual'],
-    ['sharesannual', 'marketcapannual']
+    ['sharesannual', 'marketcapannual'],
   )
   const effectiveTaxRate = await getLocalData(
     'effectiveTaxRate',
-    fetchRatios,
+    'fetchRatios',
     [false, 'annual'],
-    'taxannual'
+    'taxannual',
   )
   // TODO:
   //* Five year avg PE
@@ -309,10 +309,10 @@ export async function getTickerResults() {
     assetsdata: {
       k: totalAssets.keys.slice(-5),
       a: totalAssets.values.slice(-5),
-      b: totalLiabilities.values.slice(-5)
+      b: totalLiabilities.values.slice(-5),
     },
     ltl: ltlyears === -1 ? BAD : ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
-    ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities }
+    ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities },
   }
 
   //* Calcuate the stock's score!
@@ -325,7 +325,7 @@ export async function getTickerResults() {
       getPoints('roic') +
       getPoints('shares') +
       getPoints('assets') +
-      getPoints('ltl')
+      getPoints('ltl'),
   )
 
   results.score = score
@@ -363,9 +363,9 @@ export async function loadStockProfile() {
       'fullTimeEmployees',
       'dcf',
       'image',
-      'ipoDate'
+      'ipoDate',
     ],
-    fetchStockProfile,
+    'fetchStockProfile',
     [],
     [
       'price',
@@ -382,8 +382,8 @@ export async function loadStockProfile() {
       'fullTimeEmployees',
       'dcf',
       'image',
-      'ipoDate'
-    ]
+      'ipoDate',
+    ],
   )
   //* Set profile loaded to true
   store.dispatch(updateLocalData('profile', true))

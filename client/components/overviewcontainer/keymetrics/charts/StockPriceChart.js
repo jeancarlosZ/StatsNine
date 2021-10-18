@@ -11,7 +11,7 @@ import {
   TEN_YEAR,
   THREE_MONTH,
   WEEK,
-  YEAR
+  YEAR,
 } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
@@ -40,10 +40,10 @@ export default function StockPriceChart() {
           ...data, //* Upate data  { ...data, [range]: newData }
           [range]: await getLocalData(
             'close', //* key
-            fetchChartPrice, //* func
+            'fetchChartPrice', //* func
             [series, range, false], //* args
-            `price${series}${range}close` //* saveas
-          )
+            `price${series}${range}close`, //* saveas
+          ),
         })
         setUpdate(false)
       }
@@ -73,7 +73,7 @@ export default function StockPriceChart() {
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
       // values: values.map(x => x.close)
-      values: values
+      values: values,
     })
   }
 
@@ -96,21 +96,21 @@ export default function StockPriceChart() {
   //* Return the chart
   return (
     <>
-      <div className="selector">
+      <div className='selector'>
         <label>Stock Price</label>
         {getSelectors(series, range, updateSeries, updateRange)}
       </div>
-      <div className="wrapper">
+      <div className='wrapper'>
         <UniversalChart
-          className="stock-price-chart"
+          className='stock-price-chart'
           keys={keys}
           dataset={dataset}
           showlegend={false}
-          backgroundColor="fff"
-          plotBackgroundColor="rgba(30, 34, 45, 0)"
+          backgroundColor='fff'
+          plotBackgroundColor='rgba(30, 34, 45, 0)'
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           hoverdistance={50}
-          hovermode="x"
+          hovermode='x'
         />
       </div>
     </>
@@ -121,7 +121,7 @@ export default function StockPriceChart() {
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
     <div>
-      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
+      <DropdownButton className='dropdown-selector' title={range} size='sm' variant='secondary'>
         <Dropdown.Item onClick={() => updateRange(range, ALL)}>All</Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item onClick={() => updateRange(range, TEN_YEAR)}>10 Year</Dropdown.Item>

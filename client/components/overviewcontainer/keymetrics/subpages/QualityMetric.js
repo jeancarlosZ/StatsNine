@@ -7,7 +7,7 @@ import {
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
-  trimDate
+  trimDate,
 } from '../../../../utils'
 import QualityPieCharts from '../charts/QualityPieCharts'
 import SharesOustandingChart from '../charts/SharesOutsandingChart'
@@ -25,13 +25,13 @@ export default function QualityMetric() {
       setResults(await getTickerResults())
       //* Fetch the ratio data
 
-      const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
+      const roicTTM = await getLocalData('roicTTM', 'fetchKeyMetrics', [true], 'roicTTM')
 
       const { returnOnAssetsTTM, returnOnEquityTTM } = await getLocalData(
         ['returnOnAssetsTTM', 'returnOnEquityTTM'],
-        fetchRatios,
+        'fetchRatios',
         [true],
-        ['returnOnAssetsTTM', 'returnOnEquityTTM']
+        ['returnOnAssetsTTM', 'returnOnEquityTTM'],
       )
       setData({ roicTTM, returnOnAssetsTTM, returnOnEquityTTM })
     }
@@ -39,11 +39,11 @@ export default function QualityMetric() {
   }, [])
 
   return (
-    <div className="key-metrics-container">
-      <div className="sub-container shadow-deep-nohover">
+    <div className='key-metrics-container'>
+      <div className='sub-container shadow-deep-nohover'>
         <MetricSelector />
-        <div className="metric-container">
-          <div className="metric-sub-container quality-subcontainer">
+        <div className='metric-container'>
+          <div className='metric-sub-container quality-subcontainer'>
             {getQualityHalfOne(results, data)}
             {getQualityHalfTwo(results)}
           </div>
@@ -58,16 +58,16 @@ export default function QualityMetric() {
 function getQualityHalfOne(results, data) {
   //* If the data has not loaded...
   if (!results.roic || !data.returnOnAssetsTTM)
-    return <div className="qload">Hold tight while we load your data!</div>
+    return <div className='qload'>Hold tight while we load your data!</div>
 
   //* Otherwise return the JSX
   return (
-    <div className="qualityhalf upper">
+    <div className='qualityhalf upper'>
       {getROICCharts(results, data)}
-      <div className="metric-roic">
+      <div className='metric-roic'>
         {getMetricItem('5yr ROIC >= 10 %', results.roic)}
-        <span className="result">{getResultMessageROIC(results, data)}</span>
-        <div className="desc">
+        <span className='result'>{getResultMessageROIC(results, data)}</span>
+        <div className='desc'>
           <p>
             Return on invested capital (ROIC) is a calculation used to assess a company's efficiency
             at allocating the capital under its control to profitable investments. ROIC gives a
@@ -76,7 +76,7 @@ function getQualityHalfOne(results, data) {
             (WACC).
           </p>
         </div>
-        <div className="previewcontainer">{getDataPreview(results.roicdata.vals)}</div>
+        <div className='previewcontainer'>{getDataPreview(results.roicdata.vals)}</div>
       </div>
       {getTTMReturnsCharts(data)}
     </div>
@@ -100,11 +100,11 @@ function getQualityHalfTwo(results) {
 
   //* Otherwise return the JSX
   return (
-    <div className="qualityhalf lower">
-      <div className="metric-shares">
+    <div className='qualityhalf lower'>
+      <div className='metric-shares'>
         {getMetricItem('5yr Shares Outstanding  (Decreasing)', results.shares)}
-        <span className="result">{getResultMessage(results)}</span>
-        <div className="desc">
+        <span className='result'>{getResultMessage(results)}</span>
+        <div className='desc'>
           <p>
             Shares outstanding refer to a company's stock currently held by all its shareholders.
             When a company issues shares, it's shareholders are essentially getting a "smaller piece
@@ -113,7 +113,7 @@ function getQualityHalfTwo(results) {
             also signify that the boardmembers think the stock is cheap!
           </p>
         </div>
-        <div className="previewcontainer">{getDataPreview(results.sharesdata, true)}</div>
+        <div className='previewcontainer'>{getDataPreview(results.sharesdata, true)}</div>
       </div>
       <SharesOustandingChart />
     </div>
@@ -128,7 +128,7 @@ function getResultMessage(results) {
   const tdiff = getDifferenceBetween(shareClone)
 
   return `Over the last 5 years ${results.symbol}'s has ${phrase} ${formatNumber(
-    tdiff
+    tdiff,
   )} (${pdiff}%) shares!`
 }
 
@@ -137,21 +137,21 @@ function getROICCharts(results, data) {
   //* Otherwise the data has loaded
   const { avg } = results.roicdata
   return (
-    <div className="roic-charts">
+    <div className='roic-charts'>
       <QualityPieCharts
         // data={vals.v[vals.v.length - 1]}
         data={data.roicTTM}
         labels={['ROIC', 'POTENTIAL']}
-        upper="TTM"
-        lower="ROIC"
+        upper='TTM'
+        lower='ROIC'
         // colors={['rgba(44, 221, 155, .8)', 'rgba(52, 184, 125, .8)']}
         colors={['rgba(44, 221, 155, .8)', 'rgba(52, 184, 125, .8)']}
       />
       <QualityPieCharts
         data={avg}
         labels={['ROIC', 'POTENTIAL']}
-        upper="5yr"
-        lower="ROIC"
+        upper='5yr'
+        lower='ROIC'
         colors={['rgba(52, 184, 125, .8)', 'rgba(0, 136, 123, .8)']}
       />
     </div>
@@ -162,20 +162,20 @@ function getROICCharts(results, data) {
 function getTTMReturnsCharts(data) {
   const { returnOnAssetsTTM, returnOnEquityTTM } = data
   return (
-    <div className="roic-charts">
+    <div className='roic-charts'>
       <QualityPieCharts
         data={returnOnAssetsTTM}
         labels={['Return On Assets', 'POTENTIAL']}
-        upper="TTM"
-        lower="Return on Assets"
+        upper='TTM'
+        lower='Return on Assets'
         margins={{ l: 65, r: 65, b: 65, t: 10 }}
         colors={['rgba(52, 184, 125, .7)', 'rgba(0, 136, 123, .7)']}
       />
       <QualityPieCharts
         data={returnOnEquityTTM}
         labels={['Return On Equity', 'POTENTIAL']}
-        upper="TTM"
-        lower="Return On Equity"
+        upper='TTM'
+        lower='Return On Equity'
         margins={{ l: 65, r: 65, b: 65, t: 10 }}
         colors={['rgba(44, 221, 155, .7)', 'rgba(52, 184, 125, .7)']}
       />
@@ -187,11 +187,11 @@ function getTTMReturnsCharts(data) {
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
 function getDataPreview(data, shares) {
-  if (!data) return <div className="preview">Loading...</div>
+  if (!data) return <div className='preview'>Loading...</div>
   const { k, v } = data
   return (
-    <div className="preview shadow-nohover zoomable-med">
-      <div className="prev-wrapper">
+    <div className='preview shadow-nohover zoomable-med'>
+      <div className='prev-wrapper'>
         <table>
           <tbody>
             <tr>{getTableDatas(k, trimDate, 'head')}</tr>

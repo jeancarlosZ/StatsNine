@@ -15,9 +15,9 @@ export default function Subheader(props) {
       //* Fetch data from API
       const { symbol, companyName, image } = await getLocalData(
         ['symbol', 'companyName', 'image'],
-        fetchStockProfile,
+        'fetchStockProfile',
         [],
-        ['symbol', 'companyName', 'image']
+        ['symbol', 'companyName', 'image'],
       )
       setData({ symbol, companyName, image })
     }
@@ -26,9 +26,9 @@ export default function Subheader(props) {
 
   return (
     <div>
-      <nav className="sub-header">
-        <div className="sub-header-pages-container">
-          <div className="sub-header-pages">
+      <nav className='sub-header'>
+        <div className='sub-header-pages-container'>
+          <div className='sub-header-pages'>
             <div
               className={`sub-page${getSelected(selected, 'overviewpage')}`}
               onClick={() => history.push('/overviewpage')}
@@ -49,9 +49,9 @@ export default function Subheader(props) {
             </div>
           </div>
         </div>
-        <div className="preview-spacer"></div>
-        <div className="stock-preview-container">
-          <img className="company-logo" src={data.image ? data.image : ''} alt="temp" />
+        <div className='preview-spacer'></div>
+        <div className='stock-preview-container'>
+          <img className='company-logo' src={data.image ? data.image : ''} alt='temp' />
           <div>
             <label>{data.companyName}</label>
             <span>{data.symbol}</span>
