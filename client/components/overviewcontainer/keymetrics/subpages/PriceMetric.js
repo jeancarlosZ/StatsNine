@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchRatios } from '../../../../api/api'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
 import { formatNumber, roundNumberDec, trimDate } from '../../../../utils'
 import PeHistChart from '../charts/PEHistChart'
@@ -21,19 +20,19 @@ export default function PriceMetric() {
           ['priceEarningsRatio', 'priceToFreeCashFlowsRatio'],
           'fetchRatios',
           [false, 'annual'],
-          ['peannual', 'pfcfannual'],
-        ),
+          ['peannual', 'pfcfannual']
+        )
       )
     }
     getData()
   }, [])
 
   return (
-    <div className='key-metrics-container'>
-      <div className='sub-container shadow-deep-nohover'>
+    <div className="key-metrics-container">
+      <div className="sub-container shadow-deep-nohover">
         <MetricSelector />
-        <div className='metric-container'>
-          <div className='metric-sub-container'>{getPriceMetricPage(data, results)}</div>
+        <div className="metric-container">
+          <div className="metric-sub-container">{getPriceMetricPage(data, results)}</div>
         </div>
       </div>
     </div>
@@ -43,15 +42,15 @@ export default function PriceMetric() {
 //* func to reutrn the price metrics page
 function getPriceMetricPage(data, results) {
   if (!data.priceEarningsRatio || !results.pe)
-    return <div className='qload'>Hold tight while we load your data!</div>
+    return <div className="qload">Hold tight while we load your data!</div>
   return (
     <>
-      <div className='metric-metrics'>{getPriceOverview(results, data)}</div>
-      <div className='metric-charts'>
-        <div className='metric-chart shadow-nohover'>
+      <div className="metric-metrics">{getPriceOverview(results, data)}</div>
+      <div className="metric-charts">
+        <div className="metric-chart shadow-nohover">
           <PeHistChart data={data.priceEarningsRatio} />
         </div>
-        <div className='metric-chart shadow-nohover'>
+        <div className="metric-chart shadow-nohover">
           <PFCFHistChart data={data.priceToFreeCashFlowsRatio} />
         </div>
       </div>
@@ -63,18 +62,18 @@ function getPriceMetricPage(data, results) {
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results, data) {
-  if (!results.pedata) return <div className='qload'>Hold tight while we load your data!</div>
+  if (!results.pedata) return <div className="qload">Hold tight while we load your data!</div>
   const pe = roundNumberDec(results.pedata)
   const pfcf = roundNumberDec(results.pfcfdata)
   return (
-    <div className='pricemetrics'>
-      <div className='metric-spacer'></div>
-      <div className='metric'>
+    <div className="pricemetrics">
+      <div className="metric-spacer"></div>
+      <div className="metric">
         {getMetricItem('5yr P/E Ratio < 20', results.pe)}
-        <span className='result'>{`${results.symbol} has a 5yr average P/E Ratio of ${
+        <span className="result">{`${results.symbol} has a 5yr average P/E Ratio of ${
           pe + getPriceTip(pe, true)
         }!`}</span>
-        <div className='desc'>
+        <div className="desc">
           <p>
             The price-to-earnings ratio (P/E ratio) is the ratio for valuing a company that measures
             its current share price relative to its earnings per share (EPS). A high P/E ratio could
@@ -82,16 +81,16 @@ function getPriceOverview(results, data) {
             growth rates in the future.
           </p>
         </div>
-        <div className='previewcontainer'>
+        <div className="previewcontainer">
           {getDataPreview(data ? data.priceEarningsRatio : null)}
         </div>
       </div>
-      <div className='metric'>
+      <div className="metric">
         {getMetricItem('5yr P/FCF Ratio < 20', results.pfcf)}
-        <span className='result'>{`${results.symbol} has a 5yr average P/FCF Ratio of ${
+        <span className="result">{`${results.symbol} has a 5yr average P/FCF Ratio of ${
           pfcf + getPriceTip(pfcf, false)
         }!`}</span>
-        <div className='desc'>
+        <div className="desc">
           <p>
             Price to free cash flow is an equity valuation metric used to compare a company's
             per-share market price to its per-share amount of free cash flow (FCF). A lower value
@@ -100,11 +99,11 @@ function getPriceOverview(results, data) {
             company.
           </p>
         </div>
-        <div className='previewcontainer'>
+        <div className="previewcontainer">
           {getDataPreview(data ? data.priceToFreeCashFlowsRatio : null)}
         </div>
       </div>
-      <div className='metric-spacer'></div>
+      <div className="metric-spacer"></div>
     </div>
   )
 }
@@ -124,11 +123,11 @@ function getPriceTip(n, pe) {
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
 function getDataPreview(data) {
-  if (!data) return <div className='preview'>Loading...</div>
+  if (!data) return <div className="preview">Loading...</div>
   const { keys, values } = data
   return (
-    <div className='preview shadow-nohover zoomable-med'>
-      <div className='prev-wrapper'>
+    <div className="preview shadow-nohover zoomable-med">
+      <div className="prev-wrapper">
         <table>
           <tbody>
             <tr>{getTableDatas(keys.slice(-5), trimDate, 'head')}</tr>

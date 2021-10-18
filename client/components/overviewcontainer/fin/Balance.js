@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import UniversalChart from '../../UniversalChart'
-import FinTable from './FinTable'
-import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api'
+import React, { useEffect, useState } from 'react'
 import { getLocalData } from '../../../store/local/localActions'
-import { balanceTableLabels, balanceIndentifiers, getQtrIndentifers } from './finTableLabels'
+import UniversalChart from '../../UniversalChart'
 import CompanyInfo from './CompanyInfo'
 import { FinButtons } from './FinButtons'
-import { formatDates, returnUnformatedData, processUnformattedData } from './finUtils'
-
+import FinTable from './FinTable'
+import { balanceIndentifiers, balanceTableLabels, getQtrIndentifers } from './finTableLabels'
+import { formatDates, processUnformattedData, returnUnformatedData } from './finUtils'
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
@@ -16,7 +14,7 @@ export default function Balance() {
     'totalAssets',
     'Total Assets',
     'rgba(39, 232, 91, 1)',
-    'rgba(39, 232, 91, .3)',
+    'rgba(39, 232, 91, .3)'
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [balanceInfo, setBalanceInfo] = useState({})
@@ -33,8 +31,8 @@ export default function Balance() {
           [...balanceIndentifiers],
           'fetchBalanceStatement',
           [false, 'annual'],
-          [...balanceIndentifiers],
-        ),
+          [...balanceIndentifiers]
+        )
       )
       //here we are fetching the stock profile
       setProfile(
@@ -47,7 +45,7 @@ export default function Balance() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
+            'price'
           ],
           'fetchStockProfile',
           [],
@@ -59,9 +57,9 @@ export default function Balance() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
-          ],
-        ),
+            'price'
+          ]
+        )
       )
     }
     getBalanceInfo()
@@ -77,8 +75,8 @@ export default function Balance() {
           [...qtrIdentifiers],
           'fetchBalanceStatement',
           [false, 'quarter'],
-          [...saveAs],
-        ),
+          [...saveAs]
+        )
       )
     }
     getBalanceInfoQtr()
@@ -122,7 +120,7 @@ export default function Balance() {
     // outline: outline,
     fillcolor: outline,
     fill: 'tonexty',
-    values: chartData,
+    values: chartData
   })
 
   //**------------------------------------------------------------------------------------------------ */
@@ -152,7 +150,7 @@ export default function Balance() {
     rows,
     yearlyChanges,
     labels: balanceTableLabels,
-    attributes: balanceIndentifiers,
+    attributes: balanceIndentifiers
   }
 
   //**------------------------------------------------------------------------------------------------ */
@@ -161,22 +159,22 @@ export default function Balance() {
 
   return (
     <>
-      <div className='page shadow-deep-nohover'>
-        <div className='fin-top-container'>
+      <div className="page shadow-deep-nohover">
+        <div className="fin-top-container">
           <CompanyInfo profile={profile} />
-          <div className='fin-chart-container'>
+          <div className="fin-chart-container">
             <FinButtons handleButtonClick={handleChartButtonClick} label={label} />
             <UniversalChart
-              className='income-chart fin-chart'
+              className="income-chart fin-chart"
               // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor='rgba(30, 34, 45, 0)'
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}
-              hovermode='x'
-              backgroundColor='fff'
+              hovermode="x"
+              backgroundColor="fff"
             />
           </div>
         </div>

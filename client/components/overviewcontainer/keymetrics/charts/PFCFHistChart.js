@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { fetchIncomeStatement } from '../../../../api/api'
-import { getLocalData } from '../../../../store/local/localActions'
+import React from 'react'
 import UniversalChart from '../../../UniversalChart'
 
 //* This chart will render the stock price for a

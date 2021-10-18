@@ -9,7 +9,6 @@ import { getLocalData } from '../store/local/localActions'
 import {
   ALL,
   DAILY,
-  fetchChartPrice,
   fetchStockNews,
   FIVE_YEAR,
   MONTH,
@@ -258,9 +257,6 @@ function DashboardPriceChart() {
       outline: 'rgba(250, 173, 20, .8)',
       fillcolor: 'rgba(250, 173, 20, .1)',
       fill: 'tonexty',
-      //* Since our VALUES array contains many different values, we must select
-      //* one VALUE per 'trace' or 'set' to display.
-      // values: values.map(x => x.close)
       values: values
     })
   }

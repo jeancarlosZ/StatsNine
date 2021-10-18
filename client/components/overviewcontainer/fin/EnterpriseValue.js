@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import UniversalChart from '../../UniversalChart'
-import FinTable from './FinTable'
-import CompanyInfo from './CompanyInfo'
-import { fetchEnterpriseValue, fetchStockProfile } from '../../../api/api'
+import React, { useEffect, useState } from 'react'
 import { getLocalData } from '../../../store/local/localActions'
-import { enterpriseTableLabels, enterpriseIndentifiers, getQtrIndentifers } from './finTableLabels'
+import UniversalChart from '../../UniversalChart'
+import CompanyInfo from './CompanyInfo'
 import { FinButtons } from './FinButtons'
-import { formatDates, returnUnformatedData, processUnformattedData } from './finUtils'
+import FinTable from './FinTable'
+import { enterpriseIndentifiers, enterpriseTableLabels, getQtrIndentifers } from './finTableLabels'
+import { formatDates, processUnformattedData, returnUnformatedData } from './finUtils'
 
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
@@ -17,7 +16,7 @@ export default function EnterpriseValue() {
     'enterpriseValue',
     'EnterpriseValue',
     'rgba(24, 144, 255, 1)',
-    'rgba(24, 144, 255, .3)',
+    'rgba(24, 144, 255, .3)'
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [enterpriseInfo, setEnterpriseInfo] = useState({})
@@ -34,8 +33,8 @@ export default function EnterpriseValue() {
           [...enterpriseIndentifiers],
           'fetchEnterpriseValue',
           [false, 'annual'],
-          [...enterpriseIndentifiers],
-        ),
+          [...enterpriseIndentifiers]
+        )
       )
       //here we are fetching the stock profile
       setProfile(
@@ -48,7 +47,7 @@ export default function EnterpriseValue() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
+            'price'
           ],
           'fetchStockProfile',
           [],
@@ -60,9 +59,9 @@ export default function EnterpriseValue() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
-          ],
-        ),
+            'price'
+          ]
+        )
       )
     }
     getEnterpriseInfo()
@@ -78,8 +77,8 @@ export default function EnterpriseValue() {
           [...qtrIdentifiers],
           'fetchEnterpriseValue',
           [false, 'quarter'],
-          [...saveAs],
-        ),
+          [...saveAs]
+        )
       )
     }
     getEnterpriseInfoQtr()
@@ -128,7 +127,7 @@ export default function EnterpriseValue() {
     // outline: outline,
     values: chartData,
     fillcolor: outline,
-    fill: 'tonexty',
+    fill: 'tonexty'
   })
 
   //**------------------------------------------------------------------------------------------------ */
@@ -159,7 +158,7 @@ export default function EnterpriseValue() {
     rows,
     yearlyChanges,
     labels: enterpriseTableLabels,
-    attributes: enterpriseIndentifiers,
+    attributes: enterpriseIndentifiers
   }
   /**------------------------------------------------------------------------------------------------ */
   //RENDER
@@ -167,22 +166,22 @@ export default function EnterpriseValue() {
 
   return (
     <>
-      <div className='page shadow-deep-nohover'>
-        <div className='fin-top-container'>
+      <div className="page shadow-deep-nohover">
+        <div className="fin-top-container">
           <CompanyInfo profile={profile} />
-          <div className='fin-chart-container'>
+          <div className="fin-chart-container">
             <FinButtons handleButtonClick={handleChartButtonClick} label={label} buttons={false} />
             <UniversalChart
-              className='income-chart fin-chart'
+              className="income-chart fin-chart"
               // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor='rgba(30, 34, 45, 0)'
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}
-              hovermode='x'
-              backgroundColor='fff'
+              hovermode="x"
+              backgroundColor="fff"
             />
           </div>
         </div>

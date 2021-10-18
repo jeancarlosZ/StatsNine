@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchEnterpriseValue } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
@@ -18,7 +17,7 @@ export default function SharesOustandingChart() {
           'numberOfShares',
           'fetchEnterpriseValue',
           [dataType],
-          `shares${dataType}`,
+          `shares${dataType}`
         )
         //* Set the data, set update to false
         setData({ ...data, [dataType]: numberOfShares })
@@ -46,7 +45,7 @@ export default function SharesOustandingChart() {
       // outline: 'rgba(44, 221, 155, 0.6)',
       color: 'rgba(43, 186, 255, 0.3)',
       outline: 'rgba(43, 186, 255, 0.6)',
-      values: values,
+      values: values
     })
   }
 
@@ -63,10 +62,10 @@ export default function SharesOustandingChart() {
 
   //* Return the chart
   return (
-    <div className='shares-outstanding-chart shadow-deep-nohover'>
-      <div className='selector'>
+    <div className="shares-outstanding-chart shadow-deep-nohover">
+      <div className="selector">
         <label>Shares Outstanding</label>
-        <div className='selectors'>
+        <div className="selectors">
           <button
             className={dataType === 'quarter' ? 'selected' : ''}
             onClick={() => updateDataType('quarter')}
@@ -81,17 +80,17 @@ export default function SharesOustandingChart() {
           </button>
         </div>
       </div>
-      <div className='wrapper'>
+      <div className="wrapper">
         <UniversalChart
-          className='stock-price-chart'
+          className="stock-price-chart"
           keys={keys}
           dataset={dataset}
           showlegend={false}
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
-          backgroundColor='fff'
-          plotBackgroundColor='rgba(30, 34, 45, 0)'
+          backgroundColor="fff"
+          plotBackgroundColor="rgba(30, 34, 45, 0)"
           hoverdistance={50}
-          hovermode='x'
+          hovermode="x"
         />
       </div>
     </div>

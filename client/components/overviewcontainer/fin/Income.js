@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import UniversalChart from '../../UniversalChart'
-import FinTable from './FinTable'
-import CompanyInfo from './CompanyInfo'
-import { fetchIncomeStatement, fetchStockProfile } from '../../../api/api'
+import React, { useEffect, useState } from 'react'
 import { getLocalData } from '../../../store/local/localActions'
-import { incomeTableLabels, incomeIndentifiers, getQtrIndentifers } from './finTableLabels'
+import UniversalChart from '../../UniversalChart'
+import CompanyInfo from './CompanyInfo'
 import { FinButtons } from './FinButtons'
-import { formatDates, returnUnformatedData, processUnformattedData } from './finUtils'
+import FinTable from './FinTable'
+import { getQtrIndentifers, incomeIndentifiers, incomeTableLabels } from './finTableLabels'
+import { formatDates, processUnformattedData, returnUnformatedData } from './finUtils'
 
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
@@ -17,7 +16,7 @@ export default function Income() {
     'revenue',
     'Revenue',
     'rgba(39, 91, 232, 1)',
-    'rgba(39, 91, 232, .3)',
+    'rgba(39, 91, 232, .3)'
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [incomeInfo, setIncomeInfo] = useState({})
@@ -32,8 +31,8 @@ export default function Income() {
           [...incomeIndentifiers],
           'fetchIncomeStatement',
           [false, 'annual'],
-          [...incomeIndentifiers],
-        ),
+          [...incomeIndentifiers]
+        )
       )
 
       //here we are fetching the stock profile
@@ -47,7 +46,7 @@ export default function Income() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
+            'price'
           ],
           'fetchStockProfile',
           [],
@@ -59,9 +58,9 @@ export default function Income() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
-          ],
-        ),
+            'price'
+          ]
+        )
       )
     }
 
@@ -79,8 +78,8 @@ export default function Income() {
           [...qtrIdentifiers],
           'fetchIncomeStatement',
           [false, 'quarter'],
-          [...saveAs],
-        ),
+          [...saveAs]
+        )
       )
     }
     getIncomeInfoQtr()
@@ -126,7 +125,7 @@ export default function Income() {
     // outline: 'rgba(39, 91, 232, 1)',
     fillcolor: outline,
     fill: 'tonexty',
-    values: chartData,
+    values: chartData
   })
 
   //**------------------------------------------------------------------------------------------------ */
@@ -159,7 +158,7 @@ export default function Income() {
     rows,
     yearlyChanges,
     labels: incomeTableLabels,
-    attributes: incomeIndentifiers,
+    attributes: incomeIndentifiers
   }
 
   //**------------------------------------------------------------------------------------------------ */
@@ -167,22 +166,22 @@ export default function Income() {
   //**-------------------------------------------------------------------------------------------------- */
   return (
     <>
-      <div className='page shadow-deep-nohover'>
-        <div className='fin-top-container'>
+      <div className="page shadow-deep-nohover">
+        <div className="fin-top-container">
           <CompanyInfo profile={profile} />
-          <div className='fin-chart-container'>
+          <div className="fin-chart-container">
             <FinButtons label={label} handleButtonClick={handleChartButtonClick} />
             <UniversalChart
-              className='income-chart fin-chart'
+              className="income-chart fin-chart"
               // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor='rgba(33, 34, 45, 0)'
+              plotBackgroundColor="rgba(33, 34, 45, 0)"
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}
-              hovermode='x'
-              backgroundColor='fff'
+              hovermode="x"
+              backgroundColor="fff"
             />
           </div>
         </div>
