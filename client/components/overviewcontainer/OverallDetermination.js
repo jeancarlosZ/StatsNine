@@ -22,9 +22,9 @@ export default function OverallDetermination({ symbol }) {
   }, [symbol])
 
   return (
-    <div className="overviewbox overall-determination shadow-nohover">
-      <div className="headerTwo">Overall Determination</div>
-      <div className="star-container flex-row justify-around justify-center">
+    <div className='overviewbox overall-determination shadow-nohover'>
+      <div className='headerTwo'>Overall Determination</div>
+      <div className='star-container flex-row justify-around justify-center'>
         <StarsContainer results={results} loading={loading} />
         <ODMessage results={results} loading={loading} />
       </div>
@@ -36,27 +36,27 @@ export default function OverallDetermination({ symbol }) {
 function StarsContainer({ results, loading }) {
   if (loading) {
     return (
-      <div className="stars-container flex-row justify-evenly">
+      <div className='stars-container flex-row justify-evenly'>
         <div>Loading...</div>
       </div>
     )
   } else {
     return (
-      <div className="stars-container flex-row justify-evenly">
-        <div className=" star-col flex-col justify-evenly">
-          <MetricStar rating={results.revgrowth} />
-          <MetricStar rating={results.cashgrowth} />
-          <MetricStar rating={results.netincome} />
+      <div className='stars-container flex-row justify-evenly'>
+        <div className=' star-col flex-col justify-evenly'>
+          <MetricStar rating={results.revgrowth} metric='Revenue Growth' />
+          <MetricStar rating={results.cashgrowth} metric='Free Cash Flow Growth' />
+          <MetricStar rating={results.netincome} metric='Net Income Growth' />
         </div>
-        <div className=" star-col flex-col justify-evenly">
-          <MetricStar rating={results.roic} />
-          <MetricStar rating={results.shares} />
-          <MetricStar rating={results.assets} />
+        <div className=' star-col flex-col justify-evenly'>
+          <MetricStar rating={results.roic} metric='Return on Invested Capital' />
+          <MetricStar rating={results.shares} metric='Shares Outstanding' />
+          <MetricStar rating={results.assets} metric='Assets vs. Liabilities' />
         </div>
-        <div className=" star-col flex-col justify-evenly">
-          <MetricStar rating={results.pe} />
-          <MetricStar rating={results.pfcf} />
-          <MetricStar rating={results.ltl} />
+        <div className=' star-col flex-col justify-evenly'>
+          <MetricStar rating={results.pe} metric='Price to Earnings Ratio' />
+          <MetricStar rating={results.pfcf} metric='Price to Free Cash Flow Ratio' />
+          <MetricStar rating={results.ltl} metric='Free Cash Flow to Long Term Debt' />
         </div>
       </div>
     )
@@ -64,10 +64,11 @@ function StarsContainer({ results, loading }) {
 }
 
 // Pass in the metric info to color the stars correctly and render the stars
-function MetricStar({ rating }) {
+function MetricStar({ rating, metric }) {
   return (
-    <div className="star">
-      <Star className="overview-metric-star" fill={getStarColor(rating)} />
+    <div className='star tooltips'>
+      <Star className='overview-metric-star' fill={getStarColor(rating)} />
+      <h5 className='tooltiptext'>{metric}</h5>
     </div>
   )
 }
@@ -93,13 +94,13 @@ function ODMessage({ results, loading }) {
     return <></>
   } else {
     return (
-      <div className="description-text determination">
+      <div className='description-text determination'>
         {/* {`We have concluded that ${results.symbol} is an overall ${recommendation(
           results.score
         )} investment and has achieved a total of
         ${results.score}/100 points!`} */}
         {`According to our 9 key metrics, ${results.symbol} get an overall ${recommendation(
-          results.score
+          results.score,
         )} rating! The company has achieved a total ${results.score}/100 score!`}
       </div>
     )
