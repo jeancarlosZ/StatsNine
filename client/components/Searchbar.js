@@ -88,7 +88,7 @@ export default function Searchbar() {
           Clear
         </label>
         <input
-          className="top-search-input"
+          className="top-search-input cpointer"
           placeholder="Search by Symbol"
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}

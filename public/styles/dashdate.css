@@ -1,0 +1,13 @@
+/** ------------ DATE PICKER--------*/
+
+.dinput {
+  border-color: #434651;
+  background-color: rgba(67, 70, 81, 0.5);
+  color: var(--fontColor);
+}
+
+.ccalendar {
+  background-color: #50535d;
+}
+
+/** ------------ DATE PICKER--------*/

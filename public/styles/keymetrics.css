@@ -137,6 +137,7 @@ body {
 /** Used to highlight selected tab */
 .key-metrics-selector .selectors .selected:hover {
   color: rgba(208, 211, 219, 0.8);
+  cursor: pointer;
 }
 
 /*
@@ -364,9 +365,15 @@ body {
   color: rgba(208, 211, 219, 0.6);
 }
 
+.dropdown-selector-menu-key {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .metric-chart .selector .dropdown-selector button {
   margin: auto 5px;
-  background-color: rgba(30, 34, 45, 0.3);
+  background-color: rgba(30, 34, 45, 1);
   border: none;
 }
 

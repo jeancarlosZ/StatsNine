@@ -75,6 +75,10 @@
 .chart-container .selector-dropdown-right {
   /* overflow: hidden; */
   margin: auto 0px;
+
+  display: flex;
+
+  /* background-color: gainsboro; */
 }
 
 .chart-container .price-container label {
@@ -95,7 +99,7 @@
 
 .chart-container .dropdown-selector button {
   margin: auto 5px;
-  background-color: rgba(30, 34, 45, 0.3);
+  background-color: rgba(30, 34, 45, 0.8);
   border: none;
 }
 

@@ -58,12 +58,12 @@ export async function fetchScreenerStocks(query = '', limit = 500) {
 //* Function to return stock price data, for charting the stock price
 //* You can select a timeseries below
 //* -----------------------------------
-export const MINUTE = '1 min'
-export const FIVE_MINUTE = '5 min'
-export const FIFTEEN_MINUTE = '15 min'
-export const THIRTY_MINUTE = '30 min'
-export const HOUR = '1 hour'
-export const FOUR_HOUR = '4 hour'
+export const MINUTE = '1min'
+export const FIVE_MINUTE = '5min'
+export const FIFTEEN_MINUTE = '15min'
+export const THIRTY_MINUTE = '30min'
+export const HOUR = '1hour'
+export const FOUR_HOUR = '4hour'
 export const DAILY = 'Daily'
 //* -----------------------------------
 //* You can select a data range from those listed below as well.
@@ -141,7 +141,7 @@ export function getDataRange(dataRange) {
   //* of the data range (so we can only return.. the range)
   const getEndDate = (current, dataRange) => {
     const endDate = new Date()
-    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 7)
+    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 9)
     if (dataRange === MONTH) return endDate.setMonth(endDate.getMonth() - 1)
     if (dataRange === THREE_MONTH) return endDate.setMonth(endDate.getMonth() - 3)
     if (dataRange === SIX_MONTH) return endDate.setMonth(endDate.getMonth() - 6)
@@ -165,7 +165,20 @@ const blackList = {
   CRYPTO: true,
   BLTS: true,
   BLTSU: true,
-  BLTSW: true
+  BLTSW: true,
+  SSPGX: true,
+  ASPCW: true,
+  POWRW: true,
+  HCICW: true,
+  SWETW: true,
+  TBCPW: true,
+  ZWRKW: true,
+  AUUDW: true,
+  ENFAW: true,
+  SDVGX: true,
+  GTPBW: true,
+  SRNGW: true,
+  MXAPX: true
 }
 
 //* Remove blacklisted stocks from the queue/return
