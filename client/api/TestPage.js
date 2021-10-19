@@ -167,7 +167,7 @@ function IndividualNews({ data }) {
 //* Get the label text pairs
 function getLabelText(label, text) {
   return (
-    <div className="labeltext">
+    <div className="labeltext cpointer">
       <label>{label}</label>
       <span>{text}</span>
     </div>
