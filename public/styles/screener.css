@@ -134,6 +134,7 @@
 
 .screen-color:hover {
   background-color: rgba(103, 18, 18, 0.1);
+  cursor: pointer;
 }
 
 .screener-container td:hover {

@@ -27,7 +27,7 @@ function getSelectorLabel(name, history, selected) {
   const fmtName = name.replace(' ', '').toLowerCase()
   return (
     <label
-      className={fmtName === selected ? 'selected' : ''}
+      className={'cpointer' + (fmtName === selected ? ' selected' : '')}
       onClick={() => {
         //* If the selected page is already the one clicked
         if (fmtName === selected) return

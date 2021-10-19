@@ -15,7 +15,8 @@
 
   /** */
 
-  background-color: rgba(19, 23, 34, 0.8);
+  /* background-color: rgba(19, 23, 34, 0.8); */
+  background-color: rgba(30, 34, 45, 0.8);
 
   /** */
 
@@ -31,24 +32,25 @@
 
 .search-row td {
   color: rgba(208, 211, 219, 0.8);
+  cursor: pointer;
 }
 
 .search-cell {
-  border: 0.1rem solid rgba(30, 34, 45, 1);
+  border: 0.1rem solid rgba(67, 70, 81, 0.4);
   padding: 0.25rem;
   /* width: 10vw; */
   width: 10%;
 }
 
 .search-cell2 {
-  border: 0.1rem solid rgba(30, 34, 45, 1);
+  border: 0.1rem solid rgba(67, 70, 81, 0.4);
   padding: 0.25rem;
   /* width: 50vw; */
   width: 50%;
 }
 
 .search-noresults {
-  border: 0.1rem solid rgba(30, 34, 45, 1);
+  border: 0.1rem solid rgba(67, 70, 81, 0.4);
   padding: 0.25rem;
   /* width: 70vw; */
   width: 100%;
