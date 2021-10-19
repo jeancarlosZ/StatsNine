@@ -264,6 +264,7 @@ function DashboardPriceChart() {
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           hoverdistance={50}
           hovermode="x"
+          xaxis={{ rangebreaks: [{ pattern: 'day of week', bounds: ['sat', 'mon'] }] }}
         />
       </div>
     </>
