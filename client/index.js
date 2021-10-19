@@ -5,6 +5,7 @@ import { Router } from 'react-router-dom'
 import App from './App'
 import history from './history'
 import store from './store'
+import 'react-modern-calendar-datepicker/lib/DatePicker.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.css'
 import '../public/style.css'
@@ -16,7 +17,8 @@ import '../public/styles/pricemetrics.css'
 import '../public/styles/safetymetrics.css'
 import '../public/styles/qualitymetrics.css'
 import '../public/styles/overviews.css'
-// import '../public/styles/dashstyle.css'
+import '../public/styles/dashdate.css'
+import '../public/styles/variables.css'
 
 ReactDOM.render(
   <Provider store={store}>

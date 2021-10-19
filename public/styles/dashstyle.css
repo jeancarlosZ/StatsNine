@@ -85,28 +85,67 @@
 
 .dashboard .news-head {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-content: center;
   height: var(--newsFeedHeaderHeight);
-  background-color: darkslateblue;
+  /* background-color: darkslateblue; */
   background-color: rgba(67, 70, 81, 0.2);
   /** */
 }
 
 .dashboard .news-head label {
   margin: auto;
+  /* background-color: red; */
 
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--fontColor);
   /** */
 }
+
+.dashboard .news-head .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 15px;
+  /* background-color: gray; */
+  overflow: hidden;
+}
+
+.dashboard .news-head .datepicker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 15px;
+  /* background-color: green; */
+}
+
 .dashboard .news-scroll {
   height: var(--newsFeedScrollHeight);
   padding: 10px;
   /** */
 }
 
+/** ------------ DATE PICKER--------*/
+
+.dinput {
+  border-color: #434651;
+  background-color: rgba(67, 70, 81, 0.5);
+}
+
+.ccalendar {
+  background-color: #434651;
+}
+
+.tcalendar {
+  /* background-color: #fe9700; */
+}
+
+.scalendar {
+  background-color: #fe9700;
+}
+
+/** ------------ DATE PICKER--------*/
 /** ------------ News Item -------- */
 .dashboard .news-item {
   margin-bottom: 5px;

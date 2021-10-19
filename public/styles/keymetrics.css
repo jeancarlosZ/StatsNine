@@ -137,6 +137,7 @@ body {
 /** Used to highlight selected tab */
 .key-metrics-selector .selectors .selected:hover {
   color: rgba(208, 211, 219, 0.8);
+  cursor: pointer;
 }
 
 /*
