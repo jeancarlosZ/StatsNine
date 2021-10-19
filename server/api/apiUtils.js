@@ -364,7 +364,26 @@ function formatDate(date, years = false) {
 
 const blackList = {
   BTC: true,
-  'QBTC.TO': true
+  'QBTC.TO': true,
+  FOREX: true,
+  MUTUAL_FUND: true,
+  CRYPTO: true,
+  BLTS: true,
+  BLTSU: true,
+  BLTSW: true,
+  SSPGX: true,
+  ASPCW: true,
+  POWRW: true,
+  HCICW: true,
+  SWETW: true,
+  TBCPW: true,
+  ZWRKW: true,
+  AUUDW: true,
+  ENFAW: true,
+  SDVGX: true,
+  GTPBW: true,
+  SRNGW: true,
+  MXAPX: true
 }
 
 //* Remove blacklisted stocks from the queue/return
@@ -419,6 +438,7 @@ module.exports = {
   fetchSearchQuery,
   fetchStockNews,
   fetchScreenerStocks,
+  removeBlackList,
   MINUTE,
   FIVE_MINUTE,
   FIFTEEN_MINUTE,

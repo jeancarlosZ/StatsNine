@@ -59,8 +59,6 @@ function StockNews() {
           ? await fetchStockNews()
           : await fetchStockNews(getNewsQuery(), 50, true)
 
-      console.log(stockNews.length > 50 ? stockNews.slice(-50) : stockNews)
-
       setData(stockNews.length > 50 ? stockNews.slice(-50) : stockNews)
       setUpdated(true)
     }
@@ -68,10 +66,11 @@ function StockNews() {
   }, [selectedDay])
 
   function getNewsQuery() {
+    if (!selectedDay) return ''
     const { day, month, year } = selectedDay
-    return `from=${year}-${month}-${day < 10 ? '0' + day : day}&to=${year}-${month}-${
-      day + 1 < 10 ? '0' + day + 1 : day + 1
-    }`
+    const curr = `${year}-${month < 10 ? '0' + month : month}-`
+    const tmro = day + 1
+    return `from=${curr}${day < 10 ? '0' + day : day}&to=${curr}${tmro < 10 ? '0' + tmro : tmro}`
   }
 
   function updateSelectedDay(day) {

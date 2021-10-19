@@ -165,7 +165,20 @@ const blackList = {
   CRYPTO: true,
   BLTS: true,
   BLTSU: true,
-  BLTSW: true
+  BLTSW: true,
+  SSPGX: true,
+  ASPCW: true,
+  POWRW: true,
+  HCICW: true,
+  SWETW: true,
+  TBCPW: true,
+  ZWRKW: true,
+  AUUDW: true,
+  ENFAW: true,
+  SDVGX: true,
+  GTPBW: true,
+  SRNGW: true,
+  MXAPX: true
 }
 
 //* Remove blacklisted stocks from the queue/return
