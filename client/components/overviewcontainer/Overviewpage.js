@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { fetchStockProfile } from '../../api/api'
 import { getLocalData } from '../../store/local/localActions'
 import Loading from '../Loading'
 import Subheader from '../Subheader'
@@ -21,7 +20,7 @@ export default function Overviewpage() {
         ['description', 'companyName'],
         'fetchStockProfile',
         [],
-        ['description', 'companyName'],
+        ['description', 'companyName']
       )
       setData({ description, companyName })
       setLoaded(true)
@@ -34,10 +33,10 @@ export default function Overviewpage() {
   return (
     <>
       <Subheader symbol={symbol} />
-      <div className='overview-page'>
-        <div className='overview-container'>
+      <div className="overview-page">
+        <div className="overview-container">
           <PriceChart symbol={symbol} loaded={loaded} setLoaded={setLoaded} />
-          <div className='overview-info'>
+          <div className="overview-info">
             <OverallDetermination symbol={symbol} loaded={loaded} setLoaded={setLoaded} />
             <Description symbol={symbol} data={data} />
           </div>

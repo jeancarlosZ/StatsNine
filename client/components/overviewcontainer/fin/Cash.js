@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import UniversalChart from '../../UniversalChart'
-import FinTable from './FinTable'
-import CompanyInfo from './CompanyInfo'
-import { fetchCashflowStatement, fetchStockProfile } from '../../../api/api'
+import React, { useEffect, useState } from 'react'
 import { getLocalData } from '../../../store/local/localActions'
-import { cashflowTableLabels, cashflowIndentifiers, getQtrIndentifers } from './finTableLabels'
+import UniversalChart from '../../UniversalChart'
+import CompanyInfo from './CompanyInfo'
 import { FinButtons } from './FinButtons'
-import { processUnformattedData, formatDates, returnUnformatedData } from './finUtils'
+import FinTable from './FinTable'
+import { cashflowIndentifiers, cashflowTableLabels, getQtrIndentifers } from './finTableLabels'
+import { formatDates, processUnformattedData, returnUnformatedData } from './finUtils'
 
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
@@ -18,7 +17,7 @@ export default function Cash() {
     'freeCashFlow',
     'Free Cash Flow',
     'rgba(232, 91, 232, 1)',
-    'rgba(232, 91, 232, .3)',
+    'rgba(232, 91, 232, .3)'
   ])
   const [chartDatatype, setChartDatatype] = useState('annual')
   const [cashflowInfo, setCashflowInfo] = useState({})
@@ -35,8 +34,8 @@ export default function Cash() {
           [...cashflowIndentifiers],
           'fetchCashflowStatement',
           [false, 'annual'],
-          [...cashflowIndentifiers],
-        ),
+          [...cashflowIndentifiers]
+        )
       )
       //here we are fetching the stock profile
       setProfile(
@@ -49,7 +48,7 @@ export default function Cash() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
+            'price'
           ],
           'fetchStockProfile',
           [],
@@ -61,9 +60,9 @@ export default function Cash() {
             'industry',
             'sector',
             'fullTimeEmployees',
-            'price',
-          ],
-        ),
+            'price'
+          ]
+        )
       )
     }
 
@@ -81,8 +80,8 @@ export default function Cash() {
           [...qtrIdentifiers],
           'fetchCashflowStatement',
           [false, 'quarter'],
-          [...saveAs],
-        ),
+          [...saveAs]
+        )
       )
     }
     getCashflowInfoQtr()
@@ -128,7 +127,7 @@ export default function Cash() {
     // outline: outline,
     fillcolor: outline,
     fill: 'tonexty',
-    values: chartData,
+    values: chartData
   })
 
   //**------------------------------------------------------------------------------------------------ */
@@ -160,7 +159,7 @@ export default function Cash() {
     rows,
     yearlyChanges,
     labels: cashflowTableLabels,
-    attributes: cashflowIndentifiers,
+    attributes: cashflowIndentifiers
   }
 
   //**------------------------------------------------------------------------------------------------ */
@@ -169,22 +168,22 @@ export default function Cash() {
 
   return (
     <>
-      <div className='page shadow-deep-nohover'>
-        <div className='fin-top-container'>
+      <div className="page shadow-deep-nohover">
+        <div className="fin-top-container">
           <CompanyInfo profile={profile} />
-          <div className='fin-chart-container'>
+          <div className="fin-chart-container">
             <FinButtons handleButtonClick={handleChartButtonClick} label={label} />
             <UniversalChart
-              className='income-chart fin-chart'
+              className="income-chart fin-chart"
               // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
-              plotBackgroundColor='rgba(30, 34, 45, 0)'
+              plotBackgroundColor="rgba(30, 34, 45, 0)"
               dataset={dataset}
               showlegend={false}
               hoverdistance={50}
-              hovermode='x'
-              backgroundColor='fff'
+              hovermode="x"
+              backgroundColor="fff"
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { getStarColor } from '../../../../utils'
 import Star from '../../../../assets/icons/star'
+import { getStarColor } from '../../../../utils'
 
 //* Func to get a metric item, and the star related to it
 export function getMetricItem(metric, rating, colored = true) {
