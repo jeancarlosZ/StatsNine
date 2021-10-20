@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { getLocalData } from '../../../store/local/localActions'
 import Subheader from '../../Subheader'
 import GrowthMetric from './subpages/GrowthMetric'
 import Metrics from './subpages/Metrics'
@@ -10,6 +11,19 @@ import SafetyMetric from './subpages/SafetyMetric'
 export default function KeyMetrics() {
   const location = useLocation()
   const selected = location.pathname.split('/').pop().toLowerCase()
+
+  useEffect(() => {
+    getLocalData('netIncome', 'fetchCashflowStatement', [false, 'quarter'], `netincomequarter`)
+    getLocalData('freeCashFlow', 'fetchCashflowStatement', [false, 'quarter'], `fcfquarter`)
+    getLocalData('revenue', 'fetchIncomeStatement', [false, 'quarter'], `revenuequarter`)
+    getLocalData('eps', 'fetchIncomeStatement', [false, 'quarter'], `epsquarter`)
+    getLocalData(
+      ['priceEarningsRatio', 'priceToFreeCashFlowsRatio'],
+      'fetchRatios',
+      [false, 'annual'],
+      ['peannual', 'pfcfannual']
+    )
+  }, [])
 
   return (
     <>

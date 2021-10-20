@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { roundNumberDec, formatNumber, formatPercentage } from '../../utils'
 import { loadStockProfile, setCurrentStock } from '../../store/local/localActions'
+import { formatNumber, roundNumberDec } from '../../utils'
 
 export default function Row({ stock, index }) {
   const rowColor = index % 2 ? 'screen-color' : 'screen-color screen-row'
@@ -30,11 +30,23 @@ export default function Row({ stock, index }) {
       </td>
       {/* <td className="screen-border screen-num">{price} USD</td> */}
       <td className="screen-border screen-num pcontainer">
-        <div className={`screener-price ${isUp}`}>{`$${roundNumberDec(stock.price)}`}</div>
+        <div className={`screener-price ${isUp}`}>{`$${formatNumber(
+          roundNumberDec(stock.price),
+          true
+        )}`}</div>
         <div className="s-sm">
-          <div className={`s-open`}>{`Open: $${roundNumberDec(stock.open)}`}</div>
-          <div className={`s-high`}>{`Hi: $${roundNumberDec(stock.dayHigh)}`}</div>
-          <div className={`s-low`}>{`Lo: $${roundNumberDec(stock.dayLow)}`}</div>
+          <div className={`s-open`}>{`Open: $${formatNumber(
+            roundNumberDec(stock.open),
+            true
+          )}`}</div>
+          <div className={`s-high`}>{`Hi: $${formatNumber(
+            roundNumberDec(stock.dayHigh),
+            true
+          )}`}</div>
+          <div className={`s-low`}>{`Lo: $${formatNumber(
+            roundNumberDec(stock.dayLow),
+            true
+          )}`}</div>
         </div>
       </td>
       <td className="screen-border screen-num pcontainer">

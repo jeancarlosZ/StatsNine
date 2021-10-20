@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router'
 import Star from '../../assets/icons/star'
 import { getTickerResults } from '../../store/local/localActions'
 import { getStarColor } from '../../utils'
@@ -22,9 +23,9 @@ export default function OverallDetermination({ symbol }) {
   }, [symbol])
 
   return (
-    <div className='overviewbox overall-determination shadow-nohover'>
-      <div className='headerTwo'>Overall Determination</div>
-      <div className='star-container flex-row justify-around justify-center'>
+    <div className="overviewbox overall-determination shadow-nohover">
+      <div className="headerTwo">Overall Determination</div>
+      <div className="star-container flex-row justify-around justify-center">
         <StarsContainer results={results} loading={loading} />
         <ODMessage results={results} loading={loading} />
       </div>
@@ -34,29 +35,48 @@ export default function OverallDetermination({ symbol }) {
 
 // This function returns the layout container for the 9 stars.
 function StarsContainer({ results, loading }) {
+  const history = useHistory()
   if (loading) {
     return (
-      <div className='stars-container flex-row justify-evenly'>
+      <div className="stars-container flex-row justify-evenly">
         <div>Loading...</div>
       </div>
     )
   } else {
     return (
-      <div className='stars-container flex-row justify-evenly'>
-        <div className=' star-col flex-col justify-evenly'>
-          <MetricStar rating={results.revgrowth} metric='Revenue Growth' />
-          <MetricStar rating={results.cashgrowth} metric='Free Cash Flow Growth' />
-          <MetricStar rating={results.netincome} metric='Net Income Growth' />
+      <div className="stars-container flex-row justify-evenly">
+        <div className=" star-col flex-col justify-evenly">
+          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+            <MetricStar rating={results.revgrowth} metric="Revenue Growth" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+            <MetricStar rating={results.cashgrowth} metric="Free Cash Flow Growth" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+            <MetricStar rating={results.netincome} metric="Net Income Growth" />
+          </div>
         </div>
-        <div className=' star-col flex-col justify-evenly'>
-          <MetricStar rating={results.roic} metric='Return on Invested Capital' />
-          <MetricStar rating={results.shares} metric='Shares Outstanding' />
-          <MetricStar rating={results.assets} metric='Assets vs. Liabilities' />
+        <div className=" star-col flex-col justify-evenly">
+          <div onClick={() => history.push('/overviewpage/keymetrics/quality')}>
+            <MetricStar rating={results.roic} metric="Return on Invested Capital" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/quality')}>
+            <MetricStar rating={results.shares} metric="Shares Outstanding" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/safety')}>
+            <MetricStar rating={results.assets} metric="Assets vs. Liabilities" />
+          </div>
         </div>
-        <div className=' star-col flex-col justify-evenly'>
-          <MetricStar rating={results.pe} metric='Price to Earnings Ratio' />
-          <MetricStar rating={results.pfcf} metric='Price to Free Cash Flow Ratio' />
-          <MetricStar rating={results.ltl} metric='Free Cash Flow to Long Term Debt' />
+        <div className=" star-col flex-col justify-evenly">
+          <div onClick={() => history.push('/overviewpage/keymetrics/price')}>
+            <MetricStar rating={results.pe} metric="Price to Earnings Ratio" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/price')}>
+            <MetricStar rating={results.pfcf} metric="Price to Free Cash Flow Ratio" />
+          </div>
+          <div onClick={() => history.push('/overviewpage/keymetrics/safety')}>
+            <MetricStar rating={results.ltl} metric="Free Cash Flow to Long Term Debt" />
+          </div>
         </div>
       </div>
     )
@@ -66,9 +86,9 @@ function StarsContainer({ results, loading }) {
 // Pass in the metric info to color the stars correctly and render the stars
 function MetricStar({ rating, metric }) {
   return (
-    <div className='star tooltips'>
-      <Star className='overview-metric-star' fill={getStarColor(rating)} />
-      <h5 className='tooltiptext'>{metric}</h5>
+    <div className="star tooltips">
+      <Star className="overview-metric-star" fill={getStarColor(rating)} />
+      <h5 className="tooltiptext">{metric}</h5>
     </div>
   )
 }
@@ -94,13 +114,13 @@ function ODMessage({ results, loading }) {
     return <></>
   } else {
     return (
-      <div className='description-text determination'>
+      <div className="description-text determination">
         {/* {`We have concluded that ${results.symbol} is an overall ${recommendation(
           results.score
         )} investment and has achieved a total of
         ${results.score}/100 points!`} */}
         {`According to our 9 key metrics, ${results.symbol} get an overall ${recommendation(
-          results.score,
+          results.score
         )} rating! The company has achieved a total ${results.score}/100 score!`}
       </div>
     )
