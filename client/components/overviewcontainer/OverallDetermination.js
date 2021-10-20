@@ -43,38 +43,39 @@ function StarsContainer({ results, loading }) {
       </div>
     )
   } else {
+    const link = '/overviewpage/keymetrics'
     return (
       <div className="stars-container flex-row justify-evenly">
         <div className=" star-col flex-col justify-evenly">
-          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+          <div onClick={() => history.push(link + '/growth')}>
             <MetricStar rating={results.revgrowth} metric="Revenue Growth" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+          <div onClick={() => history.push(link + '/growth')}>
             <MetricStar rating={results.cashgrowth} metric="Free Cash Flow Growth" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/growth')}>
+          <div onClick={() => history.push(link + '/growth')}>
             <MetricStar rating={results.netincome} metric="Net Income Growth" />
           </div>
         </div>
         <div className=" star-col flex-col justify-evenly">
-          <div onClick={() => history.push('/overviewpage/keymetrics/quality')}>
+          <div onClick={() => history.push(link + '/quality')}>
             <MetricStar rating={results.roic} metric="Return on Invested Capital" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/quality')}>
+          <div onClick={() => history.push(link + '/quality')}>
             <MetricStar rating={results.shares} metric="Shares Outstanding" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/safety')}>
+          <div onClick={() => history.push(link + '/safety')}>
             <MetricStar rating={results.assets} metric="Assets vs. Liabilities" />
           </div>
         </div>
         <div className=" star-col flex-col justify-evenly">
-          <div onClick={() => history.push('/overviewpage/keymetrics/price')}>
+          <div onClick={() => history.push(link + '/price')}>
             <MetricStar rating={results.pe} metric="Price to Earnings Ratio" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/price')}>
+          <div onClick={() => history.push(link + '/price')}>
             <MetricStar rating={results.pfcf} metric="Price to Free Cash Flow Ratio" />
           </div>
-          <div onClick={() => history.push('/overviewpage/keymetrics/safety')}>
+          <div onClick={() => history.push(link + '/safety')}>
             <MetricStar rating={results.ltl} metric="Free Cash Flow to Long Term Debt" />
           </div>
         </div>
