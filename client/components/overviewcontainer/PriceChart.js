@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import {
-  DAILY,
-  FIFTEEN_MINUTE,
-  FIVE_YEAR,
-  FOUR_HOUR,
-  HOUR,
-  MINUTE,
-  MONTH,
-  SIX_MONTH,
-  TEN_YEAR,
-  THIRTY_MINUTE,
-  THREE_MONTH,
-  WEEK,
-  YEAR
-} from '../../api/api'
+import { DAILY, FOUR_HOUR, HOUR, MONTH, SIX_MONTH, THREE_MONTH, WEEK, YEAR } from '../../api/api'
 import { getLocalData } from '../../store/local/localActions'
+import { formatNumber, roundNumberDec } from '../../utils'
 import UniversalChart from '../UniversalChart'
 
 export default function PriceChart({ symbol }) {
@@ -78,9 +65,7 @@ export default function PriceChart({ symbol }) {
   return (
     <div className="chart-container shadow-deep-nohover">
       <div className="price-container flex-row">
-        <label>
-          {symbol} Price: ${price.toFixed(2)} USD
-        </label>
+        <label>{`${symbol}: $${formatNumber(roundNumberDec(price), true)}`}</label>
         {getSelectors(series, range, updateSeries, updateRange)}
       </div>
       <div className="overview-wrapper">
@@ -93,7 +78,7 @@ export default function PriceChart({ symbol }) {
 // This function uses information from props to render a candlestick chart.
 export function CandleStickChart(props) {
   const dataset = []
-  let symbol = ''
+  // let symbol = ''
   let keys = []
   let close = []
   let high = []
@@ -101,7 +86,7 @@ export function CandleStickChart(props) {
   let open = []
 
   if (!props.update) {
-    symbol = props.symbol
+    // symbol = props.symbol
     keys = props.data.close.keys
     close = props.data.close.values
     high = props.data.high.values

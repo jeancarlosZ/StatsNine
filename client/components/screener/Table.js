@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 import { getScreenerData } from '../../store/local/localActions'
-import { getLoadingMessage } from '../../utils'
 import Loading from '../Loading'
 import Row from './Row'
 
@@ -41,12 +40,14 @@ export default function Table() {
           <div className="screener-title">
             <label>Stock Screener</label>
           </div>
-          <SimpleBar className="screener-scroll shadow-nohover">
-            <table className="screen-table">
-              <thead>{getTableHead(stocksMap)}</thead>
-              <tbody>{getTableBody(stocksMap)}</tbody>
-            </table>
-          </SimpleBar>
+          <div className="screen-table-container">
+            <SimpleBar className="screener-scroll shadow-deep-nohover">
+              <table className="screen-table">
+                <thead>{getTableHead(stocksMap)}</thead>
+                <tbody>{getTableBody(stocksMap)}</tbody>
+              </table>
+            </SimpleBar>
+          </div>
         </div>
       </div>
     </div>

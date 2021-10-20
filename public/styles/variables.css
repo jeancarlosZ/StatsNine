@@ -14,7 +14,7 @@
   /* BACKGROUND COLORS */
   --bgPrimary: rgb(19, 23, 34);
   --bgSecondary: rgb(30, 34, 45);
-  --bgAccent: #434651; /** rgba(67, 70, 81, 1) */
+  --bgAccent: rgba(67, 70, 81, 1);
 
   /* FONT COLORS */
   --fontColor: #d0d3db; /** rgba(208, 211, 219, 1) */

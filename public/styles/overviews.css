@@ -68,7 +68,6 @@
 
 .chart-container .price-container {
   height: var(--overviewchartSelectorsHeight);
-
   display: flex;
 }
 
@@ -85,7 +84,7 @@
   margin: auto 40px;
   margin-top: 10px;
   color: var(--fontColor);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .chart-container .dropdown-selector {
@@ -208,6 +207,7 @@
 .tooltips {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 /* Tooltip text */
@@ -215,8 +215,8 @@
   visibility: hidden;
   width: max-content;
   height: max-content;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: rgba(67, 70, 81, 0.1);
+  color: #d0d3db;
   text-align: center;
   padding: 10px;
   border-radius: 30px;

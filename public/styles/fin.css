@@ -56,11 +56,14 @@
   background-color: rgba(233, 78, 78, 0.5);
   cursor: pointer;
 }
+
 .fin-row {
   height: 50px;
   color: white;
   border: solid thin rgba(113, 113, 113, 0.1);
+  cursor: pointer;
 }
+
 .fin-col {
   color: white;
   border: solid thin rgba(113, 113, 113, 0.1);
