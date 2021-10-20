@@ -139,7 +139,7 @@ export default function Income() {
   }
   const dataset = [];
 
-  chartDataQtr = chartDataQtr.slice(0, chartDataQtr.length - 2);
+  chartDataQtr = chartDataQtr.slice(3);
 
   dataset.push({
     name: label,
