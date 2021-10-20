@@ -166,6 +166,7 @@ body {
 .metric-star {
   width: 24px;
   height: 24px;
+  pointer-events: none;
 }
 
 .key-metrics-container .metric-sub-container {
