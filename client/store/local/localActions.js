@@ -263,8 +263,9 @@ export async function getTickerResults() {
   // const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
   //* Five year P/FCF
   // const avgfcf = priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
-
-  const currentCap = marketCapitalization.values.slice(-1).pop()
+  const marketCaps = marketCapitalization.values
+  const currentCap =
+    marketCaps.slice(-1).pop() !== 0 ? marketCaps.slice(-1).pop() : marketCaps.slice(-2)[0]
   const cashg = freeCashFlow.values.slice(-5)
 
   const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
