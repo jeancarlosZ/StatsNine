@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchEnterpriseValue } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
@@ -16,7 +15,7 @@ export default function SharesOustandingChart() {
         //* Load the shares data
         const numberOfShares = await getLocalData(
           'numberOfShares',
-          fetchEnterpriseValue,
+          'fetchEnterpriseValue',
           [dataType],
           `shares${dataType}`
         )

@@ -159,6 +159,7 @@
 
   font-weight: bold;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .sub-header-pages .sub-page {
@@ -191,7 +192,9 @@
 .sub-header-pages .sub-page:hover::after {
   -webkit-transform: scaleX(0.9);
   transform: scaleX(0.9);
+  cursor: pointer;
 }
+
 .sub-header-pages .sub-page:hover {
   color: rgba(172, 176, 184, 0.8);
 }
@@ -202,6 +205,7 @@
 
 .sub-header-pages .selectedpage {
   color: #2962fe;
+  cursor: pointer;
 }
 
 .sub-header-pages .selectedpage::after {

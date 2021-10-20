@@ -2,192 +2,6 @@ import axios from 'axios'
 import { formatDate, logError, splitProperties } from '../utils'
 //* This class will contain the API methods
 
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return a full statement (balance, cashflow, income)
-//* By Default it returns an annual statement, optionally 'quarter'
-//* You can also optionally set growth to true, to only return growth
-export async function fetchFullStatement(ticker, growth = false, period = 'annual') {
-  const type = `financial-${growth ? 'growth' : 'statement-full-as-reported'}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
-  return splitProperties(data, true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return an income statement for the provided ticker
-//* By Default it returns an annual statement, optionally 'quarter'
-//* You can also optionally set growth to true, to only return growth
-export async function fetchIncomeStatement(ticker, growth = false, period = 'annual') {
-  const type = `income-statement${growth ? '-growth' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
-  return splitProperties(data, true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return an balance statement for the provided ticker
-//* By Default it returns an annual statement, optionally 'quarter'
-//* You can also optionally set growth to true, to only return growth
-export async function fetchBalanceStatement(ticker, growth = false, period = 'annual') {
-  const type = `balance-sheet-statement${growth ? '-growth' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
-  return splitProperties(data, true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return an cashflow statement for the provided ticker
-//* By Default it returns an annual statement, optionally 'quarter'
-//* You can also optionally set growth to true, to only return growth
-export async function fetchCashflowStatement(ticker, growth = false, period = 'annual') {
-  const type = `cash-flow-statement${growth ? '-growth' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
-  return splitProperties(data, true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return the enterprise value for the provided ticker
-//* By Default it returns afn annual statement, optionally 'quarter'
-export async function fetchEnterpriseValue(ticker, period = 'annual') {
-  const link = getFMPLink(ticker, `enterprise-values`, `period=${period}`)
-  const data = formatTimeSeriesData(await fetchData(link))
-  return splitProperties(data, true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return discounted Cashflow from a ticker
-//* By Default it returns an annual statement, optionally 'quarter'
-//* You can also optionally set historical to true to return many years of data
-export async function fetchDiscountedCashflow(ticker, hist = false, period = 'annual') {
-  const type = `${hist ? 'historical-' : ''}discounted-cash-flow${hist ? '-statement' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = await fetchData(link)
-  //* Historical DCF is time series { key, value } otherwise it's just { data }
-  return hist ? splitProperties(await formatTimeSeriesData(data), true) : data
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return a stock's rating/rating history
-//* You can also optionally set historical to true to return many years of data
-//* You can also optionally set a limit for historical data (recommended)
-export async function fetchRating(ticker, hist = false, limit = 100) {
-  const type = `${hist ? 'historical-' : ''}rating`
-  const link = getFMPLink(ticker, type, `limit=${limit}`)
-  const data = await fetchData(link)
-  //* Historical is time series { key, value } otherwise it's just { data }
-  return hist ? splitProperties(await formatTimeSeriesData(data), true) : data
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return a stock's marketcap/marketcap history
-//* You can also optionally set historical to true to return many years of data
-//* You can also optionally set a limit for historical data (recommended)
-export async function fetchMarketCap(ticker, hist = false, limit = 100) {
-  const type = `${hist ? 'historical-' : ''}market-capitalization`
-  const link = getFMPLink(ticker, type, `limit=${limit}`)
-  const data = await fetchData(link)
-  //* Historical is time series { key, value } otherwise it's just { data }
-  return hist ? splitProperties(await formatTimeSeriesData(data), true) : data
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return some key metrics relating to the stock
-//* Optionally you can return TTM data which is just a single object
-//* By Default it returns an annual statement, optionally 'quarter'
-export async function fetchKeyMetrics(ticker, ttm = false, period = 'annual') {
-  const type = `key-metrics${ttm ? '-ttm' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = await fetchData(link)
-  //* TTM is time series { key, value } otherwise it's just { data }
-  return ttm ? data : splitProperties(await formatTimeSeriesData(data), true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function will return some ratios relating to the stock
-//* Optionally you can return TTM data which is just a single object
-//* By Default it returns an annual statement, optionally 'quarter'
-export async function fetchRatios(ticker, ttm = false, period = 'annual') {
-  const type = `ratios${ttm ? '-ttm' : ''}`
-  const link = getFMPLink(ticker, type, `period=${period}`)
-  const data = await fetchData(link)
-  //* TTM is time series { key, value } otherwise it's just { data }
-  return ttm ? data : splitProperties(await formatTimeSeriesData(data), true)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* Fetch insider trading information to see who inside the company
-//* has been buying shares!
-export async function fetchInsiderTrading(ticker, limit = 100) {
-  const link = getFMPLink(ticker, 'insider-trading', `limit=${limit}`, false)
-  const data = await fetchData(link)
-  return data
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function returns the stock quote (price and volume)
-//* Useful for updating ticker price without loading a ton of data
-export async function fetchStockQuote(ticker) {
-  const link = getFMPLink(ticker, `quote`)
-  return await fetchData(link)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function returns the stock profile, this will contain some useful info!
-export async function fetchStockProfile(ticker) {
-  const link = getFMPLink(ticker, `profile`)
-  return await fetchData(link)
-}
-
-/**
- * //! This function is not to be used anymore, please use getLocalData()
- * @deprecated please use getLocalData instead!
- */
-//* This function returns a list of the key executives at the company.
-export async function fetchKeyExecutives(ticker) {
-  const link = getFMPLink(ticker, `key-executives`)
-  return await fetchData(link)
-}
-
 //* This function returns a list of stocks based on a search query
 //* You can search by ticker or stock name (query) and Optionally
 //* you can add a limit to the number of stocks returned (recommended)
@@ -244,12 +58,12 @@ export async function fetchScreenerStocks(query = '', limit = 500) {
 //* Function to return stock price data, for charting the stock price
 //* You can select a timeseries below
 //* -----------------------------------
-export const MINUTE = '1 min'
-export const FIVE_MINUTE = '5 min'
-export const FIFTEEN_MINUTE = '15 min'
-export const THIRTY_MINUTE = '30 min'
-export const HOUR = '1 hour'
-export const FOUR_HOUR = '4 hour'
+export const MINUTE = '1min'
+export const FIVE_MINUTE = '5min'
+export const FIFTEEN_MINUTE = '15min'
+export const THIRTY_MINUTE = '30min'
+export const HOUR = '1hour'
+export const FOUR_HOUR = '4hour'
 export const DAILY = 'Daily'
 //* -----------------------------------
 //* You can select a data range from those listed below as well.
@@ -279,22 +93,8 @@ export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = AL
 //* Function used to make the axios calls and return the data
 async function fetchData(link) {
   try {
-    const { data } = await axios.get(link)
-    //! Remove (This is here so we can debug!)
-    //! Remove (This is here so we can debug!)
-    console.log('--------------------')
-    console.log('Fetching data: ', {
-      data: data,
-      link: link
-        .replace('https://financialmodelingprep.com/api/', '')
-        .replace('&apikey=0235b47c3f99a539c04921b8cec8ad18', '')
-    })
-    console.log('--------------------')
-    //! Remove (This is here so we can debug!)
-    //! Remove (This is here so we can debug!)
     //* Make axios call, return the data
-    return data
-    // return (await axios.get(link)).data
+    return (await axios.get(link)).data
   } catch (error) {
     //* Something went wrong
     logError(error, 'Failed to make axios call for ' + link)
@@ -341,7 +141,7 @@ export function getDataRange(dataRange) {
   //* of the data range (so we can only return.. the range)
   const getEndDate = (current, dataRange) => {
     const endDate = new Date()
-    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 7)
+    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 9)
     if (dataRange === MONTH) return endDate.setMonth(endDate.getMonth() - 1)
     if (dataRange === THREE_MONTH) return endDate.setMonth(endDate.getMonth() - 3)
     if (dataRange === SIX_MONTH) return endDate.setMonth(endDate.getMonth() - 6)
@@ -365,7 +165,20 @@ const blackList = {
   CRYPTO: true,
   BLTS: true,
   BLTSU: true,
-  BLTSW: true
+  BLTSW: true,
+  SSPGX: true,
+  ASPCW: true,
+  POWRW: true,
+  HCICW: true,
+  SWETW: true,
+  TBCPW: true,
+  ZWRKW: true,
+  AUUDW: true,
+  ENFAW: true,
+  SDVGX: true,
+  GTPBW: true,
+  SRNGW: true,
+  MXAPX: true
 }
 
 //* Remove blacklisted stocks from the queue/return

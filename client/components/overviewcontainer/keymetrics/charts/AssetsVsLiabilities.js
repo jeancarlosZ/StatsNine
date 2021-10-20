@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchBalanceStatement, fetchIncomeStatement } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
@@ -24,7 +23,7 @@ export default function AssetsVsLiabilities() {
           ...data,
           [dataType]: await getLocalData(
             ['totalAssets', 'totalLiabilities'],
-            fetchBalanceStatement,
+            'fetchBalanceStatement',
             [false, dataType],
             [`assets${dataType}`, `liabilities${dataType}`]
           )

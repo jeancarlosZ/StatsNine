@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchRatios } from '../../../../api/api'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
 import { formatNumber, roundNumberDec, trimDate } from '../../../../utils'
 import PeHistChart from '../charts/PEHistChart'
@@ -19,7 +18,7 @@ export default function PriceMetric() {
       setData(
         await getLocalData(
           ['priceEarningsRatio', 'priceToFreeCashFlowsRatio'],
-          fetchRatios,
+          'fetchRatios',
           [false, 'annual'],
           ['peannual', 'pfcfannual']
         )

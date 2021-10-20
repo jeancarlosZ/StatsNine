@@ -143,3 +143,7 @@
     transform: skew(0deg);
   }
 }
+
+.cpointer {
+  cursor: pointer;
+}

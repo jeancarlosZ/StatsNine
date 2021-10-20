@@ -43,12 +43,14 @@
   margin: auto;
   height: var(--screenerScrollHeight);
   width: var(--screenerScrollWidth);
+  min-width: 1000px;
 }
 
 .screener-scroll {
   margin: auto;
   height: var(--screenerScrollHeight);
   width: var(--screenerScrollWidth);
+  min-width: 1000px;
 }
 
 .screener-controls {
@@ -82,6 +84,7 @@
   background-color: #131722;
   font-weight: 500;
   width: var(--screenerScrollWidth);
+  min-width: 1000px;
 }
 
 .screen-border {
@@ -131,6 +134,7 @@
 
 .screen-color:hover {
   background-color: rgba(103, 18, 18, 0.1);
+  cursor: pointer;
 }
 
 .screener-container td:hover {

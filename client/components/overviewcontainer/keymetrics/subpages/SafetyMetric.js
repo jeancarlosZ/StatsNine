@@ -4,7 +4,6 @@ import {
   formatNumber,
   getDifferenceBetween,
   getPercentDifference,
-  isSameObject,
   roundNumberDec,
   trimDate
 } from '../../../../utils'

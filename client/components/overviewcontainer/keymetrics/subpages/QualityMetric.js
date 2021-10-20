@@ -25,11 +25,11 @@ export default function QualityMetric() {
       setResults(await getTickerResults())
       //* Fetch the ratio data
 
-      const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
+      const roicTTM = await getLocalData('roicTTM', 'fetchKeyMetrics', [true], 'roicTTM')
 
       const { returnOnAssetsTTM, returnOnEquityTTM } = await getLocalData(
         ['returnOnAssetsTTM', 'returnOnEquityTTM'],
-        fetchRatios,
+        'fetchRatios',
         [true],
         ['returnOnAssetsTTM', 'returnOnEquityTTM']
       )

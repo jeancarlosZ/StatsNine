@@ -4,11 +4,15 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import {
   ALL,
   DAILY,
-  fetchChartPrice,
+  FIFTEEN_MINUTE,
   FIVE_YEAR,
+  FOUR_HOUR,
+  HOUR,
+  MINUTE,
   MONTH,
   SIX_MONTH,
   TEN_YEAR,
+  THIRTY_MINUTE,
   THREE_MONTH,
   WEEK,
   YEAR
@@ -40,7 +44,7 @@ export default function StockPriceChart() {
           ...data, //* Upate data  { ...data, [range]: newData }
           [range]: await getLocalData(
             'close', //* key
-            fetchChartPrice, //* func
+            'fetchChartPrice', //* func
             [series, range, false], //* args
             `price${series}${range}close` //* saveas
           )
@@ -111,6 +115,7 @@ export default function StockPriceChart() {
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           hoverdistance={50}
           hovermode="x"
+          xaxis={{ rangebreaks: [{ pattern: 'day of week', bounds: ['sat', 'mon'] }] }}
         />
       </div>
     </>
@@ -120,7 +125,7 @@ export default function StockPriceChart() {
 //* Get the options/selector buttons
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
-    <div>
+    <div className="dropdown-selector-menu-key">
       <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
         <Dropdown.Item onClick={() => updateRange(range, ALL)}>All</Dropdown.Item>
         <Dropdown.Divider />

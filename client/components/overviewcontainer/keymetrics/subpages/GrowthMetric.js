@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { fetchCashflowStatement, fetchIncomeStatement } from '../../../../api/api'
+import SimpleBar from 'simplebar-react'
+import 'simplebar/dist/simplebar.min.css'
 import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
 import {
   formatNumber,
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
-  isSameObject,
   trimDate
 } from '../../../../utils'
 import Growthchart from '../charts/GrowthChart'
 import MetricSelector from '../MetricSelector'
 import { getMetricItem, getTableDatas } from './UtilMetrics'
-import SimpleBar from 'simplebar-react'
-import 'simplebar/dist/simplebar.min.css'
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
@@ -31,21 +29,21 @@ export default function GrowthMetric() {
         //* Load the data from the API
         const netIncome = await getLocalData(
           'netIncome',
-          fetchCashflowStatement,
+          'fetchCashflowStatement',
           [false, dataType.net],
           `netincome${dataType.net}`
         )
         //* Load the data from the API
         const freeCashFlow = await getLocalData(
           'freeCashFlow',
-          fetchCashflowStatement,
+          'fetchCashflowStatement',
           [false, dataType.fcf],
           `fcf${dataType.fcf}`
         )
         //* Load the data from the API
         const revenue = await getLocalData(
           'revenue',
-          fetchIncomeStatement,
+          'fetchIncomeStatement',
           [false, dataType.rev],
           `revenue${dataType.rev}`
         )

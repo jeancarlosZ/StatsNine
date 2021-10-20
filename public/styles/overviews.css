@@ -75,6 +75,10 @@
 .chart-container .selector-dropdown-right {
   /* overflow: hidden; */
   margin: auto 0px;
+
+  display: flex;
+
+  /* background-color: gainsboro; */
 }
 
 .chart-container .price-container label {
@@ -95,7 +99,7 @@
 
 .chart-container .dropdown-selector button {
   margin: auto 5px;
-  background-color: rgba(30, 34, 45, 0.3);
+  background-color: rgba(30, 34, 45, 0.8);
   border: none;
 }
 
@@ -198,4 +202,36 @@
   height: calc(var(--overviewInfoHeight) - var(--descHeaderHeight));
   margin-top: 12.5px;
   /* background-color: yellow; */
+}
+
+/* Tooltip container */
+.tooltips {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  height: max-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 30px;
+
+  /* Position the tooltip text */
+  position: fixed;
+  bottom: 1.3vh;
+  left: 1.45vw;
+  opacity: 0;
+  transition: opacity 1s;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

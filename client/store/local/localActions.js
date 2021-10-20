@@ -43,15 +43,15 @@ function updateLocalData(key, data) {
 //* Examples below:
 //*                              key         func             func args         save as
 //*                               v           v               v       v            v
-//*  setData(await getLocalData('eps', fetchFullStatement, [false, 'annual'], 'epsannual'))
+//*  setData(await getLocalData('eps', 'fetchFullStatement', [false, 'annual'], 'epsannual'))
 //*
 //*  you can also load multiple         keys                    func             func args             save []
 //*                                      v                       v               v       v               v
-//*  setData(await getLocalData(['assets, liabilities'], fetchFullStatement, [false, 'annual'], ['assetsannual, liabilitiesannual']))
+//*  setData(await getLocalData(['assets, liabilities'], 'fetchFullStatement', [false, 'annual'], ['assetsannual, liabilitiesannual']))
 //*
 //*  ---> (LOOK BELOW AND FIND THE getTickerResults() FOR USE CASES) <---
 //*
-export async function getLocalData(key, func, args, saveAs, overrideTicker, experation = 60) {
+export async function getLocalData(key, func, args, saveAs, overrideTicker, experation = 300) {
   try {
     //* Get our state
     const state = store.getState()
@@ -67,7 +67,7 @@ export async function getLocalData(key, func, args, saveAs, overrideTicker, expe
       //* This is the saveAs or saveAs list
       saveAs: saveAs,
       //* Functions can't be sent thru, so we use the func name
-      callback: typeof func == 'function' ? func.name : func,
+      callback: func,
       //* Arguments to place inside the function on the backend
       args: args,
       //* If you desire you can set a time limit for the
@@ -229,32 +229,32 @@ export async function getTickerResults() {
 
   const { totalAssets, totalLiabilities, totalInvestments } = await getLocalData(
     ['totalAssets', 'totalLiabilities', 'totalInvestments'],
-    fetchBalanceStatement,
+    'fetchBalanceStatement',
     [false, 'annual'],
     ['assetsannual', 'liabilitiesannual', 'investmentsannual']
   )
   const { freeCashFlow, netIncome } = await getLocalData(
     ['freeCashFlow', 'netIncome'],
-    fetchCashflowStatement,
+    'fetchCashflowStatement',
     [false, 'annual'],
     ['fcfannual', 'netincomeannual']
   )
   const revenue = await getLocalData(
     'revenue',
-    fetchIncomeStatement,
+    'fetchIncomeStatement',
     [false, 'annual'],
     'revenueannual'
   )
   // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
   const { numberOfShares, marketCapitalization } = await getLocalData(
     ['numberOfShares', 'marketCapitalization'],
-    fetchEnterpriseValue,
+    'fetchEnterpriseValue',
     ['annual'],
     ['sharesannual', 'marketcapannual']
   )
   const effectiveTaxRate = await getLocalData(
     'effectiveTaxRate',
-    fetchRatios,
+    'fetchRatios',
     [false, 'annual'],
     'taxannual'
   )
@@ -365,7 +365,7 @@ export async function loadStockProfile() {
       'image',
       'ipoDate'
     ],
-    fetchStockProfile,
+    'fetchStockProfile',
     [],
     [
       'price',

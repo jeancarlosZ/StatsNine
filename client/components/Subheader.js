@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { fetchStockProfile } from '../api/api'
 import { getLocalData } from '../store/local/localActions'
 
 export default function Subheader(props) {
@@ -15,7 +14,7 @@ export default function Subheader(props) {
       //* Fetch data from API
       const { symbol, companyName, image } = await getLocalData(
         ['symbol', 'companyName', 'image'],
-        fetchStockProfile,
+        'fetchStockProfile',
         [],
         ['symbol', 'companyName', 'image']
       )

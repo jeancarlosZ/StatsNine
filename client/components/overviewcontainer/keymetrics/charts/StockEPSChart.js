@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchIncomeStatement } from '../../../../api/api'
 import { getLocalData } from '../../../../store/local/localActions'
 import UniversalChart from '../../../UniversalChart'
 
@@ -25,7 +24,7 @@ export default function StockEPSChart() {
           ...data, //* Upate data  { ...data, [dataType]: newData }
           [dataType]: await getLocalData(
             'eps', //* Key
-            fetchIncomeStatement, //* func
+            'fetchIncomeStatement', //* func
             [false, dataType], //* args
             `eps${dataType}` //* save as
           )

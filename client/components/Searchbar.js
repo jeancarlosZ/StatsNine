@@ -20,21 +20,16 @@ export default function Searchbar() {
     // This function closes the search query box if a mouseclick occurs outside search bar and search query box.
     async function handleClickOutside(event) {
       try {
-        if (searchRef.current && !searchRef.current.contains(event.target)) {
-          setOpen(false)
-        }
+        if (searchRef.current && !searchRef.current.contains(event.target)) setOpen(false)
       } catch (err) {
         console.log(err)
       }
     }
 
-    if (open) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    //* If the menu is open add the listener
+    if (open) document.addEventListener('mousedown', handleClickOutside)
+    //* When component unmounts, remove the listener
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [searchRef, open])
 
   useEffect(() => {
@@ -93,7 +88,7 @@ export default function Searchbar() {
           Clear
         </label>
         <input
-          className="top-search-input"
+          className="top-search-input cpointer"
           placeholder="Search by Symbol"
           onKeyDown={event => attemptSearch(event)}
           onChange={event => handleChange(event)}

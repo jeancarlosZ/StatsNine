@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { fetchStockProfile } from '../../api/api'
 import { getLocalData } from '../../store/local/localActions'
 import Loading from '../Loading'
 import Subheader from '../Subheader'
@@ -19,7 +18,7 @@ export default function Overviewpage() {
       //* Fetch data from API
       const { description, companyName } = await getLocalData(
         ['description', 'companyName'],
-        fetchStockProfile,
+        'fetchStockProfile',
         [],
         ['description', 'companyName']
       )

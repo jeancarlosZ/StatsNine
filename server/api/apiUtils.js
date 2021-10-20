@@ -333,7 +333,7 @@ function getDataRange(dataRange) {
   //* of the data range (so we can only return.. the range)
   const getEndDate = (current, dataRange) => {
     const endDate = new Date()
-    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 7)
+    if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 9)
     if (dataRange === MONTH) return endDate.setMonth(endDate.getMonth() - 1)
     if (dataRange === THREE_MONTH) return endDate.setMonth(endDate.getMonth() - 3)
     if (dataRange === SIX_MONTH) return endDate.setMonth(endDate.getMonth() - 6)
@@ -364,7 +364,26 @@ function formatDate(date, years = false) {
 
 const blackList = {
   BTC: true,
-  'QBTC.TO': true
+  'QBTC.TO': true,
+  FOREX: true,
+  MUTUAL_FUND: true,
+  CRYPTO: true,
+  BLTS: true,
+  BLTSU: true,
+  BLTSW: true,
+  SSPGX: true,
+  ASPCW: true,
+  POWRW: true,
+  HCICW: true,
+  SWETW: true,
+  TBCPW: true,
+  ZWRKW: true,
+  AUUDW: true,
+  ENFAW: true,
+  SDVGX: true,
+  GTPBW: true,
+  SRNGW: true,
+  MXAPX: true
 }
 
 //* Remove blacklisted stocks from the queue/return
@@ -419,6 +438,7 @@ module.exports = {
   fetchSearchQuery,
   fetchStockNews,
   fetchScreenerStocks,
+  removeBlackList,
   MINUTE,
   FIVE_MINUTE,
   FIFTEEN_MINUTE,
