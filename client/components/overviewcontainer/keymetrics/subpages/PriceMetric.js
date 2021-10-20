@@ -82,7 +82,7 @@ function getPriceOverview(results, data) {
           </p>
         </div>
         <div className="previewcontainer">
-          {getDataPreview(data ? data.priceEarningsRatio : null)}
+          {/* {getDataPreview(data ? data.priceEarningsRatio : null)} */}
         </div>
       </div>
       <div className="metric">
@@ -100,7 +100,7 @@ function getPriceOverview(results, data) {
           </p>
         </div>
         <div className="previewcontainer">
-          {getDataPreview(data ? data.priceToFreeCashFlowsRatio : null)}
+          {/* {getDataPreview(data ? data.priceToFreeCashFlowsRatio : null)} */}
         </div>
       </div>
       <div className="metric-spacer"></div>
