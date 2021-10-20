@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
-export function FinButtons({ handleButtonClick, label, buttons = true }) {
+export function FinButtons({
+  handleButtonClick,
+  label,
+  buttons = true,
+  colors = true,
+}) {
   const [selected, setSelected] = useState('annual');
 
   return (
     <div className="fin-button-container">
       <label>{label}</label>
-      {getButtons(selected, setSelected, handleButtonClick, buttons)}
+      {getButtons(selected, setSelected, handleButtonClick, buttons, colors)}
     </div>
   );
 }
 
-function getButtons(selected, setSelected, handleButtonClick, buttons) {
-  if (!buttons) return <></>;
+function getButtons(selected, setSelected, handleButtonClick, buttons, colors) {
+  if (!buttons && !colors) return <></>;
+  if (!buttons)
+    return (
+      <>
+        <div className="legend-wrapper">
+          <div>Annual</div>
+          <div className="color-one"></div>
+          <div>Quarter</div>
+          <div className="color-two"></div>
+        </div>
+      </>
+    );
   return (
-    <div>
+    <div className="button-pos">
       <button
         className={selected === 'annual' ? `fin-selected` : ''}
         onClick={() => {

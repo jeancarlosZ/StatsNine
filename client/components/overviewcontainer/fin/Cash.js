@@ -151,8 +151,8 @@ export default function Cash() {
     values: chartData,
     cKeys: keys,
     fill: 'tozeroy',
-    color: 'rgba(252, 176, 126, .2)',
-    fillcolor: 'rgba(252, 176, 126, .7)',
+    color: 'rgba(32, 164, 243, .2)',
+    fillcolor: 'rgba(32, 164, 243, .7)',
     // outline: 'rgba(44, 221, 155, .4)',
   });
 
@@ -163,8 +163,8 @@ export default function Cash() {
     values: chartDataQtr,
     cKeys: keysQtr,
     fill: 'tozeroy',
-    color: 'rgba(53, 129, 184, .4)',
-    fillcolor: 'rgba(53, 129, 184, .9)',
+    color: 'rgba(148, 28, 47, .4)',
+    fillcolor: 'rgba(148, 28, 47, .9)',
     // outline: 'rgba(39, 91, 232, .1)',
   });
   // dataset.push({

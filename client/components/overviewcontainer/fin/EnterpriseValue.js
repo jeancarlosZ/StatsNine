@@ -24,8 +24,8 @@ export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
     'EnterpriseValue',
-    'rgba(142, 65, 98, 1)',
-    'rgba(142, 65, 98, .8)',
+    'rgba249, 200, 70, 1)',
+    'rgba(249, 200, 70, .8)',
   ]);
   const [chartDatatype, setChartDatatype] = useState('annual');
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
@@ -192,6 +192,7 @@ export default function EnterpriseValue() {
               handleButtonClick={handleChartButtonClick}
               label={label}
               buttons={false}
+              colors={false}
             />
             <UniversalChart
               className="income-chart fin-chart"
