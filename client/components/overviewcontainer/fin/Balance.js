@@ -1,32 +1,19 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import UniversalChart from '../../UniversalChart';
-import FinTable from './FinTable';
-import { fetchBalanceStatement, fetchStockProfile } from '../../../api/api';
+import React, { useEffect, useState } from 'react';
 import { getLocalData } from '../../../store/local/localActions';
-import {
-  balanceTableLabels,
-  balanceIndentifiers,
-  getQtrIndentifers,
-} from './finTableLabels';
+import UniversalChart from '../../UniversalChart';
 import CompanyInfo from './CompanyInfo';
 import { FinButtons } from './FinButtons';
+import FinTable from './FinTable';
+import {
+  balanceIndentifiers,
+  balanceTableLabels,
+  getQtrIndentifers,
+} from './finTableLabels';
 import {
   formatDates,
-  returnUnformatedData,
   processUnformattedData,
+  returnUnformatedData,
 } from './finUtils';
-
-=======
-import React, { useEffect, useState } from 'react'
-import { getLocalData } from '../../../store/local/localActions'
-import UniversalChart from '../../UniversalChart'
-import CompanyInfo from './CompanyInfo'
-import { FinButtons } from './FinButtons'
-import FinTable from './FinTable'
-import { balanceIndentifiers, balanceTableLabels, getQtrIndentifers } from './finTableLabels'
-import { formatDates, processUnformattedData, returnUnformatedData } from './finUtils'
->>>>>>> master
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
