@@ -143,7 +143,7 @@ function IndividualNews({ data }) {
 
   return (
     <div className="news-item slide-loading cpointer">
-      <img src={image} alt={symbol} />
+      <img src={image ? image : './images/defaultnews.jpg'} alt={symbol} />
       <div className="news-content" onClick={() => setOpen(!open)}>
         <label>{title}</label>
         {open ? <></> : <label className="view cpointer">Click to expand!</label>}
