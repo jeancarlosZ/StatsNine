@@ -4,7 +4,9 @@
 
 * {
   /** Financials view height and width */
-  --financialsViewHeight: calc(100vh - (var(--mainHeaderHeight) + var(--subHeaderHeight)));
+  --financialsViewHeight: calc(
+    100vh - (var(--mainHeaderHeight) + var(--subHeaderHeight))
+  );
   --financialsViewWidth: 100vw;
 
   /** Financials view margins */
@@ -12,8 +14,12 @@
   --financialsViewMargins: calc(var(--financialsViewMargin) * 2);
 
   /** Financials main container */
-  --financialsContainerHeight: calc(var(--financialsViewHeight) - var(--financialsViewMargins));
-  --financialsContainerWidth: calc(var(--financialsViewWidth) - var(--financialsViewMargins));
+  --financialsContainerHeight: calc(
+    var(--financialsViewHeight) - var(--financialsViewMargins)
+  );
+  --financialsContainerWidth: calc(
+    var(--financialsViewWidth) - var(--financialsViewMargins)
+  );
 
   /** Financials border radius */
   --financialsBorderRadius: 30px;
@@ -22,7 +28,9 @@
   --financialsNavBarHeight: calc(var(--financialsContainerHeight) / 22);
 
   /** Financials page under nav bar height and width */
-  --financialsPageHeight: calc(var(--financialsContainerHeight) - var(--financialsNavBarHeight));
+  --financialsPageHeight: calc(
+    var(--financialsContainerHeight) - var(--financialsNavBarHeight)
+  );
   --financialsPageWidth: var(--financialsContainerWidth);
 
   /** Financials padding for the page */
@@ -30,11 +38,17 @@
   --financialsPagePaddings: calc(var(--financialsPagePadding) * 2);
 
   /** Financials padded page height and width */
-  --financialsPaddedPageHeight: calc(var(--financialsPageHeight) - var(--financialsPagePaddings));
-  --financialsPaddedPageWidth: calc(var(--financialsPageWidth) - var(--financialsPagePaddings));
+  --financialsPaddedPageHeight: calc(
+    var(--financialsPageHeight) - var(--financialsPagePaddings)
+  );
+  --financialsPaddedPageWidth: calc(
+    var(--financialsPageWidth) - var(--financialsPagePaddings)
+  );
 
   /** Financials top portion of page */
-  --financialsCompanyChartHeight: calc(var(--financialsPaddedPageHeight) / 2.25);
+  --financialsCompanyChartHeight: calc(
+    var(--financialsPaddedPageHeight) / 2.25
+  );
   /* --financialsCompanyChartWidth: calc(
     var(--financialsPaddedPageWidth) - var(--financialsPageMargins)
   ); */

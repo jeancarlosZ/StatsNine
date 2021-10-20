@@ -54,6 +54,7 @@
 }
 .fin-col:hover {
   background-color: rgba(233, 78, 78, 0.5);
+  cursor: pointer;
 }
 .fin-row {
   height: 50px;

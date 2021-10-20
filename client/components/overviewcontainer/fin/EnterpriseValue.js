@@ -24,8 +24,8 @@ export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'enterpriseValue',
     'EnterpriseValue',
-    'rgba(24, 144, 255, 1)',
-    'rgba(24, 144, 255, .3)',
+    'rgba(142, 65, 98, 1)',
+    'rgba(142, 65, 98, .8)',
   ]);
   const [chartDatatype, setChartDatatype] = useState('annual');
   const [enterpriseInfo, setEnterpriseInfo] = useState({});

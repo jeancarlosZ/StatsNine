@@ -25,10 +25,10 @@ export default function Cash() {
   const [selectedAttribute, setSelectedAttribute] = useState([
     'freeCashFlow',
     'Free Cash Flow',
-    'rgba(232, 91, 232, 1)',
-    'rgba(232, 91, 232, .3)',
+    // 'rgba(232, 91, 232, 1)',
+    // 'rgba(232, 91, 232, .3)',
   ]);
-  const [chartDatatype, setChartDatatype] = useState('annual');
+  // const [chartDatatype, setChartDatatype] = useState('annual');
   const [cashflowInfo, setCashflowInfo] = useState({});
   const [cashflowQtr, setCashflowQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -103,9 +103,9 @@ export default function Cash() {
   }
 
   //A handler function being passed down to the buttons that will affect the local state of this component
-  function handleChartButtonClick(dataType) {
-    setChartDatatype(dataType);
-  }
+  // function handleChartButtonClick(dataType) {
+  //   setChartDatatype(dataType);
+  // }
   //**------------------------------------------------------------------------------------------------ */
   //CHART DATA
   //**------------------------------------------------------------------------------------------------ */
@@ -119,31 +119,64 @@ export default function Cash() {
   let chartData = [];
   let keys = [];
 
+  let chartDataQtr = [];
+  let keysQtr = [];
   if (Object.keys(cashflowQtr).length && Object.keys(cashflowInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
+    // chartData =
+    //   chartDatatype === 'quarter'
+    //     ? cashflowQtr[attribute].values
+    //     : cashflowInfo[attribute].values;
+    // //The keys taken from he fetch are the dates
+    // keys =
+    //   chartDatatype === 'quarter'
+    //     ? cashflowQtr[attribute].keys
+    //     : cashflowInfo[attribute].keys;
 
-    chartData =
-      chartDatatype === 'quarter'
-        ? cashflowQtr[attribute].values
-        : cashflowInfo[attribute].values;
-    //The keys taken from he fetch are the dates
-    keys =
-      chartDatatype === 'quarter'
-        ? cashflowQtr[attribute].keys
-        : cashflowInfo[attribute].keys;
+    chartData = cashflowInfo[attribute].values;
+    chartDataQtr = cashflowQtr[attribute].values;
+
+    keys = cashflowInfo[attribute].keys;
+    keysQtr = cashflowQtr[attribute].keys;
   }
 
   const dataset = [];
 
+  chartDataQtr = chartDataQtr.slice(0, chartDataQtr.length - 2);
+
   dataset.push({
     name: label,
-    type: 'scatter',
-    color: color,
-    // outline: outline,
-    fillcolor: outline,
-    fill: 'tonexty',
+    type: 'line',
+    stroke: '0.5',
     values: chartData,
+    cKeys: keys,
+    fill: 'tozeroy',
+    color: 'rgba(252, 176, 126, .2)',
+    fillcolor: 'rgba(252, 176, 126, .7)',
+    // outline: 'rgba(44, 221, 155, .4)',
   });
+
+  dataset.push({
+    name: label,
+    type: 'line',
+    stroke: '0.5',
+    values: chartDataQtr,
+    cKeys: keysQtr,
+    fill: 'tozeroy',
+    color: 'rgba(53, 129, 184, .4)',
+    fillcolor: 'rgba(53, 129, 184, .9)',
+    // outline: 'rgba(39, 91, 232, .1)',
+  });
+  // dataset.push({
+  //   name: label,
+  //   type: 'line',
+  //   stroke: '0.5',
+  //   color: color,
+  //   values: chartData,
+  //   // outline: outline,
+  //   fillcolor: outline,
+  //   fill: 'tozeroy',
+  // });
 
   //**------------------------------------------------------------------------------------------------ */
   //TABLE DATA
@@ -190,13 +223,14 @@ export default function Cash() {
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
             <FinButtons
-              handleButtonClick={handleChartButtonClick}
+              // handleButtonClick={handleChartButtonClick}
               label={label}
+              buttons={false}
             />
             <UniversalChart
               className="income-chart fin-chart"
               // title={label}
-              keys={keys}
+              keys={keysQtr}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
               plotBackgroundColor="rgba(30, 34, 45, 0)"
               dataset={dataset}
