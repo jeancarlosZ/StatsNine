@@ -15,3 +15,4 @@ client/api/TestPage.js
 c1e38fd9e0e74ba58f7a.svg
 f691f37e57f04c152e23.woff
 client/api/api-key.js
+server/api/api-key.js
