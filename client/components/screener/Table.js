@@ -7,7 +7,7 @@ import Row from "./Row";
 
 //* This is the screener
 export default function Table() {
-  const [stockList, setStockList] = useState([]);
+  const [sortBy, setSortBy] = useState({ criteria: "", ascending: false });
   const [stocksMap, setStocksMap] = useState({});
   const [loaded, setLoaded] = useState(false);
 
@@ -43,8 +43,8 @@ export default function Table() {
           <div className="screen-table-container">
             <SimpleBar className="screener-scroll shadow-deep-nohover">
               <table className="screen-table">
-                <thead>{getTableHead(stocksMap)}</thead>
-                <tbody>{getTableBody(stocksMap)}</tbody>
+                <thead>{getTableHead(stocksMap, sortBy, setSortBy)}</thead>
+                <tbody>{getTableBody(stocksMap, sortBy)}</tbody>
               </table>
             </SimpleBar>
           </div>
@@ -54,22 +54,50 @@ export default function Table() {
   );
 }
 
+function sorting(data, increasing) {
+  if (increasing) {
+    return data.sort((a, b) => {
+      if (a.value > b.value) {
+        return 1;
+      }
+      if (a.value < b.value) {
+        return -1;
+      }
+      return 0;
+    });
+  } else {
+    return data.sort((a, b) => {
+      if (b.value > a.value) {
+        return 1;
+      }
+      if (b.value < a.value) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+}
+
 //* Function to get the table body
-function getTableBody(stocksList) {
+function getTableBody(stocksList, sortBy) {
   // if (stocksList.length) {
   if (Object.keys(stocksList).length) {
     // return stocksList.map((stock, i) => <Row key={stock.symbol} stock={stock} index={i} />)
-    return Object.keys(stocksList)
-      .sort((a, b) => {
-        if (a < b) {
-          return -1;
-        } else if (a > b) {
-          return 1;
-        } else {
-          return 0;
-        }
-      })
-      .map((stock, i) => <Row key={stock} stock={stocksList[stock]} index={i} />);
+
+    if (sortBy.criteria) {
+      const symbolValue = Object.values(stocksList).map(stock => ({
+        symbol: stock.symbol,
+        value: stock[sortBy.criteria],
+      }));
+      const sortedList = sorting(symbolValue, sortBy.ascending);
+      return sortedList.map((stock, i) => (
+        <Row key={stock.symbol} stock={stocksList[stock.symbol]} index={i} />
+      ));
+    } else {
+      return Object.keys(stocksList).map((stock, i) => (
+        <Row key={stock} stock={stocksList[stock]} index={i} />
+      ));
+    }
   } else {
     return (
       <tr>
@@ -80,12 +108,19 @@ function getTableBody(stocksList) {
 }
 
 //* Function to get table headers
-function getTableHead(stocksList) {
+function getTableHead(stocksList, sortBy, setSortBy) {
   // if (stocksList.length) {
   if (Object.keys(stocksList).length) {
     return (
       <tr>
-        <th className="screen-border-h">Symbol and Name</th>
+        <th
+          className="screen-border-h"
+          onClick={() => {
+            setSortBy({ criteria: "symbol", ascending: !sortBy.ascending });
+          }}
+        >
+          Symbol and Name
+        </th>
         <th className="screen-border-h">Price</th>
         <th className="screen-border-h">Change</th>
         <th className="screen-border-h">Earnings</th>
