@@ -110,25 +110,40 @@ function getTableBody(stocksList, sortBy) {
 //* Function to get table headers
 function getTableHead(stocksList, sortBy, setSortBy) {
   // if (stocksList.length) {
+
+  function toSort(criteria) {
+    setSortBy({
+      criteria,
+      ascending: !sortBy.ascending,
+    });
+  }
+
   if (Object.keys(stocksList).length) {
     return (
       <tr>
-        <th
-          className="screen-border-h"
-          onClick={() => {
-            setSortBy({ criteria: "symbol", ascending: !sortBy.ascending });
-          }}
-        >
+        <th className="screen-border-h" onClick={() => toSort("symbol")}>
           Symbol and Name
         </th>
-        <th className="screen-border-h">Price</th>
-        <th className="screen-border-h">Change</th>
-        <th className="screen-border-h">Earnings</th>
-        <th className="screen-border-h">52 Week</th>
-        <th className="screen-border-h">Other</th>
+        <th className="screen-border-h" onClick={() => toSort("price")}>
+          Price
+        </th>
+        <th className="screen-border-h" onClick={() => toSort("change")}>
+          Change
+        </th>
+        <th className="screen-border-h" onClick={() => toSort("pe")}>
+          Earnings
+        </th>
+        <th className="screen-border-h" onClick={() => toSort("yearHigh")}>
+          52 Week
+        </th>
+        <th className="screen-border-h" onClick={() => toSort("marketCap")}>
+          Other
+        </th>
         {/* <th className="screen-border-h">Volume</th> */}
         {/* <th className="screen-border-h">Market Cap</th> */}
-        <th className="screen-border-h">Sector</th>
+        <th className="screen-border-h" onClick={() => toSort("sector")}>
+          Sector
+        </th>
       </tr>
     );
   } else {
