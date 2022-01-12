@@ -7,7 +7,7 @@ import Row from "./Row";
 
 //* This is the screener
 export default function Table() {
-  const [sortBy, setSortBy] = useState({ criteria: "", ascending: false });
+  const [sortBy, setSortBy] = useState({ criteria: "", order: "null" });
   const [stocksMap, setStocksMap] = useState({});
   const [loaded, setLoaded] = useState(false);
 
@@ -54,8 +54,8 @@ export default function Table() {
   );
 }
 
-function sorting(data, increasing) {
-  if (increasing) {
+function sorting(data, order) {
+  if (order === "ascending") {
     return data.sort((a, b) => {
       if (a.value > b.value) {
         return 1;
@@ -89,7 +89,7 @@ function getTableBody(stocksList, sortBy) {
         symbol: stock.symbol,
         value: stock[sortBy.criteria],
       }));
-      const sortedList = sorting(symbolValue, sortBy.ascending);
+      const sortedList = sorting(symbolValue, sortBy.order);
       return sortedList.map((stock, i) => (
         <Row key={stock.symbol} stock={stocksList[stock.symbol]} index={i} />
       ));
@@ -110,11 +110,36 @@ function getTableBody(stocksList, sortBy) {
 //* Function to get table headers
 function getTableHead(stocksList, sortBy, setSortBy) {
   // if (stocksList.length) {
+  const crit = sortBy.criteria;
+  const ord = sortBy.order;
+  const symbolName =
+    crit !== "symbol"
+      ? "Symbol and Name"
+      : ord === "ascending"
+      ? "Symbol and Name ⬆︎"
+      : "Symbol and Name ⬇︎";
+  const price = crit !== "price" ? "Price" : ord === "ascending" ? "Price ⬇︎" : "Price ⬆︎";
+  const change = crit !== "change" ? "Change" : ord === "ascending" ? "Change ⬇︎" : "Change ⬆︎";
+  const earnings = crit !== "pe" ? "Earnings" : ord === "ascending" ? "Earnings ⬇︎" : "Earnings ⬆︎";
+  const fiftyTwo =
+    crit !== "yearHigh" ? "52 Week" : ord === "ascending" ? "52 Week ⬇︎" : "52 Week ⬆︎";
+  const other = crit !== "marketCap" ? "Other" : ord === "ascending" ? "Other ⬇︎" : "Other ⬆︎";
+  const sector = crit !== "sector" ? "Sector" : ord === "ascending" ? "Sector ⬇︎" : "Sector ⬆︎";
 
   function toSort(criteria) {
+    function direction(sortBy) {
+      const upOrDown = sortBy.order;
+      switch (upOrDown) {
+        case "ascending":
+          return "descending";
+        default:
+          return "ascending";
+      }
+    }
+
     setSortBy({
       criteria,
-      ascending: !sortBy.ascending,
+      order: direction(sortBy),
     });
   }
 
@@ -122,27 +147,27 @@ function getTableHead(stocksList, sortBy, setSortBy) {
     return (
       <tr>
         <th className="screen-border-h" onClick={() => toSort("symbol")}>
-          Symbol and Name
+          {symbolName}
         </th>
         <th className="screen-border-h" onClick={() => toSort("price")}>
-          Price
+          {price}
         </th>
         <th className="screen-border-h" onClick={() => toSort("change")}>
-          Change
+          {change}
         </th>
         <th className="screen-border-h" onClick={() => toSort("pe")}>
-          Earnings
+          {earnings}
         </th>
         <th className="screen-border-h" onClick={() => toSort("yearHigh")}>
-          52 Week
+          {fiftyTwo}
         </th>
         <th className="screen-border-h" onClick={() => toSort("marketCap")}>
-          Other
+          {other}
         </th>
         {/* <th className="screen-border-h">Volume</th> */}
         {/* <th className="screen-border-h">Market Cap</th> */}
         <th className="screen-border-h" onClick={() => toSort("sector")}>
-          Sector
+          {sector}
         </th>
       </tr>
     );
