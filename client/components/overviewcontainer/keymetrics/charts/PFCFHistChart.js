@@ -1,14 +1,14 @@
-import React from 'react'
-import UniversalChart from '../../../UniversalChart'
+import React from "react";
+import UniversalChart from "../../../UniversalChart";
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
 export default function PFCFHistChart({ data }) {
   //* Get the keys and values from the data
-  const { keys, values } = data ? data : {}
+  const { keys, values } = data ? data : {};
 
   //* Create our dataset
-  const dataset = []
+  const dataset = [];
 
   //* We must wait until our values are populated before
   //* attempting to make the 'traces' or 'sets'
@@ -16,15 +16,14 @@ export default function PFCFHistChart({ data }) {
     //* Now we must fill our dataset with some 'traces' or 'sets' of data
     //* In this case I am going to make a chart to display the net income
     dataset.push({
-      name: 'PFCF Ratio',
-      type: 'line',
-      color: 'rgba(169, 0, 254, 0.6)',
-      outline: 'rgba(169, 0, 254, 0.8)',
+      name: "PFCF Ratio",
+      type: "line",
+      color: "rgba(169, 0, 254, 0.6)",
+      outline: "rgba(169, 0, 254, 0.8)",
       //* Since our VALUES array contains many different values, we must select
       //* one VALUE per 'trace' or 'set' to display.
-      // values: values.map(x => x.eps)
-      values: values
-    })
+      values: values,
+    });
   }
 
   //* Return the chart
@@ -47,5 +46,5 @@ export default function PFCFHistChart({ data }) {
         />
       </div>
     </>
-  )
+  );
 }

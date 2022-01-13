@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import { getLocalData } from '../../../../store/local/localActions'
-import UniversalChart from '../../../UniversalChart'
+import React, { useEffect, useState } from "react";
+import { getLocalData } from "../../../../store/local/localActions";
+import UniversalChart from "../../../UniversalChart";
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
 export default function SharesOustandingChart() {
-  const [data, setData] = useState({})
-  const [dataType, setDataType] = useState('annual')
-  const [update, setUpdate] = useState(true)
+  const [data, setData] = useState({});
+  const [dataType, setDataType] = useState("annual");
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
     async function getData() {
       if (update) {
         //* Load the shares data
         const numberOfShares = await getLocalData(
-          'numberOfShares',
-          'fetchEnterpriseValue',
+          "numberOfShares",
+          "fetchEnterpriseValue",
           [dataType],
-          `shares${dataType}`
-        )
+          `shares${dataType}`,
+        );
         //* Set the data, set update to false
-        setData({ ...data, [dataType]: numberOfShares })
-        setUpdate(false)
+        setData({ ...data, [dataType]: numberOfShares });
+        setUpdate(false);
       }
     }
-    getData()
-  }, [update])
+    getData();
+  }, [update]);
 
   //* Get the keys and values from the data
-  const { keys, values } = !data[dataType] ? {} : data[dataType]
+  const { keys, values } = !data[dataType] ? {} : data[dataType];
 
   //* Create our dataset
-  const dataset = []
+  const dataset = [];
 
   //* We must wait until our values are populated before
   //* attempting to make the 'traces' or 'sets'
@@ -40,13 +40,11 @@ export default function SharesOustandingChart() {
     //* In this case I am going to make a chart to display the net income
     dataset.push({
       name: name,
-      type: 'bar',
-      // color: 'rgba(44, 221, 155, 0.3)',
-      // outline: 'rgba(44, 221, 155, 0.6)',
-      color: 'rgba(43, 186, 255, 0.3)',
-      outline: 'rgba(43, 186, 255, 0.6)',
-      values: values
-    })
+      type: "bar",
+      color: "rgba(43, 186, 255, 0.3)",
+      outline: "rgba(43, 186, 255, 0.6)",
+      values: values,
+    });
   }
 
   //* Change the series and update the data
@@ -54,9 +52,9 @@ export default function SharesOustandingChart() {
     //* If datatype clicked is not data type selected
     if (dataType !== newType) {
       //* Switch the data type
-      setDataType(newType)
+      setDataType(newType);
       //* If that datatype is not loaded, update required
-      if (!data[newType]) setUpdate(true)
+      if (!data[newType]) setUpdate(true);
     }
   }
 
@@ -67,14 +65,14 @@ export default function SharesOustandingChart() {
         <label>Shares Outstanding</label>
         <div className="selectors">
           <button
-            className={dataType === 'quarter' ? 'selected' : ''}
-            onClick={() => updateDataType('quarter')}
+            className={dataType === "quarter" ? "selected" : ""}
+            onClick={() => updateDataType("quarter")}
           >
             Quarterly
           </button>
           <button
-            className={dataType === 'annual' ? 'selected' : ''}
-            onClick={() => updateDataType('annual')}
+            className={dataType === "annual" ? "selected" : ""}
+            onClick={() => updateDataType("annual")}
           >
             Annual
           </button>
@@ -94,5 +92,5 @@ export default function SharesOustandingChart() {
         />
       </div>
     </div>
-  )
+  );
 }
