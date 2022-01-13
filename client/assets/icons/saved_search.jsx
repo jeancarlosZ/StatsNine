@@ -1,13 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function Saved_search(props) {
-  const fill = props.fill || 'currentColor'
-  const secondaryfill = props.secondaryfill || fill
-  const strokewidth = props.strokewidth || 1
-  const width = props.width || '100%'
-  const height = props.height || '100%'
-  const title = props.title || 'saved search'
-  const className = props.className || 'jsxIcon'
+  const fill = props.fill || "currentColor";
+  const width = props.width || "100%";
+  const height = props.height || "100%";
+  const title = props.title || "saved search";
+  const className = props.className || "jsxIcon";
 
   return (
     <svg
@@ -25,7 +23,7 @@ function Saved_search(props) {
         />
       </g>
     </svg>
-  )
+  );
 }
 
-export default Saved_search
+export default Saved_search;

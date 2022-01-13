@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
 
 function Star(props) {
-  const fill = props.fill || 'currentColor'
-  const secondaryfill = props.secondaryfill || fill
-  const strokewidth = props.strokewidth || 1
-  const width = props.width || '100%'
-  const height = props.height || '100%'
-  const title = props.title || 'star'
-  const className = props.className || 'jsxIcon'
+  const fill = props.fill || "currentColor";
+  const secondaryfill = props.secondaryfill || fill;
+  const width = props.width || "100%";
+  const height = props.height || "100%";
+  const title = props.title || "star";
+  const className = props.className || "jsxIcon";
 
   return (
     <svg
@@ -30,7 +29,7 @@ function Star(props) {
         />
       </g>
     </svg>
-  )
+  );
 }
 
-export default Star
+export default Star;
