@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Collapse, DropdownButton } from 'react-bootstrap'
-import Dropdown from 'react-bootstrap/Dropdown'
-import DatePicker, { utils } from 'react-modern-calendar-datepicker'
-import { Link } from 'react-router-dom'
-import SimpleBar from 'simplebar-react'
-import 'simplebar/dist/simplebar.min.css'
-import UniversalChart from '../components/UniversalChart'
-import { getLocalData } from '../store/local/localActions'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React, { useEffect, useState } from "react";
+import { Collapse, DropdownButton } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
+import DatePicker, { utils } from "react-modern-calendar-datepicker";
+import { Link } from "react-router-dom";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+import UniversalChart from "../components/UniversalChart";
+import { getLocalData } from "../store/local/localActions";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   ALL,
   DAILY,
@@ -19,10 +19,8 @@ import {
   TEN_YEAR,
   THREE_MONTH,
   WEEK,
-  YEAR
-} from './api'
-// import DatePicker from 'react-modern-calendar-datepicker'
-// import { utils } from 'react-modern-calendar-datepicker'
+  YEAR,
+} from "./api";
 
 export default function APITestPage() {
   return (
@@ -43,40 +41,39 @@ export default function APITestPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 //* Stock news component for the home page
 function StockNews() {
-  const [data, setData] = useState([])
-  const [selectedDay, setSelectedDay] = useState(null)
-  const [updated, setUpdated] = useState(false)
+  const [data, setData] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     async function getData() {
       const stockNews =
         selectedDay === null
           ? await fetchStockNews()
-          : await fetchStockNews(getNewsQuery(), 50, true)
+          : await fetchStockNews(getNewsQuery(), 50, true);
 
-      setData(stockNews.length > 50 ? stockNews.slice(-50) : stockNews)
-      setUpdated(true)
+      setData(stockNews.length > 50 ? stockNews.slice(-50) : stockNews);
+      setUpdated(true);
     }
-    getData()
-  }, [selectedDay])
+    getData();
+  }, [selectedDay]);
 
   function getNewsQuery() {
-    if (!selectedDay) return ''
-    const { day, month, year } = selectedDay
-    const curr = `${year}-${month < 10 ? '0' + month : month}-`
-    const tmro = day + 1
-    return `from=${curr}${day < 10 ? '0' + day : day}&to=${curr}${tmro < 10 ? '0' + tmro : tmro}`
+    if (!selectedDay) return "";
+    const { day, month, year } = selectedDay;
+    const curr = `${year}-${month < 10 ? "0" + month : month}-`;
+    const tmro = day + 1;
+    return `from=${curr}${day < 10 ? "0" + day : day}&to=${curr}${tmro < 10 ? "0" + tmro : tmro}`;
   }
 
   function updateSelectedDay(day) {
-    setUpdated(false)
-    setSelectedDay(day)
-    console.log(day)
+    setUpdated(false);
+    setSelectedDay(day);
   }
 
   return (
@@ -91,7 +88,7 @@ function StockNews() {
         <SimpleBar className="news-scroll">{getNewsFeed(data, selectedDay, updated)}</SimpleBar>
       </div>
     </div>
-  )
+  );
 }
 
 function NewsDatePicker({ selectedDay, setSelectedDay }) {
@@ -113,44 +110,37 @@ function NewsDatePicker({ selectedDay, setSelectedDay }) {
         calendarRangeStartClassName="rcalendar"
         calendarRangeBetweenClassName="rbcalendar"
         calendarRangeEndClassName="recalendar"
-        // colorPrimary=""
-        // colorPrimaryLight=""
-        // renderInput={({ ref }) => {
-        // console.log(ref)
-        // }}
-        // inputPlaceholder="Select a date"
-        // formatInputText={formatInputValue}
       />
     </div>
-  )
+  );
 }
 // https://kiarash-z.github.io/react-modern-calendar-datepicker/docs/customization
 
 //* Helper function to map the news feed
 function getNewsFeed(data, selectedDay, updated) {
   if (data.length <= 0 && updated) {
-    toast.error('We were unable to find any news articles from that day!')
-    return <></>
+    toast.error("We were unable to find any news articles from that day!");
+    return <></>;
   }
-  if (updated && selectedDay) toast.success('News articles found!')
-  return data.map((x, i) => <IndividualNews key={i} data={x} />)
+  if (updated && selectedDay) toast.success("News articles found!");
+  return data.map((x, i) => <IndividualNews key={i} data={x} />);
 }
 
 function IndividualNews({ data }) {
-  if (!data) return <div>Loading...</div>
-  const [open, setOpen] = useState(false)
-  const { image, publishedDate, site, symbol, text, title, url } = data
+  if (!data) return <div>Loading...</div>;
+  const [open, setOpen] = useState(false);
+  const { image, publishedDate, site, symbol, text, title, url } = data;
 
   return (
     <div className="news-item slide-loading cpointer">
-      <img src={image ? image : './images/defaultnews.jpg'} alt={symbol} />
+      <img src={image ? image : "./images/defaultnews.jpg"} alt={symbol} />
       <div className="news-content" onClick={() => setOpen(!open)}>
         <label>{title}</label>
         {open ? <></> : <label className="view cpointer">Click to expand!</label>}
         <Collapse in={open}>
           <div className="news-content-full cpointer">
-            {getLabelText('Publisher:', site)}
-            {getLabelText('Published:', publishedDate)}
+            {getLabelText("Publisher:", site)}
+            {getLabelText("Published:", publishedDate)}
             <div className="fulltext">{text}</div>
             <Link to={{ pathname: url }} target="_blank">
               <div className="redirect cpointer">
@@ -161,7 +151,7 @@ function IndividualNews({ data }) {
         </Collapse>
       </div>
     </div>
-  )
+  );
 }
 
 //* Get the label text pairs
@@ -171,18 +161,18 @@ function getLabelText(label, text) {
       <label>{label}</label>
       <span>{text}</span>
     </div>
-  )
+  );
 }
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
 function DashboardPriceChart() {
   //* Selected Range, series, and the chart data
-  const [range, setRange] = useState(FIVE_YEAR)
-  const [series, setSeries] = useState(DAILY)
-  const [data, setData] = useState({})
+  const [range, setRange] = useState(FIVE_YEAR);
+  const [series, setSeries] = useState(DAILY);
+  const [data, setData] = useState({});
   //* Do we need to update the data
-  const [update, setUpdate] = useState(true)
+  const [update, setUpdate] = useState(true);
 
   //* When the component is mounted we just need
   //* to load the data, and update the state.
@@ -194,25 +184,25 @@ function DashboardPriceChart() {
         setData({
           ...data, //* Upate data  { ...data, [range]: newData }
           [range]: await getLocalData(
-            'close', //* key
-            'fetchChartPrice', //* func
+            "close", //* key
+            "fetchChartPrice", //* func
             [series, range], //* args
             `price${series}${range}`, //* saveas
-            'SPY'
-          )
-        })
-        setUpdate(false)
+            "SPY",
+          ),
+        });
+        setUpdate(false);
       }
     }
     //* Now you call the getData function
-    getData()
-  }, [series, range])
+    getData();
+  }, [series, range]);
 
   //* Get the keys and values from the data
-  const { keys, values } = !data[range] ? {} : data[range]
+  const { keys, values } = !data[range] ? {} : data[range];
 
   //* Create our dataset
-  const dataset = []
+  const dataset = [];
 
   //* We must wait until our values are populated before
   //* attempting to make the 'traces' or 'sets'
@@ -220,29 +210,29 @@ function DashboardPriceChart() {
     //* Now we must fill our dataset with some 'traces' or 'sets' of data
     //* In this case I am going to make a chart to display the net income
     dataset.push({
-      name: 'Stock Price',
-      type: 'line',
-      color: 'rgba(250, 173, 20, .8)',
-      outline: 'rgba(250, 173, 20, .8)',
-      fillcolor: 'rgba(250, 173, 20, .1)',
-      fill: 'tonexty',
-      values: values
-    })
+      name: "Stock Price",
+      type: "line",
+      color: "rgba(250, 173, 20, .8)",
+      outline: "rgba(250, 173, 20, .8)",
+      fillcolor: "rgba(250, 173, 20, .1)",
+      fill: "tonexty",
+      values: values,
+    });
   }
 
   //* Change the series and update the data
   function updateSeries(series, newSeries) {
     if (series !== newSeries) {
-      setSeries(newSeries)
-      setUpdate(true)
+      setSeries(newSeries);
+      setUpdate(true);
     }
   }
 
   //* Change the range and update the data
   function updateRange(range, newRange) {
     if (range !== newRange) {
-      setRange(newRange)
-      if (!data[newRange]) setUpdate(true)
+      setRange(newRange);
+      if (!data[newRange]) setUpdate(true);
     }
   }
 
@@ -264,11 +254,11 @@ function DashboardPriceChart() {
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           hoverdistance={50}
           hovermode="x"
-          xaxis={{ rangebreaks: [{ pattern: 'day of week', bounds: ['sat', 'mon'] }] }}
+          xaxis={{ rangebreaks: [{ pattern: "day of week", bounds: ["sat", "mon"] }] }}
         />
       </div>
     </>
-  )
+  );
 }
 
 //* Get the options/selector buttons
@@ -303,7 +293,7 @@ function getSelectors(series, range, updateSeries, updateRange) {
         <Dropdown.Item onClick={() => updateSeries(series, MINUTE)}>1 Minute</Dropdown.Item>
       </DropdownButton> */}
     </div>
-  )
+  );
 }
 
 function getScrollText() {
@@ -399,5 +389,5 @@ function getScrollText() {
         </div>
       </div>
     </>
-  )
+  );
 }
