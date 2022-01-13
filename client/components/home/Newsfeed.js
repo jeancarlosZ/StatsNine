@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { fetchStockNews } from '../../api/api';
-import '../../../public/styles/calendar2.css';
+import React, { useEffect, useState } from "react";
+import { fetchStockNews } from "../../api/api";
+import "../../../public/styles/calendar2.css";
 
 export default function Newsfeed() {
   const [stockNewsList, setStockNewsList] = useState([]);
 
   useEffect(() => {
     async function getStockNewsList() {
-      setStockNewsList(
-        await fetchStockNews(['AAPL', 'MSFT', 'GOOG', 'FB', 'NVDA'], 10)
-      );
+      setStockNewsList(await fetchStockNews(["AAPL", "MSFT", "GOOG", "FB", "NVDA"], 10));
     }
     getStockNewsList();
   }, []);
-
-  const { keys, values } = stockNewsList;
 
   return (
     <div className="text-white display-5 text-center position-relative">
@@ -28,12 +24,10 @@ export default function Newsfeed() {
                   key={company.publishedDate}
                   className="btn-group me-3 btn   btn-outline-success  rounded-pill shadow-lg text-white  "
                   type="button"
-                  style={{ opacity: '.77' }}>
+                  style={{ opacity: ".77" }}
+                >
                   <a href={company.url} className="text-white ">
-                    <img
-                      src={company.image}
-                      width="50"
-                      alt={company.symbol}></img>
+                    <img src={company.image} width="50" alt={company.symbol}></img>
 
                     {company.title}
                   </a>

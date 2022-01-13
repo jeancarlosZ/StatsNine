@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 export default function CalendarDays(props) {
-  const firstDayOfMonth = new Date(
-    props.day.getFullYear(),
-    props.day.getMonth(),
-    1
-  );
+  const firstDayOfMonth = new Date(props.day.getFullYear(), props.day.getMonth(), 1);
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
 
@@ -13,9 +9,7 @@ export default function CalendarDays(props) {
     if (day === 0 && weekdayOfFirstDay === 0) {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
     } else if (day === 0) {
-      firstDayOfMonth.setDate(
-        firstDayOfMonth.getDate() + (day - weekdayOfFirstDay)
-      );
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() + (day - weekdayOfFirstDay));
     } else {
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
     }
@@ -38,11 +32,12 @@ export default function CalendarDays(props) {
         <td
           key={idx}
           className={
-            'calendar-day' +
-            (day.currentMonth ? ' current' : '') +
-            (day.selected ? ' selected' : '')
+            "calendar-day" +
+            (day.currentMonth ? " current" : "") +
+            (day.selected ? " selected" : "")
           }
-          onClick={() => props.changeCurrentDay(day)}>
+          onClick={() => props.changeCurrentDay(day)}
+        >
           {day.number}
         </td>
       ))}
