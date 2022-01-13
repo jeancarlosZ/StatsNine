@@ -1,17 +1,17 @@
-import React from 'react'
-import { formatNumber, roundNumberDec } from '../../../utils'
+import React from "react";
+import { formatNumber, roundNumberDec } from "../../../utils";
 
 export default function CompanyInfo(props) {
   const {
-    symbol = '....',
-    companyName = 'Loading...',
+    symbol = "....",
+    companyName = "Loading...",
     image,
-    exchangeShortName = 'NASDAQ',
-    industry = 'Loading...',
-    sector = 'Loading...',
+    exchangeShortName = "NASDAQ",
+    industry = "Loading...",
+    sector = "Loading...",
     fullTimeEmployees = 99999,
-    price = 999.99
-  } = props.profile
+    price = 999.99,
+  } = props.profile;
 
   return (
     <div className="company-container">
@@ -25,17 +25,17 @@ export default function CompanyInfo(props) {
           <span className="bold price">{`$${roundNumberDec(price)}`}</span>
         </div>
         <div className="fin-otherinfo-container">
-          {getLabelText('Industry:', industry, 'industry fin-labeltext')}
-          {getLabelText('Sector:', sector, 'sector fin-labeltext')}
+          {getLabelText("Industry:", industry, "industry fin-labeltext")}
+          {getLabelText("Sector:", sector, "sector fin-labeltext")}
           {getLabelText(
-            'Employees:',
+            "Employees:",
             formatNumber(fullTimeEmployees, true),
-            'employees fin-labeltext'
+            "employees fin-labeltext",
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 //* Get label text
@@ -45,5 +45,5 @@ function getLabelText(label, text, classname) {
       <span className="fin-head">{label}</span>
       <span>{text}</span>
     </div>
-  )
+  );
 }

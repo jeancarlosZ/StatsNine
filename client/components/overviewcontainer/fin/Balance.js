@@ -1,30 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { getLocalData } from '../../../store/local/localActions';
-import UniversalChart from '../../UniversalChart';
-import CompanyInfo from './CompanyInfo';
-import { FinButtons } from './FinButtons';
-import FinTable from './FinTable';
-import {
-  balanceIndentifiers,
-  balanceTableLabels,
-  getQtrIndentifers,
-} from './finTableLabels';
-import {
-  formatDates,
-  processUnformattedData,
-  returnUnformatedData,
-} from './finUtils';
+import React, { useEffect, useState } from "react";
+import { getLocalData } from "../../../store/local/localActions";
+import UniversalChart from "../../UniversalChart";
+import CompanyInfo from "./CompanyInfo";
+import { FinButtons } from "./FinButtons";
+import FinTable from "./FinTable";
+import { balanceIndentifiers, balanceTableLabels, getQtrIndentifers } from "./finTableLabels";
+import { formatDates, processUnformattedData, returnUnformatedData } from "./finUtils";
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 export default function Balance() {
   const [selectedAttribute, setSelectedAttribute] = useState([
-    'totalAssets',
-    'Total Assets',
-    'rgba249, 200, 70, 1)',
-    'rgba(249, 200, 70, .8)',
+    "totalAssets",
+    "Total Assets",
+    "rgba249, 200, 70, 1)",
+    "rgba(249, 200, 70, .8)",
   ]);
-  const [chartDatatype, setChartDatatype] = useState('annual');
+  const [chartDatatype, setChartDatatype] = useState("annual");
   const [balanceInfo, setBalanceInfo] = useState({});
   const [balanceQtr, setBalanceQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -37,37 +29,37 @@ export default function Balance() {
         //here we are fetching only what we need from the income statement
         await getLocalData(
           [...balanceIndentifiers],
-          'fetchBalanceStatement',
-          [false, 'annual'],
-          [...balanceIndentifiers]
-        )
+          "fetchBalanceStatement",
+          [false, "annual"],
+          [...balanceIndentifiers],
+        ),
       );
       //here we are fetching the stock profile
       setProfile(
         await getLocalData(
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
           ],
-          'fetchStockProfile',
+          "fetchStockProfile",
           [],
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
-          ]
-        )
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
+          ],
+        ),
       );
     }
     getBalanceInfo();
@@ -81,10 +73,10 @@ export default function Balance() {
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
-          'fetchBalanceStatement',
-          [false, 'quarter'],
-          [...saveAs]
-        )
+          "fetchBalanceStatement",
+          [false, "quarter"],
+          [...saveAs],
+        ),
       );
     }
     getBalanceInfoQtr();
@@ -114,25 +106,20 @@ export default function Balance() {
   if (Object.keys(balanceQtr).length && Object.keys(balanceInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
     chartData =
-      chartDatatype === 'quarter'
-        ? balanceQtr[attribute].values
-        : balanceInfo[attribute].values;
+      chartDatatype === "quarter" ? balanceQtr[attribute].values : balanceInfo[attribute].values;
     //The keys taken from he fetch are the dates
-    keys =
-      chartDatatype === 'quarter'
-        ? balanceQtr[attribute].keys
-        : balanceInfo[attribute].keys;
+    keys = chartDatatype === "quarter" ? balanceQtr[attribute].keys : balanceInfo[attribute].keys;
   }
 
   const dataset = [];
 
   dataset.push({
     name: label,
-    type: 'scatter',
+    type: "scatter",
     color: color,
     // outline: outline,
     fillcolor: outline,
-    fill: 'tonexty',
+    fill: "tonexty",
     values: chartData,
   });
 
@@ -154,9 +141,7 @@ export default function Balance() {
     unformatedData = returnUnformatedData(balanceInfo, balanceIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const tabledates = Object.keys(balanceInfo).length
-    ? formatDates(rawDates)
-    : [];
+  const tabledates = Object.keys(balanceInfo).length ? formatDates(rawDates) : [];
 
   //Here i'm sending the unformatedData off to be processed
   const { yearlyChanges, rows } = processUnformattedData(unformatedData);
@@ -178,10 +163,7 @@ export default function Balance() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
-            <FinButtons
-              handleButtonClick={handleChartButtonClick}
-              label={label}
-            />
+            <FinButtons handleButtonClick={handleChartButtonClick} label={label} />
             <UniversalChart
               className="income-chart fin-chart"
               // title={label}
