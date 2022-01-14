@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { getTickerResults, GOOD } from '../../../../store/local/localActions'
+import React, { useEffect, useState } from "react";
+import { getTickerResults, GOOD } from "../../../../store/local/localActions";
 import {
   formatNumber,
   getDifferenceBetween,
   getPercentDifference,
   roundNumberDec,
-  trimDate
-} from '../../../../utils'
-import AssetsVsLiabilities from '../charts/AssetsVsLiabilities'
-import SimplePie from '../charts/SimplePie'
-import MetricSelector from '../MetricSelector'
-import { getMetricItem, getTableDatas } from './UtilMetrics'
+  trimDate,
+} from "../../../../utils";
+import AssetsVsLiabilities from "../charts/AssetsVsLiabilities";
+import SimplePie from "../charts/SimplePie";
+import MetricSelector from "../MetricSelector";
+import { getMetricItem, getTableDatas } from "./UtilMetrics";
 
 export default function SafetyMetric() {
-  const [results, setResults] = useState({})
+  const [results, setResults] = useState({});
 
   useEffect(() => {
     async function getData() {
       //* Load the ticker results
-      setResults(await getTickerResults())
+      setResults(await getTickerResults());
     }
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   return (
     <div className="key-metrics-container">
@@ -32,13 +32,13 @@ export default function SafetyMetric() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 //* Function to load the safety metrics page
 function getSafetyMetricsPage(results) {
-  if (!results.pe) return <div className="qload">Hold tight while we load your data!</div>
-  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0
+  if (!results.pe) return <div className="qload">Hold tight while we load your data!</div>;
+  const debtYears = results.ltldata ? roundNumberDec(results.ltldata.years) : 0;
   return (
     <>
       <div className="metric-metrics">{getPriceOverview(results)}</div>
@@ -53,46 +53,46 @@ function getSafetyMetricsPage(results) {
           <div className="fcftoltl">
             <div>
               <label>Total Current Liabilities:</label>
-              <span>{`$${results.ltldata ? formatNumber(results.ltldata.libs) : '0'}`}</span>
+              <span>{`$${results.ltldata ? formatNumber(results.ltldata.libs) : "0"}`}</span>
             </div>
             <div>
               <label>5yr Avg. Free Cash Flow:</label>
-              <span>{`$${results.ltldata ? formatNumber(results.ltldata.avg) : '0'}`}</span>
+              <span>{`$${results.ltldata ? formatNumber(results.ltldata.avg) : "0"}`}</span>
             </div>
             <div>
               <label>Years to pay off debt:</label>
-              <span>{debtYears === -1 ? 'Who knows? Their FCF is negitive!' : debtYears}</span>
+              <span>{debtYears === -1 ? "Who knows? Their FCF is negitive!" : debtYears}</span>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
 //* Function to return all of the metrics
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getPriceOverview(results) {
-  const { k, a, b } = results.assetsdata
-  const difference = getDifferenceBetween(a)
-  const percdiffc = getPercentDifference(a[a.length - 1], b[b.length - 1])
+  const { k, a, b } = results.assetsdata;
+  const difference = getDifferenceBetween(a);
+  const percdiffc = getPercentDifference(a[a.length - 1], b[b.length - 1]);
 
-  const result = results.assets
+  const result = results.assets;
 
   const assetsresults = `${results.symbol} has ${roundNumberDec(percdiffc)}% greater ${
-    result === GOOD ? 'Assets' : 'Liabilities'
-  } than ${result === GOOD ? 'Liabilities' : 'Assets'}! That's a five year ${
-    difference > 0 ? 'increase' : 'decrease'
-  } of $${formatNumber(difference)} in assets!`
+    result === GOOD ? "Assets" : "Liabilities"
+  } than ${result === GOOD ? "Liabilities" : "Assets"}! That's a five year ${
+    difference > 0 ? "increase" : "decrease"
+  } of $${formatNumber(difference)} in assets!`;
 
-  const debtYears = roundNumberDec(results.ltldata.years)
+  const debtYears = roundNumberDec(results.ltldata.years);
 
   return (
     <div className="pricemetrics">
       <div className="metric-spacer"></div>
       <div className="metric">
-        {getMetricItem('Assets > Liabilities', result)}
+        {getMetricItem("Assets > Liabilities", result)}
         <span className="result">{assetsresults}</span>
         <div className="desc">
           <p>
@@ -106,9 +106,9 @@ function getPriceOverview(results) {
         <div className="previewcontainer">{getDataPreview(k, a, b)}</div>
       </div>
       <div className="metric">
-        {getMetricItem('LT Liabilties / 5yr FCF; < 5', results.ltl)}
+        {getMetricItem("LT Liabilties / 5yr FCF; < 5", results.ltl)}
         <span className="result">{`It would take ${results.symbol} ${
-          debtYears === -1 ? 'undeterminable' : 'aprox ' + debtYears
+          debtYears === -1 ? "undeterminable" : "aprox " + debtYears
         } years to pay of their debt!`}</span>
         <div className="desc">
           <p>
@@ -121,7 +121,7 @@ function getPriceOverview(results) {
       </div>
       <div className="metric-spacer"></div>
     </div>
-  )
+  );
 }
 
 //* Function to return the data preview
@@ -133,12 +133,12 @@ function getDataPreview(k, a, b) {
       <div className="prev-wrapper">
         <table>
           <tbody>
-            <tr>{getTableDatas(k, trimDate, 'head')}</tr>
-            <tr>{getTableDatas(a, formatNumber, 'assets')}</tr>
-            <tr>{getTableDatas(b, formatNumber, 'liabilities')}</tr>
+            <tr>{getTableDatas(k, trimDate, "head")}</tr>
+            <tr>{getTableDatas(a, formatNumber, "assets")}</tr>
+            <tr>{getTableDatas(b, formatNumber, "liabilities")}</tr>
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }

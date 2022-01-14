@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { fetchKeyMetrics, fetchRatios } from '../../../../api/api'
-import { getLocalData, getTickerResults, GOOD } from '../../../../store/local/localActions'
+import React, { useEffect, useState } from "react";
+import { getLocalData, getTickerResults, GOOD } from "../../../../store/local/localActions";
 import {
   formatNumber,
   formatPercentage,
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
-  trimDate
-} from '../../../../utils'
-import QualityPieCharts from '../charts/QualityPieCharts'
-import SharesOustandingChart from '../charts/SharesOutsandingChart'
-import MetricSelector from '../MetricSelector'
-import { getMetricItem, getTableDatas } from './UtilMetrics'
+  trimDate,
+} from "../../../../utils";
+import QualityPieCharts from "../charts/QualityPieCharts";
+import SharesOustandingChart from "../charts/SharesOutsandingChart";
+import MetricSelector from "../MetricSelector";
+import { getMetricItem, getTableDatas } from "./UtilMetrics";
 
 export default function QualityMetric() {
-  const [results, setResults] = useState({})
-  const [data, setData] = useState({})
+  const [results, setResults] = useState({});
+  const [data, setData] = useState({});
 
   //* When component mounts
   useEffect(() => {
     async function getData() {
       //* Get the ticker results
-      setResults(await getTickerResults())
+      setResults(await getTickerResults());
       //* Fetch the ratio data
 
-      const roicTTM = await getLocalData('roicTTM', 'fetchKeyMetrics', [true], 'roicTTM')
+      const roicTTM = await getLocalData("roicTTM", "fetchKeyMetrics", [true], "roicTTM");
 
       const { returnOnAssetsTTM, returnOnEquityTTM } = await getLocalData(
-        ['returnOnAssetsTTM', 'returnOnEquityTTM'],
-        'fetchRatios',
+        ["returnOnAssetsTTM", "returnOnEquityTTM"],
+        "fetchRatios",
         [true],
-        ['returnOnAssetsTTM', 'returnOnEquityTTM']
-      )
-      setData({ roicTTM, returnOnAssetsTTM, returnOnEquityTTM })
+        ["returnOnAssetsTTM", "returnOnEquityTTM"],
+      );
+      setData({ roicTTM, returnOnAssetsTTM, returnOnEquityTTM });
     }
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   return (
     <div className="key-metrics-container">
@@ -50,7 +49,7 @@ export default function QualityMetric() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 //* Function to get the top half of the quality
@@ -58,14 +57,14 @@ export default function QualityMetric() {
 function getQualityHalfOne(results, data) {
   //* If the data has not loaded...
   if (!results.roic || !data.returnOnAssetsTTM)
-    return <div className="qload">Hold tight while we load your data!</div>
+    return <div className="qload">Hold tight while we load your data!</div>;
 
   //* Otherwise return the JSX
   return (
     <div className="qualityhalf upper">
       {getROICCharts(results, data)}
       <div className="metric-roic">
-        {getMetricItem('5yr ROIC >= 10 %', results.roic)}
+        {getMetricItem("5yr ROIC >= 10 %", results.roic)}
         <span className="result">{getResultMessageROIC(results, data)}</span>
         <div className="desc">
           <p>
@@ -80,29 +79,29 @@ function getQualityHalfOne(results, data) {
       </div>
       {getTTMReturnsCharts(data)}
     </div>
-  )
+  );
 }
 
 //* Get the message to be shown for the reults
 function getResultMessageROIC(results, data) {
-  const roicPerc = formatPercentage(results.roicdata.avg)
-  let phrase = roicPerc <= 0 ? 'nothing... they have not invested any cash' : `${roicPerc}%`
+  const roicPerc = formatPercentage(results.roicdata.avg);
+  let phrase = roicPerc <= 0 ? "nothing... they have not invested any cash" : `${roicPerc}%`;
   if (roicPerc > 0 && data.roicTTM * 100 > roicPerc * 1.5)
-    phrase += `! Keep in mind their TTM ROIC is much higher than usual`
-  return `${results.symbol} has a 5yr average ROIC of ${phrase}!`
+    phrase += `! Keep in mind their TTM ROIC is much higher than usual`;
+  return `${results.symbol} has a 5yr average ROIC of ${phrase}!`;
 }
 
 //* Function to get the top half of the quality
 //* Metrics page
 function getQualityHalfTwo(results) {
   //* If the data has not loaded...
-  if (!results.shares) return <></>
+  if (!results.shares) return <></>;
 
   //* Otherwise return the JSX
   return (
     <div className="qualityhalf lower">
       <div className="metric-shares">
-        {getMetricItem('5yr Shares Outstanding  (Decreasing)', results.shares)}
+        {getMetricItem("5yr Shares Outstanding  (Decreasing)", results.shares)}
         <span className="result">{getResultMessage(results)}</span>
         <div className="desc">
           <p>
@@ -117,92 +116,90 @@ function getQualityHalfTwo(results) {
       </div>
       <SharesOustandingChart />
     </div>
-  )
+  );
 }
 
 //* Get the message to place in shares outstanding results
 function getResultMessage(results) {
-  const phrase = results.shares === GOOD ? 'repurchased' : 'issued'
-  const shareClone = [...results.sharesdata.v]
-  const pdiff = getPercentDifference(...getFirstLastArr(shareClone))
-  const tdiff = getDifferenceBetween(shareClone)
+  const phrase = results.shares === GOOD ? "repurchased" : "issued";
+  const shareClone = [...results.sharesdata.v];
+  const pdiff = getPercentDifference(...getFirstLastArr(shareClone));
+  const tdiff = getDifferenceBetween(shareClone);
 
   return `Over the last 5 years ${results.symbol}'s has ${phrase} ${formatNumber(
-    tdiff
-  )} (${pdiff}%) shares!`
+    tdiff,
+  )} (${pdiff}%) shares!`;
 }
 
 //* Get the two Pie charts for ROIC TTM & 5yr
 function getROICCharts(results, data) {
   //* Otherwise the data has loaded
-  const { avg } = results.roicdata
+  const { avg } = results.roicdata;
   return (
     <div className="roic-charts">
       <QualityPieCharts
-        // data={vals.v[vals.v.length - 1]}
         data={data.roicTTM}
-        labels={['ROIC', 'POTENTIAL']}
+        labels={["ROIC", "POTENTIAL"]}
         upper="TTM"
         lower="ROIC"
-        // colors={['rgba(44, 221, 155, .8)', 'rgba(52, 184, 125, .8)']}
-        colors={['rgba(44, 221, 155, .8)', 'rgba(52, 184, 125, .8)']}
+        colors={["rgba(44, 221, 155, .8)", "rgba(52, 184, 125, .8)"]}
       />
       <QualityPieCharts
         data={avg}
-        labels={['ROIC', 'POTENTIAL']}
+        labels={["ROIC", "POTENTIAL"]}
         upper="5yr"
         lower="ROIC"
-        colors={['rgba(52, 184, 125, .8)', 'rgba(0, 136, 123, .8)']}
+        colors={["rgba(52, 184, 125, .8)", "rgba(0, 136, 123, .8)"]}
       />
     </div>
-  )
+  );
 }
 
 //* Get the two Pie charts for return on Assets and Equity TTM
 function getTTMReturnsCharts(data) {
-  const { returnOnAssetsTTM, returnOnEquityTTM } = data
+  const { returnOnAssetsTTM, returnOnEquityTTM } = data;
   return (
     <div className="roic-charts">
       <QualityPieCharts
         data={returnOnAssetsTTM}
-        labels={['Return On Assets', 'POTENTIAL']}
+        labels={["Return On Assets", "POTENTIAL"]}
         upper="TTM"
         lower="Return on Assets"
         margins={{ l: 65, r: 65, b: 65, t: 10 }}
-        colors={['rgba(52, 184, 125, .7)', 'rgba(0, 136, 123, .7)']}
+        colors={["rgba(52, 184, 125, .7)", "rgba(0, 136, 123, .7)"]}
       />
       <QualityPieCharts
         data={returnOnEquityTTM}
-        labels={['Return On Equity', 'POTENTIAL']}
+        labels={["Return On Equity", "POTENTIAL"]}
         upper="TTM"
         lower="Return On Equity"
         margins={{ l: 65, r: 65, b: 65, t: 10 }}
-        colors={['rgba(44, 221, 155, .7)', 'rgba(52, 184, 125, .7)']}
+        colors={["rgba(44, 221, 155, .7)", "rgba(52, 184, 125, .7)"]}
       />
     </div>
-  )
+  );
 }
 
 //* Function to return the data preview
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
 function getDataPreview(data, shares) {
-  if (!data) return <div className="preview">Loading...</div>
-  const { k, v } = data
+  if (!data) return <div className="preview">Loading...</div>;
+  const { k, v } = data;
   return (
     <div className="preview shadow-nohover zoomable-med">
       <div className="prev-wrapper">
         <table>
           <tbody>
-            <tr>{getTableDatas(k, trimDate, 'head')}</tr>
+            <tr>{getTableDatas(k, trimDate, "head")}</tr>
             <tr>
               {shares
                 ? getTableDatas(v, formatNumber)
-                : getTableDatas(v, formatPercentage, '', [true, true])}
+                : getTableDatas(v, formatPercentage, "", [true, true])}
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
