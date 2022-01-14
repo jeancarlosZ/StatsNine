@@ -116,10 +116,6 @@ function ODMessage({ results, loading }) {
   } else {
     return (
       <div className="description-text determination">
-        {/* {`We have concluded that ${results.symbol} is an overall ${recommendation(
-          results.score
-        )} investment and has achieved a total of
-        ${results.score}/100 points!`} */}
         {`According to our 9 key metrics, ${results.symbol} get an overall ${recommendation(
           results.score,
         )} rating! The company has achieved a total ${results.score}/100 score!`}
