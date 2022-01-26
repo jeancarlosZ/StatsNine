@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-export function FinButtons({
-  handleButtonClick,
-  label,
-  buttons = true,
-  colors = true,
-}) {
-  const [selected, setSelected] = useState('annual');
+export function FinButtons({ handleButtonClick, label, buttons = true, colors = true }) {
+  const [selected, setSelected] = useState("annual");
 
   return (
     <div className="fin-button-container">
@@ -32,19 +27,19 @@ function getButtons(selected, setSelected, handleButtonClick, buttons, colors) {
   return (
     <div className="button-pos">
       <button
-        className={selected === 'annual' ? `fin-selected` : ''}
+        className={selected === "annual" ? `fin-selected` : ""}
         onClick={() => {
-          handleButtonClick('annual');
-          setSelected('annual');
+          handleButtonClick("annual");
+          setSelected("annual");
         }}
       >
         Annual
       </button>
       <button
-        className={selected === 'quarter' ? `fin-selected` : ''}
+        className={selected === "quarter" ? `fin-selected` : ""}
         onClick={() => {
-          handleButtonClick('quarter');
-          setSelected('quarter');
+          handleButtonClick("quarter");
+          setSelected("quarter");
         }}
       >
         Quarterly

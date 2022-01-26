@@ -1,5 +1,5 @@
-import React from 'react'
-import UniversalChart from '../../../UniversalChart'
+import React from "react";
+import UniversalChart from "../../../UniversalChart";
 
 //* This chart will render the stock price for a
 //* Selected range and range of the user's choice
@@ -13,13 +13,13 @@ export default function Growthchart({
   args = {},
   dataType,
   setDataType,
-  setUpdate
+  setUpdate,
 }) {
   //* Get the keys and values from the data
-  const { keys, values } = data[dataType[name]] ? data[dataType[name]] : {}
+  const { keys, values } = data[dataType[name]] ? data[dataType[name]] : {};
 
   //* Create our dataset
-  const dataset = []
+  const dataset = [];
 
   //* We must wait until our values are populated before
   //* attempting to make the 'traces' or 'sets'
@@ -28,19 +28,19 @@ export default function Growthchart({
     //* In this case I am going to make a chart to display the net income
     dataset.push({
       name: name,
-      type: type ? type : 'bar',
-      color: color ? color : 'rgba(44, 221, 155, 0.3)',
-      outline: outline ? outline : 'rgba(44, 221, 155, 0.6)',
+      type: type ? type : "bar",
+      color: color ? color : "rgba(44, 221, 155, 0.3)",
+      outline: outline ? outline : "rgba(44, 221, 155, 0.6)",
       values: values,
-      ...args
-    })
+      ...args,
+    });
   }
 
   //* Change the series and update the data
   function updateDataType(newType) {
     if (dataType[name] !== newType) {
-      setDataType({ ...dataType, [name]: newType })
-      if (!data[newType]) setUpdate(true)
+      setDataType({ ...dataType, [name]: newType });
+      if (!data[newType]) setUpdate(true);
     }
   }
 
@@ -51,14 +51,14 @@ export default function Growthchart({
         <label>{title}</label>
         <div className="selectors">
           <button
-            className={dataType[name] === 'quarter' ? 'selected' : ''}
-            onClick={() => updateDataType('quarter')}
+            className={dataType[name] === "quarter" ? "selected" : ""}
+            onClick={() => updateDataType("quarter")}
           >
             Quarterly
           </button>
           <button
-            className={dataType[name] === 'annual' ? 'selected' : ''}
-            onClick={() => updateDataType('annual')}
+            className={dataType[name] === "annual" ? "selected" : ""}
+            onClick={() => updateDataType("annual")}
           >
             Annual
           </button>
@@ -78,5 +78,5 @@ export default function Growthchart({
         />
       </div>
     </>
-  )
+  );
 }

@@ -1,5 +1,4 @@
-import React from 'react'
-import { useHistory } from 'react-router'
+import React from "react";
 
 export default function NotFound() {
   return (
@@ -9,5 +8,5 @@ export default function NotFound() {
         <label className="zoomable">Oops. It look's like you've taken a wrong turn!</label>
       </div>
     </div>
-  )
+  );
 }

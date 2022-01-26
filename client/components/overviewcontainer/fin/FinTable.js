@@ -1,14 +1,13 @@
-import React from 'react';
-import SimpleBar from 'simplebar-react';
-import 'simplebar/dist/simplebar.min.css';
+import React from "react";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 //Maybe a better way to do tables????
 
 export default function FinTable(props) {
   const handleTableClick = props.handleTableClick;
   //tableInfo is being passed as prop from each Financials sub page
   if (props.tableInfo) {
-    const { tabledates, rows, yearlyChanges, labels, attributes } =
-      props.tableInfo;
+    const { tabledates, rows, yearlyChanges, labels, attributes } = props.tableInfo;
     //dates is a 1 dimensional array
     //labels is a 1 dimensional array
     //rows is a 2 dimensional array
@@ -16,12 +15,6 @@ export default function FinTable(props) {
 
     //We are mapping over the 2D rows array keeping track of the index so we can
     //attach the coresponding yearly change to it
-
-    //Uncomment to see what they look like
-    // console.log(dates, 'dates');
-    // console.log(rows, 'rows');
-    // console.log(yearlyChanges, 'yearlyChanges');
-    // console.log(labels, 'labels');
 
     return (
       <div className="fin-table-container">
@@ -61,12 +54,12 @@ function FinRow(props) {
 
   const randomIndex = genRandomIndex(0, 3);
   const chartColors = [
-    ['rgba249, 200, 70, 1)', 'rgba(249, 200, 70, .8)'],
-    ['rgba(244, 172, 183, 1)', 'rgba(244, 172, 183, .8)'],
-    ['rgba(124, 165, 184, 1)', 'rgba(124, 165, 184, .8)'],
-    ['rgba(142, 65, 98, 1)', 'rgba(142, 65, 98, .8)'],
-    ['rgba(176, 65, 62, 1)', 'rgba(176, 65, 62, .8)'],
-    ['rgba(53, 129, 184, 1)', 'rgba(53, 129, 184, .8)'],
+    ["rgba249, 200, 70, 1)", "rgba(249, 200, 70, .8)"],
+    ["rgba(244, 172, 183, 1)", "rgba(244, 172, 183, .8)"],
+    ["rgba(124, 165, 184, 1)", "rgba(124, 165, 184, .8)"],
+    ["rgba(142, 65, 98, 1)", "rgba(142, 65, 98, .8)"],
+    ["rgba(176, 65, 62, 1)", "rgba(176, 65, 62, .8)"],
+    ["rgba(53, 129, 184, 1)", "rgba(53, 129, 184, .8)"],
   ];
 
   /*------------------------------------------------------*/
@@ -91,7 +84,7 @@ function FinRow(props) {
 
   //creating the light or dark className for the row depending on if it's odd or even
   let rowClassName;
-  let color = props.index % 2 ? 'light' : 'dark';
+  let color = props.index % 2 ? "light" : "dark";
   rowClassName = `${color} bold fin-row center-text`;
 
   return (
@@ -123,11 +116,7 @@ function YearlyChanges(props) {
   //This function produces the yearly change with it's appropriate classname
   const yearlyChange = props.yearlyChanges[props.index];
   return (
-    <div
-      className={
-        yearlyChange ? (yearlyChange.includes('-') ? 'red' : 'green') : 'red'
-      }
-    >
+    <div className={yearlyChange ? (yearlyChange.includes("-") ? "red" : "green") : "red"}>
       {yearlyChange}
     </div>
   );
@@ -139,7 +128,7 @@ function DatesRow(props) {
     <table className="fin-date pos-rel">
       <tbody>
         <tr>
-          {props.dates.map((date) => (
+          {props.dates.map(date => (
             <td key={date}>{date}</td>
           ))}
         </tr>

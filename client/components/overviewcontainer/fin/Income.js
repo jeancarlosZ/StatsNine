@@ -1,32 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { getLocalData } from '../../../store/local/localActions';
-import UniversalChart from '../../UniversalChart';
-import CompanyInfo from './CompanyInfo';
-import { FinButtons } from './FinButtons';
-import FinTable from './FinTable';
-import {
-  getQtrIndentifers,
-  incomeIndentifiers,
-  incomeTableLabels,
-} from './finTableLabels';
-import {
-  formatDates,
-  processUnformattedData,
-  returnUnformatedData,
-} from './finUtils';
+import React, { useEffect, useState } from "react";
+import { getLocalData } from "../../../store/local/localActions";
+import UniversalChart from "../../UniversalChart";
+import CompanyInfo from "./CompanyInfo";
+import { FinButtons } from "./FinButtons";
+import FinTable from "./FinTable";
+import { getQtrIndentifers, incomeIndentifiers, incomeTableLabels } from "./finTableLabels";
+import { formatDates, processUnformattedData, returnUnformatedData } from "./finUtils";
 
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
 //that into the local component sate and redux state
 
 export default function Income() {
-  const [selectedAttribute, setSelectedAttribute] = useState([
-    'revenue',
-    'Revenue',
-    // 'rgba(32, 164, 243, .5)',
-    // 'rgba(148, 28, 47, 1)',
-  ]);
-  // const [chartDatatype, setChartDatatype] = useState('annual');
+  const [selectedAttribute, setSelectedAttribute] = useState(["revenue", "Revenue"]);
   const [incomeInfo, setIncomeInfo] = useState({});
   const [incomeInfoQtr, setIncomeQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -37,38 +23,38 @@ export default function Income() {
       setIncomeInfo(
         await getLocalData(
           [...incomeIndentifiers],
-          'fetchIncomeStatement',
-          [false, 'annual'],
-          [...incomeIndentifiers]
-        )
+          "fetchIncomeStatement",
+          [false, "annual"],
+          [...incomeIndentifiers],
+        ),
       );
 
       //here we are fetching the stock profile
       setProfile(
         await getLocalData(
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
           ],
-          'fetchStockProfile',
+          "fetchStockProfile",
           [],
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
-          ]
-        )
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
+          ],
+        ),
       );
     }
 
@@ -84,10 +70,10 @@ export default function Income() {
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
-          'fetchIncomeStatement',
-          [false, 'quarter'],
-          [...saveAs]
-        )
+          "fetchIncomeStatement",
+          [false, "quarter"],
+          [...saveAs],
+        ),
       );
     }
     getIncomeInfoQtr();
@@ -111,8 +97,6 @@ export default function Income() {
   //Selected attribute is defined by what is clicked on in the table
   const attribute = selectedAttribute[0];
   const label = selectedAttribute[1];
-  // const color1 = selectedAttribute[2];
-  // const color2 = selectedAttribute[3];
   let chartData = [];
   let keys = [];
 
@@ -120,16 +104,6 @@ export default function Income() {
   let keysQtr = [];
   if (Object.keys(incomeInfoQtr).length && Object.keys(incomeInfo).length) {
     //Here i'm grabbing a particular array from the fetched object to be displyed in the chart
-
-    // chartData =
-    //   chartDatatype === 'quarter'
-    //     ? incomeInfoQtr[attribute].values
-    //     : incomeInfo[attribute].values;
-    // //The keys taken from he fetch are the dates
-    // keys =
-    //   chartDatatype === 'quarter'
-    //     ? incomeInfoQtr[attribute].keys
-    //     : incomeInfo[attribute].keys;
 
     chartData = incomeInfo[attribute].values;
     chartDataQtr = incomeInfoQtr[attribute].values;
@@ -143,26 +117,24 @@ export default function Income() {
 
   dataset.push({
     name: label,
-    type: 'line',
-    stroke: '0.5',
+    type: "line",
+    stroke: "0.5",
     values: chartData,
     cKeys: keys,
-    fill: 'tozeroy',
-    color: 'rgba(32, 164, 243, .2)',
-    fillcolor: 'rgba(32, 164, 243, .7)',
-    // outline: 'rgba(44, 221, 155, .4)',
+    fill: "tozeroy",
+    color: "rgba(32, 164, 243, .2)",
+    fillcolor: "rgba(32, 164, 243, .7)",
   });
 
   dataset.push({
     name: label,
-    type: 'line',
-    stroke: '0.5',
+    type: "line",
+    stroke: "0.5",
     values: chartDataQtr,
     cKeys: keysQtr,
-    fill: 'tozeroy',
-    color: 'rgba(148, 28, 47, .4)',
-    fillcolor: 'rgba(148, 28, 47, .9)',
-    // outline: 'rgba(39, 91, 232, .1)',
+    fill: "tozeroy",
+    color: "rgba(148, 28, 47, .4)",
+    fillcolor: "rgba(148, 28, 47, .9)",
   });
   //**------------------------------------------------------------------------------------------------ */
   //TABLE DATA
@@ -180,13 +152,10 @@ export default function Income() {
     //Here i'm passing in my local state and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedData'
     unformatedData = returnUnformatedData(incomeInfo, incomeIndentifiers);
-    // console.log(unformatedData, 'unformated income data...');
   }
 
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const tabledates = Object.keys(incomeInfo).length
-    ? formatDates(rawDates)
-    : [];
+  const tabledates = Object.keys(incomeInfo).length ? formatDates(rawDates) : [];
 
   //Here i'm sending the unformatedData off to be processed
   const { yearlyChanges, rows } = processUnformattedData(unformatedData);
@@ -207,14 +176,9 @@ export default function Income() {
         <div className="fin-top-container">
           <CompanyInfo profile={profile} />
           <div className="fin-chart-container">
-            <FinButtons
-              label={label}
-              // handleButtonClick={handleChartButtonClick}
-              buttons={false}
-            />
+            <FinButtons label={label} buttons={false} />
             <UniversalChart
               className="income-chart fin-chart"
-              // title={label}
               keys={keysQtr}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
               plotBackgroundColor="rgba(33, 34, 45, 0)"

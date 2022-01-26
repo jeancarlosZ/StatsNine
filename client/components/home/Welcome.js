@@ -1,11 +1,8 @@
-// Welcome!
-// this is just my scrumble page.
-
-import React from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-import Homepage from './Homepage';
-import Table from '../screener/Table';
-import AboutUs from './AboutUs';
+import React from "react";
+import Carousel from "react-bootstrap/Carousel";
+import Homepage from "./Homepage";
+import Table from "../screener/Table";
+import AboutUs from "./AboutUs";
 
 export default function Welcome() {
   return (

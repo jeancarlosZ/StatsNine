@@ -1,66 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import SimpleBar from 'simplebar-react'
-import 'simplebar/dist/simplebar.min.css'
-import { getLocalData, getTickerResults } from '../../../../store/local/localActions'
+import React, { useEffect, useState } from "react";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+import { getLocalData, getTickerResults } from "../../../../store/local/localActions";
 import {
   formatNumber,
   getDifferenceBetween,
   getFirstLastArr,
   getPercentDifference,
-  trimDate
-} from '../../../../utils'
-import Growthchart from '../charts/GrowthChart'
-import MetricSelector from '../MetricSelector'
-import { getMetricItem, getTableDatas } from './UtilMetrics'
+  trimDate,
+} from "../../../../utils";
+import Growthchart from "../charts/GrowthChart";
+import MetricSelector from "../MetricSelector";
+import { getMetricItem, getTableDatas } from "./UtilMetrics";
 
 //* This is the price metrics page.
 //* Shown at /overviewpage/keymetrics/price
 export default function GrowthMetric() {
-  const [results, setResults] = useState({})
+  const [results, setResults] = useState({});
   //* Selected Range, series, and the chart data
-  const [dataType, setDataType] = useState({ fcf: 'quarter', net: 'quarter', rev: 'quarter' })
-  const [data, setData] = useState({ net: {}, fcf: {}, rev: {} })
-  const [update, setUpdate] = useState(true)
+  const [dataType, setDataType] = useState({ fcf: "quarter", net: "quarter", rev: "quarter" });
+  const [data, setData] = useState({ net: {}, fcf: {}, rev: {} });
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
     async function getData() {
-      setResults(await getTickerResults())
+      setResults(await getTickerResults());
       if (update) {
         //* Load the data from the API
         const netIncome = await getLocalData(
-          'netIncome',
-          'fetchCashflowStatement',
+          "netIncome",
+          "fetchCashflowStatement",
           [false, dataType.net],
-          `netincome${dataType.net}`
-        )
+          `netincome${dataType.net}`,
+        );
         //* Load the data from the API
         const freeCashFlow = await getLocalData(
-          'freeCashFlow',
-          'fetchCashflowStatement',
+          "freeCashFlow",
+          "fetchCashflowStatement",
           [false, dataType.fcf],
-          `fcf${dataType.fcf}`
-        )
+          `fcf${dataType.fcf}`,
+        );
         //* Load the data from the API
         const revenue = await getLocalData(
-          'revenue',
-          'fetchIncomeStatement',
+          "revenue",
+          "fetchIncomeStatement",
           [false, dataType.rev],
-          `revenue${dataType.rev}`
-        )
+          `revenue${dataType.rev}`,
+        );
 
-        const newData = data
-        newData.net[dataType.net] = netIncome
-        newData.fcf[dataType.fcf] = freeCashFlow
-        newData.rev[dataType.rev] = revenue
+        const newData = data;
+        newData.net[dataType.net] = netIncome;
+        newData.fcf[dataType.fcf] = freeCashFlow;
+        newData.rev[dataType.rev] = revenue;
 
         //* Save the data to the state here for the charts
 
-        setData(newData)
-        setUpdate(false)
+        setData(newData);
+        setUpdate(false);
       }
     }
-    getData()
-  }, [update, dataType])
+    getData();
+  }, [update, dataType]);
 
   return (
     <div className="growth-metrics-container">
@@ -75,17 +75,17 @@ export default function GrowthMetric() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 //* Function to get the growth metrics page
 function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
   if (!data.net || !results.pe)
-    return <div className="qloads">Hold tight while we load your data!</div>
+    return <div className="qloads">Hold tight while we load your data!</div>;
   return (
     <>
       <div className="slot gnetincome">
-        {getGrowthOverview(results, data, 'netincome')}
+        {getGrowthOverview(results, data, "netincome")}
         <div className="gmetric-chart shadow-nohover">
           <Growthchart
             title="Net Income"
@@ -114,10 +114,10 @@ function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
             setUpdate={setUpdate}
           />
         </div>
-        {getGrowthOverview(results, data, 'cashflow')}
+        {getGrowthOverview(results, data, "cashflow")}
       </div>
       <div className="slot grevenue">
-        {getGrowthOverview(results, data, 'revenue')}
+        {getGrowthOverview(results, data, "revenue")}
         <div className="gmetric-chart shadow-nohover">
           <Growthchart
             title="Revenue"
@@ -133,24 +133,24 @@ function getGrowthMetricPage(data, results, dataType, setDataType, setUpdate) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 //* Function to return all of the metrics
 //* For an overview, this is what shows all
 //* Of the metrics we use to the user.
 function getGrowthOverview(results, data, growthType) {
-  if (!results.netincome) return <div className="qload">Hold tight while we load your data!</div>
+  if (!results.netincome) return <div className="qload">Hold tight while we load your data!</div>;
   switch (growthType) {
-    case 'netincome': {
-      const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null
-      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
-      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
+    case "netincome": {
+      const dataarr = results.netincomedata ? results.netincomedata.v.slice(-5) : null;
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0;
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0;
       return (
         <div className="growthmetrics">
           <div className="metric-spacer"></div>
           <div className="metric">
-            {getMetricItem('5yr Net Income Growth', results.netincome)}
+            {getMetricItem("5yr Net Income Growth", results.netincome)}
             <span className="result">{`${results.symbol} has increased it’s net income by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
@@ -167,17 +167,17 @@ function getGrowthOverview(results, data, growthType) {
           </div>
           <div className="metric-spacer"></div>
         </div>
-      )
+      );
     }
-    case 'cashflow': {
-      const dataarr = results.cashgrowthdata ? results.cashgrowthdata.v.slice(-5) : null
-      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
-      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
+    case "cashflow": {
+      const dataarr = results.cashgrowthdata ? results.cashgrowthdata.v.slice(-5) : null;
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0;
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0;
       return (
         <div className="growthmetrics">
           <div className="metric-spacer"></div>
           <div className="metric">
-            {getMetricItem('5yr Cash Flow Growth', results.cashgrowth)}
+            {getMetricItem("5yr Cash Flow Growth", results.cashgrowth)}
             <span className="result">{`${results.symbol} has increased it’s FCF by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
@@ -193,17 +193,17 @@ function getGrowthOverview(results, data, growthType) {
             </div>
           </div>
         </div>
-      )
+      );
     }
-    case 'revenue': {
-      const dataarr = results.revgrowthdata ? results.revgrowthdata.v.slice(-5) : null
-      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0
-      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0
+    case "revenue": {
+      const dataarr = results.revgrowthdata ? results.revgrowthdata.v.slice(-5) : null;
+      const difference = dataarr ? formatNumber(getDifferenceBetween(dataarr)) : 0;
+      const change = dataarr ? getPercentDifference(...getFirstLastArr(dataarr)) : 0;
       return (
         <div className="growthmetrics">
           <div className="metric-spacer"></div>
           <div className="metric">
-            {getMetricItem('5yr Revenue Growth', results.revgrowth)}
+            {getMetricItem("5yr Revenue Growth", results.revgrowth)}
             <span className="result">{`${results.symbol} has increased it’s total revenue by ${difference} over the last 5 years for a change of ${change}%!`}</span>
             <div className="desc">
               <p>
@@ -219,7 +219,7 @@ function getGrowthOverview(results, data, growthType) {
           </div>
           <div className="metric-spacer"></div>
         </div>
-      )
+      );
     }
   }
 }
@@ -228,18 +228,18 @@ function getGrowthOverview(results, data, growthType) {
 //* Should take you to the proper financials
 //* whenever the user clicks on it!
 function getDataPreview(data) {
-  if (!data) return <div className="preview">Loading...</div>
-  const { k, v } = data
+  if (!data) return <div className="preview">Loading...</div>;
+  const { k, v } = data;
   return (
     <div className="preview shadow-nohover zoomable-med">
       <div className="prev-wrapper">
         <table>
           <tbody>
-            <tr>{getTableDatas(k, trimDate, 'head')}</tr>
+            <tr>{getTableDatas(k, trimDate, "head")}</tr>
             <tr>{getTableDatas(v, formatNumber)}</tr>
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }

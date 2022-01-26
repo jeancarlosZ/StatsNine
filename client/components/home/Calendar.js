@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import CalendarDays from './common/CalendarDays';
+import React, { useState } from "react";
+import CalendarDays from "./common/CalendarDays";
 
-import '../../../public/styles/calendar2.css';
+import "../../../public/styles/calendar2.css";
 
 export default function Calendar() {
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const [currentDay, setCurrentDay] = useState(new Date()); //
+  const [currentDay, setCurrentDay] = useState(new Date());
 
   return (
     <div className="calendar position-relative">

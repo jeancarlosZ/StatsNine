@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { getLocalData } from '../../../store/local/localActions';
-import UniversalChart from '../../UniversalChart';
-import CompanyInfo from './CompanyInfo';
-import { FinButtons } from './FinButtons';
-import FinTable from './FinTable';
-import {
-  enterpriseIndentifiers,
-  enterpriseTableLabels,
-  getQtrIndentifers,
-} from './finTableLabels';
-import {
-  formatDates,
-  processUnformattedData,
-  returnUnformatedData,
-} from './finUtils';
+import React, { useEffect, useState } from "react";
+import { getLocalData } from "../../../store/local/localActions";
+import UniversalChart from "../../UniversalChart";
+import CompanyInfo from "./CompanyInfo";
+import { FinButtons } from "./FinButtons";
+import FinTable from "./FinTable";
+import { enterpriseIndentifiers, enterpriseTableLabels, getQtrIndentifers } from "./finTableLabels";
+import { formatDates, processUnformattedData, returnUnformatedData } from "./finUtils";
 
 //Using the getLocalData method
 //This method first checks to see if the requested data is in our redux store. If it is, return it, otherwise fetch what we need and log
@@ -21,12 +13,12 @@ import {
 
 export default function EnterpriseValue() {
   const [selectedAttribute, setSelectedAttribute] = useState([
-    'enterpriseValue',
-    'EnterpriseValue',
-    'rgba249, 200, 70, 1)',
-    'rgba(249, 200, 70, .8)',
+    "enterpriseValue",
+    "EnterpriseValue",
+    "rgba249, 200, 70, 1)",
+    "rgba(249, 200, 70, .8)",
   ]);
-  const [chartDatatype, setChartDatatype] = useState('annual');
+  const [chartDatatype, setChartDatatype] = useState("annual");
   const [enterpriseInfo, setEnterpriseInfo] = useState({});
   const [enterpriseQtr, setEnterpriseQtr] = useState({});
   const [profile, setProfile] = useState({});
@@ -39,37 +31,37 @@ export default function EnterpriseValue() {
         //here we are fetching only what we need from the income statement
         await getLocalData(
           [...enterpriseIndentifiers],
-          'fetchEnterpriseValue',
-          [false, 'annual'],
-          [...enterpriseIndentifiers]
-        )
+          "fetchEnterpriseValue",
+          [false, "annual"],
+          [...enterpriseIndentifiers],
+        ),
       );
       //here we are fetching the stock profile
       setProfile(
         await getLocalData(
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
           ],
-          'fetchStockProfile',
+          "fetchStockProfile",
           [],
           [
-            'symbol',
-            'companyName',
-            'image',
-            'exchangeShortName',
-            'industry',
-            'sector',
-            'fullTimeEmployees',
-            'price',
-          ]
-        )
+            "symbol",
+            "companyName",
+            "image",
+            "exchangeShortName",
+            "industry",
+            "sector",
+            "fullTimeEmployees",
+            "price",
+          ],
+        ),
       );
     }
     getEnterpriseInfo();
@@ -78,17 +70,15 @@ export default function EnterpriseValue() {
   //I tried putting it in the above use effect but it did not fetch???
   useEffect(() => {
     async function getEnterpriseInfoQtr() {
-      const { saveAs, qtrIdentifiers } = getQtrIndentifers(
-        enterpriseIndentifiers
-      );
+      const { saveAs, qtrIdentifiers } = getQtrIndentifers(enterpriseIndentifiers);
       setEnterpriseQtr(
         //here we are fetching only what we need from the statement
         await getLocalData(
           [...qtrIdentifiers],
-          'fetchEnterpriseValue',
-          [false, 'quarter'],
-          [...saveAs]
-        )
+          "fetchEnterpriseValue",
+          [false, "quarter"],
+          [...saveAs],
+        ),
       );
     }
     getEnterpriseInfoQtr();
@@ -120,26 +110,23 @@ export default function EnterpriseValue() {
   if (Object.keys(enterpriseQtr).length && Object.keys(enterpriseInfo).length) {
     //Here i'm grabbing a particular array from the fetched object
     chartData =
-      chartDatatype === 'quarter'
+      chartDatatype === "quarter"
         ? enterpriseQtr[attribute].values
         : enterpriseInfo[attribute].values;
     //The keys taken from he fetch are the dates
     keys =
-      chartDatatype === 'quarter'
-        ? enterpriseQtr[attribute].keys
-        : enterpriseInfo[attribute].keys;
+      chartDatatype === "quarter" ? enterpriseQtr[attribute].keys : enterpriseInfo[attribute].keys;
   }
 
   const dataset = [];
 
   dataset.push({
     name: label,
-    type: 'line',
+    type: "line",
     color: color,
-    // outline: outline,
     values: chartData,
     fillcolor: outline,
-    fill: 'tonexty',
+    fill: "tonexty",
   });
 
   //**------------------------------------------------------------------------------------------------ */
@@ -157,15 +144,10 @@ export default function EnterpriseValue() {
 
     //Here i'm passing in my local state object and an array of identifiers to a helper function that will extract the data for
     //those identifers and return a 2D array of the raw data numbers and set it equal to 'unformatedDataNums'
-    unformatedData = returnUnformatedData(
-      enterpriseInfo,
-      enterpriseIndentifiers
-    );
+    unformatedData = returnUnformatedData(enterpriseInfo, enterpriseIndentifiers);
   }
   //Here i'm passing the rawDates to be processed to look like this...'2021'
-  const tabledates = Object.keys(enterpriseInfo).length
-    ? formatDates(rawDates)
-    : [];
+  const tabledates = Object.keys(enterpriseInfo).length ? formatDates(rawDates) : [];
 
   //Here i'm sending the unformatedData off to be processed
   const { yearlyChanges, rows } = processUnformattedData(unformatedData);
@@ -195,7 +177,6 @@ export default function EnterpriseValue() {
             />
             <UniversalChart
               className="income-chart fin-chart"
-              // title={label}
               keys={keys}
               margin={{ l: 50, r: 50, b: 25, t: 35 }}
               plotBackgroundColor="rgba(30, 34, 45, 0)"
