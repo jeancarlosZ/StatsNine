@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { DAILY, FOUR_HOUR, HOUR, MONTH, SIX_MONTH, THREE_MONTH, WEEK, YEAR } from "../../api/api";
+import {
+  DAILY,
+  FOUR_HOUR,
+  HOUR,
+  MONTH,
+  SIX_MONTH,
+  THREE_MONTH,
+  WEEK,
+  YEAR,
+  formatNumber,
+  roundNumberDec,
+} from "../../utils";
 import { getLocalData } from "../../store/local/localActions";
-import { formatNumber, roundNumberDec } from "../../utils";
 import UniversalChart from "../UniversalChart";
 
 export default function PriceChart({ symbol }) {
@@ -65,11 +75,19 @@ export default function PriceChart({ symbol }) {
   return (
     <div className="chart-container shadow-deep-nohover">
       <div className="price-container flex-row">
-        <label>{`${symbol}: $${formatNumber(roundNumberDec(price), true)}`}</label>
+        <label>{`${symbol}: $${formatNumber(
+          roundNumberDec(price),
+          true,
+        )}`}</label>
         {getSelectors(series, range, updateSeries, updateRange)}
       </div>
       <div className="overview-wrapper">
-        <CandleStickChart update={update} symbol={symbol} data={data[range]} series={series} />
+        <CandleStickChart
+          update={update}
+          symbol={symbol}
+          data={data[range]}
+          series={series}
+        />
       </div>
     </div>
   );
@@ -111,7 +129,8 @@ export function CandleStickChart(props) {
     rangebreaks: [{ pattern: "day of week", bounds: ["sat", "mon"] }],
   };
 
-  if (props.series !== DAILY) rangeBreaks.rangebreaks.push({ pattern: "hour", bounds: [17, 8] });
+  if (props.series !== DAILY)
+    rangeBreaks.rangebreaks.push({ pattern: "hour", bounds: [17, 8] });
 
   return (
     <UniversalChart
@@ -130,19 +149,45 @@ export function CandleStickChart(props) {
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
     <div className="selector-dropdown-right">
-      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
-        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Months</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 Month</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
+      <DropdownButton
+        className="dropdown-selector"
+        title={range}
+        size="sm"
+        variant="secondary"
+      >
+        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>
+          1 Year
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>
+          6 Months
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>
+          3 Months
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>
+          1 Month
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>
+          1 Week
+        </Dropdown.Item>
       </DropdownButton>
 
-      <DropdownButton className="dropdown-selector" title={series} size="sm" variant="secondary">
-        <Dropdown.Item onClick={() => updateSeries(series, DAILY)}>Daily</Dropdown.Item>
+      <DropdownButton
+        className="dropdown-selector"
+        title={series}
+        size="sm"
+        variant="secondary"
+      >
+        <Dropdown.Item onClick={() => updateSeries(series, DAILY)}>
+          Daily
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateSeries(series, FOUR_HOUR)}>4 Hour</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateSeries(series, HOUR)}>1 Hour</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateSeries(series, FOUR_HOUR)}>
+          4 Hour
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateSeries(series, HOUR)}>
+          1 Hour
+        </Dropdown.Item>
       </DropdownButton>
     </div>
   );

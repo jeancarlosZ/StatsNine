@@ -8,10 +8,9 @@ package-lock.json
 .ttf
 .eot
 .woff
-client/api/TestPage.js
 1e59d2330b4c6deb84b3.ttf
 8b43027f47b20503057d.eot
 20fd1704ea223900efa9.woff2
 c1e38fd9e0e74ba58f7a.svg
 f691f37e57f04c152e23.woff
-
+.env

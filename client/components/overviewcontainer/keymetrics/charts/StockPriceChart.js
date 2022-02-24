@@ -16,7 +16,7 @@ import {
   THREE_MONTH,
   WEEK,
   YEAR,
-} from "../../../../api/api";
+} from "../../../../utils";
 import { getLocalData } from "../../../../store/local/localActions";
 import UniversalChart from "../../../UniversalChart";
 
@@ -113,7 +113,9 @@ export default function StockPriceChart() {
           margin={{ l: 50, r: 50, b: 25, t: 35 }}
           hoverdistance={50}
           hovermode="x"
-          xaxis={{ rangebreaks: [{ pattern: "day of week", bounds: ["sat", "mon"] }] }}
+          xaxis={{
+            rangebreaks: [{ pattern: "day of week", bounds: ["sat", "mon"] }],
+          }}
         />
       </div>
     </>
@@ -124,18 +126,39 @@ export default function StockPriceChart() {
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
     <div className="dropdown-selector-menu-key">
-      <DropdownButton className="dropdown-selector" title={range} size="sm" variant="secondary">
-        <Dropdown.Item onClick={() => updateRange(range, ALL)}>All</Dropdown.Item>
+      <DropdownButton
+        className="dropdown-selector"
+        title={range}
+        size="sm"
+        variant="secondary"
+      >
+        <Dropdown.Item onClick={() => updateRange(range, ALL)}>
+          All
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, TEN_YEAR)}>10 Year</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, FIVE_YEAR)}>5 Year</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 Year</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, TEN_YEAR)}>
+          10 Year
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, FIVE_YEAR)}>
+          5 Year
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>
+          1 Year
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 Month</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>3 Month</Dropdown.Item>
-        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>1 month</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>
+          6 Month
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, THREE_MONTH)}>
+          3 Month
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, MONTH)}>
+          1 month
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>1 Week</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, WEEK)}>
+          1 Week
+        </Dropdown.Item>
       </DropdownButton>
 
       {/* Potential future add-on */}
