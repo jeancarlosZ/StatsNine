@@ -19,7 +19,7 @@ import {
   THREE_MONTH,
   WEEK,
   YEAR,
-} from "./api";
+} from "../../utils";
 
 export default function APITestPage() {
   return (
