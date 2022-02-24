@@ -1,31 +1,31 @@
-import axios from 'axios'
-import { SET_TICKER, UPDATE_LOCAL } from '.'
+import axios from "axios";
+import { SET_TICKER, UPDATE_LOCAL } from ".";
 import {
   fetchBalanceStatement,
   fetchCashflowStatement,
   fetchEnterpriseValue,
   fetchIncomeStatement,
   fetchRatios,
-  fetchStockProfile
-} from '../../api/api.js'
-import { logError } from '../../utils.js'
-import store from '../index.js'
+  fetchStockProfile,
+} from "../../api/api.js";
+import { logError } from "../../utils.js";
+import store from "../index.js";
 
 //* This will update the ticker symbol (the chosen stock)
 //* This should be changed when the search/select a stock to view.
 //* UPDATE: Made change to allow for stock.name
 export function setCurrentStock(symbol, companyName) {
-  window.localStorage.setItem('symbol', symbol)
+  window.localStorage.setItem("symbol", symbol);
   return {
     type: SET_TICKER,
-    payload: getPayload(symbol, companyName)
-  }
+    payload: getPayload(symbol, companyName),
+  };
 }
 
 //* Func to get the payload for above!
 function getPayload(symbol, companyName) {
-  if (companyName) return { symbol: symbol, companyName: companyName }
-  return { symbol: symbol }
+  if (companyName) return { symbol: symbol, companyName: companyName };
+  return { symbol: symbol };
 }
 
 //* This func will update the local data.
@@ -33,8 +33,8 @@ function updateLocalData(key, data) {
   return {
     type: UPDATE_LOCAL,
     key: key,
-    payload: data
-  }
+    payload: data,
+  };
 }
 
 //* This function is to help optimize API calls,
@@ -51,12 +51,19 @@ function updateLocalData(key, data) {
 //*
 //*  ---> (LOOK BELOW AND FIND THE getTickerResults() FOR USE CASES) <---
 //*
-export async function getLocalData(key, func, args, saveAs, overrideTicker, experation = 300) {
+export async function getLocalData(
+  key,
+  func,
+  args,
+  saveAs,
+  overrideTicker,
+  experation = 300,
+) {
   try {
     //* Get our state
-    const state = store.getState()
+    const state = store.getState();
     //* We load our selected ticker from state (unless it's overridden)
-    const symbol = overrideTicker ? overrideTicker : state.local.symbol
+    const symbol = overrideTicker ? overrideTicker : state.local.symbol;
     //* Since redis is backend, we need to send the
     //* data thru the request.body so we will create
     //* That request body now.
@@ -72,19 +79,23 @@ export async function getLocalData(key, func, args, saveAs, overrideTicker, expe
       args: args,
       //* If you desire you can set a time limit for the
       //* data to stay in the system!
-      experation: experation
-    }
+      experation: experation,
+    };
     //* Now we will request the data from redis!
-    const { data } = await axios.post('/api/data', body)
-    return data
+    const { data } = await axios.post("/api/data", body);
+    return data;
   } catch (error) {
-    logError(error, `Failed to load data! ${key}--${args}--${saveAs}`)
+    logError(error, `Failed to load data! ${key}--${args}--${saveAs}`);
   }
 }
 
 //* This function will return the data we need to create a detailed stock screener page!
 //* By default this function will return the top 500 NASDAQ stocks and store them for 60 seconds.
-export async function getScreenerData(params = '', quantity = 500, experation = 60) {
+export async function getScreenerData(
+  params = "",
+  quantity = 500,
+  experation = 60,
+) {
   try {
     //* That request body now.
     const body = {
@@ -93,13 +104,23 @@ export async function getScreenerData(params = '', quantity = 500, experation = 
       //* How long the screener data will persist!
       experation: experation,
       //* This is the saveAs or saveAs list
-      params: params
-    }
+      params: params,
+    };
     //* Now we will request the data from redis!
-    const { data } = await axios.post('/api/data/screener', body)
-    return data
+    const { data } = await axios.post("/api/data/screener", body);
+    return data;
   } catch (error) {
-    logError(error, `Failed to load the screener data`)
+    logError(error, `Failed to load the screener data`);
+  }
+}
+
+export async function getSearchQuery(query, limit = 10, restrict = false) {
+  try {
+    const body = { query, limit, restrict };
+    const { data } = await axios.post("/api/data/searchQuery", body);
+    return data;
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -204,9 +225,9 @@ export async function getScreenerData(params = '', quantity = 500, experation = 
 //*
 //* IF YOU DO NOT UNDERSTAND HOW TO USE THIS FUNC PLEASE LET ME KNOW ~ BRYNN
 
-export const GOOD = 'GOOD'
-export const BAD = 'BAD'
-export const OKAY = 'OKAY'
+export const GOOD = "GOOD";
+export const BAD = "BAD";
+export const OKAY = "OKAY";
 
 //* Calculate chosen tickers Key Metrics results, and return them (for coloring stars)
 //*
@@ -222,73 +243,76 @@ export const OKAY = 'OKAY'
 //*   ltl: [good/bad/okay]
 //* }
 export async function getTickerResults() {
-  const state = store.getState()
-  const local = state.local.results
+  const state = store.getState();
+  const local = state.local.results;
   //* Check to see if we have already saved this info
-  if (local) return local
+  if (local) return local;
 
-  const { totalAssets, totalLiabilities, totalInvestments } = await getLocalData(
-    ['totalAssets', 'totalLiabilities', 'totalInvestments'],
-    'fetchBalanceStatement',
-    [false, 'annual'],
-    ['assetsannual', 'liabilitiesannual', 'investmentsannual']
-  )
+  const { totalAssets, totalLiabilities, totalInvestments } =
+    await getLocalData(
+      ["totalAssets", "totalLiabilities", "totalInvestments"],
+      "fetchBalanceStatement",
+      [false, "annual"],
+      ["assetsannual", "liabilitiesannual", "investmentsannual"],
+    );
   const { freeCashFlow, netIncome } = await getLocalData(
-    ['freeCashFlow', 'netIncome'],
-    'fetchCashflowStatement',
-    [false, 'annual'],
-    ['fcfannual', 'netincomeannual']
-  )
+    ["freeCashFlow", "netIncome"],
+    "fetchCashflowStatement",
+    [false, "annual"],
+    ["fcfannual", "netincomeannual"],
+  );
   const revenue = await getLocalData(
-    'revenue',
-    'fetchIncomeStatement',
-    [false, 'annual'],
-    'revenueannual'
-  )
+    "revenue",
+    "fetchIncomeStatement",
+    [false, "annual"],
+    "revenueannual",
+  );
   // const roicTTM = await getLocalData('roicTTM', fetchKeyMetrics, [true], 'roicTTM')
   const { numberOfShares, marketCapitalization } = await getLocalData(
-    ['numberOfShares', 'marketCapitalization'],
-    'fetchEnterpriseValue',
-    ['annual'],
-    ['sharesannual', 'marketcapannual']
-  )
+    ["numberOfShares", "marketCapitalization"],
+    "fetchEnterpriseValue",
+    ["annual"],
+    ["sharesannual", "marketcapannual"],
+  );
   const effectiveTaxRate = await getLocalData(
-    'effectiveTaxRate',
-    'fetchRatios',
-    [false, 'annual'],
-    'taxannual'
-  )
+    "effectiveTaxRate",
+    "fetchRatios",
+    [false, "annual"],
+    "taxannual",
+  );
   // TODO:
   //* Five year avg PE
   // const avgPe = priceEarningsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
   //* Five year P/FCF
   // const avgfcf = priceToFreeCashFlowsRatio.values.slice(-5).reduce((prev, curr) => prev + curr, 0) / 5
-  const marketCaps = marketCapitalization.values
+  const marketCaps = marketCapitalization.values;
   const currentCap =
-    marketCaps.slice(-1).pop() !== 0 ? marketCaps.slice(-1).pop() : marketCaps.slice(-2)[0]
-  const cashg = freeCashFlow.values.slice(-5)
+    marketCaps.slice(-1).pop() !== 0
+      ? marketCaps.slice(-1).pop()
+      : marketCaps.slice(-2)[0];
+  const cashg = freeCashFlow.values.slice(-5);
 
-  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5
-  const netg = netIncome.values.slice(-5)
-  const avgE = netg.reduce((prev, curr) => prev + curr, 0) / 5
+  const avgcash = cashg.reduce((prev, curr) => prev + curr, 0) / 5;
+  const netg = netIncome.values.slice(-5);
+  const avgE = netg.reduce((prev, curr) => prev + curr, 0) / 5;
 
-  const avgPe = currentCap / avgE
-  const avgfcf = currentCap / avgcash
+  const avgPe = currentCap / avgE;
+  const avgfcf = currentCap / avgcash;
 
-  const revg = revenue.values.slice(-5)
-  const shareg = numberOfShares.values.slice(-5)
-  const currentLiabilities = [...totalLiabilities.values].pop()
-  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1
-  const investedCap = totalInvestments.values.slice(-5)
-  const taxes = effectiveTaxRate.values.slice(-5)
+  const revg = revenue.values.slice(-5);
+  const shareg = numberOfShares.values.slice(-5);
+  const currentLiabilities = [...totalLiabilities.values].pop();
+  const ltlyears = avgcash >= 1 ? currentLiabilities / avgcash : -1;
+  const investedCap = totalInvestments.values.slice(-5);
+  const taxes = effectiveTaxRate.values.slice(-5);
 
   //* Correct formula for ROIC!! account for taxes and negitive's
   const roics = [...netg].map((n, i) => {
-    const result = (n * (1 - taxes[i])) / investedCap[i]
-    return Math.abs(result) == Infinity || isNaN(result) ? 0 : result
-  })
+    const result = (n * (1 - taxes[i])) / investedCap[i];
+    return Math.abs(result) == Infinity || isNaN(result) ? 0 : result;
+  });
   //* Get the average ROIC
-  const roicAvg = roics.reduce((prev, curr) => prev + curr) / 5
+  const roicAvg = roics.reduce((prev, curr) => prev + curr) / 5;
 
   const results = {
     symbol: state.local.symbol,
@@ -306,88 +330,98 @@ export async function getTickerResults() {
     roicdata: { avg: roicAvg, vals: { k: netIncome.keys.slice(-5), v: roics } },
     shares: shareg[0] > shareg[shareg.length - 1] ? GOOD : BAD,
     sharesdata: { k: numberOfShares.keys.slice(-5), v: shareg },
-    assets: [...totalAssets.values].pop() > [...totalLiabilities.values].pop() ? GOOD : BAD,
+    assets:
+      [...totalAssets.values].pop() > [...totalLiabilities.values].pop()
+        ? GOOD
+        : BAD,
     assetsdata: {
       k: totalAssets.keys.slice(-5),
       a: totalAssets.values.slice(-5),
-      b: totalLiabilities.values.slice(-5)
+      b: totalLiabilities.values.slice(-5),
     },
-    ltl: ltlyears === -1 ? BAD : ltlyears <= 5 ? GOOD : ltlyears > 6.5 ? BAD : OKAY,
-    ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities }
-  }
+    ltl:
+      ltlyears === -1
+        ? BAD
+        : ltlyears <= 5
+        ? GOOD
+        : ltlyears > 6.5
+        ? BAD
+        : OKAY,
+    ltldata: { years: ltlyears, avg: avgcash, libs: currentLiabilities },
+  };
 
   //* Calcuate the stock's score!
   const score = Math.ceil(
-    getPoints('pe') +
-      getPoints('pfcf') +
-      getPoints('revgrowth') +
-      getPoints('cashgrowth') +
-      getPoints('netincome') +
-      getPoints('roic') +
-      getPoints('shares') +
-      getPoints('assets') +
-      getPoints('ltl')
-  )
+    getPoints("pe") +
+      getPoints("pfcf") +
+      getPoints("revgrowth") +
+      getPoints("cashgrowth") +
+      getPoints("netincome") +
+      getPoints("roic") +
+      getPoints("shares") +
+      getPoints("assets") +
+      getPoints("ltl"),
+  );
 
-  results.score = score
+  results.score = score;
 
   function getPoints(type) {
-    const result = results[type]
-    return result === GOOD ? 11.11 : result === BAD ? 0 : 5.55
+    const result = results[type];
+    return result === GOOD ? 11.11 : result === BAD ? 0 : 5.55;
   }
 
-  store.dispatch(updateLocalData('results', results))
-  return results
+  store.dispatch(updateLocalData("results", results));
+  return results;
 }
 
 //* This function is used to load a stocks profile, THIS SHOULD ONLY BE CALLED ONCE!
 //* You should be using getLocalData() to load each thing you need!
 export async function loadStockProfile() {
-  const state = store.getState()
-  const local = state.local.profile
+  const state = store.getState();
+  const local = state.local.profile;
   //* Check to see if this has already been loaded
   //* The stock profile data, should only be loaded once!
-  if (local) return
+  if (local) return;
   const profile = await getLocalData(
     [
-      'price',
-      'beta',
-      'volAvg',
-      'mktCap',
-      'lastDiv',
-      'companyName',
-      'industry',
-      'website',
-      'description',
-      'ceo',
-      'sector',
-      'fullTimeEmployees',
-      'dcf',
-      'image',
-      'ipoDate'
+      "price",
+      "beta",
+      "volAvg",
+      "mktCap",
+      "lastDiv",
+      "companyName",
+      "industry",
+      "website",
+      "description",
+      "ceo",
+      "sector",
+      "fullTimeEmployees",
+      "dcf",
+      "image",
+      "ipoDate",
     ],
-    'fetchStockProfile',
+    "fetchStockProfile",
     [],
     [
-      'price',
-      'beta',
-      'volAvg',
-      'mktCap',
-      'lastDiv',
-      'companyName',
-      'industry',
-      'website',
-      'description',
-      'ceo',
-      'sector',
-      'fullTimeEmployees',
-      'dcf',
-      'image',
-      'ipoDate'
-    ]
-  )
+      "price",
+      "beta",
+      "volAvg",
+      "mktCap",
+      "lastDiv",
+      "companyName",
+      "industry",
+      "website",
+      "description",
+      "ceo",
+      "sector",
+      "fullTimeEmployees",
+      "dcf",
+      "image",
+      "ipoDate",
+    ],
+  );
   //* Set profile loaded to true
-  store.dispatch(updateLocalData('profile', true))
+  store.dispatch(updateLocalData("profile", true));
 
-  return profile
+  return profile;
 }

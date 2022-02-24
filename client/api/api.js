@@ -3,27 +3,15 @@ import apiKey from "./api-key";
 import { formatDate, logError, splitProperties } from "../utils";
 //* This class will contain the API methods
 
-//* This function returns a list of stocks based on a search query
-//* You can search by ticker or stock name (query) and Optionally
-//* you can add a limit to the number of stocks returned (recommended)
-export async function fetchSearchQuery(query, limit = 10, restrict = false) {
-  //* If there is no query or it's not alphanumeric
-  if (query.length <= 0 || /[^a-zA-Z0-9]/.test(query)) return {};
-  const link = getFMPLink(
-    "search-ticker",
-    "",
-    `query=${query}${
-      restrict ? "&exchange=NASDAQ,EURONEXT,XETRA,TSX,NYSE,AMEX" : ""
-    }&limit=${limit}`,
-  );
-  return removeBlackList(await fetchData(link));
-}
-
 //* This function returns a list of news articles/events that
 //* have occured for the ticker symbols given.
 //* you can add a limit to the number of stocks returned (recommended)
 //* Note input format: '[ticker,ticker,ticker]' or 'ticker'
-export async function fetchStockNews(query = "", limit = 50, manualQuery = false) {
+export async function fetchStockNews(
+  query = "",
+  limit = 50,
+  manualQuery = false,
+) {
   const searchQuery = Array.isArray(query) ? query.join() : query;
   const queryStr = manualQuery ? query : `tickers=${searchQuery}`;
   const link = getFMPLink("stock_news", "", `${queryStr}&limit=${limit}`);
@@ -83,12 +71,24 @@ export const ALL = "All";
  * //! This function is not to be used anymore, please use getLocalData()
  * @deprecated please use getLocalData instead!
  */
-export async function fetchChartPrice(ticker, series = THIRTY_MINUTE, range = ALL, line = true) {
-  const type = series === DAILY ? "historical-price-full" : "historical-chart" + `/${series}/`;
-  const query = `${range !== ALL ? getDataRange(range) : ""}${line ? "&serietype=line" : ""}`;
+export async function fetchChartPrice(
+  ticker,
+  series = THIRTY_MINUTE,
+  range = ALL,
+  line = true,
+) {
+  const type =
+    series === DAILY
+      ? "historical-price-full"
+      : "historical-chart" + `/${series}/`;
+  const query = `${range !== ALL ? getDataRange(range) : ""}${
+    line ? "&serietype=line" : ""
+  }`;
   const link = getFMPLink(ticker, type, query);
   const data = await fetchData(link);
-  return splitProperties(await formatTimeSeriesData(series === DAILY ? data.historical : data));
+  return splitProperties(
+    await formatTimeSeriesData(series === DAILY ? data.historical : data),
+  );
 }
 
 //* Function used to make the axios calls and return the data
@@ -129,9 +129,9 @@ export function getFMPLink(ticker, type, args, v3 = true) {
   const key = apiKey;
   const link = `https://financialmodelingprep.com/api/${v3 ? "v3" : "v4"}`;
   //* Return the desired link
-  return `${link}${type ? "/" + type : ""}${v3 ? "/" : "?symbol="}${ticker}${v3 ? "?" : "&"}${
-    args ? args + "&" : ""
-  }apikey=${key}`;
+  return `${link}${type ? "/" + type : ""}${v3 ? "/" : "?symbol="}${ticker}${
+    v3 ? "?" : "&"
+  }${args ? args + "&" : ""}apikey=${key}`;
 }
 
 //* Used to get data range
@@ -144,11 +144,16 @@ export function getDataRange(dataRange) {
     const endDate = new Date();
     if (dataRange === WEEK) return endDate.setDate(endDate.getDate() - 9);
     if (dataRange === MONTH) return endDate.setMonth(endDate.getMonth() - 1);
-    if (dataRange === THREE_MONTH) return endDate.setMonth(endDate.getMonth() - 3);
-    if (dataRange === SIX_MONTH) return endDate.setMonth(endDate.getMonth() - 6);
-    if (dataRange === YEAR) return endDate.setFullYear(endDate.getFullYear() - 1);
-    if (dataRange === FIVE_YEAR) return endDate.setFullYear(endDate.getFullYear() - 5);
-    if (dataRange === TEN_YEAR) return endDate.setFullYear(endDate.getFullYear() - 10);
+    if (dataRange === THREE_MONTH)
+      return endDate.setMonth(endDate.getMonth() - 3);
+    if (dataRange === SIX_MONTH)
+      return endDate.setMonth(endDate.getMonth() - 6);
+    if (dataRange === YEAR)
+      return endDate.setFullYear(endDate.getFullYear() - 1);
+    if (dataRange === FIVE_YEAR)
+      return endDate.setFullYear(endDate.getFullYear() - 5);
+    if (dataRange === TEN_YEAR)
+      return endDate.setFullYear(endDate.getFullYear() - 10);
     return endDate;
   };
   //* The current date (start date)
@@ -184,7 +189,7 @@ const blackList = {
 
 //* Remove blacklisted stocks from the queue/return
 function removeBlackList(data) {
-  return data.filter(x => {
+  return data.filter((x) => {
     if (!blackList[x.symbol] && !blackList[x.exchangeShortName]) return true;
   });
 }
