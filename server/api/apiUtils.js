@@ -1,5 +1,5 @@
 const axios = require("axios");
-const apiKey = require("./api-key");
+require("dotenv").config();
 //* This class will contain the API methods
 
 /**
@@ -379,7 +379,7 @@ function formatTimeSeriesData(data, custom, doFix = true) {
 
 //* Return the formatted link for making axios calls
 function getFMPLink(ticker, type, args, v3 = true) {
-  const key = apiKey;
+  const key = process.env.FMP_API_KEY;
   const link = `https://financialmodelingprep.com/api/${v3 ? "v3" : "v4"}/`;
   //* Return the desired link
   return `${link}${type}${v3 ? "/" : "?symbol="}${ticker}${v3 ? "?" : "&"}${
