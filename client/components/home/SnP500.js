@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { ALL, DAILY, SIX_MONTH, YEAR } from "../../api/api";
+import { ALL, DAILY, SIX_MONTH, YEAR } from "../../utils";
 import { getLocalData } from "../../store/local/localActions";
 import UniversalChart from "../UniversalChart";
 
@@ -90,12 +90,23 @@ export default function StockPriceChart() {
 function getSelectors(series, range, updateSeries, updateRange) {
   return (
     <div>
-      <DropdownButton className="dropdown-selector " title={range} size="sm" variant="success">
-        <Dropdown.Item onClick={() => updateRange(range, ALL)}>All</Dropdown.Item>
+      <DropdownButton
+        className="dropdown-selector "
+        title={range}
+        size="sm"
+        variant="success"
+      >
+        <Dropdown.Item onClick={() => updateRange(range, ALL)}>
+          All
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>1 year</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, YEAR)}>
+          1 year
+        </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>6 months</Dropdown.Item>
+        <Dropdown.Item onClick={() => updateRange(range, SIX_MONTH)}>
+          6 months
+        </Dropdown.Item>
       </DropdownButton>
     </div>
   );

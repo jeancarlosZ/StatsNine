@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchStockNews } from "../../api/api";
+import { getStockNews } from "../../store/local/localActions";
 import "../../../public/styles/calendar2.css";
 
 export default function Newsfeed() {
@@ -7,7 +7,11 @@ export default function Newsfeed() {
 
   useEffect(() => {
     async function getStockNewsList() {
-      setStockNewsList(await fetchStockNews(["AAPL", "MSFT", "GOOG", "FB", "NVDA"], 10));
+      const news = await getStockNews(
+        ["AAPL", "MSFT", "GOOG", "FB", "NVDA"],
+        10,
+      );
+      setStockNewsList(news);
     }
     getStockNewsList();
   }, []);
@@ -18,7 +22,7 @@ export default function Newsfeed() {
       <div className="table-responsive ">
         <div className="table table-sm  table-borderless  table-hover">
           <ul>
-            {stockNewsList.map(company => {
+            {stockNewsList.map((company) => {
               return (
                 <li
                   key={company.publishedDate}
@@ -27,7 +31,11 @@ export default function Newsfeed() {
                   style={{ opacity: ".77" }}
                 >
                   <a href={company.url} className="text-white ">
-                    <img src={company.image} width="50" alt={company.symbol}></img>
+                    <img
+                      src={company.image}
+                      width="50"
+                      alt={company.symbol}
+                    ></img>
 
                     {company.title}
                   </a>

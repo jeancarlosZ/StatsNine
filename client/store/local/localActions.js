@@ -1,13 +1,5 @@
 import axios from "axios";
 import { SET_TICKER, UPDATE_LOCAL } from ".";
-import {
-  fetchBalanceStatement,
-  fetchCashflowStatement,
-  fetchEnterpriseValue,
-  fetchIncomeStatement,
-  fetchRatios,
-  fetchStockProfile,
-} from "../../api/api.js";
 import { logError } from "../../utils.js";
 import store from "../index.js";
 
