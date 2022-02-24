@@ -250,3 +250,24 @@ router.post("/searchQuery", async (request, response, next) => {
     next(error);
   }
 });
+
+router.post("/stockNews", async (request, response, next) => {
+  try {
+    const { query, limit, manualQuery } = request.body;
+    const redisQuery = `news:${query}`;
+
+    redisCli.get(redisQuery, async (error, results) => {
+      if (error) {
+        console.error(error);
+      } else if (results !== null) {
+        return response.json(JSON.parse(results));
+      }
+
+      const data = await API.fetchStockNews(query, limit, manualQuery);
+      response.json(data);
+      redisCli.setex(redisQuery, 60, JSON.stringify(data));
+    });
+  } catch (err) {
+    next(err);
+  }
+});

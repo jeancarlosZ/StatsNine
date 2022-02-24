@@ -3,47 +3,6 @@ import apiKey from "./api-key";
 import { formatDate, logError, splitProperties } from "../utils";
 //* This class will contain the API methods
 
-//* This function returns a list of news articles/events that
-//* have occured for the ticker symbols given.
-//* you can add a limit to the number of stocks returned (recommended)
-//* Note input format: '[ticker,ticker,ticker]' or 'ticker'
-export async function fetchStockNews(
-  query = "",
-  limit = 50,
-  manualQuery = false,
-) {
-  const searchQuery = Array.isArray(query) ? query.join() : query;
-  const queryStr = manualQuery ? query : `tickers=${searchQuery}`;
-  const link = getFMPLink("stock_news", "", `${queryStr}&limit=${limit}`);
-  return await fetchData(link);
-}
-
-//* This function is to be used get the list of stocks for the screener
-//* Please note that in order to show the % change and other data you
-//* will need to use fetchStockQuote per each ticker (unforunately)
-//* Optionally you can pass in a limit to (500 is prob okay tested and it was quick)
-//* You can also use filters by passing the into query.
-//*
-//*    Optional queries include the following:
-//* ------------------------------------------------
-//* marketCapMoreThan & marketCapLowerThan : Number
-//* priceMoreThan & priceLowerThan : Number
-//* betaMoreThan & betaLowerThan : Number
-//* volumeMoreThan & volumeLowerThan : Number
-//* dividendMoreThan & dividendLowerThan : Number
-//* isEtf & isActivelyTrading : true/false
-//* ------------------------------------------------
-//* Example: 'marketCapMoreThan=1000000000&betaMoreThan=1&volumeMoreThan=10000&sector=Technology&exchange=NASDAQ&dividendMoreThan=0'
-//* If you require help or explaination please lmk ~ brynn
-export async function fetchScreenerStocks(query = "", limit = 500) {
-  const link = getFMPLink(
-    "stock-screener",
-    "",
-    `exchange=NASDAQ&limit=${limit}${query ? "&" + query : ""}`,
-  );
-  return await fetchData(link);
-}
-
 //* Function to return stock price data, for charting the stock price
 //* You can select a timeseries below
 //* -----------------------------------

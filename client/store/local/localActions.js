@@ -124,6 +124,20 @@ export async function getSearchQuery(query, limit = 10, restrict = false) {
   }
 }
 
+export async function getStockNews(
+  query = "",
+  limit = 50,
+  manualQuery = false,
+) {
+  try {
+    const body = { query, limit, manualQuery };
+    const { data } = await axios.post("/api/data/stockNews", body);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 //* --------------------------------------------------------------------------
 //* This is the old way of doing things this stored the data inside Redux
 //* before we started storing it in redis!
