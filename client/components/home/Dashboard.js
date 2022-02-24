@@ -21,7 +21,7 @@ import {
   YEAR,
 } from "../../utils";
 
-export default function APITestPage() {
+export default function Dashboard() {
   return (
     <div className="dashboard">
       <div className="dash-container">
@@ -435,6 +435,11 @@ function getScrollText() {
         <div className="innertexts">
           If you read this far... really... well, long story short. Stonks go up
           but also sometime. Stonk go down.
+        </div>
+        <div className="innertexts">
+          This tool does not provide financial advice. It is intended for
+          information and educational purpose only. It is not a substitution for
+          professional financial advise.
         </div>
       </div>
     </>
