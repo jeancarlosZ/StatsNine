@@ -1,4 +1,4 @@
-.aboutus-container {
+.terms-container {
   padding: 1rem;
   font-weight: 300;
   height: calc(100vh - var(--mainHeaderHeight));
@@ -6,7 +6,7 @@
 
   /** */
 
-  background-image: url('../images/aboutUs.jpg');
+  background-image: url("../images/terms.jpg");
   background-position: center;
   background-size: cover;
 
@@ -17,8 +17,8 @@
   grid-template-rows: auto;
 }
 
-.aboutus-container::before {
-  content: '';
+.terms-container::before {
+  content: "";
   position: absolute;
   top: var(--mainHeaderHeight);
   right: 0px;
@@ -27,20 +27,20 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.aboutus-hfont {
+.terms-hfont {
   position: relative;
   color: white;
   margin: auto;
   font-size: larger;
   font-weight: 700;
 }
-.aboutus p {
+.terms p {
   position: relative;
   margin-top: 15px;
   color: var(--fontColor);
 }
 
-.aboutus {
+.terms {
   position: relative;
   background-color: rgba(30, 34, 45, 0.8);
   padding: 2rem;
@@ -51,25 +51,12 @@
   padding-top: 2.8rem;
 }
 
-.aboutus-sn {
+.terms-ir {
   grid-column: 1 / span 9;
   grid-row: 1;
 }
 
-.aboutus-contact {
-  padding: 1.4rem;
-  grid-column: 18 / span 3;
-  grid-row: 1;
-  text-align: center;
-}
-
-.aboutus-careers {
-  grid-column: 3 / span 9;
+.terms-nia {
+  grid-column: 3 / span 12;
   grid-row: 2;
-}
-
-.aboutus-you {
-  grid-column: 16 / span 5;
-  grid-row: 8;
-  text-align: center;
 }

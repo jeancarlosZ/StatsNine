@@ -437,9 +437,14 @@ function getScrollText() {
           but also sometime. Stonk go down.
         </div>
         <div className="innertexts">
-          This tool does not provide financial advice. It is intended for
-          information and educational purpose only. It is not a substitution for
-          professional financial advise.
+          <Link
+            to={{
+              pathname: "https://financialmodelingprep.com/developer/docs/",
+            }}
+            target="_blank"
+          >
+            Data provided by Financial Modeling Prep
+          </Link>
         </div>
       </div>
     </>
