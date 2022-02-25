@@ -4,16 +4,22 @@
 
   --screenerMargins: 40px;
 
-  --screenerContainerHeight: calc(var(--screenerPageHeight) - var(--screenerMargins));
-  --screenerContainerWidth: calc(var(--screenerPageWidth) - var(--screenerMargins));
+  --screenerContainerHeight: calc(
+    var(--screenerPageHeight) - var(--screenerMargins)
+  );
+  --screenerContainerWidth: calc(
+    var(--screenerPageWidth) - var(--screenerMargins)
+  );
 
   --screenerHeaderHeight: 80px;
-  --screenerScrollHeight: calc(var(--screenerContainerHeight) - var(--screenerHeaderHeight));
+  --screenerScrollHeight: calc(
+    var(--screenerContainerHeight) - var(--screenerHeaderHeight)
+  );
   --screenerScrollWidth: calc(var(--screenerContainerWidth) / 1.5);
 }
 
 .screener-page {
-  background-image: url('../images/screener.jpg');
+  background-image: url("../images/vegas.jpg");
   background-position: center;
   background-size: cover;
   height: var(--screenerPageHeight);
@@ -23,7 +29,7 @@
 }
 
 .screener-page::before {
-  content: '';
+  content: "";
   position: absolute;
   top: var(--mainHeaderHeight);
   right: 0px;
@@ -134,7 +140,7 @@
 
 /*
 *==================================
-*      
+*
 *==================================
 */
 

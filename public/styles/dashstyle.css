@@ -16,7 +16,7 @@
   height: var(--dashboardHeight);
   width: var(--dashboardWidth);
 
-  background-image: url('../images/backer2-fast.jpg');
+  background-image: url("../images/dragonBridge.jpg");
   background-position: center;
   background-size: cover;
 
@@ -26,7 +26,7 @@
 }
 
 .dashboard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: var(--mainHeaderHeight);
   right: 0px;
@@ -43,7 +43,9 @@
   margin: auto;
 
   display: grid;
-  grid-template-columns: var(--dashboardGridHalfWidth) calc(var(--dashboardSubWidth) / 1.75);
+  grid-template-columns: var(--dashboardGridHalfWidth) calc(
+      var(--dashboardSubWidth) / 1.75
+    );
   grid-template-rows: 50%;
   justify-content: space-between;
 
@@ -61,7 +63,9 @@
 
 * {
   --newsFeedHeaderHeight: 40px;
-  --newsFeedScrollHeight: calc(var(--dashboardSubHeight) - var(--newsFeedHeaderHeight));
+  --newsFeedScrollHeight: calc(
+    var(--dashboardSubHeight) - var(--newsFeedHeaderHeight)
+  );
 }
 
 /** This is the newsfeed's container */
