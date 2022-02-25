@@ -17,15 +17,6 @@ export default function Table() {
       const fetchedMap = await getScreenerData("", 500, 60);
       setStocksMap(fetchedMap);
       setLoaded(true);
-
-      // const stocks = await getLocalData(
-      //   'all',
-      //   'fetchScreenerStocks',
-      //   ['isEtf=false'],
-      //   'screener',
-      //   'system'
-      // )
-      // setStocksList(stocks)
     }
 
     getStocksList();
@@ -80,12 +71,9 @@ function sorting(data, order) {
 
 //* Function to get the table body
 function getTableBody(stocksList, sortBy) {
-  // if (stocksList.length) {
   if (Object.keys(stocksList).length) {
-    // return stocksList.map((stock, i) => <Row key={stock.symbol} stock={stock} index={i} />)
-
     if (sortBy.criteria) {
-      const symbolValue = Object.values(stocksList).map(stock => ({
+      const symbolValue = Object.values(stocksList).map((stock) => ({
         symbol: stock.symbol,
         value: stock[sortBy.criteria],
       }));
@@ -109,7 +97,6 @@ function getTableBody(stocksList, sortBy) {
 
 //* Function to get table headers
 function getTableHead(stocksList, sortBy, setSortBy) {
-  // if (stocksList.length) {
   const crit = sortBy.criteria;
   const ord = sortBy.order;
   const symbolName =
@@ -118,13 +105,38 @@ function getTableHead(stocksList, sortBy, setSortBy) {
       : ord === "ascending"
       ? "Symbol and Name ⬆︎"
       : "Symbol and Name ⬇︎";
-  const price = crit !== "price" ? "Price" : ord === "ascending" ? "Price ⬇︎" : "Price ⬆︎";
-  const change = crit !== "change" ? "Change" : ord === "ascending" ? "Change ⬇︎" : "Change ⬆︎";
-  const earnings = crit !== "pe" ? "Earnings" : ord === "ascending" ? "Earnings ⬇︎" : "Earnings ⬆︎";
+  const price =
+    crit !== "price" ? "Price" : ord === "ascending" ? "Price ⬇︎" : "Price ⬆︎";
+  const change =
+    crit !== "change"
+      ? "Change"
+      : ord === "ascending"
+      ? "Change ⬇︎"
+      : "Change ⬆︎";
+  const earnings =
+    crit !== "pe"
+      ? "Earnings"
+      : ord === "ascending"
+      ? "Earnings ⬇︎"
+      : "Earnings ⬆︎";
   const fiftyTwo =
-    crit !== "yearHigh" ? "52 Week" : ord === "ascending" ? "52 Week ⬇︎" : "52 Week ⬆︎";
-  const other = crit !== "marketCap" ? "Other" : ord === "ascending" ? "Other ⬇︎" : "Other ⬆︎";
-  const sector = crit !== "sector" ? "Sector" : ord === "ascending" ? "Sector ⬇︎" : "Sector ⬆︎";
+    crit !== "yearHigh"
+      ? "52 Week"
+      : ord === "ascending"
+      ? "52 Week ⬇︎"
+      : "52 Week ⬆︎";
+  const other =
+    crit !== "marketCap"
+      ? "Other"
+      : ord === "ascending"
+      ? "Other ⬇︎"
+      : "Other ⬆︎";
+  const sector =
+    crit !== "sector"
+      ? "Sector"
+      : ord === "ascending"
+      ? "Sector ⬇︎"
+      : "Sector ⬆︎";
 
   function toSort(criteria) {
     function direction(sortBy) {
@@ -164,8 +176,6 @@ function getTableHead(stocksList, sortBy, setSortBy) {
         <th className="screen-border-h" onClick={() => toSort("marketCap")}>
           {other}
         </th>
-        {/* <th className="screen-border-h">Volume</th> */}
-        {/* <th className="screen-border-h">Market Cap</th> */}
         <th className="screen-border-h" onClick={() => toSort("sector")}>
           {sector}
         </th>

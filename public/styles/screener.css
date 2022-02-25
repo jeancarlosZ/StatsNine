@@ -115,6 +115,11 @@
   font-size: larger;
 }
 
+.screen-border-h:hover {
+  cursor: pointer;
+  background-color: rgba(100, 0, 0, 0.5);
+}
+
 .screen-row {
   background-color: #1e222d;
 }
