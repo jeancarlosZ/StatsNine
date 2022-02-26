@@ -69,20 +69,20 @@
 
 .go-to-dashboard,
 .go-to-screener,
-.go-to-about-us {
+.go-to-terms {
   margin: auto 10px;
   font-weight: 500;
   color: rgba(208, 211, 219, 0.6);
   transition: color 0.3s ease;
 }
 
-.go-to-about-us {
+.go-to-terms {
   margin-right: 20px;
 }
 
 .go-to-dashboard:hover,
 .go-to-screener:hover,
-.go-to-about-us:hover {
+.go-to-terms:hover {
   cursor: pointer;
   color: rgba(208, 211, 219, 1);
 }
@@ -175,7 +175,7 @@
 }
 
 .sub-header-pages .sub-page:after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: var(--spacing);

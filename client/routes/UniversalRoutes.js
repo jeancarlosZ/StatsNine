@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
-import AboutUs from "../components/home/AboutUs";
+import Terms from "../components/home/Terms";
 import NotFound from "../components/home/NotFound";
 import Financialspage from "../components/overviewcontainer/fin/Financialspage";
 import KeyMetrics from "../components/overviewcontainer/keymetrics/KeyMetrics";
@@ -16,7 +16,7 @@ class UniversalRoutes extends Component {
         <Route path="/overviewpage/financials" component={Financialspage} />
         <Route exact path="/overviewpage" component={Overviewpage} />
         <Route path="/screener" component={Table} />
-        <Route path="/aboutus" component={AboutUs} />
+        <Route path="/terms" component={Terms} />
         <Route path="/not-found" component={NotFound} />
         <Route path="/home" component={Dashboard} />
         <Route path="/" exact component={Dashboard} />
